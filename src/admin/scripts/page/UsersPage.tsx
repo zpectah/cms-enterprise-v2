@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import { pageMetaProps } from '../types/page';
 import Layout from '../component/Layout';

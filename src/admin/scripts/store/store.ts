@@ -6,9 +6,9 @@ import LanguageService from '../service/Language.service';
 import ThemeService from '../service/Theme.service';
 
 const appStore: appStoreProps = {
-    sidebarOpen: storage.get(config.project.global.keys.APP_SIDEBAR) == 'true',
-    appLanguage: LanguageService.get(),
-    appTheme: ThemeService.get() as themeListProps,
+	sidebarOpen: storage.get(config.project.global.keys.APP_SIDEBAR) == 'true',
+	appLanguage: LanguageService.get(),
+	appTheme: ThemeService.get() as themeListProps,
 };
 
 export default appStore;

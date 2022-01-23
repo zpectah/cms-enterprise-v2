@@ -21,7 +21,13 @@ const FloatingBlock = styled('div')`
 `;
 
 const MinimalLayout: React.FC<MinimalLayoutProps> = (props) => {
-	const { children, meta, containerMaxWidth = 'lg', withFooter = false, withOptions = false } = props;
+	const {
+		children,
+		meta,
+		containerMaxWidth = 'lg',
+		withFooter = false,
+		withOptions = false,
+	} = props;
 
 	return (
 		<>

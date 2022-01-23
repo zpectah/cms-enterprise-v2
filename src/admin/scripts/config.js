@@ -7,11 +7,11 @@ import locales from '../../config/locales.json';
 import cfg_static from '../../config/static.json';
 
 export default {
-    env: window.APP_ENV,
-    timestamp: window.APP_TIMESTAMP,
-    environmental: environmental[window.APP_ENV],
-    project: project,
-    options: options,
-    locales: locales,
-    static: cfg_static,
+	env: window.APP_ENV,
+	timestamp: window.APP_TIMESTAMP,
+	environmental: environmental[window.APP_ENV],
+	project: project,
+	options: options,
+	locales: locales,
+	static: cfg_static,
 };

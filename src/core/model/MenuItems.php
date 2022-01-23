@@ -1,5 +1,6 @@
 <?php
 
-class MenuItems {
+class MenuItems
+{
 
 }

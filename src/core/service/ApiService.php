@@ -1,5 +1,6 @@
 <?php
 
-class ApiService {
+class ApiService
+{
 
 }

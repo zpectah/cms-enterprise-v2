@@ -1,5 +1,6 @@
 <?php
 
-class Tags {
+class Tags
+{
 
 }

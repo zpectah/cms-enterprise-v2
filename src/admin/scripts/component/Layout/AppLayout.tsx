@@ -6,7 +6,11 @@ import styled from '@emotion/styled';
 
 import { pageLayoutProps } from '../../types/page';
 import { appStoreProps } from '../../types/store';
-import { HEADER_HEIGHT, SIDEBAR_MOBILE_WIDTH, SIDEBAR_DESKTOP_WIDTH } from '../../styles/variables';
+import {
+	HEADER_HEIGHT,
+	SIDEBAR_MOBILE_WIDTH,
+	SIDEBAR_DESKTOP_WIDTH,
+} from '../../styles/variables';
 import { LayoutWrapper, LayoutContent } from '../../styles/mixins';
 import media from '../../styles/responsive';
 import Footer from './Footer';
@@ -25,11 +29,13 @@ const WrapperInner = styled('div')`
 	position: absolute;
 	top: ${HEADER_HEIGHT};
 	left: 0;
-	transition: width .125s ease-in-out 0s, left .125s ease-in-out 0s;
-	
+	transition: width 0.125s ease-in-out 0s, left 0.125s ease-in-out 0s;
+
 	${media.min.md} {
-		width: ${(props: { isOpen?: boolean }) => props.isOpen ? `calc(100% - ${SIDEBAR_DESKTOP_WIDTH})` : '100%'};
-		left: ${(props: { isOpen?: boolean }) => props.isOpen ? SIDEBAR_DESKTOP_WIDTH : '0'};		
+		width: ${(props: { isOpen?: boolean }) =>
+			props.isOpen ? `calc(100% - ${SIDEBAR_DESKTOP_WIDTH})` : '100%'};
+		left: ${(props: { isOpen?: boolean }) =>
+			props.isOpen ? SIDEBAR_DESKTOP_WIDTH : '0'};
 	}
 `;
 const StyledContainer = styled(Container)`

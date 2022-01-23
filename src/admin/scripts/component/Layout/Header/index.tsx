@@ -18,8 +18,8 @@ const Wrapper = styled('header')`
 	position: absolute;
 	top: 0;
 	left: 0;
-	
-	background-color: rgba(200,200,200,.25);
+
+	background-color: rgba(200, 200, 200, 0.25);
 `;
 const StyledStack = styled(Stack)`
 	width: 100%;
@@ -43,13 +43,16 @@ const Header = (props: HeaderProps) => {
 	return (
 		<>
 			<Wrapper>
-				<StyledStack spacing={2} direction="row" justifyContent="space-between" alignItems="center">
+				<StyledStack
+					spacing={2}
+					direction="row"
+					justifyContent="space-between"
+					alignItems="center"
+				>
 					<PrimaryBlock>
 						<SidebarToggle />
 					</PrimaryBlock>
-					<BrandBlock>
-						Logo
-					</BrandBlock>
+					<BrandBlock>Logo</BrandBlock>
 					<SecondaryBlock>
 						<LanguageToggle />
 						<ThemeToggle />

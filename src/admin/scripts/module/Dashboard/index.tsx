@@ -11,9 +11,7 @@ const DashboardModule = (props: DashboardModuleProps) => {
 		<>
 			<div>DashboardModule</div>
 			<div>
-				<button>
-					{t('btn.open')}
-				</button>
+				<button>{t('btn.open')}</button>
 			</div>
 		</>
 	);

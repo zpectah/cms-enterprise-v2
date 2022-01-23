@@ -18,7 +18,9 @@ const SidebarToggle = (props: SidebarToggleProps) => {
 
 	return (
 		<>
-			<Button variant="outlined" color="secondary" onClick={toggleSidebar}>Sidebar</Button>
+			<Button variant="outlined" color="secondary" onClick={toggleSidebar}>
+				Sidebar
+			</Button>
 		</>
 	);
 };

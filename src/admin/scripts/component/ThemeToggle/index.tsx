@@ -13,7 +13,9 @@ interface ThemeToggleProps {}
 const ThemeToggle = (props: ThemeToggleProps) => {
 	const {} = props;
 	const { appTheme } = useSelector((store: appStoreProps) => store);
-	const [theme, setTheme] = useState<themeListProps>(appTheme as themeListProps);
+	const [theme, setTheme] = useState<themeListProps>(
+		appTheme as themeListProps,
+	);
 	const dispatch = useDispatch();
 
 	const handleChange = (
@@ -26,7 +28,13 @@ const ThemeToggle = (props: ThemeToggleProps) => {
 
 	return (
 		<>
-			<ToggleButtonGroup color="secondary" size="small" value={theme} onChange={handleChange} exclusive>
+			<ToggleButtonGroup
+				color="secondary"
+				size="small"
+				value={theme}
+				onChange={handleChange}
+				exclusive
+			>
 				{config.project.admin.theme.list.map((item) => (
 					<ToggleButton key={item} value={item}>
 						{item}

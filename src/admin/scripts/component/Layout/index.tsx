@@ -1,8 +1,7 @@
-import MinimalLayout from "./MinimalLayout";
-import AppLayout from "./AppLayout";
+import MinimalLayout from './MinimalLayout';
+import AppLayout from './AppLayout';
 
 export default {
-    Minimal: MinimalLayout,
-    App: AppLayout,
+	Minimal: MinimalLayout,
+	App: AppLayout,
 };
-

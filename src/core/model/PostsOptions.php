@@ -1,5 +1,6 @@
 <?php
 
-class PostsOptions {
+class PostsOptions
+{
 
 }

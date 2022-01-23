@@ -1,5 +1,6 @@
 <?php
 
-class Uploads {
+class Uploads
+{
 
 }

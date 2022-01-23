@@ -9,7 +9,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 	useEffect(() => {
 		console.log('params', params);
-	}, [ params ]);
+	}, [params]);
 
 	return (
 		<>

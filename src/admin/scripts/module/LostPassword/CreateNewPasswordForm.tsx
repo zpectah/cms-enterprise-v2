@@ -9,7 +9,7 @@ const CreateNewPasswordForm = (props: CreateNewPasswordFormProps) => {
 
 	useEffect(() => {
 		console.log('params', params);
-	}, [ params ]);
+	}, [params]);
 
 	return (
 		<>

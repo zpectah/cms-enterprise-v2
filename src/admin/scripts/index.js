@@ -10,13 +10,13 @@ import store from './store';
 import App from './App';
 
 ReactDOM.render(
-    <Provider store={store}>
-        <SWRConfig
-            value={{
-                fetcher,
-            }}
-            children={<App />}
-        />
-    </Provider>,
-    document.getElementById('App')
+	<Provider store={store}>
+		<SWRConfig
+			value={{
+				fetcher,
+			}}
+			children={<App />}
+		/>
+	</Provider>,
+	document.getElementById('App'),
 );

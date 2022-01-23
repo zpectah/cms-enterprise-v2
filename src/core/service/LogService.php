@@ -1,5 +1,6 @@
 <?php
 
-class LogService {
+class LogService
+{
 
 }

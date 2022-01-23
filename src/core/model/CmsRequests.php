@@ -1,5 +1,6 @@
 <?php
 
-class CmsRequests {
+class CmsRequests
+{
 
 }

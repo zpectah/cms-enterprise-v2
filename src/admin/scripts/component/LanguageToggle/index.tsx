@@ -12,18 +12,23 @@ const LanguageToggle = (props: LanguageToggleProps) => {
 	const {} = props;
 	const [lang, setLang] = useState<string>(LanguageService.get());
 
-	const handleChange = (
-		event: React.MouseEvent<HTMLElement>,
-		lang: string,
-	) => {
+	const handleChange = (event: React.MouseEvent<HTMLElement>, lang: string) => {
 		setLang(lang);
 		LanguageService.set(lang);
-		i18n.changeLanguage(lang).then(() => console.info('Language has changed to:', lang));
+		i18n
+			.changeLanguage(lang)
+			.then(() => console.info('Language has changed to:', lang));
 	};
 
 	return (
 		<>
-			<ToggleButtonGroup color="secondary" size="small" value={lang} onChange={handleChange} exclusive>
+			<ToggleButtonGroup
+				color="secondary"
+				size="small"
+				value={lang}
+				onChange={handleChange}
+				exclusive
+			>
 				{config.project.admin.language.list.map((item) => (
 					<ToggleButton key={item} value={item}>
 						{config.locales[item].label}

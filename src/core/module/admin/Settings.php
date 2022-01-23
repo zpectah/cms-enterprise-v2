@@ -1,5 +1,6 @@
 <?php
 
-class Settings {
+class Settings
+{
 
 }

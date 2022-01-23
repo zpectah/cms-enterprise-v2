@@ -1,5 +1,6 @@
 <?php
 
-class Pages {
+class Pages
+{
 
 }

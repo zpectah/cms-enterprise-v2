@@ -12,7 +12,7 @@ const LostPasswordModule = (props: LostPasswordModuleProps) => {
 	return (
 		<>
 			<Routes>
-				<Route path="/" element={<LostPasswordForm />} />
+				<Route index element={<LostPasswordForm />} />
 				<Route path="token/:token" element={<CreateNewPasswordForm />} />
 			</Routes>
 		</>

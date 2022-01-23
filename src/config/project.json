@@ -35,11 +35,17 @@
     },
     "theme": {
       "default": "light",
-      "list": ["light", "dark"]
+      "list": [
+        "light",
+        "dark"
+      ]
     },
     "language": {
       "default": "cs-CZ",
-      "list": ["cs-CZ", "en-US"]
+      "list": [
+        "cs-CZ",
+        "en-US"
+      ]
     }
   },
   "web": {
@@ -54,7 +60,9 @@
     },
     "language": {
       "default": "cs-CZ",
-      "list": ["cs-CZ"]
+      "list": [
+        "cs-CZ"
+      ]
     }
   },
   "api": {}

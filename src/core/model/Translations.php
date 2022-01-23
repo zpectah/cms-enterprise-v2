@@ -1,5 +1,6 @@
 <?php
 
-class Translations {
+class Translations
+{
 
 }

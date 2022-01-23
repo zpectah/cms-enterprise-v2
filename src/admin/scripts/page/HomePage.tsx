@@ -2,22 +2,22 @@ import React from 'react';
 
 import { pageMetaProps } from '../types/page';
 import Layout from '../component/Layout';
-import LoginModule from '../module/Login';
 
-interface LoginPageProps {}
+interface HomePageProps {}
 
-const LoginPage = ({}: LoginPageProps) => {
+const HomePage = (props: HomePageProps) => {
+	const {} = props;
 	const pageMeta: pageMetaProps = {
-		key: 'login',
-		title: 'Login page',
+		key: 'Home',
+		title: 'Home page',
 		description: 'Description of page ...',
 	};
 
 	return (
 		<Layout.Minimal meta={pageMeta} withOptions>
-			<LoginModule />
+			<div>...HomePage...(maybe redirect to login or whatever)</div>
 		</Layout.Minimal>
 	);
 };
 
-export default LoginPage;
+export default HomePage;

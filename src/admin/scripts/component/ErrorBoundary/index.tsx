@@ -1,19 +1,23 @@
 import React, { ErrorInfo } from 'react';
 
 interface ErrorBoundaryProps {}
+
 interface ErrorBoundaryState {
 	isError: boolean;
 	error: Error;
 	errorInfo: ErrorInfo;
 }
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+class ErrorBoundary extends React.Component<
+	ErrorBoundaryProps,
+	ErrorBoundaryState
+> {
 	constructor(props) {
 		super(props);
 		this.state = {
 			isError: false,
 			error: null,
-			errorInfo: null
+			errorInfo: null,
 		};
 	}
 

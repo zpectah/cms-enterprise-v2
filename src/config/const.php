@@ -9,13 +9,13 @@ $CFG_LOCALES = json_decode(file_get_contents(PATH_ROOT . 'config/locales.json'),
 $CFG_STATIC = json_decode(file_get_contents(PATH_ROOT . 'config/static.json'), true);
 
 
-const ENV =                                               BUILD['env'];
-const TIMESTAMP =                                         BUILD['timestamp'];
-const PASS_CRYPT =                                        PASSWORD_ARGON2ID;
+const ENV = BUILD['env'];
+const TIMESTAMP = BUILD['timestamp'];
+const PASS_CRYPT = PASSWORD_ARGON2ID;
 const PASS_CRYPT_OPTIONS = [
-    'memory_cost' =>                                      2048,
-    'time_cost' =>                                        4,
-    'threads' =>                                          3
+    'memory_cost' => 2048,
+    'time_cost' => 4,
+    'threads' => 3
 ];
 
 const SESSION_KEYS = [
@@ -25,8 +25,8 @@ const SESSION_KEYS = [
     'MEMBER_TOKEN' => 'MEMBER_TOKEN',
 ];
 
-define( "CFG_ENV",                                        $CFG_ENV[ ENV ] );
-const ROOT =                                              CFG_ENV['root'];
+define("CFG_ENV", $CFG_ENV[ENV]);
+const ROOT = CFG_ENV['root'];
 
 define("PATHS", [
     'ROOT' => ROOT,

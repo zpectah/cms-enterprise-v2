@@ -1,5 +1,6 @@
 <?php
 
-class DataService {
+class DataService
+{
 
 }

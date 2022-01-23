@@ -1,5 +1,6 @@
 <?php
 
-class Helpers {
+class Helpers
+{
 
 }

@@ -1,5 +1,6 @@
 <?php
 
-class Categories {
+class Categories
+{
 
 }

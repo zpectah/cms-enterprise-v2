@@ -1,5 +1,6 @@
 <?php
 
-class Members {
+class Members
+{
 
 }

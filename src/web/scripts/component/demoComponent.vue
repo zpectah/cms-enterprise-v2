@@ -1,12 +1,13 @@
 <template>
-  <div>demo component</div>
+	<div>demo component</div>
 </template>
 
 <script>
 module.exports = {
-  props: {},
-  data: function () {},
-}
+	props: {},
+	data: function() {
+	},
+};
 </script>
 
 <style scoped>

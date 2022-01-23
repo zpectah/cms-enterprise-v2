@@ -13,48 +13,43 @@ import ThemeService from './service/Theme.service';
 import { appStoreProps } from './types/store';
 
 import AppModule from './module/App';
-import ErrorPage from "./page/ErrorPage";
-import LoginPage from "./page/LoginPage";
-import LostPasswordPage from "./page/LostPasswordPage";
-import DashboardPage from "./page/DashboardPage";
-import UsersPage from './page/UsersPage';
+import ErrorPage from './page/ErrorPage';
+import LoginPage from './page/LoginPage';
+import LostPasswordPage from './page/LostPasswordPage';
+import HomePage from './page/HomePage';
 
 interface AppProps {}
 
 const App = (props: AppProps) => {
-    const {} = props;
-    const { appTheme } = useSelector((store: appStoreProps) => store);
+	const {} = props;
+	const { appTheme } = useSelector((store: appStoreProps) => store);
 
-    useEffect(() => {
-        LanguageService.init();
-        ThemeService.init();
+	useEffect(() => {
+		LanguageService.init();
+		ThemeService.init();
 
-        return () => null;
-    }, []);
+		return () => null;
+	}, []);
 
-    return (
-        <ThemeProvider theme={BaseTheme(appTheme)}>
-            <CssBaseline />
-            <Global styles={globalStyles} />
-            <ErrorBoundary>
-                <Router>
-                    <Routes>
-                        <Route path="/admin/" element={<AppModule />}>
-
-                            <Route path="users/*" element={<UsersPage />} />
-
-
-                            <Route path="login" element={<LoginPage />} />
-                            <Route path="lost-password/*" element={<LostPasswordPage />} />
-
-                            <Route index element={<DashboardPage />} />
-                        </Route>
-                        <Route path="*" element={<ErrorPage errorCode={404} />} />
-                    </Routes>
-                </Router>
-            </ErrorBoundary>
-        </ThemeProvider>
-    );
+	return (
+		<ThemeProvider theme={BaseTheme(appTheme)}>
+			<CssBaseline />
+			<Global styles={globalStyles} />
+			<ErrorBoundary>
+				<Router>
+					<Routes>
+						<Route path="/admin/">
+							<Route path="app/*" element={<AppModule />} />
+							<Route path="login" element={<LoginPage />} />
+							<Route path="lost-password/*" element={<LostPasswordPage />} />
+							<Route index element={<HomePage />} />
+						</Route>
+						<Route path="*" element={<ErrorPage errorCode={404} />} />
+					</Routes>
+				</Router>
+			</ErrorBoundary>
+		</ThemeProvider>
+	);
 };
 
 export default App;

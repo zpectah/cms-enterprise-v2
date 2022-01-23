@@ -1,5 +1,6 @@
 <?php
 
-class AuthService {
+class AuthService
+{
 
 }
