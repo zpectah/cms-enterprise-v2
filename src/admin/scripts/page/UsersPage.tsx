@@ -1,17 +1,14 @@
 import React from 'react';
 
 import { pageMetaProps } from '../types/page';
+import routes from '../routes';
 import Layout from '../component/Layout';
 import UsersModule from '../module/Users';
 
 interface UsersPageProps {}
 
 const UsersPage = ({}: UsersPageProps) => {
-	const pageMeta: pageMetaProps = {
-		key: 'users',
-		title: 'Users page',
-		description: 'Description of page ...',
-	};
+	const pageMeta: pageMetaProps = routes.users;
 
 	return (
 		<Layout.App meta={pageMeta}>

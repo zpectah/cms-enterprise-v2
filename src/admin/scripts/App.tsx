@@ -12,13 +12,15 @@ import LanguageService from './service/Language.service';
 import ThemeService from './service/Theme.service';
 import { appStoreProps } from './types/store';
 
-import AppModule from './module/App';
+import Preloader from './component/Preloader';
 import ErrorPage from './page/ErrorPage';
+import HomePage from './page/HomePage';
 import LoginPage from './page/LoginPage';
 import LostPasswordPage from './page/LostPasswordPage';
-import HomePage from './page/HomePage';
 
 interface AppProps {}
+
+const AppModule = React.lazy(() => import('./module/App'));
 
 const App = (props: AppProps) => {
 	const {} = props;
@@ -39,7 +41,11 @@ const App = (props: AppProps) => {
 				<Router>
 					<Routes>
 						<Route path="/admin/">
-							<Route path="app/*" element={<AppModule />} />
+							<Route path="app/*" element={
+								<React.Suspense fallback={<Preloader.Block />}>
+									<AppModule />
+								</React.Suspense>
+							} />
 							<Route path="login" element={<LoginPage />} />
 							<Route path="lost-password/*" element={<LostPasswordPage />} />
 							<Route index element={<HomePage />} />

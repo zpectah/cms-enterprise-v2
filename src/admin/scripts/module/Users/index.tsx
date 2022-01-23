@@ -12,7 +12,7 @@ const UsersModule = (props: UsersModuleProps) => {
 	return (
 		<>
 			<Routes>
-				<Route path="/" element={<UsersList />} />
+				<Route index element={<UsersList />} />
 				<Route path="detail/:id" element={<UsersDetail />} />
 			</Routes>
 		</>

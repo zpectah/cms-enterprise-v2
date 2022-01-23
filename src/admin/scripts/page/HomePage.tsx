@@ -1,17 +1,14 @@
 import React from 'react';
 
 import { pageMetaProps } from '../types/page';
+import routes from '../routes';
 import Layout from '../component/Layout';
 
 interface HomePageProps {}
 
 const HomePage = (props: HomePageProps) => {
 	const {} = props;
-	const pageMeta: pageMetaProps = {
-		key: 'Home',
-		title: 'Home page',
-		description: 'Description of page ...',
-	};
+	const pageMeta: pageMetaProps = routes.home;
 
 	return (
 		<Layout.Minimal meta={pageMeta} withOptions>

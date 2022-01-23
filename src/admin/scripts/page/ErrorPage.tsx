@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { pageMetaProps } from '../types/page';
+import routes from '../routes';
 import Layout from '../component/Layout';
 
 interface ErrorPageProps {
@@ -8,11 +9,7 @@ interface ErrorPageProps {
 }
 
 const ErrorPage = ({ errorCode }: ErrorPageProps) => {
-	const pageMeta: pageMetaProps = {
-		key: 'error',
-		title: 'Error page',
-		description: 'Description of page ...',
-	};
+	const pageMeta: pageMetaProps = routes.error;
 
 	return (
 		<Layout.Minimal meta={pageMeta}>
