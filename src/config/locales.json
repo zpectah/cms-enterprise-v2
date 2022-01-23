@@ -1,0 +1,18 @@
+{
+  "cs-CZ": {
+    "key": "cs",
+    "label": "Čeština",
+    "label_int": "Czech",
+    "time_format": "HH:MM:ss",
+    "date_format": "DD.MM.YYYY",
+    "ltr": true
+  },
+  "en-US": {
+    "key": "en",
+    "label": "English",
+    "label_int": "English (US)",
+    "time_format": "HH:MM:ss",
+    "date_format": "YYYY/MM/DD",
+    "ltr": true
+  }
+}

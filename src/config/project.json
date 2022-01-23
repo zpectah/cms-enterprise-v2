@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "name": "CMS Enterprise",
+    "version": "0.0.1",
+    "copyright_year": 2022,
+    "author": "Tomas Sychra | zpecter.com"
+  },
+  "global": {
+    "path": {
+      "uploads": "uploads",
+      "logs": "logs",
+      "assets": "assets"
+    },
+    "keys": {
+      "APP_LANGUAGE": "APP_LANGUAGE",
+      "APP_THEME": "APP_THEME",
+      "APP_SIDEBAR": "APP_SIDEBAR_OPEN"
+    },
+    "units": {
+      "price": "czk",
+      "weight": "kg",
+      "length": "mm",
+      "units": "pcs"
+    }
+  },
+  "admin": {
+    "meta": {
+      "title": "Project title",
+      "description": "Project description",
+      "keywords": "key1,key2",
+      "robots": "none",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1",
+      "lang": "en"
+    },
+    "theme": {
+      "default": "light",
+      "list": ["light", "dark"]
+    },
+    "language": {
+      "default": "cs-CZ",
+      "list": ["cs-CZ", "en-US"]
+    }
+  },
+  "web": {
+    "meta": {
+      "title": "Project title",
+      "description": "Project description",
+      "keywords": "key1,key2",
+      "robots": "none",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1",
+      "lang": "en"
+    },
+    "language": {
+      "default": "cs-CZ",
+      "list": ["cs-CZ"]
+    }
+  },
+  "api": {}
+}

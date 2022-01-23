@@ -1,0 +1,32 @@
+{
+  "development": {
+    "root": "http://cms-enterprise/",
+    "admin": {
+      "scripts": "/admin/scripts/index.bundle.js"
+    },
+    "web": {
+      "scripts": "/web/scripts/index.bundle.js",
+      "styles": "/web/styles/index.css"
+    }
+  },
+  "test": {
+    "root": "http://test.cms-enterprise/",
+    "admin": {
+      "scripts": "/admin/scripts/index.bundle.min.js"
+    },
+    "web": {
+      "scripts": "/web/scripts/index.bundle.min.js",
+      "styles": "/web/styles/index.min.css"
+    }
+  },
+  "production": {
+    "root": "...",
+    "admin": {
+      "scripts": "/admin/scripts/index.bundle.min.js"
+    },
+    "web": {
+      "scripts": "/web/scripts/index.bundle.min.js",
+      "styles": "/web/styles/index.min.css"
+    }
+  }
+}
