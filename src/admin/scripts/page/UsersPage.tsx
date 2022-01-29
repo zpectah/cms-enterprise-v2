@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import { pageMetaProps } from '../types/page';
 import routes from '../routes';
 import Layout from '../component/Layout';
-import UsersModule from '../module/Users';
+import Preloader from '../component/Preloader';
+
+const UsersModule = React.lazy(() => import('../module/Users'));
 
 interface UsersPageProps {}
 
@@ -12,7 +14,9 @@ const UsersPage = ({}: UsersPageProps) => {
 
 	return (
 		<Layout.App meta={pageMeta}>
-			<UsersModule />
+			<Suspense fallback={<Preloader.Block />}>
+				<UsersModule />
+			</Suspense>
 		</Layout.App>
 	);
 };

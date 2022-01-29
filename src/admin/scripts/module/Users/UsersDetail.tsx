@@ -1,19 +1,23 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-interface UsersDetailProps {}
+import { UsersItemProps } from '../../types/model';
+
+interface UsersDetailProps {
+	items: UsersItemProps[];
+}
 
 const UsersDetail = (props: UsersDetailProps) => {
-	const {} = props;
+	const { items } = props;
 	const params = useParams();
 
 	useEffect(() => {
-		console.log('params', params);
+		console.log('params detail', params);
 	}, [params]);
 
 	return (
 		<>
-			<div>...UsersDetail...</div>
+			<div>...UsersDetail...{JSON.stringify(items)}...</div>
 		</>
 	);
 };

@@ -6,8 +6,8 @@ import UsersPage from '../../page/UsersPage';
 
 interface AppModuleProps {}
 
-const AppModule = ({}: AppModuleProps) => {
-	console.log('AppModule loaded +');
+const AppModule = (props: AppModuleProps) => {
+	const {} = props;
 
 	return (
 		<>

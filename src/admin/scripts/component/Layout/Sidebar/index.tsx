@@ -9,6 +9,7 @@ import {
 	SIDEBAR_DESKTOP_WIDTH,
 } from '../../../styles/variables';
 import media from '../../../styles/responsive';
+import Navbar from '../Navbar';
 
 interface SidebarProps {}
 
@@ -41,7 +42,9 @@ const Sidebar = (props: SidebarProps) => {
 	return (
 		<>
 			<Wrapper isOpen={sidebarOpen}>
-				sidebar {sidebarOpen ? 'open' : 'closed'}
+				<>
+					<Navbar />
+				</>
 			</Wrapper>
 		</>
 	);

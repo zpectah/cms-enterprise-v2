@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
@@ -18,9 +18,9 @@ import HomePage from './page/HomePage';
 import LoginPage from './page/LoginPage';
 import LostPasswordPage from './page/LostPasswordPage';
 
-interface AppProps {}
-
 const AppModule = React.lazy(() => import('./module/App'));
+
+interface AppProps {}
 
 const App = (props: AppProps) => {
 	const {} = props;
@@ -42,9 +42,9 @@ const App = (props: AppProps) => {
 					<Routes>
 						<Route path="/admin/">
 							<Route path="app/*" element={
-								<React.Suspense fallback={<Preloader.Block />}>
+								<Suspense fallback={<Preloader.Block />}>
 									<AppModule />
-								</React.Suspense>
+								</Suspense>
 							} />
 							<Route path="login" element={<LoginPage />} />
 							<Route path="lost-password/*" element={<LostPasswordPage />} />
