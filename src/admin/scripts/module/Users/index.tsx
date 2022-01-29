@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route  } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import { UsersItemProps } from '../../types/model';
 import { useUsers } from '../../hooks/model';

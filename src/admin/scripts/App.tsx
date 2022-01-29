@@ -11,18 +11,15 @@ import ErrorBoundary from './component/ErrorBoundary';
 import LanguageService from './service/Language.service';
 import ThemeService from './service/Theme.service';
 import { appStoreProps } from './types/store';
-
 import Preloader from './component/Preloader';
+import RequireAuth from './component/RequireAuth';
 import ErrorPage from './page/ErrorPage';
 import LoginPage from './page/LoginPage';
 import LostPasswordPage from './page/LostPasswordPage';
 
 const AppModule = React.lazy(() => import('./module/App'));
 
-interface AppProps {}
-
-const App = (props: AppProps) => {
-	const {} = props;
+const App = () => {
 	const { appTheme } = useSelector((store: appStoreProps) => store);
 
 	useEffect(() => {
@@ -41,9 +38,11 @@ const App = (props: AppProps) => {
 					<Routes>
 						<Route path="/admin/">
 							<Route path="app/*" element={
-								<Suspense fallback={<Preloader.Block />}>
-									<AppModule />
-								</Suspense>
+								<RequireAuth>
+									<Suspense fallback={<Preloader.Page />}>
+										<AppModule />
+									</Suspense>
+								</RequireAuth>
 							} />
 							<Route path="login" element={<LoginPage />} />
 							<Route path="lost-password/*" element={<LostPasswordPage />} />

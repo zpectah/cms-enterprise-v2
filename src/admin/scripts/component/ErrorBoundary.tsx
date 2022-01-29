@@ -11,7 +11,7 @@ interface ErrorBoundaryState {
 class ErrorBoundary extends React.Component<
 	ErrorBoundaryProps,
 	ErrorBoundaryState
-> {
+	> {
 	constructor(props) {
 		super(props);
 		this.state = {
