@@ -1,6 +1,7 @@
 {
   "meta": {
     "name": "CMS Enterprise",
+    "description": "Simple content managing system with common content features with members and basic market features",
     "version": "0.0.1",
     "copyright_year": 2022,
     "author": "Tomas Sychra | zpecter.com"
@@ -25,13 +26,13 @@
   },
   "admin": {
     "meta": {
-      "title": "Project title",
-      "description": "Project description",
-      "keywords": "key1,key2",
+      "title": "CMS Enterprise",
+      "description": "Simple content managing system with common content features with members and basic market features",
+      "keywords": "cms,enterprise,members,market",
       "robots": "none",
       "charset": "utf-8",
       "viewport": "width=device-width, initial-scale=1",
-      "lang": "en"
+      "lang": "en-US"
     },
     "theme": {
       "default": "light",
@@ -50,13 +51,13 @@
   },
   "web": {
     "meta": {
-      "title": "Project title",
-      "description": "Project description",
-      "keywords": "key1,key2",
+      "title": "DEFAULT TITLE",
+      "description": "DEFAULT DESCRIPTION",
+      "keywords": "key1,key2,key3",
       "robots": "none",
       "charset": "utf-8",
       "viewport": "width=device-width, initial-scale=1",
-      "lang": "en"
+      "lang": "en-US"
     },
     "language": {
       "default": "cs-CZ",
@@ -65,5 +66,7 @@
       ]
     }
   },
-  "api": {}
+  "api": {
+    "base_path": "/api"
+  }
 }

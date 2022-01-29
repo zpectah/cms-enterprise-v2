@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { Global } from '@emotion/react';
@@ -14,7 +14,6 @@ import { appStoreProps } from './types/store';
 
 import Preloader from './component/Preloader';
 import ErrorPage from './page/ErrorPage';
-import HomePage from './page/HomePage';
 import LoginPage from './page/LoginPage';
 import LostPasswordPage from './page/LostPasswordPage';
 
@@ -48,7 +47,7 @@ const App = (props: AppProps) => {
 							} />
 							<Route path="login" element={<LoginPage />} />
 							<Route path="lost-password/*" element={<LostPasswordPage />} />
-							<Route index element={<HomePage />} />
+							<Route index element={<Navigate to="login" replace />} />
 						</Route>
 						<Route path="*" element={<ErrorPage errorCode={404} />} />
 					</Routes>

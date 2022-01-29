@@ -2,14 +2,18 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { UsersItemProps } from '../../types/model';
+import { useUsers } from '../../hooks/model';
 
-interface UsersDetailProps {
-	items: UsersItemProps[];
-}
+interface UsersDetailProps {}
 
 const UsersDetail = (props: UsersDetailProps) => {
-	const { items } = props;
+	const {} = props;
 	const params = useParams();
+	const {
+		users,
+		users_loading,
+		users_error,
+	} = useUsers();
 
 	useEffect(() => {
 		console.log('params detail', params);
@@ -17,7 +21,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 	return (
 		<>
-			<div>...UsersDetail...{JSON.stringify(items)}...</div>
+			<div>...UsersDetail...{JSON.stringify(users)}...</div>
 		</>
 	);
 };

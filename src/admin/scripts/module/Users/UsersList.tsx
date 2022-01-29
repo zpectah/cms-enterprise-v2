@@ -1,17 +1,21 @@
 import React from 'react';
 
 import { UsersItemProps } from '../../types/model';
+import { useUsers } from '../../hooks/model';
 
-interface UsersListProps {
-	items: UsersItemProps[];
-}
+interface UsersListProps {}
 
 const UsersList = (props: UsersListProps) => {
-	const { items } = props;
+	const {} = props;
+	const {
+		users,
+		users_loading,
+		users_error,
+	} = useUsers();
 
 	return (
 		<>
-			<div>...UsersList...{JSON.stringify(items)}...</div>
+			<div>...UsersList...{JSON.stringify(users)}...</div>
 		</>
 	);
 };

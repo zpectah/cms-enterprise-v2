@@ -1,7 +1,7 @@
 {
   "name": "cms-enterprise-v2",
   "version": "0.0.1",
-  "description": "CMS Enterprise - simple content managing system with common content features with Crm and Market features",
+  "description": "CMS Enterprise - simple content managing system with common content features with members and basic market features",
   "main": "false",
   "author": "Tomas Sychra | zpecter.com",
   "license": "MIT",

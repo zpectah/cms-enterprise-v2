@@ -138,6 +138,9 @@ const TaskDef = {
 					},
 				],
 			},
+			performance: {
+				hints: false,
+			},
 		}).pipe(dest(`${path}admin/scripts/`));
 		cb();
 	},
@@ -182,6 +185,9 @@ const TaskDef = {
 						loader: "vue-loader",
 					},
 				],
+			},
+			performance: {
+				hints: false,
 			},
 		}).pipe(dest(`${path}web/scripts/`));
 		cb();

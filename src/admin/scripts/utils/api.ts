@@ -1,15 +1,14 @@
-const init: {
-	headers: {
-		[k: string]: string;
-	};
-} = {
+import { apiRequestHeadersProps, apiResponseDefaultProps } from '../types/api';
+
+const init: apiRequestHeadersProps = {
 	headers: {
 		'Content-Type': 'application/json',
-		// 'X-App-Token': '',
+		'X-User-Token': 'DEMO_USER_TOKEN',
+		'X-App-Token': 'DEMO_APP_TOKEN',
 	},
 };
 
-export const get = async (url: string) => {
+export const get = async (url: string): Promise<apiResponseDefaultProps> => {
 	const response = await fetch(url, {
 		method: 'GET',
 		...init,
@@ -17,7 +16,7 @@ export const get = async (url: string) => {
 	return response?.json();
 };
 
-export const post = async (url: string, data: any) => {
+export const post = async (url: string, data: any): Promise<apiResponseDefaultProps> => {
 	const response = await fetch(url, {
 		method: 'POST',
 		...init,
@@ -27,7 +26,7 @@ export const post = async (url: string, data: any) => {
 	return response?.json();
 };
 
-export const postRaw = async (url: string, data: any) => {
+export const postRaw = async (url: string, data: any): Promise<any> => {
 	return await fetch(url, {
 		method: 'POST',
 		...init,
@@ -35,4 +34,4 @@ export const postRaw = async (url: string, data: any) => {
 	});
 };
 
-export const fetcher = (url) => fetch(url, init).then((res) => res?.json());
+export const fetcher = (url: string) => fetch(url, init).then((res) => res?.json());
