@@ -1,5 +1,10 @@
 {
   "model": {
+    "Users": {
+      "type": ["test", "default"],
+      "level": ["redactor", "chief_redactor", "admin", "super_admin"],
+      "group": ["company", "redaction"]
+    },
     "Uploads": {
       "type": ["image", "audio", "video", "document", "archive"],
       "audio": {
