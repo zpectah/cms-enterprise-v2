@@ -1,14 +1,16 @@
 export type formMetaItemType =
 	| 'text'
-	| 'textarea'
 	| 'email'
+	| 'number'
 	| 'datetime'
 	| 'password'
+	| 'textarea'
 	| 'radio'
 	| 'checkbox'
 	| 'switch'
 	| 'toggle'
-	| 'select';
+	| 'select'
+	| 'hidden';
 
 export interface formMetaItemProps {
 	key: number;

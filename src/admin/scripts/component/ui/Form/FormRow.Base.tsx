@@ -8,6 +8,7 @@ interface FormRowBaseProps {
 	spacing?: number;
 	id?: string;
 	helpTexts?: string[];
+	errors?: string[];
 }
 
 const FormRowBase: React.FC<FormRowBaseProps> = (props) => {
@@ -19,6 +20,7 @@ const FormRowBase: React.FC<FormRowBaseProps> = (props) => {
 		spacing = 2,
 		id,
 		helpTexts = [],
+		errors = [],
 	} = props;
 
 	return (
@@ -36,7 +38,11 @@ const FormRowBase: React.FC<FormRowBaseProps> = (props) => {
 						<div key={index}>{text}</div>
 					))}
 				</div>
-				<div>...errors...</div>
+				<div>
+					{errors.map((text, index) => (
+						<div key={index}>{text}</div>
+					))}
+				</div>
 			</div>
 		</Stack>
 	);
