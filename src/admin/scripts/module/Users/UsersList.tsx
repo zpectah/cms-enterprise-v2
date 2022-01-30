@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { UsersItemProps } from '../../types/model';
+import { Dialog } from '../../component/ui';
 
 interface UsersListProps {
 	dataItems: UsersItemProps[];
@@ -18,9 +19,9 @@ const UsersList = (props: UsersListProps) => {
 		loading,
 	} = props;
 	const navigate = useNavigate();
-	const [ selectedItems, setSelectedItems ] = useState<(string | number)[]>([]);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
+	const [ selectedItems, setSelectedItems ] = useState<(string | number)[]>([]);
 
 	const toggleHandler = (id?: string | number) => {
 		let source = id ? [id] : selectedItems;
@@ -40,6 +41,10 @@ const UsersList = (props: UsersListProps) => {
 			setSelectedItems([]);
 		});
 	};
+	const closeConfirmHandler = () => {
+		setConfirmOpen(false);
+		setConfirmData([]);
+	};
 	const openDetailHandler = (id: string | number) => {
 		navigate(`/admin/app/users/detail/${id}`);
 	};
@@ -47,6 +52,13 @@ const UsersList = (props: UsersListProps) => {
 	return (
 		<>
 			<div>...UsersList...{JSON.stringify(dataItems)}...</div>
+			<Dialog.Confirm
+				context="delete"
+				isOpen={confirmOpen}
+				confirmData={confirmData}
+				onConfirm={deleteConfirmHandler}
+				onClose={closeConfirmHandler}
+			/>
 		</>
 	);
 };

@@ -9,7 +9,6 @@ const Navbar = (props: NavbarProps) => {
 	return (
 		<>
 			<div>
-				<Link to="/admin/">Home</Link>
 				<Link to="/admin/app">Dashboard</Link>
 				<Link to="/admin/app/users">Users</Link>
 			</div>

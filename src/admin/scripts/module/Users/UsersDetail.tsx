@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { UsersItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import getDetailData from '../../utils/getDetailData';
+import { Dialog } from '../../component/ui';
 
 interface UsersDetailProps {
 	dataItems: UsersItemProps[];
@@ -42,12 +43,23 @@ const UsersDetail = (props: UsersDetailProps) => {
 			setConfirmData([]);
 		});
 	};
+	const closeConfirmHandler = () => {
+		setConfirmOpen(false);
+		setConfirmData([]);
+	};
 
 	useEffect(() => setDetailData(getDetailData('Users', dataItems, params.id)), [ dataItems, params ]);
 
 	return (
 		<>
 			<div>...UsersDetail...{JSON.stringify(detailData)}...</div>
+			<Dialog.Confirm
+				context="delete"
+				isOpen={confirmOpen}
+				confirmData={confirmData}
+				onConfirm={deleteConfirmHandler}
+				onClose={closeConfirmHandler}
+			/>
 		</>
 	);
 };

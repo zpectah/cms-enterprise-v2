@@ -10,4 +10,5 @@ export interface UsersItemModel extends modelItemBase {
 	user_group: string;
 	description: string;
 	img_avatar: string;
+	user_level: number;
 }
