@@ -1,6 +1,7 @@
 <?php
 
-class LogService
-{
+namespace core\service;
+
+class LogService {
 
 }

@@ -1,1 +1,59 @@
-{}
+{
+  "model": {
+    "Uploads": {
+      "type": ["image", "audio", "video", "document", "archive"],
+      "audio": {
+        "extension": ["mp3", "aac"]
+      },
+      "video": {
+        "extension": ["mpeg", "mp4"]
+      },
+      "document": {
+        "extension": ["doc", "docs", "xls", "xlsx", "ppt", "pptx", "pps", "ppsx", "pages", "numbers", "pdf"]
+      },
+      "archive": {
+        "extension": ["zip", "rar"]
+      },
+      "image": {
+        "extension": ["jpg", "jpeg", "png"],
+        "format": [
+          {
+            "key": "thumbnail",
+            "width": 100,
+            "height": 100,
+            "quality": 50,
+            "crop": true
+          },
+          {
+            "key": "small",
+            "width": 500,
+            "height": 500,
+            "quality": 80,
+            "crop": true
+          },
+          {
+            "key": "medium",
+            "width": 1280,
+            "height": 1280,
+            "quality": 80,
+            "crop": true
+          },
+          {
+            "key": "large",
+            "width": 1920,
+            "height": 1080,
+            "quality": 100,
+            "crop": false
+          },
+          {
+            "key": "custom_1",
+            "width": 1920,
+            "height": 640,
+            "quality": 75,
+            "crop": true
+          }
+        ]
+      }
+    }
+  }
+}

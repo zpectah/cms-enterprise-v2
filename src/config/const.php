@@ -17,7 +17,14 @@ const PASS_CRYPT_OPTIONS = [
     'time_cost' => 4,
     'threads' => 3
 ];
-
+define( "CFG_DB_SQL", $DATABASE[ ENV ]['SQL'] );
+const CFG_DB_CONN = [
+    CFG_DB_SQL['server'],
+    CFG_DB_SQL['user'],
+    CFG_DB_SQL['password'],
+    CFG_DB_SQL['name'],
+    CFG_DB_SQL['port'],
+];
 const SESSION_KEYS = [
     'USER_NAME' => 'USER_NAME',
     'USER_TOKEN' => 'USER_TOKEN',
@@ -27,7 +34,10 @@ const SESSION_KEYS = [
 
 define("CFG_ENV", $CFG_ENV[ENV]);
 const ROOT = CFG_ENV['root'];
-
+const URL = [
+    'USER_LOST_PASSWORD' => ROOT . 'admin/lost-password/token/',
+    'MEMBER_LOST_PASSWORD' => ROOT . 'lost-password/token/',
+];
 define("PATHS", [
     'ROOT' => ROOT,
     'UPLOADS' => PATH_ROOT . $CFG_PROJECT['global']['path']['uploads'],
@@ -38,11 +48,12 @@ define("LOCATION", [
     'UPLOADS' => '/' . $CFG_PROJECT['global']['path']['uploads'],
     'LOGS' => '/' . $CFG_PROJECT['global']['path']['logs'],
 ]);
-const URL = [
-    'USER_LOST_PASSWORD' => ROOT . 'admin/lost-password/token/',
-    'MEMBER_LOST_PASSWORD' => ROOT . 'lost-password/token/',
-];
-
+// define("LOGS", []);
+define("UPLOADS", [
+    'IMAGE' => [
+        'FORMATS' => $CFG_OPTIONS['model']['Uploads']['image']['format'],
+    ],
+]);
 
 define('ADMIN_DOCUMENT', [
     'meta' => [
@@ -77,4 +88,14 @@ define('WEB_DOCUMENT', [
     'no_script_message' => 'Javascript must be allowed to run this app.',
 ]);
 
-
+const MESSAGES = [
+    'API' => [
+        'REQUEST_ERROR' => 'Request error',
+        'WRONG_REQUEST' => 'Wrong request',
+        'UNAUTHORIZED' => 'Unauthorized request',
+        'SUCCESS' => 'Success',
+        'NO_DATA' => 'No data found',
+        'NO_CREATED' => 'No data created',
+        'NO_UPDATED' => 'No data updated',
+    ],
+];

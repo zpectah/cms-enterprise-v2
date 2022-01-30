@@ -1,6 +1,7 @@
 <?php
 
-class EmailService
-{
+namespace core\service;
+
+class EmailService {
 
 }

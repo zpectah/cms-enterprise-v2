@@ -1,6 +1,7 @@
 <?php
 
-class AuthService
-{
+namespace core\service;
+
+class AuthService {
 
 }

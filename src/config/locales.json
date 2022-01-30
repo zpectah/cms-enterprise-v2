@@ -1,6 +1,7 @@
 {
   "cs-CZ": {
     "key": "cs",
+    "int": "cs-CZ",
     "label": "Čeština",
     "label_int": "Czech",
     "time_format": "HH:MM:ss",
@@ -9,6 +10,7 @@
   },
   "en-US": {
     "key": "en",
+    "int": "en-US",
     "label": "English",
     "label_int": "English (US)",
     "time_format": "HH:MM:ss",
