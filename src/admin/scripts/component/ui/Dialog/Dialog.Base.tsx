@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import {
-	Button,
 	Dialog,
 	Stack,
 	DialogActions,
 	DialogContent,
 	DialogContentText,
 	DialogTitle,
-	IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { DialogProps } from '@mui/material/Dialog';
 
+import Button from '../Button';
+import getTestDataAttr from '../../../utils/getTestDataAttr';
+
 export interface DialogBaseProps {
+	dataId?: string;
 	isOpen: boolean;
 	onClose: () => void;
 	id?: string;
@@ -34,6 +36,7 @@ export interface DialogBaseProps {
 const DialogBase: React.FC<DialogBaseProps> = (props) => {
 	const {
 		children,
+		dataId = 'dialog-base',
 		isOpen,
 		onClose,
 		id = 'dialog-base',
@@ -59,9 +62,10 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 
 	const renderCloseIconButton = () => {
 		return (
-			<IconButton
+			<Button.Icon
 				aria-label="close"
 				onClick={onClose}
+				dataId={`${id}_icon-close`}
 				sx={{
 					position: 'absolute',
 					right: 8,
@@ -70,7 +74,7 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 				}}
 			>
 				<CloseIcon />
-			</IconButton>
+			</Button.Icon>
 		);
 	};
 
@@ -88,28 +92,33 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 			fullScreen={fullScreen}
 			{...rest}
 		>
-			{title && (
-				<DialogTitle id={`${id}_title`}>
-					{title}
-					{showHeaderClose && renderCloseIconButton()}
-				</DialogTitle>
-			)}
-			<DialogContent>
-				{textContent ? (
-					<DialogContentText id={`${id}_description`}>
-						{textContent}
-					</DialogContentText>
-				) : (
-					<>{children}</>
+			<div {...getTestDataAttr(dataId)}>
+				{title && (
+					<DialogTitle id={`${id}_title`}>
+						{title}
+						{showHeaderClose && renderCloseIconButton()}
+					</DialogTitle>
 				)}
-				{showBodyClose && renderCloseIconButton()}
-			</DialogContent>
-			<DialogActions>
-				<Stack direction="row" spacing={2} alignItems={footerAlign}>
-					{showFooterClose && <Button onClick={handleClose}>Close</Button>}
-					{actions}
-				</Stack>
-			</DialogActions>
+				<DialogContent>
+					{textContent ? (
+						<DialogContentText id={`${id}_description`}>
+							{textContent}
+						</DialogContentText>
+					) : (
+						<>{children}</>
+					)}
+					{showBodyClose && renderCloseIconButton()}
+				</DialogContent>
+				<DialogActions>
+					<Stack direction="row" spacing={2} alignItems={footerAlign}>
+						{showFooterClose && <Button.Primary
+							onClick={handleClose}
+							dataId={`${id}_button-close`}
+						>Close</Button.Primary>}
+						{actions}
+					</Stack>
+				</DialogActions>
+			</div>
 		</Dialog>
 	);
 };
