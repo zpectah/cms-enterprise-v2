@@ -13,6 +13,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = (props) => {
 		<ButtonBase
 			variant="contained"
 			color="primary"
+			dataId="primary-button"
 			{...rest}
 		/>
 	);

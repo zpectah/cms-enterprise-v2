@@ -13,6 +13,7 @@ const SecondaryButton: React.FC<SecondaryButtonProps> = (props) => {
 		<ButtonBase
 			variant="contained"
 			color="secondary"
+			dataId="secondary-button"
 			{...rest}
 		/>
 	);
