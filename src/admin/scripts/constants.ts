@@ -15,5 +15,3 @@ export const DATA_TABLE = {
 	rowHeightDefault: 55,
 	sortDefault: 'asc',
 };
-export const TEST_DATA_ATTR_APP = 'data-test-app';
-export const TEST_DATA_ATTR_ID = 'data-test-id';

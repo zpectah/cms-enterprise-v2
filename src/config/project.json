@@ -47,6 +47,11 @@
         "cs-CZ",
         "en-US"
       ]
+    },
+    "tests": {
+      "prepare_element_id": true,
+      "data_attr_id": "data-test-id",
+      "data_attr_app": "data-test-app"
     }
   },
   "web": {
@@ -64,6 +69,11 @@
       "list": [
         "cs-CZ"
       ]
+    },
+    "tests": {
+      "prepare_element_id": true,
+      "data_attr_id": "data-test-id",
+      "data_attr_app": "data-test-app"
     }
   },
   "api": {
