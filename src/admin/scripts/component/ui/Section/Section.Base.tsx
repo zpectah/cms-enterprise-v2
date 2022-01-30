@@ -20,7 +20,7 @@ interface SectionBaseProps {
 	dataId?: string;
 	title?: string;
 	subtitle?: string;
-	visible?: boolean;
+	invisible?: boolean;
 	noSpacing?: boolean;
 	titleVariant?: TypographyProps['variant'];
 	bottomDivider?: boolean;
@@ -32,7 +32,7 @@ const SectionBase: React.FC<SectionBaseProps> = (props) => {
 		dataId = 'section-base',
 		title,
 		subtitle,
-		visible,
+		invisible,
 		noSpacing,
 		titleVariant = 'h3',
 		bottomDivider,
@@ -40,7 +40,7 @@ const SectionBase: React.FC<SectionBaseProps> = (props) => {
 
 	return (
 		<Wrapper
-			visible={visible}
+			visible={!invisible}
 			noSpacing={noSpacing}
 			{...getTestDataAttr(dataId)}
 		>
