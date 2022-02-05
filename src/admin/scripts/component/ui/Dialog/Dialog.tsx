@@ -2,7 +2,7 @@ import React from 'react';
 
 import DialogBase, { DialogBaseProps } from './Dialog.Base';
 
-interface DialogProps extends DialogBaseProps {}
+export interface DialogProps extends DialogBaseProps {}
 
 const Dialog: React.FC<DialogProps> = (props) => {
 	const {

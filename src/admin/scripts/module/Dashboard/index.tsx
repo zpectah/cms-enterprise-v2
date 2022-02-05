@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Stack } from '@mui/material';
 
 import {
 	ConfirmDialog,
@@ -18,13 +19,11 @@ const DashboardModule = (props: DashboardModuleProps) => {
 	return (
 		<>
 			<div>DashboardModule</div>
-			<div>
+			<Stack direction="row" spacing={2}>
 				<Button onClick={() => setConfirmOpen(true)}>{t('btn.open')}</Button>
-			</div>
-			<div>
 				<PrimaryButton>Primary</PrimaryButton>
 				<SecondaryButton>Secondary</SecondaryButton>
-			</div>
+			</Stack>
 			<ConfirmDialog
 				confirmData={[]}
 				onConfirm={() => { console.log('trigger the confirm event') }}

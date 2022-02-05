@@ -11,7 +11,7 @@ const SecondaryButton: React.FC<SecondaryButtonProps> = (props) => {
 
 	return (
 		<ButtonBase
-			variant="contained"
+			variant="outlined"
 			color="secondary"
 			dataId="secondary-button"
 			{...rest}

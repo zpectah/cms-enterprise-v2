@@ -40,7 +40,7 @@ const LanguageToggle = (props: LanguageToggleProps) => {
 
 	return (
 		<Toggle
-			color="secondary"
+			color="primary"
 			size="small"
 			value={lang}
 			onChange={handleChange}

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 
-import DialogBase, { DialogBaseProps } from './Dialog.Base';
+import Dialog, { DialogProps } from './Dialog';
+import { PrimaryButton, SecondaryButton } from '../Button';
 
-interface ConfirmDialogProps extends DialogBaseProps {
+interface ConfirmDialogProps extends DialogProps {
 	context?: 'default' | 'delete';
 	confirmData: (string | number)[];
 	onConfirm: () => void;
@@ -29,7 +30,7 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
 		onClose,
 		...rest
 	} = props;
-	const [isOpen, setIsOpen] = useState<boolean>(open);
+	const [ isOpen, setIsOpen ] = useState<boolean>(open);
 
 	const handleClose = () => {
 		setIsOpen(false);
@@ -43,28 +44,45 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
 	useEffect(() => setIsOpen(open), [open]);
 
 	return (
-		<DialogBase
+		<Dialog
 			TransitionComponent={Transition}
 			onClose={onClose}
 			open={isOpen}
-			maxWidth="sm"
+			maxWidth="xs"
 			showBodyClose
 			id={`confirm-dialog_${context}`}
 			{...rest}
 		>
 			<Stack direction="column" spacing={3}>
-				<Stack direction="row" spacing={3} alignItems="center">
-					custom title in body
+				<Stack
+					direction="row"
+					spacing={4}
+					alignItems="center"
+					justifyContent="center"
+				>
+					<Typography variant="h4">
+						custom title in body
+					</Typography>
 				</Stack>
-				<Stack direction="row" spacing={3} alignItems="center">
+				<Stack
+					direction="row"
+					spacing={4}
+					alignItems="center"
+					justifyContent="center"
+				>
 					bla bla bla ... {context} ... {JSON.stringify(confirmData)}
 				</Stack>
-				<Stack direction="row" spacing={3} alignItems="center">
-					<button onClick={handleConfirm}>Confirm</button>
-					<button onClick={handleClose}>Cancel</button>
+				<Stack
+					direction="row"
+					spacing={4}
+					alignItems="center"
+					justifyContent="center"
+				>
+					<PrimaryButton onClick={handleConfirm}>Confirm</PrimaryButton>
+					<SecondaryButton onClick={handleClose}>Cancel</SecondaryButton>
 				</Stack>
 			</Stack>
-		</DialogBase>
+		</Dialog>
 	);
 };
 

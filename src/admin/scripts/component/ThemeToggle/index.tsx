@@ -45,7 +45,7 @@ const ThemeToggle = (props: ThemeToggleProps) => {
 
 	return (
 		<Toggle
-			color="secondary"
+			color="primary"
 			size="small"
 			value={theme}
 			onChange={handleChange}

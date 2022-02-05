@@ -11,10 +11,10 @@ const BaseTheme = (theme: themeListProps) =>
 				main: palette.veryPeri,
 				contrastText: palette.white,
 			},
-			secondary: {
-				main: palette.deepTaupe,
-				contrastText: palette.white,
-			},
+			// secondary: {
+			// 	main: palette.anthracite,
+			// 	contrastText: palette.white,
+			// },
 		},
 		typography: {
 			h1: {
