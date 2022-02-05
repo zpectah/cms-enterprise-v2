@@ -44,6 +44,7 @@ const SelectBase: React.FC<SelectBaseProps> = (props) => {
 				</InputLabel>
 			)}
 			<MuiSelect
+				fullWidth
 				labelId={`${id}_label`}
 				id={id}
 				label={label}

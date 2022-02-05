@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 import config from '../../config';
 import { themeListProps } from '../../types/common';
 import { themeToggle } from '../../store/actions';
 import { appStoreProps } from '../../types/store';
+import { Toggle } from '../ui';
 
-interface ThemeToggleProps {}
+interface ThemeToggleProps {
+	onThemeChange?: (theme: themeListProps) => void;
+}
 
 const ThemeToggle = (props: ThemeToggleProps) => {
-	const {} = props;
+	const { onThemeChange } = props;
 	const { appTheme } = useSelector((store: appStoreProps) => store);
 	const [theme, setTheme] = useState<themeListProps>(
 		appTheme as themeListProps,
@@ -24,24 +25,33 @@ const ThemeToggle = (props: ThemeToggleProps) => {
 	) => {
 		setTheme(theme);
 		dispatch(themeToggle(theme));
+		if (onThemeChange) onThemeChange(theme);
+	};
+
+	const getItems = () => {
+		const items = [];
+		config.project.admin.theme.list.map((item) => {
+			items.push({
+				key: item,
+				value: item,
+				children: (
+					<>{item}</>
+				),
+			});
+		})
+
+		return items;
 	};
 
 	return (
-		<>
-			<ToggleButtonGroup
-				color="secondary"
-				size="small"
-				value={theme}
-				onChange={handleChange}
-				exclusive
-			>
-				{config.project.admin.theme.list.map((item) => (
-					<ToggleButton key={item} value={item}>
-						{item}
-					</ToggleButton>
-				))}
-			</ToggleButtonGroup>
-		</>
+		<Toggle
+			color="secondary"
+			size="small"
+			value={theme}
+			onChange={handleChange}
+			exclusive
+			items={getItems()}
+		/>
 	);
 };
 

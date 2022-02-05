@@ -11,7 +11,7 @@ import ErrorBoundary from './component/ErrorBoundary';
 import LanguageService from './service/Language.service';
 import ThemeService from './service/Theme.service';
 import { appStoreProps } from './types/store';
-import Preloader from './component/Preloader';
+import { PagePreloader } from './component/ui';
 import RequireAuth from './component/RequireAuth';
 import ErrorPage from './page/ErrorPage';
 import LoginPage from './page/LoginPage';
@@ -39,7 +39,7 @@ const App = () => {
 						<Route path="/admin/">
 							<Route path="app/*" element={
 								<RequireAuth>
-									<Suspense fallback={<Preloader.Page />}>
+									<Suspense fallback={<PagePreloader />}>
 										<AppModule />
 									</Suspense>
 								</RequireAuth>

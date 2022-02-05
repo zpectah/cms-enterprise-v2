@@ -1,9 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from '@mui/material/Button';
+import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 import { sidebarToggle } from '../../store/actions';
 import { appStoreProps } from '../../types/store';
+import { Button, IconButton } from '../ui';
 
 interface SidebarToggleProps {}
 
@@ -18,9 +20,16 @@ const SidebarToggle = (props: SidebarToggleProps) => {
 
 	return (
 		<>
-			<Button variant="outlined" color="secondary" onClick={toggleSidebar}>
-				Sidebar
-			</Button>
+			<IconButton
+				color="secondary"
+				onClick={toggleSidebar}
+			>
+				{sidebarOpen ? (
+					<MenuOpenIcon />
+				) : (
+					<MenuIcon />
+				)}
+			</IconButton>
 		</>
 	);
 };

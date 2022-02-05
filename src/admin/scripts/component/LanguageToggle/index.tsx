@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import i18n from 'i18next';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 import config from '../../config';
 import LanguageService from '../../service/Language.service';
+import { Toggle } from '../ui';
 
-interface LanguageToggleProps {}
+interface LanguageToggleProps {
+	onLanguageChange?: (lang: string) => void;
+}
 
 const LanguageToggle = (props: LanguageToggleProps) => {
-	const {} = props;
+	const { onLanguageChange } = props;
 	const [lang, setLang] = useState<string>(LanguageService.get());
 
 	const handleChange = (event: React.MouseEvent<HTMLElement>, lang: string) => {
@@ -17,25 +18,35 @@ const LanguageToggle = (props: LanguageToggleProps) => {
 		LanguageService.set(lang);
 		i18n
 			.changeLanguage(lang)
-			.then(() => console.info('Language has changed to:', lang));
+			.then(() => {
+				if (onLanguageChange) onLanguageChange(lang);
+			});
+	};
+
+	const getItems = () => {
+		const items = [];
+		config.project.admin.language.list.map((item) => {
+			items.push({
+				key: item,
+				value: item,
+				children: (
+					<>{config.locales[item].label}</>
+				),
+			});
+		})
+
+		return items;
 	};
 
 	return (
-		<>
-			<ToggleButtonGroup
-				color="secondary"
-				size="small"
-				value={lang}
-				onChange={handleChange}
-				exclusive
-			>
-				{config.project.admin.language.list.map((item) => (
-					<ToggleButton key={item} value={item}>
-						{config.locales[item].label}
-					</ToggleButton>
-				))}
-			</ToggleButtonGroup>
-		</>
+		<Toggle
+			color="secondary"
+			size="small"
+			value={lang}
+			onChange={handleChange}
+			exclusive
+			items={getItems()}
+		/>
 	);
 };
 

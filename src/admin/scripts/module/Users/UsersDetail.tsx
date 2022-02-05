@@ -13,7 +13,6 @@ import {
 	FormRow,
 	Input,
 } from '../../component/ui';
-import Preloader from '../../component/Preloader';
 
 interface UsersDetailProps {
 	dataItems: UsersItemProps[];
@@ -70,73 +69,70 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 	return (
 		<>
-			<div>
-				<pre>
-					<code>
-						{JSON.stringify(detailData, null, 2)}
-					</code>
-				</pre>
-				<br />
-				{detailData && (
-					<FormControlled {...formProps}>
-						{({ control }) => (
-							<Section>
-								<Controller
-									name="type"
-									control={control}
-									rules={{ required: true }}
-									defaultValue={detailData.type}
-									render={({ field }) => {
-										const { ref, ...rest } = field;
+			{detailData && (
+				<FormControlled {...formProps}>
+					{({ control }) => (
+						<Section>
+							<Controller
+								name="type"
+								control={control}
+								rules={{ required: true }}
+								defaultValue={detailData.type}
+								render={({ field }) => {
+									const { ref, ...rest } = field;
 
-										return (
-											<FormRow
+									return (
+										<FormRow
+											label="Type"
+											id={`${formProps.name}_type`}
+											required={true}
+										>
+											<Input
 												label="Type"
+												placeholder="Select Type"
+												required={true}
 												id={`${formProps.name}_type`}
-												required={true}
-											>
-												<Input
-													label="Type"
-													placeholder="Select Type"
-													required={true}
-													id={`${formProps.name}_type`}
-													{...rest}
-												/>
-											</FormRow>
-										);
-									}}
-								/>
-								<Controller
-									name="email"
-									control={control}
-									rules={{ required: true }}
-									defaultValue={detailData.email}
-									render={({ field }) => {
-										const { ref, ...rest } = field;
+												{...rest}
+											/>
+										</FormRow>
+									);
+								}}
+							/>
+							<Controller
+								name="email"
+								control={control}
+								rules={{ required: true }}
+								defaultValue={detailData.email}
+								render={({ field }) => {
+									const { ref, ...rest } = field;
 
-										return (
-											<FormRow
+									return (
+										<FormRow
+											label="Email"
+											id={`${formProps.name}_email`}
+											required={true}
+										>
+											<Input
+												type="email"
 												label="Email"
-												id={`${formProps.name}_email`}
+												placeholder="Type Email"
 												required={true}
-											>
-												<Input
-													type="email"
-													label="Email"
-													placeholder="Type Email"
-													required={true}
-													id={`${formProps.name}_email`}
-													{...rest}
-												/>
-											</FormRow>
-										);
-									}}
-								/>
-							</Section>
-						)}
-					</FormControlled>
-				)}
-			</div>
+												id={`${formProps.name}_email`}
+												{...rest}
+											/>
+										</FormRow>
+									);
+								}}
+							/>
+						</Section>
+					)}
+				</FormControlled>
+			)}
+			<pre>
+				<code>
+					{JSON.stringify(detailData, null, 2)}
+				</code>
+			</pre>
 			<ConfirmDialog
 				context="delete"
 				isOpen={confirmOpen}
