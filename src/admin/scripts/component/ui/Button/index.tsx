@@ -1,5 +1,5 @@
-export { default as ButtonBase } from './Button.Base';
-export { default as IconButtonBase } from './IconButton.Base';
+// export { default as ButtonBase } from './Button.Base';
+// export { default as IconButtonBase } from './IconButton.Base';
 export { default as Button } from './Button';
 export { default as IconButton } from './IconButton';
 export { default as PrimaryButton } from './PrimaryButton';

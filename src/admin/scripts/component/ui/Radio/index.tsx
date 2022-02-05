@@ -1,3 +1,3 @@
-export { default as RadioBase } from './Radio.Base';
+// export { default as RadioBase } from './Radio.Base';
 export { default as Radio } from './Radio';
 export { default as RadioGroup } from './RadioGroup';
