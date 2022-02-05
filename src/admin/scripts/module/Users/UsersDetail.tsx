@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import _ from 'lodash';
+import { Controller } from 'react-hook-form';
 
 import { UsersItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import getDetailData from '../../utils/getDetailData';
-import { ConfirmDialog } from '../../component/ui';
+import {
+	ConfirmDialog,
+	FormControlled,
+	Section,
+	FormRow,
+	Input,
+} from '../../component/ui';
 import Preloader from '../../component/Preloader';
-import FormBuilder from '../../component/FormBuilder';
 
 interface UsersDetailProps {
 	dataItems: UsersItemProps[];
@@ -27,6 +33,16 @@ const UsersDetail = (props: UsersDetailProps) => {
 	const [ detailData, setDetailData ] = useState<UsersItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
+
+	const formProps = {
+		name: 'UsersDetailForm',
+		onChange: (data) => {
+			console.log('new form has changed ...', data)
+		},
+		useFormProps: {
+			defaultValues: detailData,
+		},
+	};
 
 	const submitHandler = (data: UsersItemProps) => {
 		const master = _.cloneDeep(data);
@@ -55,45 +71,70 @@ const UsersDetail = (props: UsersDetailProps) => {
 	return (
 		<>
 			<div>
-				...UsersDetail...{JSON.stringify(detailData)}...
+				<pre>
+					<code>
+						{JSON.stringify(detailData, null, 2)}
+					</code>
+				</pre>
 				<br />
-				{detailData ? (
-					<FormBuilder
-						formName="UsersDetailForm"
-						onChange={(data) => { console.log('data was changed', data) }}
-						onSubmit={(data) => { console.log('data was submitted', data) }}
-						metaData={[
-							{
-								key: 1,
-								type: 'text',
-								name: 'type',
-								inputProps: {
-									id: 'UsersDetailForm_type',
-									label: 'Type',
-									placeholder: 'Input placeholder',
-									value: detailData.type,
-								},
-								helpTexts: [
-									'Help text 1',
-									'Help text 2'
-								],
-							},
-							{
-								key: 2,
-								type: 'email',
-								name: 'email',
-								inputProps: {
-									id: 'UsersDetailForm_email',
-									label: 'Email',
-									placeholder: 'Input placeholder',
-									value: detailData.email,
-									required: true,
-								},
-							}
-						]}
-					/>
-				) : (
-					<Preloader.Block />
+				{detailData && (
+					<FormControlled {...formProps}>
+						{({ control }) => (
+							<Section>
+								<Controller
+									name="type"
+									control={control}
+									rules={{ required: true }}
+									defaultValue={detailData.type}
+									render={({ field }) => {
+										const { ref, ...rest } = field;
+
+										return (
+											<FormRow
+												label="Type"
+												id={`${formProps.name}_type`}
+												required={true}
+											>
+												<Input
+													label="Type"
+													placeholder="Select Type"
+													required={true}
+													id={`${formProps.name}_type`}
+													{...rest}
+												/>
+											</FormRow>
+										);
+									}}
+								/>
+								<Controller
+									name="email"
+									control={control}
+									rules={{ required: true }}
+									defaultValue={detailData.email}
+									render={({ field }) => {
+										const { ref, ...rest } = field;
+
+										return (
+											<FormRow
+												label="Email"
+												id={`${formProps.name}_email`}
+												required={true}
+											>
+												<Input
+													type="email"
+													label="Email"
+													placeholder="Type Email"
+													required={true}
+													id={`${formProps.name}_email`}
+													{...rest}
+												/>
+											</FormRow>
+										);
+									}}
+								/>
+							</Section>
+						)}
+					</FormControlled>
 				)}
 			</div>
 			<ConfirmDialog
