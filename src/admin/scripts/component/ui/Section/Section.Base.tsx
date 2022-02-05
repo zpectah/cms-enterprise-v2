@@ -16,7 +16,7 @@ const Content = styled.div`
 	width: 100%;
 `;
 
-interface SectionBaseProps {
+export interface SectionBaseProps {
 	dataId?: string;
 	title?: string;
 	subtitle?: string;

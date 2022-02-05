@@ -3,13 +3,14 @@ import TextField, { TextFieldProps } from '@mui/material/TextField';
 
 import getTestDataAttr from '../../../utils/getTestDataAttr';
 
-interface TextInputProps {
+export interface DefaultInputBaseProps {
 	dataId?: string;
 }
+export type InputBaseProps = DefaultInputBaseProps & TextFieldProps;
 
-const TextInput = (props: TextInputProps & TextFieldProps) => {
+const InputBase = (props: InputBaseProps) => {
 	const {
-		dataId = 'button-base',
+		dataId = 'input-text',
 		...rest
 	} = props;
 
@@ -22,4 +23,4 @@ const TextInput = (props: TextInputProps & TextFieldProps) => {
 	);
 };
 
-export default TextInput;
+export default InputBase;

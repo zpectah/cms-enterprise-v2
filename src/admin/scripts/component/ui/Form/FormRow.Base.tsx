@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stack } from '@mui/material';
 
-interface FormRowBaseProps {
+export interface FormRowBaseProps {
 	required?: boolean;
 	label?: string;
 	direction?: 'column' | 'row';

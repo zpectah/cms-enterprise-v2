@@ -1,5 +1,2 @@
-import ScrollableBase from './Scrollable.Base';
-
-export default {
-	Default: ScrollableBase,
-};
+export { default as ScrollableBase } from './Scrollable.Base';
+export { default as Scrollable } from './Scrollable';

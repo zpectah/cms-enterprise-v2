@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { UsersItemProps } from '../../types/model';
-import { Dialog } from '../../component/ui';
+import { ConfirmDialog } from '../../component/ui';
 
 interface UsersListProps {
 	dataItems: UsersItemProps[];
@@ -52,7 +52,7 @@ const UsersList = (props: UsersListProps) => {
 	return (
 		<>
 			<div>...UsersList...{JSON.stringify(dataItems)}...</div>
-			<Dialog.Confirm
+			<ConfirmDialog
 				context="delete"
 				isOpen={confirmOpen}
 				confirmData={confirmData}

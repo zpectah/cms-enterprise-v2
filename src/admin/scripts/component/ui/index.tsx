@@ -1,7 +1,11 @@
-export { default as Dialog } from './Dialog';
-export { default as Button } from './Button';
-export { default as Scrollable } from './Scrollable';
-export { default as Section } from './Section';
-export { default as Chip } from './Chip';
-export { default as Form } from './Form';
-export { default as Input } from './Input';
+export * from './Dialog';
+export * from './Button';
+export * from './Scrollable';
+export * from './Section';
+export * from './Chip';
+export * from './Form';
+export * from './Input';
+export * from './Select';
+export * from './Checkbox';
+export * from './Radio';
+

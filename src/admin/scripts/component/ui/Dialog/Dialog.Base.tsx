@@ -10,7 +10,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import { DialogProps } from '@mui/material/Dialog';
 
-import Button from '../Button';
+import { PrimaryButton, IconButton } from '../Button';
 import getTestDataAttr from '../../../utils/getTestDataAttr';
 
 export interface DialogBaseProps {
@@ -62,7 +62,7 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 
 	const renderCloseIconButton = () => {
 		return (
-			<Button.Icon
+			<IconButton
 				aria-label="close"
 				onClick={onClose}
 				dataId={`${id}_icon-close`}
@@ -74,7 +74,7 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 				}}
 			>
 				<CloseIcon />
-			</Button.Icon>
+			</IconButton>
 		);
 	};
 
@@ -111,10 +111,10 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 				</DialogContent>
 				<DialogActions>
 					<Stack direction="row" spacing={2} alignItems={footerAlign}>
-						{showFooterClose && <Button.Primary
+						{showFooterClose && <PrimaryButton
 							onClick={handleClose}
 							dataId={`${id}_button-close`}
-						>Close</Button.Primary>}
+						>Close</PrimaryButton>}
 						{actions}
 					</Stack>
 				</DialogActions>

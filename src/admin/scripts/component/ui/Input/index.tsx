@@ -1,5 +1,2 @@
-import TextInput from './TextInput';
-
-export default {
-	Text: TextInput,
-};
+export { default as InputBase } from './Input.Base';
+export { default as Input } from './Input';

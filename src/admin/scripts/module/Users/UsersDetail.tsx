@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { UsersItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import getDetailData from '../../utils/getDetailData';
-import { Dialog } from '../../component/ui';
+import { ConfirmDialog } from '../../component/ui';
 import Preloader from '../../component/Preloader';
 import FormBuilder from '../../component/FormBuilder';
 
@@ -96,7 +96,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 					<Preloader.Block />
 				)}
 			</div>
-			<Dialog.Confirm
+			<ConfirmDialog
 				context="delete"
 				isOpen={confirmOpen}
 				confirmData={confirmData}

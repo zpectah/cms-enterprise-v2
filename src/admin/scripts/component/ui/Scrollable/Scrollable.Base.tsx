@@ -26,7 +26,7 @@ const WrapperContent = styled.div`
 	left: 0;
 `;
 
-interface ScrollableBaseProps {
+export interface ScrollableBaseProps {
 	dataId?: string;
 }
 

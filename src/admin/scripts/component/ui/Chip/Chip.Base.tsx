@@ -3,7 +3,7 @@ import Chip, { ChipProps } from '@mui/material/Chip';
 
 import getTestDataAttr from '../../../utils/getTestDataAttr';
 
-interface ChipBaseProps extends ChipProps {
+export interface ChipBaseProps extends ChipProps {
 	dataId?: string;
 }
 

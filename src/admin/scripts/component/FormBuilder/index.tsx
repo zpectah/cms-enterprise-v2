@@ -2,7 +2,12 @@ import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
 import { formMetaItemProps } from './types';
-import { Section, Form, Input } from '../ui';
+import {
+	Section,
+	Form,
+	FormRow,
+	Input,
+} from '../ui';
 
 export interface FormBuilderProps {
 	metaData: formMetaItemProps[];
@@ -55,7 +60,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 	return (
 		<>
 			<div>
-				<Form.Wrapper
+				<Form
 					name={formName}
 					onChange={handleSubmit(changeHandler)}
 					onSubmit={handleSubmit(submitHandler)}
@@ -63,7 +68,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 					noValidate
 					autoComplete="off"
 				>
-					<Section.Default>
+					<Section>
 						{metaData.map((field) => {
 							console.log('meta field', field);
 
@@ -82,7 +87,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 												ref,
 												name
 											} }) => (
-												<Form.Row
+												<FormRow
 													required={field.inputProps.required}
 													label={field.inputProps.label}
 													id={field.inputProps.id}
@@ -92,7 +97,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 														{
 															{
 																'text': (
-																	<Input.Text
+																	<Input
 																		type="text"
 																		id={field.inputProps.id}
 																		label={field.inputProps.label}
@@ -105,7 +110,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 																	/>
 																),
 																'email': (
-																	<Input.Text
+																	<Input
 																		type="email"
 																		id={field.inputProps.id}
 																		label={field.inputProps.label}
@@ -118,7 +123,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 																	/>
 																),
 																'number': (
-																	<Input.Text
+																	<Input
 																		type="number"
 																		id={field.inputProps.id}
 																		label={field.inputProps.label}
@@ -131,7 +136,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 																	/>
 																),
 																'datetime': (
-																	<Input.Text
+																	<Input
 																		type="datetime-local"
 																		id={field.inputProps.id}
 																		label={field.inputProps.label}
@@ -144,7 +149,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 																	/>
 																),
 																'password': (
-																	<Input.Text
+																	<Input
 																		type="password"
 																		id={field.inputProps.id}
 																		label={field.inputProps.label}
@@ -157,7 +162,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 																	/>
 																),
 																'textarea': (
-																	<Input.Text
+																	<Input
 																		id={field.inputProps.id}
 																		label={field.inputProps.label}
 																		placeholder={field.inputProps.placeholder}
@@ -173,7 +178,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 
 
 																'select': (
-																	<Input.Text
+																	<Input
 																		id={field.inputProps.id}
 																		label={field.inputProps.label}
 																		name={name}
@@ -185,7 +190,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 
 
 																'radio': (
-																	<Input.Text
+																	<Input
 																		id={field.inputProps.id}
 																		label={field.inputProps.label}
 																		name={name}
@@ -195,7 +200,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 																	/>
 																),
 																'checkbox': (
-																	<Input.Text
+																	<Input
 																		id={field.inputProps.id}
 																		label={field.inputProps.label}
 																		name={name}
@@ -205,7 +210,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 																	/>
 																),
 																'switch': (
-																	<Input.Text
+																	<Input
 																		id={field.inputProps.id}
 																		label={field.inputProps.label}
 																		name={name}
@@ -215,7 +220,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 																	/>
 																),
 																'toggle': (
-																	<Input.Text
+																	<Input
 																		id={field.inputProps.id}
 																		label={field.inputProps.label}
 																		name={name}
@@ -227,7 +232,7 @@ const FormBuilder = (props: FormBuilderProps) => {
 															}[field.type]
 														}
 													</>
-												</Form.Row>
+												</FormRow>
 											)}
 										/>
 									</div>
@@ -242,9 +247,9 @@ const FormBuilder = (props: FormBuilderProps) => {
 								);
 							}
 						})}
-					</Section.Default>
+					</Section>
 					{/* in case of sidebar => redefine columns !!! */}
-				</Form.Wrapper>
+				</Form>
 			</div>
 		</>
 	);

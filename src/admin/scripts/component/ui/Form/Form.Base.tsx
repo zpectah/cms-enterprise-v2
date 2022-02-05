@@ -2,11 +2,11 @@ import React from 'react';
 
 import getTestDataAttr from '../../../utils/getTestDataAttr';
 
-interface FormWrapperBaseProps extends React.HTMLProps<HTMLFormElement>, React.HTMLAttributes<HTMLFormElement> {
+export interface FormBaseProps extends React.HTMLProps<HTMLFormElement>, React.HTMLAttributes<HTMLFormElement> {
 	dataId?: string;
 }
 
-const FormWrapperBase: React.FC<FormWrapperBaseProps> = (props) => {
+const FormBase: React.FC<FormBaseProps> = (props) => {
 	const {
 		children,
 		dataId = 'form-wrapper',
@@ -23,4 +23,4 @@ const FormWrapperBase: React.FC<FormWrapperBaseProps> = (props) => {
 	);
 };
 
-export default FormWrapperBase;
+export default FormBase;

@@ -1,8 +1,4 @@
-import DialogBase from './Dialog.Base';
-import ConfirmDialog from './ConfirmDialog';
-
-export default {
-	Base: DialogBase,
-	Confirm: ConfirmDialog,
-};
+export { default as DialogBase } from './Dialog.Base';
+export { default as Dialog } from './Dialog';
+export { default as ConfirmDialog } from './ConfirmDialog';
 

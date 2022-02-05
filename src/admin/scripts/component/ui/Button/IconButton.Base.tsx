@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 import getTestDataAttr from '../../../utils/getTestDataAttr';
 
-interface IconButtonBaseProps extends IconButtonProps {
+export interface IconButtonBaseProps extends IconButtonProps {
 	dataId?: string;
 	loading?: boolean;
 }

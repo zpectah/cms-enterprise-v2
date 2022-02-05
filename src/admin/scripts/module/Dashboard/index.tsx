@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Dialog, Button } from '../../component/ui';
+import {
+	ConfirmDialog,
+	Button,
+	PrimaryButton,
+	SecondaryButton
+} from '../../component/ui';
 
 interface DashboardModuleProps {}
 
@@ -14,13 +19,13 @@ const DashboardModule = (props: DashboardModuleProps) => {
 		<>
 			<div>DashboardModule</div>
 			<div>
-				<Button.Default onClick={() => setConfirmOpen(true)}>{t('btn.open')}</Button.Default>
+				<Button onClick={() => setConfirmOpen(true)}>{t('btn.open')}</Button>
 			</div>
 			<div>
-				<Button.Primary>Primary</Button.Primary>
-				<Button.Secondary>Secondary</Button.Secondary>
+				<PrimaryButton>Primary</PrimaryButton>
+				<SecondaryButton>Secondary</SecondaryButton>
 			</div>
-			<Dialog.Confirm
+			<ConfirmDialog
 				confirmData={[]}
 				onConfirm={() => { console.log('trigger the confirm event') }}
 				onClose={() => {
