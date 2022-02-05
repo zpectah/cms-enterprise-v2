@@ -1,7 +1,8 @@
 import React from 'react';
-import Stack from '@mui/material/Stack';
+import { Stack, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 
+import palette from '../../../styles/palette';
 import { HEADER_HEIGHT } from '../../../styles/variables';
 import SidebarToggle from '../../SidebarToggle';
 import UserDrawer from '../../UserDrawer';
@@ -18,7 +19,8 @@ const Wrapper = styled('header')`
 	top: 0;
 	left: 0;
 
-	background-color: rgba(200, 200, 200, 0.25);
+	color: ${palette.light};
+	background-color: ${palette.veryPeri};
 `;
 const StyledStack = styled(Stack)`
 	width: 100%;
@@ -33,7 +35,9 @@ const Block = styled('div')`
 	justify-content: center;
 `;
 const PrimaryBlock = styled(Block)``;
-const BrandBlock = styled(Block)``;
+const BrandBlock = styled(Block)`
+	flex-direction: column;
+`;
 const SecondaryBlock = styled(Block)``;
 
 const Header = (props: HeaderProps) => {
@@ -43,7 +47,7 @@ const Header = (props: HeaderProps) => {
 		<>
 			<Wrapper>
 				<StyledStack
-					spacing={2}
+					spacing={1}
 					direction="row"
 					justifyContent="space-between"
 					alignItems="center"
@@ -51,7 +55,10 @@ const Header = (props: HeaderProps) => {
 					<PrimaryBlock>
 						<SidebarToggle />
 					</PrimaryBlock>
-					<BrandBlock>Logo</BrandBlock>
+					<BrandBlock>
+						<Typography variant="h5">CMS name</Typography>
+						<small>project name</small>
+					</BrandBlock>
 					<SecondaryBlock>
 						<UserDrawer />
 					</SecondaryBlock>

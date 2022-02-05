@@ -30,6 +30,7 @@ const UserDrawer = (props: UserDrawerProps) => {
 	return (
 		<>
 			<IconButton
+				color="inherit"
 				onClick={toggleHandler}
 			>
 				<AccountCircleIcon />

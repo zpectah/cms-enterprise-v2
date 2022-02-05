@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate, useMatch, useResolvedPath } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GroupIcon from '@mui/icons-material/Group';
@@ -18,10 +18,12 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import LanguageIcon from '@mui/icons-material/Language';
 
-interface NavbarProps {}
+interface NavbarProps {
+	onSidebarClose: () => void;
+}
 
 const Navbar = (props: NavbarProps) => {
-	const {} = props;
+	const { onSidebarClose } = props;
 	const navigate = useNavigate();
 
 	const navItems = [
@@ -113,6 +115,7 @@ const Navbar = (props: NavbarProps) => {
 
 	const clickHandler = (path: string) => {
 		navigate(path);
+		if (isMobile) onSidebarClose();
 	};
 
 	return (
