@@ -9,6 +9,7 @@ import {
 	SIDEBAR_DESKTOP_WIDTH,
 } from '../../../styles/variables';
 import media from '../../../styles/responsive';
+import { Scrollable } from '../../ui';
 import Navbar from '../Navbar';
 
 interface SidebarProps {}
@@ -40,13 +41,11 @@ const Sidebar = (props: SidebarProps) => {
 	const { sidebarOpen } = useSelector((store: appStoreProps) => store);
 
 	return (
-		<>
-			<Wrapper isOpen={sidebarOpen}>
-				<>
-					<Navbar />
-				</>
-			</Wrapper>
-		</>
+		<Wrapper isOpen={sidebarOpen}>
+			<Scrollable>
+				<Navbar />
+			</Scrollable>
+		</Wrapper>
 	);
 };
 

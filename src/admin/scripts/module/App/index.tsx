@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
+import ErrorPage from '../../page/ErrorPage';
 import DashboardPage from '../../page/DashboardPage';
 import UsersPage from '../../page/UsersPage';
 
@@ -15,6 +16,7 @@ const AppModule = (props: AppModuleProps) => {
 				<Route path="users/*" element={<UsersPage />} />
 
 				<Route index element={<DashboardPage />} />
+				<Route path="*" element={<ErrorPage errorCode={404} />} />
 			</Routes>
 		</>
 	);

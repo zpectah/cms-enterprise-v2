@@ -6,6 +6,6 @@ header("Content-Type: multipart/form-data");
 const PATH_ROOT = '../';
 require PATH_ROOT . 'core/index.php';
 
-$api = new \core\service\ApiService;
+$api = new \core\provider\ApiProvider;
 
 print_r( json_encode( $api -> get_response(), JSON_NUMERIC_CHECK | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) );

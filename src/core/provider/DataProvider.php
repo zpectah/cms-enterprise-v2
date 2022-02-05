@@ -1,12 +1,75 @@
 <?php
 
-namespace core\service;
+namespace core\provider;
 
 use core\model\Users;
 use mysqli;
 
-class DataService {
+class DataProvider {
 
+    /**
+     * Categories
+     **/
+
+
+    /**
+     * CmsRequests
+     **/
+
+
+    /**
+     * Comments
+     **/
+
+
+    /**
+     * Members
+     **/
+
+
+    /**
+     * Menu
+     **/
+
+
+    /**
+     * MenuItems
+     **/
+
+
+    /**
+     * Pages
+     **/
+
+
+    /**
+     * Posts
+     **/
+
+
+    /**
+     * PostsOptions
+     **/
+
+
+    /**
+     * Tags
+     **/
+
+
+    /**
+     * Translations
+     **/
+
+
+    /**
+     * Uploads
+     **/
+
+
+    /**
+     * Users
+     **/
     public function get_users ($params = []): array {
         $conn = new mysqli(...CFG_DB_CONN);
         $users = new Users;
@@ -53,7 +116,9 @@ class DataService {
     }
 
 
-
+    /**
+     * System ...
+     **/
 
 
 

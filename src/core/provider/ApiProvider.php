@@ -1,8 +1,8 @@
 <?php
 
-namespace core\service;
+namespace core\provider;
 
-class ApiService {
+class ApiProvider {
 
     private function is_user_authorized (): bool {
         $authorized = true;
@@ -19,39 +19,113 @@ class ApiService {
             'status' => 'error',
             'message' => MESSAGES['API']['WRONG_REQUEST'],
         ];
-        $ds = new DataService;
+        $dp = new DataProvider;
+
+        $msg_success = MESSAGES['API']['SUCCESS'];
+        $msg_noData = MESSAGES['API']['NO_DATA'];
+        $msg_noCreated = MESSAGES['API']['NO_CREATED'];
+        $msg_noUpdated = MESSAGES['API']['NO_UPDATED'];
 
         switch ($path) {
 
+            /**
+             * Categories
+             **/
+
+
+            /**
+             * CmsRequests
+             **/
+
+
+            /**
+             * Comments
+             **/
+
+
+            /**
+             * Members
+             **/
+
+
+            /**
+             * Menu
+             **/
+
+
+            /**
+             * MenuItems
+             **/
+
+
+            /**
+             * Pages
+             **/
+
+
+            /**
+             * Posts
+             **/
+
+
+            /**
+             * PostsOptions
+             **/
+
+
+            /**
+             * Tags
+             **/
+
+
+            /**
+             * Translations
+             **/
+
+
+            /**
+             * Uploads
+             **/
+
+
+            /**
+             * Users
+             **/
             case 'get_users':
-                $response['data'] = $ds -> get_users($params);
+                $response['data'] = $dp -> get_users($params);
                 $response['status'] = 'ok';
-                $response['message'] = $response['data'] ? MESSAGES['API']['SUCCESS'] : MESSAGES['API']['NO_DATA'];
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
                 break;
 
             case 'create_users':
-                $response['data'] = $ds -> create_users($data);
+                $response['data'] = $dp -> create_users($data);
                 $response['status'] = 'ok';
-                $response['message'] = $response['data']['id'] ? MESSAGES['API']['SUCCESS'] : MESSAGES['API']['NO_CREATED'];
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
                 break;
 
             case 'update_users':
-                $response['data'] = $ds -> update_users($data);
+                $response['data'] = $dp -> update_users($data);
                 $response['status'] = 'ok';
-                $response['message'] = $response['data']['rows'] ? MESSAGES['API']['SUCCESS'] : MESSAGES['API']['NO_UPDATED'];
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
                 break;
 
             case 'toggle_users':
-                $response['data'] = $ds -> toggle_users($data);
+                $response['data'] = $dp -> toggle_users($data);
                 $response['status'] = 'ok';
-                $response['message'] = $response['data'] ? MESSAGES['API']['SUCCESS'] : MESSAGES['API']['NO_UPDATED'];
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
                 break;
 
             case 'delete_users':
-                $response['data'] = $ds -> delete_users($data);
+                $response['data'] = $dp -> delete_users($data);
                 $response['status'] = 'ok';
-                $response['message'] = $response['data'] ? MESSAGES['API']['SUCCESS'] : MESSAGES['API']['NO_UPDATED'];
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
                 break;
+
+
+            /**
+             * System ...
+             **/
+
 
         }
 

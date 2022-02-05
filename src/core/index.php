@@ -21,11 +21,12 @@ require PATH_ROOT . 'core/model/Translations.php';
 require PATH_ROOT . 'core/model/Uploads.php';
 require PATH_ROOT . 'core/model/Users.php';
 
-require PATH_ROOT . 'core/service/ApiService.php';
 require PATH_ROOT . 'core/service/AuthService.php';
-require PATH_ROOT . 'core/service/DataService.php';
 require PATH_ROOT . 'core/service/EmailService.php';
 require PATH_ROOT . 'core/service/LogService.php';
+
+require PATH_ROOT . 'core/provider/ApiProvider.php';
+require PATH_ROOT . 'core/provider/DataProvider.php';
 
 require PATH_ROOT . 'core/module/admin/Dashboard.php';
 require PATH_ROOT . 'core/module/admin/Profile.php';

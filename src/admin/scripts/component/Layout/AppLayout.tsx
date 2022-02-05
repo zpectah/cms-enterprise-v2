@@ -43,6 +43,10 @@ const StyledContainer = styled(Container)`
 	display: flex;
 	flex-direction: column;
 `;
+const StyledLayoutContent = styled(LayoutContent)`
+	align-items: flex-start;
+	justify-content: flex-start;	
+`;
 
 const AppLayout: React.FC<AppLayoutProps> = (props) => {
 	const { children, meta, containerMaxWidth = 'lg', withFooter = true } = props;
@@ -56,7 +60,7 @@ const AppLayout: React.FC<AppLayoutProps> = (props) => {
 			<LayoutWrapper>
 				<WrapperInner isOpen={sidebarOpen}>
 					<StyledContainer maxWidth={containerMaxWidth}>
-						<LayoutContent>{children}</LayoutContent>
+						<StyledLayoutContent>{children}</StyledLayoutContent>
 						{withFooter && <Footer />}
 					</StyledContainer>
 				</WrapperInner>
