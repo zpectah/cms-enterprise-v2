@@ -12,6 +12,7 @@ export interface IconButtonBaseProps extends IconButtonProps {
 
 const ButtonLabel = styled.span<{ isLoading: boolean }>`
 	opacity: ${(props) => (props.isLoading ? '.125' : '1')};
+	display: flex;
 `;
 const StyledProgress = styled(CircularProgress)`
 	position: absolute;

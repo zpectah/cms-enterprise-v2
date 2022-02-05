@@ -31,7 +31,7 @@ const DashboardModule = (props: DashboardModuleProps) => {
 				onClose={() => {
 					setConfirmOpen(false);
 				}}
-				isOpen={confirmOpen}
+				open={confirmOpen}
 			/>
 		</>
 	);

@@ -4,8 +4,7 @@ import styled from '@emotion/styled';
 
 import { HEADER_HEIGHT } from '../../../styles/variables';
 import SidebarToggle from '../../SidebarToggle';
-import ThemeToggle from '../../ThemeToggle';
-import LanguageToggle from '../../LanguageToggle';
+import UserDrawer from '../../UserDrawer';
 
 interface HeaderProps {}
 
@@ -54,9 +53,7 @@ const Header = (props: HeaderProps) => {
 					</PrimaryBlock>
 					<BrandBlock>Logo</BrandBlock>
 					<SecondaryBlock>
-						<LanguageToggle />
-						<ThemeToggle />
-						User
+						<UserDrawer />
 					</SecondaryBlock>
 				</StyledStack>
 			</Wrapper>

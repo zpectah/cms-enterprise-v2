@@ -25,14 +25,14 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
 		context = 'default',
 		confirmData,
 		onConfirm,
-		isOpen,
+		open = false,
 		onClose,
 		...rest
 	} = props;
-	const [open, setOpen] = useState<boolean>(isOpen);
+	const [isOpen, setIsOpen] = useState<boolean>(open);
 
 	const handleClose = () => {
-		setOpen(false);
+		setIsOpen(false);
 		onClose();
 	};
 	const handleConfirm = () => {
@@ -40,13 +40,13 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
 		handleClose();
 	};
 
-	useEffect(() => setOpen(isOpen), [isOpen]);
+	useEffect(() => setIsOpen(open), [open]);
 
 	return (
 		<DialogBase
 			TransitionComponent={Transition}
 			onClose={onClose}
-			isOpen={open}
+			open={isOpen}
 			maxWidth="sm"
 			showBodyClose
 			id={`confirm-dialog_${context}`}

@@ -54,7 +54,7 @@ const UsersList = (props: UsersListProps) => {
 			<div>...UsersList...{JSON.stringify(dataItems)}...</div>
 			<ConfirmDialog
 				context="delete"
-				isOpen={confirmOpen}
+				open={confirmOpen}
 				confirmData={confirmData}
 				onConfirm={deleteConfirmHandler}
 				onClose={closeConfirmHandler}

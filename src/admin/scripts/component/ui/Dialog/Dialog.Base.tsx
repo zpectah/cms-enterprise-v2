@@ -7,15 +7,16 @@ import {
 	DialogContentText,
 	DialogTitle,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 import { DialogProps } from '@mui/material/Dialog';
 
-import { PrimaryButton, IconButton } from '../Button';
+import {
+	PrimaryButton,
+	IconButtonClose,
+} from '../Button';
 import getTestDataAttr from '../../../utils/getTestDataAttr';
 
-export interface DialogBaseProps {
+export interface DialogBaseProps extends DialogProps {
 	dataId?: string;
-	isOpen: boolean;
 	onClose: () => void;
 	id?: string;
 	title?: string;
@@ -25,11 +26,6 @@ export interface DialogBaseProps {
 	showHeaderClose?: boolean;
 	showBodyClose?: boolean;
 	footerAlign?: 'space-between' | 'center' | 'space-evenly';
-	scroll?: DialogProps['scroll'];
-	maxWidth?: DialogProps['maxWidth'];
-	fullWidth?: boolean;
-	fullScreen?: boolean;
-	TransitionComponent?: DialogProps['TransitionComponent'];
 	keepMounted?: boolean;
 }
 
@@ -37,7 +33,7 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 	const {
 		children,
 		dataId = 'dialog-base',
-		isOpen,
+		open = false,
 		onClose,
 		id = 'dialog-base',
 		title,
@@ -53,16 +49,17 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 		fullScreen,
 		...rest
 	} = props;
-	const [open, setOpen] = useState<boolean>(isOpen);
+
+	const [ isOpen, setIsOpen ] = useState<boolean>(open);
 
 	const handleClose = () => {
-		setOpen(false);
+		setIsOpen(false);
 		if (onClose) onClose();
 	};
 
 	const renderCloseIconButton = () => {
 		return (
-			<IconButton
+			<IconButtonClose
 				aria-label="close"
 				onClick={onClose}
 				dataId={`${id}_icon-close`}
@@ -72,17 +69,15 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 					top: 8,
 					color: (theme) => theme.palette.grey[500],
 				}}
-			>
-				<CloseIcon />
-			</IconButton>
+			/>
 		);
 	};
 
-	useEffect(() => setOpen(isOpen), [isOpen]);
+	useEffect(() => setIsOpen(open), [open]);
 
 	return (
 		<Dialog
-			open={open}
+			open={isOpen}
 			onClose={handleClose}
 			aria-labelledby={`${id}_title`}
 			aria-describedby={`${id}_description`}
