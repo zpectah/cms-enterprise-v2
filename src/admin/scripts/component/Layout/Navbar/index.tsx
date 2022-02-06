@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useMatch, useResolvedPath } from 'react-router-dom';
+import { useNavigate, useMatch, useResolvedPath, useLocation } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,6 +17,7 @@ import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import LanguageIcon from '@mui/icons-material/Language';
+import { SvgIconProps } from '@mui/material';
 
 interface NavbarProps {
 	onSidebarClose: () => void;
@@ -25,90 +26,95 @@ interface NavbarProps {
 const Navbar = (props: NavbarProps) => {
 	const { onSidebarClose } = props;
 	const navigate = useNavigate();
+	// const location = useLocation();
 
+	const root = '/admin/app';
+	const iconProps: SvgIconProps = {
+		fontSize: 'small'
+	};
 	const navItems = [
 		{
 			key: 0,
-			path: '/admin/app',
+			path: root,
 			label: 'Dashboard',
-			icon: (<HomeIcon fontSize="small" />),
-			active: true,
-		},
-		{
-			key: 11,
-			path: '/admin/app/settings',
-			label: 'Settings',
-			icon: (<SettingsIcon fontSize="small" />),
+			icon: (<HomeIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 1,
-			path: '/admin/app/users',
-			label: 'Users',
-			icon: (<GroupIcon fontSize="small" />),
+			path: `${root}/settings`,
+			label: 'Settings',
+			icon: (<SettingsIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 2,
-			path: '/admin/app/categories',
-			label: 'Categories',
-			icon: (<CategoryIcon fontSize="small" />),
+			path: `${root}/users`,
+			label: 'Users',
+			icon: (<GroupIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 3,
-			path: '/admin/app/members',
-			label: 'Members',
-			icon: (<SupervisedUserCircleIcon fontSize="small" />),
+			path: `${root}/pages`,
+			label: 'Pages',
+			icon: (<AutoStoriesIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 4,
-			path: '/admin/app/menu',
-			label: 'Menu',
-			icon: (<MenuIcon fontSize="small" />),
+			path: `${root}/posts`,
+			label: 'Posts',
+			icon: (<AutoAwesomeMotionIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 5,
-			path: '/admin/app/pages',
-			label: 'Pages',
-			icon: (<AutoStoriesIcon fontSize="small" />),
+			path: `${root}/translations`,
+			label: 'Translations',
+			icon: (<LanguageIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 6,
-			path: '/admin/app/posts',
-			label: 'Posts',
-			icon: (<AutoAwesomeMotionIcon fontSize="small" />),
+			path: `${root}/categories`,
+			label: 'Categories',
+			icon: (<CategoryIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 7,
-			path: '/admin/app/posts-options',
-			label: 'Posts options',
-			icon: (<AnalyticsIcon fontSize="small" />),
+			path: `${root}/tags`,
+			label: 'Tags',
+			icon: (<BookmarkIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 8,
-			path: '/admin/app/tags',
-			label: 'Tags',
-			icon: (<BookmarkIcon fontSize="small" />),
+			path: `${root}/uploads`,
+			label: 'Uploads',
+			icon: (<CloudUploadIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 9,
-			path: '/admin/app/translations',
-			label: 'Translations',
-			icon: (<LanguageIcon fontSize="small" />),
+			path: `${root}/menu`,
+			label: 'Menu',
+			icon: (<MenuIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 10,
-			path: '/admin/app/uploads',
-			label: 'Uploads',
-			icon: (<CloudUploadIcon fontSize="small" />),
+			path: `${root}/posts-options`,
+			label: 'Posts options',
+			icon: (<AnalyticsIcon {...iconProps} />),
+			active: true,
+		},
+		{
+			key: 11,
+			path: `${root}/members`,
+			label: 'Members',
+			icon: (<SupervisedUserCircleIcon {...iconProps} />),
 			active: true,
 		},
 	];
@@ -125,6 +131,7 @@ const Navbar = (props: NavbarProps) => {
 			}}
 		>
 			{navItems.map((item) => {
+				// const parsedPath = location.pathname.split('/');
 				const {
 					key,
 					path,
@@ -141,8 +148,8 @@ const Navbar = (props: NavbarProps) => {
 						onClick={() => clickHandler(path)}
 						className={[ selected && 'Mui-selected' ].join(',')}
 						sx={{
-							paddingTop: 1.25,
-							paddingBottom: 1.25,
+							paddingTop: 1.35,
+							paddingBottom: 1.35,
 						}}
 						divider
 					>

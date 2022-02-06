@@ -1,62 +1,58 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { default as MuiBreadcrumbs } from '@mui/material/Breadcrumbs';
 import { Box, Typography } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import config from '../../../config';
 
-interface BreadcrumbsProps {}
+const Breadcrumbs = () => {
+	const location = useLocation();
+	const getBreadcrumbs = useCallback(() => {
+		const parsedPath = location.pathname.split('/');
+		const fields = [
+			{
+				key: 0,
+				label: config.project.meta.name,
+			},
+		];
 
-const Breadcrumbs = (props: BreadcrumbsProps) => {
-	const {} = props;
-	const params = useParams();
-
-	console.log('params', params);
-
-	const breadcrumbItems = [
-		{
-			key: 0,
-			label: 'lang',
-			active: true,
-		},
-		{
+		// App
+		if (parsedPath[2]) fields.push({
 			key: 1,
-			label: config.project.meta.name,
-			active: true,
-		},
-		{
+			label: parsedPath[2],
+		});
+
+		// Page
+		if (parsedPath[3]) fields.push({
 			key: 2,
-			label: 'app',
-			active: true,
-		},
-		{
-			key: 3,
-			label: 'page',
-			active: true,
-		},
-		{
-			key: 4,
-			label: 'detail or panel',
-			active: params.id || params.panel,
-		},
-		{
-			key: 5,
-			label: 'id',
-			active: params.id,
+			label: parsedPath[3],
+		});
+
+		// Panel or Detail
+		if (parsedPath[4] && parsedPath[5]) {
+			fields.push({
+				key: 3,
+				label: parsedPath[4],
+			});
+			fields.push({
+				key: 4,
+				label: `#${parsedPath[5]}`,
+			});
 		}
-	];
+
+		return fields;
+	},[ location ]);
 
 	return (
 		<Box sx={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
 			<MuiBreadcrumbs sx={{ fontSize: '.75rem' }}>
-				{breadcrumbItems.map((item) => {
+				{getBreadcrumbs().map((item) => {
 					const {
 						key,
 						label,
-						active,
 					} = item;
 
-					if (active) return (
+					 return (
 						<Typography
 							key={key}
 							variant="caption"
