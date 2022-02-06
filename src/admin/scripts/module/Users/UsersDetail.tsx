@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import _ from 'lodash';
 import { useForm, Controller } from 'react-hook-form';
 
+import { EMAIL_REGEX } from '../../constants';
 import { UsersItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import getDetailData from '../../utils/getDetailData';
@@ -12,10 +13,10 @@ import {
 	ConfirmDialog,
 	DetailFormLayout,
 	Section,
-	FormRow,
 	Input,
 	SwitchControlled,
 	BlockPreloader,
+	ControlledFormRow,
 } from '../../component/ui';
 
 interface UsersDetailProps {
@@ -36,7 +37,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 	const [ detailData, setDetailData ] = useState<UsersItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
-	const [ formErrors, setFormErrors ] = useState({});
 
 	const {
 		control,
@@ -75,17 +75,11 @@ const UsersDetail = (props: UsersDetailProps) => {
 		setConfirmData([]);
 	};
 
-	const handleFormErrors = () => {
-		// TODO ... some handler ...
-		console.log('handle form errors', errors, isDirty, isValid);
-	};
-
 	const formMetaProps = {
 		name: 'UsersDetailForm',
 		onSubmit: handleSubmit(submitHandler),
 	};
 
-	useEffect(handleFormErrors, [ errors, isDirty, isValid ]);
 	useEffect(() => setDetailData(getDetailData('Users', dataItems, params.id)), [ dataItems, params ]);
 
 	return (
@@ -104,26 +98,25 @@ const UsersDetail = (props: UsersDetailProps) => {
 					sidebarNode={
 						<>
 
-							<Controller
+							<ControlledFormRow
 								name="active"
 								control={control}
 								rules={{}}
 								defaultValue={detailData.active}
+								rowProps={{
+									label: 'Active',
+									id: `${formMetaProps.name}_active`,
+								}}
 								render={({ field }) => {
 									const { ref, value, ...rest } = field;
 
 									return (
-										<FormRow
-											label="Active"
+										<SwitchControlled
 											id={`${formMetaProps.name}_active`}
-										>
-											<SwitchControlled
-												id={`${formMetaProps.name}_active`}
-												label="Active"
-												checked={value}
-												{...rest}
-											/>
-										</FormRow>
+											label="Active"
+											checked={value}
+											{...rest}
+										/>
 									);
 								}}
 							/>
@@ -145,55 +138,57 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 						<Section>
 
-							<Controller
+							<ControlledFormRow
 								name="type"
 								control={control}
 								rules={{ required: true }}
 								defaultValue={detailData.type}
-								render={({ field }) => {
+								rowProps={{
+									label: 'Type',
+									id: `${formMetaProps.name}_type`,
+									required: true,
+								}}
+								render={({ field, fieldState }) => {
 									const { ref, ...rest } = field;
+									const { error } = fieldState;
 
 									return (
-										<FormRow
+										<Input
 											label="Type"
+											placeholder="Select Type"
 											id={`${formMetaProps.name}_type`}
-											required={true}
-										>
-											<Input
-												label="Type"
-												placeholder="Select Type"
-												required={true}
-												id={`${formMetaProps.name}_type`}
-												{...rest}
-											/>
-										</FormRow>
+											error={!!error}
+											required
+											{...rest}
+										/>
 									);
 								}}
 							/>
 
-							<Controller
+							<ControlledFormRow
 								name="email"
 								control={control}
-								rules={{ required: true }}
+								rules={{ pattern: EMAIL_REGEX, required: true }}
 								defaultValue={detailData.email}
-								render={({ field }) => {
+								rowProps={{
+									label: 'Email',
+									id: `${formMetaProps.name}_email`,
+									required: true,
+								}}
+								render={({ field, fieldState }) => {
 									const { ref, ...rest } = field;
+									const { error } = fieldState;
 
 									return (
-										<FormRow
+										<Input
+											type="email"
 											label="Email"
+											placeholder="Type Email"
 											id={`${formMetaProps.name}_email`}
-											required={true}
-										>
-											<Input
-												type="email"
-												label="Email"
-												placeholder="Type Email"
-												required={true}
-												id={`${formMetaProps.name}_email`}
-												{...rest}
-											/>
-										</FormRow>
+											error={!!error}
+											required
+											{...rest}
+										/>
 									);
 								}}
 							/>
