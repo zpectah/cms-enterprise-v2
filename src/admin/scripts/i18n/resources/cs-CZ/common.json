@@ -1,5 +1,10 @@
 {
   "btn": {
-    "open": "Otevřít"
+    "open": "Otevřít",
+    "ok": "OK",
+    "submit": "Odeslat",
+    "delete": "Smazat",
+    "create": "Vytvořit",
+    "update": "Aktualizovat"
   }
 }

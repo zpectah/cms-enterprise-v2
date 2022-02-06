@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Stack, Typography } from '@mui/material';
-import styled from '@emotion/styled';
+import { styled, Stack } from '@mui/material';
 
 import config from '../../../config';
 import palette from '../../../styles/palette';
@@ -40,6 +39,17 @@ const PrimaryBlock = styled(Block)``;
 const BrandBlock = styled(Block)`
 	flex-direction: column;
 	cursor: pointer;
+	
+	& span{
+		display: block;
+		font-size: .9rem;
+		font-weight: 700;
+	}
+	& small{
+		display: block;
+		font-size: .7rem;
+		opacity: .75;
+	}
 `;
 const SecondaryBlock = styled(Block)``;
 
@@ -60,7 +70,7 @@ const Header = (props: HeaderProps) => {
 						<SidebarToggle />
 					</PrimaryBlock>
 					<BrandBlock onClick={() => navigate('/admin/app/')}>
-						<Typography variant="h5">{config.project.meta.name}</Typography>
+						<span>{config.project.meta.name}</span>
 						<small>{config.project.web.meta.title}</small>
 					</BrandBlock>
 					<SecondaryBlock>

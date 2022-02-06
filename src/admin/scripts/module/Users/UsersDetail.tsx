@@ -7,13 +7,15 @@ import { UsersItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import getDetailData from '../../utils/getDetailData';
 import {
-	PrimaryButton,
+	SubmitButton,
+	DeleteButton,
 	ConfirmDialog,
-	Form,
+	DetailFormLayout,
 	Section,
 	FormRow,
 	Input,
 	SwitchControlled,
+	BlockPreloader,
 } from '../../component/ui';
 
 interface UsersDetailProps {
@@ -34,13 +36,18 @@ const UsersDetail = (props: UsersDetailProps) => {
 	const [ detailData, setDetailData ] = useState<UsersItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
+	const [ formErrors, setFormErrors ] = useState({});
 
 	const {
 		control,
 		register,
 		handleSubmit,
 		watch,
-		formState,
+		formState: {
+			isDirty,
+			isValid,
+			errors,
+		},
 	} = useForm({
 		mode: 'all',
 		defaultValues: detailData,
@@ -68,70 +75,34 @@ const UsersDetail = (props: UsersDetailProps) => {
 		setConfirmData([]);
 	};
 
-	const formProps = {
+	const handleFormErrors = () => {
+		// TODO ... some handler ...
+		console.log('handle form errors', errors, isDirty, isValid);
+	};
+
+	const formMetaProps = {
 		name: 'UsersDetailForm',
 		onSubmit: handleSubmit(submitHandler),
 	};
 
+	useEffect(handleFormErrors, [ errors, isDirty, isValid ]);
 	useEffect(() => setDetailData(getDetailData('Users', dataItems, params.id)), [ dataItems, params ]);
 
 	return (
 		<>
-			{detailData && (
-				<Form {...formProps}>
-					<>
-						<Section>
-							<Controller
-								name="type"
-								control={control}
-								rules={{ required: true }}
-								defaultValue={detailData.type}
-								render={({ field }) => {
-									const { ref, ...rest } = field;
-
-									return (
-										<FormRow
-											label="Type"
-											id={`${formProps.name}_type`}
-											required={true}
-										>
-											<Input
-												label="Type"
-												placeholder="Select Type"
-												required={true}
-												id={`${formProps.name}_type`}
-												{...rest}
-											/>
-										</FormRow>
-									);
-								}}
+			{detailData ? (
+				<DetailFormLayout
+					{...formMetaProps}
+					actionsNode={
+						<>
+							<SubmitButton disabled={(isDirty && !isValid)} />
+							<DeleteButton
+								onClick={() => deleteHandler(detailData.id)}
 							/>
-							<Controller
-								name="email"
-								control={control}
-								rules={{ required: true }}
-								defaultValue={detailData.email}
-								render={({ field }) => {
-									const { ref, ...rest } = field;
-
-									return (
-										<FormRow
-											label="Email"
-											id={`${formProps.name}_email`}
-											required={true}
-										>
-											<Input
-												type="email"
-												label="Email"
-												placeholder="Type Email"
-												required={true}
-												id={`${formProps.name}_email`}
-												{...rest}
-											/>
-										</FormRow>
-									);
-								}}
-							/>
+						</>
+					}
+					sidebarNode={
+						<>
 
 							<Controller
 								name="active"
@@ -144,10 +115,10 @@ const UsersDetail = (props: UsersDetailProps) => {
 									return (
 										<FormRow
 											label="Active"
-											id={`${formProps.name}_active`}
+											id={`${formMetaProps.name}_active`}
 										>
 											<SwitchControlled
-												id={`${formProps.name}_active`}
+												id={`${formMetaProps.name}_active`}
 												label="Active"
 												checked={value}
 												{...rest}
@@ -156,23 +127,85 @@ const UsersDetail = (props: UsersDetailProps) => {
 									);
 								}}
 							/>
-						</Section>
+
+						</>
+					}
+					addonsNode={
+						<>
+							<pre>
+								<code>
+									{JSON.stringify(detailData, null, 2)}
+								</code>
+							</pre>
+						</>
+					}
+				>
+					{/* ==================== FORM CONTENT ==================== */}
+					<div>
+
 						<Section>
-							<PrimaryButton
-								type="submit"
-							>
-								Submit
-							</PrimaryButton>
+
+							<Controller
+								name="type"
+								control={control}
+								rules={{ required: true }}
+								defaultValue={detailData.type}
+								render={({ field }) => {
+									const { ref, ...rest } = field;
+
+									return (
+										<FormRow
+											label="Type"
+											id={`${formMetaProps.name}_type`}
+											required={true}
+										>
+											<Input
+												label="Type"
+												placeholder="Select Type"
+												required={true}
+												id={`${formMetaProps.name}_type`}
+												{...rest}
+											/>
+										</FormRow>
+									);
+								}}
+							/>
+
+							<Controller
+								name="email"
+								control={control}
+								rules={{ required: true }}
+								defaultValue={detailData.email}
+								render={({ field }) => {
+									const { ref, ...rest } = field;
+
+									return (
+										<FormRow
+											label="Email"
+											id={`${formMetaProps.name}_email`}
+											required={true}
+										>
+											<Input
+												type="email"
+												label="Email"
+												placeholder="Type Email"
+												required={true}
+												id={`${formMetaProps.name}_email`}
+												{...rest}
+											/>
+										</FormRow>
+									);
+								}}
+							/>
+
 						</Section>
-					</>
-				</Form>
+
+					</div>
+					{/* ==================== \ FORM CONTENT ==================== */}
+				</DetailFormLayout>
+			) : (
+				<BlockPreloader />
 			)}
-			<br />
-			<pre>
-				<code>
-					{JSON.stringify(detailData, null, 2)}
-				</code>
-			</pre>
 			<ConfirmDialog
 				context="delete"
 				open={confirmOpen}

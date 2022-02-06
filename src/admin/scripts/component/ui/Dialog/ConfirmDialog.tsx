@@ -78,8 +78,8 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
 					alignItems="center"
 					justifyContent="center"
 				>
-					<PrimaryButton onClick={handleConfirm}>Confirm</PrimaryButton>
-					<SecondaryButton onClick={handleClose}>Cancel</SecondaryButton>
+					<PrimaryButton onClick={handleConfirm} size="large">Confirm</PrimaryButton>
+					<SecondaryButton onClick={handleClose} size="large">Cancel</SecondaryButton>
 				</Stack>
 			</Stack>
 		</Dialog>
