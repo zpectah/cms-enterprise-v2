@@ -10,6 +10,7 @@ const SwitchBase = (props: SwitchBaseProps) => {
 
 	return (
 		<Switch
+			size="small"
 			{...rest}
 		/>
 	);

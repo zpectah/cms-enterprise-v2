@@ -1,6 +1,5 @@
 import React from 'react';
-import { Stack } from '@mui/material';
-import { styled } from '@mui/material';
+import { styled, Stack, Box, Paper } from '@mui/material';
 
 import Form, { FormProps } from './Form';
 
@@ -10,14 +9,26 @@ interface DetailFormLayoutProps extends FormProps {
 	addonsNode?: React.ReactNode;
 }
 
-const FormOuter = styled('div')``;
+const FormOuter = styled('div')`
+	width: 100%;
+`;
 const FormInner = styled('div')``;
 const FormBody = styled('div')`
 	display: flex;
 	flex-direction: row;
 `;
-const FormContent = styled('div')``;
-const FormSidebar = styled('div')``;
+const FormContent = styled('div')(({ theme }) => ({
+	display: 'flex',
+	flexGrow: 1,
+	flexFlow: 'column',
+	// padding: theme.spacing(2),
+}));
+const FormSidebar = styled(Paper)(({ theme }) => ({
+	width: '250px',
+	marginLeft: theme.spacing(3),
+	padding: theme.spacing(3),
+	// color: theme.palette.text.secondary,
+}));
 const FormActions = styled('div')``;
 const FormAddons = styled('div')``;
 

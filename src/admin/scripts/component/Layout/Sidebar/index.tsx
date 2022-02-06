@@ -30,6 +30,7 @@ const Wrapper = styled('aside')`
 
 	background-color: rgba(225,225,225, 1);
 	border-right: 1px solid rgba(175,175,175, 0.25);
+	z-index: 1050;
 
 	${media.min.md} {
 		width: ${SIDEBAR_DESKTOP_WIDTH};
