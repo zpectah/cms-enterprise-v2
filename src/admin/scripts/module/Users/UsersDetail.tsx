@@ -14,6 +14,7 @@ import {
 	FormRow,
 	Input,
 	SwitchControlled,
+	FormProvider,
 } from '../../component/ui';
 
 interface UsersDetailProps {
@@ -77,6 +78,18 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 	return (
 		<>
+			<div>
+				{detailData && (
+					<FormProvider
+						name="demo-form-test"
+						onSubmit={(data) => { console.log('onSubmit', data) }}
+						onChange={(data) => { console.log('onChange', data) }}
+					>
+						...
+					</FormProvider>
+				)}
+			</div>
+			<br />
 			{detailData && (
 				<Form {...formProps}>
 					<Section>

@@ -4,8 +4,6 @@ import getTestDataAttr from '../../../utils/getTestDataAttr';
 
 export interface FormBaseProps extends React.HTMLProps<HTMLFormElement>, React.HTMLAttributes<HTMLFormElement> {
 	dataId?: string;
-	onChange?: (data: unknown) => void;
-	onSubmit?: (data: unknown) => void;
 }
 
 const FormBase: React.FC<FormBaseProps> = (props) => {
@@ -17,11 +15,11 @@ const FormBase: React.FC<FormBaseProps> = (props) => {
 		...rest
 	} = props;
 
-	const changeHandler = (data: unknown) => {
-		if (onChange) onChange(data);
+	const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
+		if (onChange) onChange(e);
 	};
-	const submitHandler = (data: unknown) => {
-		if (onSubmit) onSubmit(data);
+	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+		if (onSubmit) onSubmit(e);
 	};
 
 	return (
