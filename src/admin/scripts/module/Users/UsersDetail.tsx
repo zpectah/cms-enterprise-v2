@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import _ from 'lodash';
-import { Controller } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 
 import { UsersItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import getDetailData from '../../utils/getDetailData';
 import {
+	PrimaryButton,
 	ConfirmDialog,
-	FormControlled,
+	Form,
 	Section,
 	FormRow,
 	Input,
+	SwitchControlled,
 } from '../../component/ui';
 
 interface UsersDetailProps {
@@ -33,21 +35,22 @@ const UsersDetail = (props: UsersDetailProps) => {
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
 
-	const formProps = {
-		name: 'UsersDetailForm',
-		onChange: (data) => {
-			console.log('new form has changed ...', data)
-		},
-		useFormProps: {
-			defaultValues: detailData,
-		},
-	};
+	const {
+		control,
+		register,
+		handleSubmit,
+		watch,
+		formState,
+	} = useForm({
+		mode: 'all',
+		defaultValues: detailData,
+	});
 
 	const submitHandler = (data: UsersItemProps) => {
 		const master = _.cloneDeep(data);
 		const method: submitMethodProps = master.id == 'new' ? 'create' : 'update';
 		onSubmit(method, master).then((resp) => {
-			// TODO: after submit ...
+			console.info('After submit', master, resp);
 		});
 	};
 	const deleteHandler = (id: string | number) => {
@@ -65,68 +68,102 @@ const UsersDetail = (props: UsersDetailProps) => {
 		setConfirmData([]);
 	};
 
+	const formProps = {
+		name: 'UsersDetailForm',
+		onSubmit: handleSubmit(submitHandler),
+	};
+
 	useEffect(() => setDetailData(getDetailData('Users', dataItems, params.id)), [ dataItems, params ]);
 
 	return (
 		<>
 			{detailData && (
-				<FormControlled {...formProps}>
-					{({ control }) => (
-						<Section>
-							<Controller
-								name="type"
-								control={control}
-								rules={{ required: true }}
-								defaultValue={detailData.type}
-								render={({ field }) => {
-									const { ref, ...rest } = field;
+				<Form {...formProps}>
+					<Section>
+						<Controller
+							name="type"
+							control={control}
+							rules={{ required: true }}
+							defaultValue={detailData.type}
+							render={({ field }) => {
+								const { ref, ...rest } = field;
 
-									return (
-										<FormRow
+								return (
+									<FormRow
+										label="Type"
+										id={`${formProps.name}_type`}
+										required={true}
+									>
+										<Input
 											label="Type"
+											placeholder="Select Type"
+											required={true}
 											id={`${formProps.name}_type`}
-											required={true}
-										>
-											<Input
-												label="Type"
-												placeholder="Select Type"
-												required={true}
-												id={`${formProps.name}_type`}
-												{...rest}
-											/>
-										</FormRow>
-									);
-								}}
-							/>
-							<Controller
-								name="email"
-								control={control}
-								rules={{ required: true }}
-								defaultValue={detailData.email}
-								render={({ field }) => {
-									const { ref, ...rest } = field;
+											{...rest}
+										/>
+									</FormRow>
+								);
+							}}
+						/>
+						<Controller
+							name="email"
+							control={control}
+							rules={{ required: true }}
+							defaultValue={detailData.email}
+							render={({ field }) => {
+								const { ref, ...rest } = field;
 
-									return (
-										<FormRow
+								return (
+									<FormRow
+										label="Email"
+										id={`${formProps.name}_email`}
+										required={true}
+									>
+										<Input
+											type="email"
 											label="Email"
-											id={`${formProps.name}_email`}
+											placeholder="Type Email"
 											required={true}
-										>
-											<Input
-												type="email"
-												label="Email"
-												placeholder="Type Email"
-												required={true}
-												id={`${formProps.name}_email`}
-												{...rest}
-											/>
-										</FormRow>
-									);
-								}}
-							/>
-						</Section>
-					)}
-				</FormControlled>
+											id={`${formProps.name}_email`}
+											{...rest}
+										/>
+									</FormRow>
+								);
+							}}
+						/>
+
+						<Controller
+							name="active"
+							control={control}
+							rules={{}}
+							defaultValue={detailData.active}
+							render={({ field }) => {
+								const { ref, value, ...rest } = field;
+
+								return (
+									<FormRow
+										label="Active"
+										id={`${formProps.name}_active`}
+									>
+										<SwitchControlled
+											id={`${formProps.name}_active`}
+											label="Active"
+											checked={value}
+											{...rest}
+										/>
+									</FormRow>
+								);
+							}}
+						/>
+					</Section>
+					<Section>
+						<PrimaryButton
+							type="submit"
+						>
+							Submit
+						</PrimaryButton>
+					</Section>
+				</Form>
 			)}
 			<pre>
 				<code>

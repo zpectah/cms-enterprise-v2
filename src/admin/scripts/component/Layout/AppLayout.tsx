@@ -16,6 +16,7 @@ import media from '../../styles/responsive';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import Breadcrumbs from './Breadcrumbs';
 
 interface AppLayoutProps extends pageLayoutProps {}
 
@@ -60,6 +61,7 @@ const AppLayout: React.FC<AppLayoutProps> = (props) => {
 			<LayoutWrapper>
 				<WrapperInner isOpen={sidebarOpen}>
 					<StyledContainer maxWidth={containerMaxWidth}>
+						<Breadcrumbs />
 						<StyledLayoutContent>{children}</StyledLayoutContent>
 						{withFooter && <Footer />}
 					</StyledContainer>

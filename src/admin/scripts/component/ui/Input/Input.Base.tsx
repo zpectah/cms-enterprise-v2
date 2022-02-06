@@ -18,6 +18,7 @@ const InputBase = (props: InputBaseProps) => {
 		<TextField
 			fullWidth
 			variant="outlined"
+			size="small"
 			{...rest}
 			{...getTestDataAttr(dataId)}
 		/>
