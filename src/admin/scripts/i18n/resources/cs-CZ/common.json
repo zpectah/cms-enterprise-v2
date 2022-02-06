@@ -6,5 +6,8 @@
     "delete": "Smazat",
     "create": "Vytvořit",
     "update": "Aktualizovat"
+  },
+  "common": {
+    "allRightsReserved": "Všechna práva vyhrazena"
   }
 }

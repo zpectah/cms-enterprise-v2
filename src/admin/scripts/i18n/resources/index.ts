@@ -1,12 +1,7 @@
-import CS_common from './cs-CZ/common.json';
-
-import EN_common from './en-US/common.json';
+import cs_CZ from './cs-CZ';
+import en_US from './en-US';
 
 export default {
-	'cs-CZ': {
-		common: CS_common,
-	},
-	'en-US': {
-		common: EN_common,
-	},
+	'cs-CZ': cs_CZ,
+	'en-US': en_US,
 };

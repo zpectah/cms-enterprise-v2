@@ -1,6 +1,6 @@
 import React from 'react';
-import { Stack, Typography } from '@mui/material';
-import styled from '@emotion/styled';
+import { styled, Stack, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import config from '../../../config';
 import { FOOTER_MIN_HEIGHT } from '../../../styles/variables';
@@ -11,6 +11,8 @@ const Wrapper = styled('footer')`
 	width: 100%;
 	height: auto;
 	min-height: ${FOOTER_MIN_HEIGHT};
+	display: flex;
+	align-items: center;
 	
 	& span{
 		opacity: .5;
@@ -18,16 +20,21 @@ const Wrapper = styled('footer')`
 `;
 
 const Footer = (props: FooterProps) => {
+	const { t } = useTranslation('common');
 	const {} = props;
 
 	return (
 		<>
 			<Wrapper>
-				<Stack direction="row" spacing={2}>
+				<Stack
+					direction="row"
+					spacing={2}
+				>
 					<Typography variant="caption">
 						&copy;&nbsp;
 						{config.project.meta.copyright_year}&nbsp;
-						{config.project.meta.name}
+						{config.project.meta.name}&nbsp;v{config.project.meta.version}
+						&nbsp;|&nbsp;{t('common.allRightsReserved')}
 					</Typography>
 				</Stack>
 			</Wrapper>

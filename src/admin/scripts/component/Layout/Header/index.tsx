@@ -22,6 +22,7 @@ const Wrapper = styled('header')`
 
 	color: ${palette.light};
 	background-color: ${palette.veryPeri};
+	background-image: linear-gradient(to top, rgba(90,90,165, .75), rgba(100,100,170, .5));
 `;
 const StyledStack = styled(Stack)`
 	width: 100%;

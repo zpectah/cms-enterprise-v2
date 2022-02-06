@@ -90,12 +90,12 @@ define('WEB_DOCUMENT', [
 
 const MESSAGES = [
     'API' => [
-        'REQUEST_ERROR' => 'Request error',
-        'WRONG_REQUEST' => 'Wrong request',
-        'UNAUTHORIZED' => 'Unauthorized request',
-        'SUCCESS' => 'Success',
-        'NO_DATA' => 'No data found',
-        'NO_CREATED' => 'No data created',
-        'NO_UPDATED' => 'No data updated',
+        'REQUEST_ERROR' => 'request_error',
+        'WRONG_REQUEST' => 'wrong_request',
+        'UNAUTHORIZED' => 'unauthorized_request',
+        'SUCCESS' => 'request_success',
+        'NO_DATA' => 'no_data_found',
+        'NO_CREATED' => 'no_data_created',
+        'NO_UPDATED' => 'no_data_updated',
     ],
 ];

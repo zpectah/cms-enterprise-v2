@@ -1,0 +1,9 @@
+{
+  "request_error": "Request error",
+  "wrong_request": "Špatný request",
+  "unauthorized_request": "Neautorizovaný požadavek",
+  "request_success": "Úspěch",
+  "no_data_found": "Data nenalezena",
+  "no_data_created": "Data nevytvořena",
+  "no_data_updated": "Deta neaktualizována"
+}

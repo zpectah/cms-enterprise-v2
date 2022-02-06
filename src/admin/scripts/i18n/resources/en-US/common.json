@@ -6,5 +6,8 @@
     "delete": "Delete",
     "create": "Create",
     "update": "Update"
+  },
+  "common": {
+    "allRightsReserved": "All rights reserved"
   }
 }
