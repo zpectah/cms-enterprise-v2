@@ -14,7 +14,6 @@ import {
 	FormRow,
 	Input,
 	SwitchControlled,
-	FormProvider,
 } from '../../component/ui';
 
 interface UsersDetailProps {
@@ -78,106 +77,97 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 	return (
 		<>
-			<div>
-				{detailData && (
-					<FormProvider
-						name="demo-form-test"
-						onSubmit={(data) => { console.log('onSubmit', data) }}
-						onChange={(data) => { console.log('onChange', data) }}
-					>
-						...
-					</FormProvider>
-				)}
-			</div>
-			<br />
 			{detailData && (
 				<Form {...formProps}>
-					<Section>
-						<Controller
-							name="type"
-							control={control}
-							rules={{ required: true }}
-							defaultValue={detailData.type}
-							render={({ field }) => {
-								const { ref, ...rest } = field;
+					<>
+						<Section>
+							<Controller
+								name="type"
+								control={control}
+								rules={{ required: true }}
+								defaultValue={detailData.type}
+								render={({ field }) => {
+									const { ref, ...rest } = field;
 
-								return (
-									<FormRow
-										label="Type"
-										id={`${formProps.name}_type`}
-										required={true}
-									>
-										<Input
+									return (
+										<FormRow
 											label="Type"
-											placeholder="Select Type"
-											required={true}
 											id={`${formProps.name}_type`}
-											{...rest}
-										/>
-									</FormRow>
-								);
-							}}
-						/>
-						<Controller
-							name="email"
-							control={control}
-							rules={{ required: true }}
-							defaultValue={detailData.email}
-							render={({ field }) => {
-								const { ref, ...rest } = field;
-
-								return (
-									<FormRow
-										label="Email"
-										id={`${formProps.name}_email`}
-										required={true}
-									>
-										<Input
-											type="email"
-											label="Email"
-											placeholder="Type Email"
 											required={true}
+										>
+											<Input
+												label="Type"
+												placeholder="Select Type"
+												required={true}
+												id={`${formProps.name}_type`}
+												{...rest}
+											/>
+										</FormRow>
+									);
+								}}
+							/>
+							<Controller
+								name="email"
+								control={control}
+								rules={{ required: true }}
+								defaultValue={detailData.email}
+								render={({ field }) => {
+									const { ref, ...rest } = field;
+
+									return (
+										<FormRow
+											label="Email"
 											id={`${formProps.name}_email`}
-											{...rest}
-										/>
-									</FormRow>
-								);
-							}}
-						/>
+											required={true}
+										>
+											<Input
+												type="email"
+												label="Email"
+												placeholder="Type Email"
+												required={true}
+												id={`${formProps.name}_email`}
+												{...rest}
+											/>
+										</FormRow>
+									);
+								}}
+							/>
 
-						<Controller
-							name="active"
-							control={control}
-							rules={{}}
-							defaultValue={detailData.active}
-							render={({ field }) => {
-								const { ref, value, ...rest } = field;
+							<Controller
+								name="active"
+								control={control}
+								rules={{}}
+								defaultValue={detailData.active}
+								render={({ field }) => {
+									const { ref, value, ...rest } = field;
 
-								return (
-									<FormRow
-										label="Active"
-										id={`${formProps.name}_active`}
-									>
-										<SwitchControlled
-											id={`${formProps.name}_active`}
+									return (
+										<FormRow
 											label="Active"
-											checked={value}
-											{...rest}
-										/>
-									</FormRow>
-								);
-							}}
-						/>
-					</Section>
-					<Section>
-						<PrimaryButton
-							type="submit"
-						>
-							Submit
-						</PrimaryButton>
-					</Section>
+											id={`${formProps.name}_active`}
+										>
+											<SwitchControlled
+												id={`${formProps.name}_active`}
+												label="Active"
+												checked={value}
+												{...rest}
+											/>
+										</FormRow>
+									);
+								}}
+							/>
+						</Section>
+						<Section>
+							<PrimaryButton
+								type="submit"
+							>
+								Submit
+							</PrimaryButton>
+						</Section>
+					</>
 				</Form>
 			)}
+			<br />
 			<pre>
 				<code>
 					{JSON.stringify(detailData, null, 2)}
