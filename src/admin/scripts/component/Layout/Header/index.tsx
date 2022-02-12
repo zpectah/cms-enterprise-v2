@@ -6,7 +6,7 @@ import config from '../../../config';
 import palette from '../../../styles/palette';
 import { HEADER_HEIGHT } from '../../../styles/variables';
 import SidebarToggle from '../../SidebarToggle';
-import UserDrawer from '../../UserDrawer';
+import UserDrawer from '../../../module/Profile/UserDrawer';
 
 interface HeaderProps {}
 

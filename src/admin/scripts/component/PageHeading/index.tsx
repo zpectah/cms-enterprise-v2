@@ -12,8 +12,8 @@ interface PageHeadingProps {
 
 const Wrapper = styled('div')`
 	width: 100%;
-	margin-bottom: .5rem;
-	padding: 1rem 0;
+	margin-bottom: 1rem;
+	padding: .75rem 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

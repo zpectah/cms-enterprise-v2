@@ -4,15 +4,13 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {
 	IconButton,
 	Drawer,
-} from '../ui';
-import { DrawerProps } from '../ui/Drawer/Drawer';
-import ThemeToggle from '../ThemeToggle';
-import LanguageToggle from '../LanguageToggle';
+} from '../../component/ui';
+import { DrawerProps } from '../../component/ui/Drawer/Drawer';
+import ThemeToggle from '../../component/ThemeToggle';
+import LanguageToggle from '../../component/LanguageToggle';
+import ProfileForm from './ProfileForm';
 
-interface UserDrawerProps {}
-
-const UserDrawer = (props: UserDrawerProps) => {
-	const {} = props;
+const UserDrawer = () => {
 	const [ drawerOpen, setDrawerOpen ] = useState<boolean>(false);
 
 	const drawerProps: DrawerProps = {
@@ -37,9 +35,7 @@ const UserDrawer = (props: UserDrawerProps) => {
 			</IconButton>
 			<Drawer {...drawerProps}>
 				<div>
-					avatar
-					<br />
-					form and data ...
+					<ProfileForm />
 				</div>
 				<div>
 					<LanguageToggle />
