@@ -1,23 +1,21 @@
 import React from 'react';
 import { useNavigate, useMatch, useResolvedPath, useLocation } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import { useTranslation } from 'react-i18next';
+import { SvgIconProps, MenuList, MenuItem, ListItemText, ListItemIcon } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GroupIcon from '@mui/icons-material/Group';
 import CategoryIcon from '@mui/icons-material/Category';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import MenuIcon from '@mui/icons-material/Menu';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import LanguageIcon from '@mui/icons-material/Language';
-import { SvgIconProps } from '@mui/material';
+
+import routes from '../../../routes';
 
 interface NavbarProps {
 	onSidebarClose: () => void;
@@ -25,6 +23,7 @@ interface NavbarProps {
 
 const Navbar = (props: NavbarProps) => {
 	const { onSidebarClose } = props;
+	const { t } = useTranslation(['pages']);
 	const navigate = useNavigate();
 	// const location = useLocation();
 
@@ -36,84 +35,77 @@ const Navbar = (props: NavbarProps) => {
 		{
 			key: 0,
 			path: root,
-			label: 'Dashboard',
+			label: routes.dashboard.label,
 			icon: (<HomeIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 1,
-			path: `${root}/settings`,
-			label: 'Settings',
+			path: `${root}/${routes.settings.path}`,
+			label: routes.settings.label,
 			icon: (<SettingsIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 2,
-			path: `${root}/users`,
-			label: 'Users',
+			path: `${root}/${routes.users.path}`,
+			label: routes.users.label,
 			icon: (<GroupIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 3,
-			path: `${root}/pages`,
-			label: 'Pages',
+			path: `${root}/${routes.pages.path}`,
+			label: routes.pages.label,
 			icon: (<AutoStoriesIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 4,
-			path: `${root}/posts`,
-			label: 'Posts',
+			path: `${root}/${routes.posts.path}`,
+			label: routes.posts.label,
 			icon: (<AutoAwesomeMotionIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 5,
-			path: `${root}/translations`,
-			label: 'Translations',
+			path: `${root}/${routes.translations.path}`,
+			label: routes.translations.label,
 			icon: (<LanguageIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 6,
-			path: `${root}/categories`,
-			label: 'Categories',
+			path: `${root}/${routes.categories.path}`,
+			label: routes.categories.label,
 			icon: (<CategoryIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 7,
-			path: `${root}/tags`,
-			label: 'Tags',
+			path: `${root}/${routes.tags.path}`,
+			label: routes.tags.label,
 			icon: (<BookmarkIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 8,
-			path: `${root}/uploads`,
-			label: 'Uploads',
+			path: `${root}/${routes.uploads.path}`,
+			label: routes.uploads.label,
 			icon: (<CloudUploadIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 9,
-			path: `${root}/menu`,
-			label: 'Menu',
+			path: `${root}/${routes.menu.path}`,
+			label: routes.menu.label,
 			icon: (<MenuIcon {...iconProps} />),
 			active: true,
 		},
 		{
 			key: 10,
-			path: `${root}/posts-options`,
-			label: 'Posts options',
-			icon: (<AnalyticsIcon {...iconProps} />),
-			active: true,
-		},
-		{
-			key: 11,
-			path: `${root}/members`,
-			label: 'Members',
+			path: `${root}/${routes.members.path}`,
+			label: routes.members.label,
 			icon: (<SupervisedUserCircleIcon {...iconProps} />),
 			active: true,
 		},
@@ -158,8 +150,8 @@ const Navbar = (props: NavbarProps) => {
 								{icon}
 							</ListItemIcon>
 						)}
-						<ListItemText>
-							{label}
+						<ListItemText sx={{ fontSize: '.9rem' }}>
+							{t(`pages:${label}`)}
 						</ListItemText>
 					</MenuItem>
 				);

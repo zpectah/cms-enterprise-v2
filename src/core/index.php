@@ -15,7 +15,6 @@ require PATH_ROOT . 'core/model/Menu.php';
 require PATH_ROOT . 'core/model/MenuItems.php';
 require PATH_ROOT . 'core/model/Pages.php';
 require PATH_ROOT . 'core/model/Posts.php';
-require PATH_ROOT . 'core/model/PostsOptions.php';
 require PATH_ROOT . 'core/model/Tags.php';
 require PATH_ROOT . 'core/model/Translations.php';
 require PATH_ROOT . 'core/model/Uploads.php';

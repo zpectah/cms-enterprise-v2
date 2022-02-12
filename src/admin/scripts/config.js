@@ -4,7 +4,6 @@ import project from '../../config/project.json';
 import environmental from '../../config/environmental.json';
 import options from '../../config/options.json';
 import locales from '../../config/locales.json';
-import cfg_static from '../../config/static.json';
 
 export default {
 	env: window.APP_ENV,
@@ -13,5 +12,4 @@ export default {
 	project: project,
 	options: options,
 	locales: locales,
-	static: cfg_static,
 };

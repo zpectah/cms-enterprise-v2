@@ -1,8 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import Container from '@mui/material/Container';
 import styled from '@emotion/styled';
 
+import config from '../../config';
 import { pageLayoutProps } from '../../types/page';
 import { LayoutWrapper, LayoutContent } from '../../styles/mixins';
 import Footer from './Footer';
@@ -28,11 +30,15 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = (props) => {
 		withFooter = false,
 		withOptions = false,
 	} = props;
+	const { t } = useTranslation(['pages']);
 
 	return (
 		<>
 			<Helmet>
-				<title>{meta.title}</title>
+				<title>{t(`pages:${meta.title}`)} | {config.project.meta.name}</title>
+				{meta.description && (
+					<meta name="description">{meta.description}</meta>
+				)}
 			</Helmet>
 			<LayoutWrapper>
 				<Container maxWidth={containerMaxWidth}>

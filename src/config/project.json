@@ -44,8 +44,7 @@
     "language": {
       "default": "cs-CZ",
       "list": [
-        "cs-CZ",
-        "en-US"
+        "cs-CZ"
       ]
     },
     "tests": {

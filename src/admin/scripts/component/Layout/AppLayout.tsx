@@ -1,9 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import Container from '@mui/material/Container';
 import styled from '@emotion/styled';
 
+import config from '../../config';
 import { pageLayoutProps } from '../../types/page';
 import { appStoreProps } from '../../types/store';
 import {
@@ -52,11 +54,15 @@ const StyledLayoutContent = styled(LayoutContent)`
 const AppLayout: React.FC<AppLayoutProps> = (props) => {
 	const { children, meta, containerMaxWidth = 'lg', withFooter = true } = props;
 	const { sidebarOpen } = useSelector((store: appStoreProps) => store);
+	const { t } = useTranslation(['pages']);
 
 	return (
 		<>
 			<Helmet>
-				<title>{meta.title}</title>
+				<title>{t(`pages:${meta.title}`)} | {config.project.meta.name}</title>
+				{meta.description && (
+					<meta name="description">{meta.description}</meta>
+				)}
 			</Helmet>
 			<LayoutWrapper>
 				<WrapperInner isOpen={sidebarOpen}>

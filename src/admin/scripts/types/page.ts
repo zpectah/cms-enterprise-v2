@@ -1,10 +1,12 @@
 import { ContainerProps } from '@mui/material/Container';
 
 export interface pageMetaProps {
-	route: string | null;
+	path: string | null;
 	key: string;
+	label?: string;
 	title: string;
-	description: string;
+	description?: string;
+	auth: number;
 }
 
 export interface pageLayoutProps {

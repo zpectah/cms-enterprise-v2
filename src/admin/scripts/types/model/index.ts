@@ -1,3 +1,23 @@
+import { CategoriesItemModel } from './Categories';
+import { CommentsItemModel } from './Comments';
+import { MembersItemModel } from './Members';
+import { MenuItemModel } from './Menu';
+import { MenuItemsItemModel } from './MenuItems';
+import { PagesItemModel } from './Pages';
+import { PostsItemModel } from './Posts';
+import { TagsItemModel } from './Tags';
+import { TranslationsItemModel } from './Translations';
 import { UsersItemModel } from './Users';
+import { UploadsItemModel } from './Uploads';
 
+export type CategoriesItemProps = CategoriesItemModel;
+export type CommentsItemProps = CommentsItemModel;
+export type MembersItemProps = MembersItemModel;
+export type MenuItemProps = MenuItemModel;
+export type MenuItemsItemProps = MenuItemsItemModel;
+export type PagesItemProps = PagesItemModel;
+export type PostsItemProps = PostsItemModel;
+export type TagsItemProps = TagsItemModel;
+export type TranslationsItemProps = TranslationsItemModel;
 export type UsersItemProps = UsersItemModel;
+export type UploadsItemProps = UploadsItemModel;

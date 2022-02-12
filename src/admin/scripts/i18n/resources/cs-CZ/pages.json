@@ -1,0 +1,100 @@
+{
+  "error": {
+    "label": "",
+    "meta_title": "Error",
+    "page_title": "Error",
+    "description": "",
+    "content": ""
+  },
+  "login": {
+    "label": "Login",
+    "meta_title": "Login page",
+    "page_title": "Login",
+    "description": "",
+    "content": ""
+  },
+  "lostPassword": {
+    "label": "Lost password",
+    "meta_title": "Recovery lost password",
+    "page_title": "Recovery lost password",
+    "description": "",
+    "content": ""
+  },
+  "dashboard": {
+    "label": "Dashboard",
+    "meta_title": "Dashboard",
+    "page_title": "Dashboard",
+    "description": "",
+    "content": ""
+  },
+  "settings": {
+    "label": "Settings",
+    "meta_title": "Settings",
+    "page_title": "Settings",
+    "description": "",
+    "content": ""
+  },
+  "categories": {
+    "label": "Categories",
+    "meta_title": "Categories",
+    "page_title": "Categories",
+    "description": "",
+    "content": ""
+  },
+  "members": {
+    "label": "Members",
+    "meta_title": "Members",
+    "page_title": "Members",
+    "description": "",
+    "content": ""
+  },
+  "menu": {
+    "label": "Menu",
+    "meta_title": "Menu",
+    "page_title": "Menu",
+    "description": "",
+    "content": ""
+  },
+  "pages": {
+    "label": "Pages",
+    "meta_title": "Pages",
+    "page_title": "Pages",
+    "description": "",
+    "content": ""
+  },
+  "posts": {
+    "label": "Posts",
+    "meta_title": "Posts",
+    "page_title": "Posts",
+    "description": "",
+    "content": ""
+  },
+  "tags": {
+    "label": "Tags",
+    "meta_title": "Tags",
+    "page_title": "Tags",
+    "description": "",
+    "content": ""
+  },
+  "translations": {
+    "label": "Translations",
+    "meta_title": "Translations",
+    "page_title": "Translations",
+    "description": "",
+    "content": ""
+  },
+  "uploads": {
+    "label": "Uploads",
+    "meta_title": "Uploads",
+    "page_title": "Uploads",
+    "description": "",
+    "content": ""
+  },
+  "users": {
+    "label": "Users",
+    "meta_title": "Users",
+    "page_title": "Users",
+    "description": "",
+    "content": ""
+  }
+}

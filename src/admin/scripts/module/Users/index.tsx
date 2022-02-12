@@ -6,10 +6,7 @@ import { useUsers } from '../../hooks/model';
 import UsersList from './UsersList';
 import UsersDetail from './UsersDetail';
 
-interface UsersModuleProps {}
-
-const UsersModule = (props: UsersModuleProps) => {
-	const {} = props;
+const UsersModule = () => {
 	const {
 		users,
 		users_loading,

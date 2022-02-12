@@ -6,7 +6,6 @@ $CFG_ENV = json_decode(file_get_contents(PATH_ROOT . 'config/environmental.json'
 $CFG_OPTIONS = json_decode(file_get_contents(PATH_ROOT . 'config/options.json'), true);
 $CFG_PROJECT = json_decode(file_get_contents(PATH_ROOT . 'config/project.json'), true);
 $CFG_LOCALES = json_decode(file_get_contents(PATH_ROOT . 'config/locales.json'), true);
-$CFG_STATIC = json_decode(file_get_contents(PATH_ROOT . 'config/static.json'), true);
 
 
 const ENV = BUILD['env'];
