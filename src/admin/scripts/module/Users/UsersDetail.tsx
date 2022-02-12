@@ -4,10 +4,12 @@ import _ from 'lodash';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import routes from '../../routes';
 import { EMAIL_REGEX } from '../../constants';
 import { UsersItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import getDetailData from '../../utils/getDetailData';
+import PageHeading from '../../component/PageHeading';
 import {
 	SubmitButton,
 	DeleteButton,
@@ -17,7 +19,7 @@ import {
 	Input,
 	SwitchControlled,
 	BlockPreloader,
-	LinearPreloader,
+	LoadingBar,
 	ControlledFormRow,
 } from '../../component/ui';
 
@@ -88,7 +90,12 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 	return (
 		<>
-			{loading && <LinearPreloader />}
+			<PageHeading
+				title={detailData?.id == 'new' ? 'New user' : detailData?.email}
+				returnTo={`/admin/app/${routes.users.path}`}
+			/>
+
+			{loading && <LoadingBar />}
 			{detailData ? (
 				<DetailFormLayout
 					{...formMetaProps}

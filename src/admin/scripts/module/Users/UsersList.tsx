@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import routes from '../../routes';
 import { UsersItemProps } from '../../types/model';
-import { ConfirmDialog, LinearPreloader } from '../../component/ui';
+import PageHeading from '../../component/PageHeading';
+import { ConfirmDialog, LoadingBar } from '../../component/ui';
 
 interface UsersListProps {
 	dataItems: UsersItemProps[];
@@ -19,6 +21,7 @@ const UsersList = (props: UsersListProps) => {
 		onDelete,
 		loading,
 	} = props;
+	const { t } = useTranslation(['pages']);
 	const navigate = useNavigate();
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
@@ -52,7 +55,10 @@ const UsersList = (props: UsersListProps) => {
 
 	return (
 		<>
-			{loading && <LinearPreloader />}
+			<PageHeading
+				title={t(`pages:users.page_title`)}
+			/>
+			{loading && <LoadingBar />}
 			<div>...UsersList...{JSON.stringify(dataItems)}...</div>
 			<ConfirmDialog
 				context="delete"

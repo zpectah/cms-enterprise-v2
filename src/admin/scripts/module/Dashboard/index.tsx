@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Stack } from '@mui/material';
 
+import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
 	Button,
 	PrimaryButton,
-	SecondaryButton
+	SecondaryButton,
 } from '../../component/ui';
 
-interface DashboardModuleProps {}
-
-const DashboardModule = (props: DashboardModuleProps) => {
-	const {} = props;
-	const { t } = useTranslation();
+const DashboardModule = () => {
+	const { t } = useTranslation(['pages']);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 
 	return (
 		<>
+			<PageHeading
+				title={t(`pages:dashboard.page_title`)}
+			/>
 			<div>DashboardModule</div>
 			<Stack direction="row" spacing={2}>
 				<Button onClick={() => setConfirmOpen(true)}>{t('btn.open')}</Button>
