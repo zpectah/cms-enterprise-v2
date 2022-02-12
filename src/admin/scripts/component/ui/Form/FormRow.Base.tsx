@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Stack } from '@mui/material';
 
 export interface FormRowBaseProps {
@@ -22,6 +23,7 @@ const FormRowBase: React.FC<FormRowBaseProps> = (props) => {
 		helpTexts = [],
 		errors = [],
 	} = props;
+	const { t } = useTranslation(['messages']);
 
 	return (
 		<Stack
@@ -40,7 +42,7 @@ const FormRowBase: React.FC<FormRowBaseProps> = (props) => {
 				</div>
 				<div>
 					{errors.map((text, index) => (
-						<div key={index}>{text}</div>
+						<div key={index}>{t(`messages:form.${text}`)}</div>
 					))}
 				</div>
 			</div>

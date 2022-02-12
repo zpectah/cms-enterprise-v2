@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import _ from 'lodash';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import { EMAIL_REGEX } from '../../constants';
 import { UsersItemProps } from '../../types/model';
@@ -16,6 +17,7 @@ import {
 	Input,
 	SwitchControlled,
 	BlockPreloader,
+	LinearPreloader,
 	ControlledFormRow,
 } from '../../component/ui';
 
@@ -33,6 +35,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 		onDelete,
 		loading,
 	} = props;
+	const { t } = useTranslation(['form']);
 	const params = useParams();
 	const [ detailData, setDetailData ] = useState<UsersItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
@@ -46,7 +49,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 		formState: {
 			isDirty,
 			isValid,
-			errors,
 		},
 	} = useForm({
 		mode: 'all',
@@ -82,8 +84,11 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 	useEffect(() => setDetailData(getDetailData('Users', dataItems, params.id)), [ dataItems, params ]);
 
+	const watchType = watch('type');
+
 	return (
 		<>
+			{loading && <LinearPreloader />}
 			{detailData ? (
 				<DetailFormLayout
 					{...formMetaProps}
@@ -103,18 +108,15 @@ const UsersDetail = (props: UsersDetailProps) => {
 								control={control}
 								rules={{}}
 								defaultValue={detailData.active}
-								rowProps={{
-									label: 'Active',
-									id: `${formMetaProps.name}_active`,
-								}}
 								render={({ field }) => {
 									const { ref, value, ...rest } = field;
 
 									return (
 										<SwitchControlled
 											id={`${formMetaProps.name}_active`}
-											label="Active"
+											label={t('form:label.active')}
 											checked={value}
+											inputRef={ref}
 											{...rest}
 										/>
 									);
@@ -136,6 +138,8 @@ const UsersDetail = (props: UsersDetailProps) => {
 					{/* ==================== FORM CONTENT ==================== */}
 					<div>
 
+						<input type="hidden" {...register('id')} />
+
 						<Section>
 
 							<ControlledFormRow
@@ -144,7 +148,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 								rules={{ required: true }}
 								defaultValue={detailData.type}
 								rowProps={{
-									label: 'Type',
+									label: t('form:label.type'),
 									id: `${formMetaProps.name}_type`,
 									required: true,
 								}}
@@ -154,11 +158,12 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 									return (
 										<Input
-											label="Type"
-											placeholder="Select Type"
+											label={t('form:label.type')}
+											placeholder={t('form:placeholder.type')}
 											id={`${formMetaProps.name}_type`}
 											error={!!error}
 											required
+											inputRef={ref}
 											{...rest}
 										/>
 									);
@@ -171,7 +176,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 								rules={{ pattern: EMAIL_REGEX, required: true }}
 								defaultValue={detailData.email}
 								rowProps={{
-									label: 'Email',
+									label: t('form:label.email'),
 									id: `${formMetaProps.name}_email`,
 									required: true,
 								}}
@@ -182,11 +187,12 @@ const UsersDetail = (props: UsersDetailProps) => {
 									return (
 										<Input
 											type="email"
-											label="Email"
-											placeholder="Type Email"
+											label={t('form:label.email')}
+											placeholder={t('form:placeholder.email')}
 											id={`${formMetaProps.name}_email`}
 											error={!!error}
 											required
+											inputRef={ref}
 											{...rest}
 										/>
 									);

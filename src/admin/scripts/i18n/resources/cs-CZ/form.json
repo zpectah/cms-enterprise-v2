@@ -1,0 +1,13 @@
+{
+  "label": {
+    "name": "Název",
+    "type": "Typ",
+    "active": "Aktivní",
+    "email": "E-mail"
+  },
+  "placeholder": {
+    "name": "Zadejte název",
+    "type": "Vyberte typ",
+    "email": "Zadejte e-mail"
+  }
+}

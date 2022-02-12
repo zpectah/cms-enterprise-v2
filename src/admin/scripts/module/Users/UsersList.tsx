@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import routes from '../../routes';
 import { UsersItemProps } from '../../types/model';
-import { ConfirmDialog } from '../../component/ui';
+import { ConfirmDialog, LinearPreloader } from '../../component/ui';
 
 interface UsersListProps {
 	dataItems: UsersItemProps[];
@@ -46,11 +47,12 @@ const UsersList = (props: UsersListProps) => {
 		setConfirmData([]);
 	};
 	const openDetailHandler = (id: string | number) => {
-		navigate(`/admin/app/users/detail/${id}`);
+		navigate(`/admin/app/${routes.users.path}/detail/${id}`);
 	};
 
 	return (
 		<>
+			{loading && <LinearPreloader />}
 			<div>...UsersList...{JSON.stringify(dataItems)}...</div>
 			<ConfirmDialog
 				context="delete"
