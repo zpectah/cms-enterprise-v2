@@ -11,6 +11,7 @@ const Wrapper = styled('footer')`
 	width: 100%;
 	height: auto;
 	min-height: ${FOOTER_MIN_HEIGHT};
+	margin-top: 2.5rem;
 	display: flex;
 	align-items: center;
 	
