@@ -3,11 +3,25 @@
     "name": "Název",
     "type": "Typ",
     "active": "Aktivní",
-    "email": "E-mail"
+    "email": "E-mail",
+    "group": "Skupina",
+    "level": "Úroveň",
+    "password": "Heslo",
+    "name_first": "Jméno",
+    "name_last": "Příjmení",
+    "nickname": "Přezdívka",
+    "description": "Poznámka"
   },
   "placeholder": {
     "name": "Zadejte název",
     "type": "Vyberte typ",
-    "email": "Zadejte e-mail"
+    "email": "Zadejte e-mail",
+    "group": "Vyberte skupinu",
+    "level": "Vyberte úroveň",
+    "password": "Zadejte heslo",
+    "name_first": "Zadejte jméno",
+    "name_last": "Zadejte příjmení",
+    "nickname": "Zadejte přezdívku",
+    "description": "Zadejte poznámku"
   }
 }

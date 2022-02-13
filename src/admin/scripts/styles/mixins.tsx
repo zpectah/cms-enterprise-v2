@@ -8,7 +8,7 @@ export const LayoutWrapper = styled('div')`
 	justify-content: center;
 	flex-direction: column;
 	position: relative;
-	overflow: hidden;
+
 `;
 
 export const LayoutContent = styled('main')`

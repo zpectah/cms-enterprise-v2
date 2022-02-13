@@ -2,7 +2,7 @@
   "model": {
     "Users": {
       "type": ["default"],
-      "level": ["redactor", "chief_redactor", "admin", "super_admin"],
+      "level": ["redactor", "manager", "admin"],
       "group": ["company", "redaction"]
     },
     "Uploads": {

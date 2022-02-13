@@ -1,3 +1,8 @@
 {
-  "default": "Výchozí"
+  "default": "Výchozí",
+  "redactor": "Redaktor",
+  "manager": "Manager",
+  "admin": "Admin",
+  "company": "Společnost",
+  "redaction": "Redakce"
 }

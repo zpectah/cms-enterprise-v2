@@ -22,7 +22,7 @@ const Wrapper = styled('aside')`
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	position: absolute;
+	position: fixed;
 	top: ${HEADER_HEIGHT};
 	left: ${(props: { isOpen?: boolean }) =>
 		props.isOpen ? '0' : `-${SIDEBAR_MOBILE_WIDTH}`};

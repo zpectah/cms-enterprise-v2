@@ -19,6 +19,7 @@ import {
 	Section,
 	Input,
 	Select,
+	Textarea,
 	SwitchControlled,
 	BlockPreloader,
 	LoadingBar,
@@ -103,6 +104,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 		let options = [];
 		config.options.model.Users.level.map((type) => {
 			options.push({
+				key: type,
 				label: t(`types:${type}`),
 				value: USER_LEVEL_KEYS[type],
 				disabled: 7 < USER_LEVEL_KEYS[type],
@@ -158,19 +160,14 @@ const UsersDetail = (props: UsersDetailProps) => {
 						</>
 					}
 					addonsNode={
-						<>
-							<pre>
-								<code>
-									{JSON.stringify(detailData, null, 2)}
-								</code>
-							</pre>
-						</>
+						<></>
 					}
 				>
 					{/* ==================== FORM CONTENT ==================== */}
 					<div>
 
 						<input type="hidden" {...register('id')} />
+						<input type="hidden" {...register('img_avatar')} />
 
 						<Section>
 
@@ -200,6 +197,60 @@ const UsersDetail = (props: UsersDetailProps) => {
 							/>
 
 							<ControlledFormRow
+								name="user_group"
+								control={control}
+								rules={{ required: true }}
+								defaultValue={detailData.user_group}
+								render={({ field, fieldState }) => {
+									const { ref, ...rest } = field;
+									const { error } = fieldState;
+
+									return (
+										<Select
+											label={t('form:label.group')}
+											placeholder={t('form:placeholder.group')}
+											id={`${formMetaProps.name}_user_group`}
+											error={!!error}
+											required
+											inputRef={ref}
+											options={getOptionsGroup()}
+											style={{ width: '50%' }}
+											{...rest}
+										/>
+									);
+								}}
+							/>
+
+							<ControlledFormRow
+								name="user_level"
+								control={control}
+								rules={{ required: true }}
+								defaultValue={detailData.user_level}
+								render={({ field, fieldState }) => {
+									const { ref, ...rest } = field;
+									const { error } = fieldState;
+
+									return (
+										<Select
+											label={t('form:label.level')}
+											placeholder={t('form:placeholder.level')}
+											id={`${formMetaProps.name}_user_level`}
+											error={!!error}
+											required
+											inputRef={ref}
+											options={getOptionsLevel()}
+											style={{ width: '50%' }}
+											{...rest}
+										/>
+									);
+								}}
+							/>
+
+						</Section>
+
+						<Section>
+
+							<ControlledFormRow
 								name="email"
 								control={control}
 								rules={{ pattern: EMAIL_REGEX, required: true }}
@@ -217,7 +268,130 @@ const UsersDetail = (props: UsersDetailProps) => {
 											error={!!error}
 											required
 											inputRef={ref}
-											style={{ width: '50%' }}
+											style={{ width: '75%' }}
+											{...rest}
+										/>
+									);
+								}}
+							/>
+
+							<ControlledFormRow
+								name="password"
+								control={control}
+								rules={{ required: true }}
+								defaultValue={detailData.password}
+								render={({ field, fieldState }) => {
+									const { ref, ...rest } = field;
+									const { error } = fieldState;
+
+									return (
+										<Input
+											type="password"
+											label={t('form:label.password')}
+											placeholder={t('form:placeholder.password')}
+											id={`${formMetaProps.name}_password`}
+											error={!!error}
+											required
+											inputRef={ref}
+											style={{ width: '75%' }}
+											{...rest}
+										/>
+									);
+								}}
+							/>
+
+							<ControlledFormRow
+								name="name_first"
+								control={control}
+								rules={{ required: true }}
+								defaultValue={detailData.name_first}
+								render={({ field, fieldState }) => {
+									const { ref, ...rest } = field;
+									const { error } = fieldState;
+
+									return (
+										<Input
+											label={t('form:label.name_first')}
+											placeholder={t('form:placeholder.name_first')}
+											id={`${formMetaProps.name}_name_first`}
+											error={!!error}
+											required
+											inputRef={ref}
+											style={{ width: '75%' }}
+											{...rest}
+										/>
+									);
+								}}
+							/>
+
+							<ControlledFormRow
+								name="name_last"
+								control={control}
+								rules={{ required: true }}
+								defaultValue={detailData.name_last}
+								render={({ field, fieldState }) => {
+									const { ref, ...rest } = field;
+									const { error } = fieldState;
+
+									return (
+										<Input
+											label={t('form:label.name_last')}
+											placeholder={t('form:placeholder.name_last')}
+											id={`${formMetaProps.name}_name_last`}
+											error={!!error}
+											required
+											inputRef={ref}
+											style={{ width: '75%' }}
+											{...rest}
+										/>
+									);
+								}}
+							/>
+
+							<ControlledFormRow
+								name="nickname"
+								control={control}
+								rules={{ required: true }}
+								defaultValue={detailData.nickname}
+								render={({ field, fieldState }) => {
+									const { ref, ...rest } = field;
+									const { error } = fieldState;
+
+									return (
+										<Input
+											label={t('form:label.nickname')}
+											placeholder={t('form:placeholder.nickname')}
+											id={`${formMetaProps.name}_nickname`}
+											error={!!error}
+											required
+											inputRef={ref}
+											style={{ width: '75%' }}
+											{...rest}
+										/>
+									);
+								}}
+							/>
+
+						</Section>
+
+						<Section>
+
+							<ControlledFormRow
+								name="description"
+								control={control}
+								rules={{}}
+								defaultValue={detailData.description}
+								render={({ field, fieldState }) => {
+									const { ref, ...rest } = field;
+									const { error } = fieldState;
+
+									return (
+										<Textarea
+											label={t('form:label.description')}
+											placeholder={t('form:placeholder.description')}
+											id={`${formMetaProps.name}_description`}
+											error={!!error}
+											inputRef={ref}
 											{...rest}
 										/>
 									);

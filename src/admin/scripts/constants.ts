@@ -16,16 +16,12 @@ export const DATA_TABLE = {
 	sortDefault: 'asc',
 };
 export const USER_LEVEL_KEYS = {
-	none: 0,
-	redactor: 2,
-	chief_redactor: 3,
-	admin: 5,
-	super_admin: 7,
+	redactor: 3,
+	manager: 5,
+	admin: 7,
 };
 export const USER_LEVEL_NAMES = {
-	0: 'none',
-	2: 'redactor',
-	3: 'chief_redactor',
-	5: 'admin',
-	7: 'super_admin',
+	3: 'redactor',
+	5: 'manager',
+	7: 'admin',
 };
