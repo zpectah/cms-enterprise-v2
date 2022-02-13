@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Stack, styled } from '@mui/material';
+import { styled } from '@mui/material';
 
 import media from '../../../styles/responsive';
 
@@ -13,7 +13,7 @@ export interface FormRowBaseProps {
 }
 
 const MainRow = styled('div')`
-	margin-bottom: 1rem;
+	margin-bottom: 1.5rem;
 	display: flex;
 	flex-direction: column;
 			

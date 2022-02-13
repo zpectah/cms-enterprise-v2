@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import _ from 'lodash';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import config from '../../config';
 import routes from '../../routes';
-import { EMAIL_REGEX } from '../../constants';
+import { EMAIL_REGEX, USER_LEVEL_KEYS } from '../../constants';
 import { UsersItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import getDetailData from '../../utils/getDetailData';
@@ -17,11 +18,13 @@ import {
 	DetailFormLayout,
 	Section,
 	Input,
+	Select,
 	SwitchControlled,
 	BlockPreloader,
 	LoadingBar,
 	ControlledFormRow,
 } from '../../component/ui';
+import getOptionsList from '../../utils/getOptionsList';
 
 interface UsersDetailProps {
 	dataItems: UsersItemProps[];
@@ -37,7 +40,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 		onDelete,
 		loading,
 	} = props;
-	const { t } = useTranslation(['form']);
+	const { t } = useTranslation(['form', 'types']);
 	const params = useParams();
 	const [ detailData, setDetailData ] = useState<UsersItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
@@ -87,6 +90,28 @@ const UsersDetail = (props: UsersDetailProps) => {
 	useEffect(() => setDetailData(getDetailData('Users', dataItems, params.id)), [ dataItems, params ]);
 
 	const watchType = watch('type');
+
+	const getOptionsType = useCallback(
+		() => getOptionsList(config.options.model.Users.type, t),
+		[detailData],
+	);
+	const getOptionsGroup = useCallback(
+		() => getOptionsList(config.options.model.Users.group, t),
+		[detailData],
+	);
+	const getOptionsLevel = useCallback(() => {
+		let options = [];
+		config.options.model.Users.level.map((type) => {
+			options.push({
+				label: t(`types:${type}`),
+				value: USER_LEVEL_KEYS[type],
+				disabled: 7 < USER_LEVEL_KEYS[type],
+			});
+		});
+
+		return options;
+	}, [detailData]);
+
 
 	return (
 		<>
@@ -154,23 +179,20 @@ const UsersDetail = (props: UsersDetailProps) => {
 								control={control}
 								rules={{ required: true }}
 								defaultValue={detailData.type}
-								rowProps={{
-									label: t('form:label.type'),
-									id: `${formMetaProps.name}_type`,
-									required: true,
-								}}
 								render={({ field, fieldState }) => {
 									const { ref, ...rest } = field;
 									const { error } = fieldState;
 
 									return (
-										<Input
+										<Select
 											label={t('form:label.type')}
 											placeholder={t('form:placeholder.type')}
 											id={`${formMetaProps.name}_type`}
 											error={!!error}
 											required
 											inputRef={ref}
+											options={getOptionsType()}
+											style={{ width: '50%' }}
 											{...rest}
 										/>
 									);
@@ -182,11 +204,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 								control={control}
 								rules={{ pattern: EMAIL_REGEX, required: true }}
 								defaultValue={detailData.email}
-								rowProps={{
-									label: t('form:label.email'),
-									id: `${formMetaProps.name}_email`,
-									required: true,
-								}}
 								render={({ field, fieldState }) => {
 									const { ref, ...rest } = field;
 									const { error } = fieldState;
@@ -200,6 +217,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 											error={!!error}
 											required
 											inputRef={ref}
+											style={{ width: '50%' }}
 											{...rest}
 										/>
 									);

@@ -19,6 +19,7 @@ const Wrapper = styled('div')`
 	align-items: center;
 `;
 const TitleBlock = styled('div')`
+	min-height: 40px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -43,9 +44,10 @@ const PageHeading: React.FC<PageHeadingProps> = (props) => {
 				{returnTo && (
 					<IconButton
 						onClick={returnHandler}
+						size="small"
 						sx={{ marginRight: '.75rem' }}
 					>
-						<ArrowBackIosNewIcon />
+						<ArrowBackIosNewIcon fontSize="small" />
 					</IconButton>
 				)}
 				<Typography

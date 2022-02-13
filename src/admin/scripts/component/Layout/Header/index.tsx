@@ -19,10 +19,9 @@ const Wrapper = styled('header')`
 	position: absolute;
 	top: 0;
 	left: 0;
-
 	color: ${palette.light};
-	background-color: ${palette.veryPeri};
-	background-image: linear-gradient(to top, rgba(90,90,165, .75), rgba(100,100,170, .5));
+	background-color: ${palette.anthracite};
+	border-bottom: 1px solid rgba(150,150,150,.35);
 `;
 const StyledStack = styled(Stack)`
 	width: 100%;

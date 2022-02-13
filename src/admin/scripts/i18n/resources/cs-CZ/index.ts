@@ -3,6 +3,7 @@ import messages from './messages.json';
 import pages from './pages.json';
 import form from './form.json';
 import table from './table.json';
+import types from './types.json';
 
 export default {
 	common: common,
@@ -10,4 +11,5 @@ export default {
 	pages: pages,
 	form: form,
 	table: table,
+	types: types,
 };

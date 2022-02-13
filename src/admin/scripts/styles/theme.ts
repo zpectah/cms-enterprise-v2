@@ -15,30 +15,34 @@ const BaseTheme = (theme: themeListProps) =>
 			// 	main: palette.anthracite,
 			// 	contrastText: palette.white,
 			// },
+			warning: {
+				main: palette.pink,
+				contrastText: palette.white,
+			},
 		},
 		typography: {
 			h1: {
-				fontSize: '2.125rem',
+				fontSize: '2rem',
 				fontWeight: 700,
 			},
 			h2: {
-				fontSize: '2rem',
+				fontSize: '1.75rem',
 				fontWeight: 500,
 			},
 			h3: {
-				fontSize: '1.75rem',
+				fontSize: '1.5rem',
 				fontWeight: 700,
 			},
 			h4: {
-				fontSize: '1.5rem',
+				fontSize: '1.25rem',
 				fontWeight: 500,
 			},
 			h5: {
-				fontSize: '1.25rem',
+				fontSize: '1.125rem',
 				fontWeight: 700,
 			},
 			h6: {
-				fontSize: '1.125rem',
+				fontSize: '1.05rem',
 				fontWeight: 500,
 			},
 		},

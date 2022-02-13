@@ -1,7 +1,7 @@
 {
   "model": {
     "Users": {
-      "type": ["test", "default"],
+      "type": ["default"],
       "level": ["redactor", "chief_redactor", "admin", "super_admin"],
       "group": ["company", "redaction"]
     },
