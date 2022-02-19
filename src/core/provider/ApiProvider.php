@@ -125,7 +125,17 @@ class ApiProvider {
             /**
              * System ...
              **/
+            case 'get_cms_settings':
+                $response['data'] = $dp -> get_cms_settings();
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
 
+            case 'update_cms_settings':
+                $response['data'] = $dp -> update_cms_settings($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
 
         }
 

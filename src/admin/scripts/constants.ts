@@ -25,3 +25,4 @@ export const USER_LEVEL_NAMES = {
 	5: 'manager',
 	7: 'admin',
 };
+export const LANGUAGE_OPTION_DEFAULT = 'cs-CZ';

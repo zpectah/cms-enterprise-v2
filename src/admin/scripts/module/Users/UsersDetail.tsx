@@ -24,6 +24,7 @@ import {
 	BlockPreloader,
 	LoadingBar,
 	ControlledFormRow,
+	LanguageFieldset,
 } from '../../component/ui';
 import getOptionsList from '../../utils/getOptionsList';
 
@@ -398,6 +399,16 @@ const UsersDetail = (props: UsersDetailProps) => {
 								}}
 							/>
 
+						</Section>
+
+						<Section>
+							<LanguageFieldset
+								render={(lang) => (
+									<>
+										language part {lang}
+									</>
+								)}
+							/>
 						</Section>
 
 					</div>

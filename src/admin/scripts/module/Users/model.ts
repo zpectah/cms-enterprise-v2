@@ -11,6 +11,6 @@ export default {
 	user_group: 'company',
 	description: '',
 	img_avatar: '',
-	user_level: 0,
+	user_level: 3,
 	active: true,
 } as UsersItemProps;

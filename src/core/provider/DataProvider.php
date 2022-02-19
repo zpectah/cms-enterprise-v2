@@ -3,6 +3,7 @@
 namespace core\provider;
 
 use core\model\Users;
+use core\module\admin\Settings;
 use mysqli;
 
 class DataProvider {
@@ -119,6 +120,23 @@ class DataProvider {
     /**
      * System ...
      **/
+    public function get_cms_settings (): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $settings = new Settings;
+        $response = $settings -> get_cms_settings($conn);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_cms_settings ($fields) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $settings = new Settings;
+        $response = $settings -> update_cms_settings($conn, $fields);
+        $conn -> close();
+
+        return $response;
+    }
 
 
 
