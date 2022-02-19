@@ -18,6 +18,7 @@ import {
 	DetailFormLayout,
 	Section,
 	Input,
+	PasswordInput,
 	Select,
 	Textarea,
 	SwitchControlled,
@@ -138,25 +139,81 @@ const UsersDetail = (props: UsersDetailProps) => {
 					sidebarNode={
 						<>
 
-							<ControlledFormRow
-								name="active"
-								control={control}
-								rules={{}}
-								defaultValue={detailData.active}
-								render={({ field }) => {
-									const { ref, value, ...rest } = field;
+							<Section>
 
-									return (
-										<SwitchControlled
-											id={`${formMetaProps.name}_active`}
-											label={t('form:label.active')}
-											checked={value}
-											inputRef={ref}
-											{...rest}
-										/>
-									);
-								}}
-							/>
+								<ControlledFormRow
+									name="active"
+									control={control}
+									rules={{}}
+									defaultValue={detailData.active}
+									render={({ field }) => {
+										const { ref, value, ...rest } = field;
+
+										return (
+											<SwitchControlled
+												id={`${formMetaProps.name}_active`}
+												label={t('form:label.active')}
+												checked={value}
+												inputRef={ref}
+												{...rest}
+											/>
+										);
+									}}
+								/>
+
+							</Section>
+
+							<Section>
+
+								<ControlledFormRow
+									name="user_level"
+									control={control}
+									rules={{ required: true }}
+									defaultValue={detailData.user_level}
+									render={({ field, fieldState }) => {
+										const { ref, ...rest } = field;
+										const { error } = fieldState;
+
+										return (
+											<Select
+												label={t('form:label.level')}
+												placeholder={t('form:placeholder.level')}
+												id={`${formMetaProps.name}_user_level`}
+												error={!!error}
+												required
+												inputRef={ref}
+												options={getOptionsLevel()}
+												{...rest}
+											/>
+										);
+									}}
+								/>
+
+								<ControlledFormRow
+									name="user_group"
+									control={control}
+									rules={{ required: true }}
+									defaultValue={detailData.user_group}
+									render={({ field, fieldState }) => {
+										const { ref, ...rest } = field;
+										const { error } = fieldState;
+
+										return (
+											<Select
+												label={t('form:label.group')}
+												placeholder={t('form:placeholder.group')}
+												id={`${formMetaProps.name}_user_group`}
+												error={!!error}
+												required
+												inputRef={ref}
+												options={getOptionsGroup()}
+												{...rest}
+											/>
+										);
+									}}
+								/>
+
+							</Section>
 
 						</>
 					}
@@ -197,56 +254,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 								}}
 							/>
 
-							<ControlledFormRow
-								name="user_group"
-								control={control}
-								rules={{ required: true }}
-								defaultValue={detailData.user_group}
-								render={({ field, fieldState }) => {
-									const { ref, ...rest } = field;
-									const { error } = fieldState;
-
-									return (
-										<Select
-											label={t('form:label.group')}
-											placeholder={t('form:placeholder.group')}
-											id={`${formMetaProps.name}_user_group`}
-											error={!!error}
-											required
-											inputRef={ref}
-											options={getOptionsGroup()}
-											style={{ width: '50%' }}
-											{...rest}
-										/>
-									);
-								}}
-							/>
-
-							<ControlledFormRow
-								name="user_level"
-								control={control}
-								rules={{ required: true }}
-								defaultValue={detailData.user_level}
-								render={({ field, fieldState }) => {
-									const { ref, ...rest } = field;
-									const { error } = fieldState;
-
-									return (
-										<Select
-											label={t('form:label.level')}
-											placeholder={t('form:placeholder.level')}
-											id={`${formMetaProps.name}_user_level`}
-											error={!!error}
-											required
-											inputRef={ref}
-											options={getOptionsLevel()}
-											style={{ width: '50%' }}
-											{...rest}
-										/>
-									);
-								}}
-							/>
-
 						</Section>
 
 						<Section>
@@ -279,20 +286,19 @@ const UsersDetail = (props: UsersDetailProps) => {
 							<ControlledFormRow
 								name="password"
 								control={control}
-								rules={{ required: true }}
-								defaultValue={detailData.password}
+								rules={{ required: detailData.id === 'new' }}
+								defaultValue={detailData.password || ''}
 								render={({ field, fieldState }) => {
 									const { ref, ...rest } = field;
 									const { error } = fieldState;
 
 									return (
-										<Input
-											type="password"
+										<PasswordInput
 											label={t('form:label.password')}
 											placeholder={t('form:placeholder.password')}
 											id={`${formMetaProps.name}_password`}
 											error={!!error}
-											required
+											required={detailData.id === 'new'}
 											inputRef={ref}
 											style={{ width: '75%' }}
 											{...rest}

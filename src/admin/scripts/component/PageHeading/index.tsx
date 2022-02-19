@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled, Typography } from '@mui/material';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { IconButton } from '../ui';
 
@@ -12,7 +12,7 @@ interface PageHeadingProps {
 
 const Wrapper = styled('div')`
 	width: 100%;
-	margin-bottom: 1rem;
+	margin-bottom: 2.5rem;
 	padding: .75rem 0;
 	display: flex;
 	justify-content: space-between;
@@ -47,7 +47,7 @@ const PageHeading: React.FC<PageHeadingProps> = (props) => {
 						size="small"
 						sx={{ marginRight: '.75rem' }}
 					>
-						<ArrowBackIosNewIcon fontSize="small" />
+						<ArrowBackIcon fontSize="small" />
 					</IconButton>
 				)}
 				<Typography

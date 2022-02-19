@@ -14,8 +14,8 @@ export interface LanguageFieldsetProps {
 const StyledFieldset = styled('fieldset')`
 	margin-bottom: 1rem;
 	padding: 2rem 1rem;
-	border: 1px dashed rgba(175,175,175,.35);
-	border-radius: 5px;
+	border: 1px dotted rgba(175,175,175,.35);
+	border-radius: 4px;
 `;
 const StyledLegend = styled('legend')``;
 const StyledSection = styled('section')``;

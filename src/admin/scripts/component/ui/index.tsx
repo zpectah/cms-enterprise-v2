@@ -13,3 +13,4 @@ export * from './Switch';
 export * from './Slider';
 export * from './Preloader';
 export * from './Drawer';
+export * from './Separator';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled, Stack, Box, Paper } from '@mui/material';
+import { styled, Stack } from '@mui/material';
 
 import Form, { FormProps } from './Form';
 
@@ -21,13 +21,12 @@ const FormContent = styled('div')(({ theme }) => ({
 	display: 'flex',
 	flexGrow: 1,
 	flexFlow: 'column',
-	// padding: theme.spacing(2),
 }));
-const FormSidebar = styled(Paper)(({ theme }) => ({
+const FormSidebar = styled('div')(({ theme }) => ({
 	width: '250px',
 	marginLeft: theme.spacing(3),
-	padding: theme.spacing(3),
-	// color: theme.palette.text.secondary,
+	paddingLeft: theme.spacing(3),
+	paddingRight: theme.spacing(3),
 }));
 const FormActions = styled('div')``;
 const FormAddons = styled('div')``;

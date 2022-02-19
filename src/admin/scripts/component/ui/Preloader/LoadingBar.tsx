@@ -12,7 +12,7 @@ const LoadingBar = (props: LoadingBarProps) => {
 			left: 0,
 			zIndex: 1050,
 		},
-		color = 'info',
+		color = 'primary',
 		...rest
 	} = props;
 

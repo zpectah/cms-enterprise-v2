@@ -48,6 +48,7 @@ const SelectBase: React.FC<SelectBaseProps> = (props) => {
 				labelId={`${id}_label`}
 				id={id}
 				label={label}
+				required={required}
 				size="small"
 				{...rest}
 				{...getTestDataAttr(dataId)}
