@@ -3,11 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { styled, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import { IconButton } from '../ui';
+import {
+	IconButton,
+	AddButton,
+} from '../ui';
 
 interface PageHeadingProps {
 	title: string;
 	returnTo?: string;
+	createButtonLabel?: string;
+	createButtonPath?: string;
 }
 
 const Wrapper = styled('div')`
@@ -31,20 +36,17 @@ const PageHeading: React.FC<PageHeadingProps> = (props) => {
 		children,
 		title,
 		returnTo,
+		createButtonLabel,
+		createButtonPath,
 	} = props;
 	const navigate = useNavigate();
-
-	const returnHandler = () => {
-		navigate(returnTo);
-	};
 
 	return (
 		<Wrapper>
 			<TitleBlock>
 				{returnTo && (
 					<IconButton
-						onClick={returnHandler}
-						size="small"
+						onClick={() => navigate(returnTo)}
 						sx={{ marginRight: '.75rem' }}
 					>
 						<ArrowBackIcon fontSize="small" />
@@ -59,6 +61,14 @@ const PageHeading: React.FC<PageHeadingProps> = (props) => {
 			{children && (
 				<RestBlock>
 					{children}
+				</RestBlock>
+			)}
+			{(createButtonLabel && createButtonPath) && (
+				<RestBlock>
+					<AddButton
+						onClick={() => navigate(createButtonPath)}
+						label={createButtonLabel}
+					/>
 				</RestBlock>
 			)}
 		</Wrapper>

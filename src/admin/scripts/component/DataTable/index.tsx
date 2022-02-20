@@ -125,7 +125,6 @@ const TableToolbar = (props: TableToolbarProps) => {
 					</div>
 					<div>
 						<IconButtonClose
-							size="small"
 							aria-label={t('table:filter.clear')}
 							disabled={(
 								filter.search === ''

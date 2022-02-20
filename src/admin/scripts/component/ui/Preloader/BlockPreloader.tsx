@@ -12,7 +12,13 @@ interface BlockPreloaderProps extends BoxProps {
 
 const BlockPreloader = (props: BlockPreloaderProps) => {
 	const {
-		sx = { display: 'flex' },
+		sx = {
+			width: '100%',
+			minHeight: '5rem',
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+		},
 		circularProgressProps = {
 			color: 'primary',
 		},

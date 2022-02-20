@@ -44,7 +44,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 		loading,
 	} = props;
 
-	const { t } = useTranslation(['form', 'types']);
+	const { t } = useTranslation(['common', 'form', 'types']);
 	const params = useParams();
 	const [ detailData, setDetailData ] = useState<UsersItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
@@ -63,6 +63,9 @@ const UsersDetail = (props: UsersDetailProps) => {
 		mode: 'all',
 		defaultValues: detailData,
 	});
+	const detailOptions = {
+		root: `/admin/app/${routes.users.path}`,
+	};
 
 	const submitHandler = (data: UsersItemProps) => {
 		const master = _.cloneDeep(data);
@@ -121,10 +124,11 @@ const UsersDetail = (props: UsersDetailProps) => {
 	return (
 		<>
 			<PageHeading
-				title={detailData?.id == 'new' ? 'New user' : detailData?.email}
-				returnTo={`/admin/app/${routes.users.path}`}
+				title={detailData?.id === 'new' ? t('model_new.Users') : detailData?.email}
+				returnTo={detailOptions.root}
+				createButtonLabel={t('model_new.Users')}
+				createButtonPath={detailData?.id !== 'new' && `${detailOptions.root}/detail/new`}
 			/>
-
 			{loading && <LoadingBar />}
 			{detailData ? (
 				<DetailFormLayout

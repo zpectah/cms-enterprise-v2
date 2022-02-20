@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import ButtonBase, { ButtonBaseProps } from './Button.Base';
 
@@ -16,6 +17,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = (props) => {
 			variant="contained"
 			color="warning"
 			dataId="danger-button"
+			startIcon={<DeleteIcon fontSize="small" />}
 			{...rest}
 		>
 			{t('btn.delete')}

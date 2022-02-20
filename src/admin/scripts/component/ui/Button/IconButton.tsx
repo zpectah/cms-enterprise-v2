@@ -11,6 +11,7 @@ const IconButton: React.FC<IconButtonProps> = (props) => {
 
 	return (
 		<IconButtonBase
+			size="small"
 			{...rest}
 		/>
 	);

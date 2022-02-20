@@ -28,13 +28,15 @@ const UsersList = (props: UsersListProps) => {
 		root: `/admin/app/${routes.users.path}`,
 	};
 
-	const { t } = useTranslation(['pages']);
+	const { t } = useTranslation(['common', 'pages']);
 	const navigate = useNavigate();
 
 	return (
 		<>
 			<PageHeading
 				title={t(`pages:users.page_title`)}
+				createButtonLabel={t('model_new.Users')}
+				createButtonPath={`${tableOptions.root}/detail/new`}
 			/>
 			{loading && <LoadingBar />}
 			<DataTable

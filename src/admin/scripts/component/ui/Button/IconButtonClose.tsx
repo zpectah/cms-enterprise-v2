@@ -16,9 +16,11 @@ const IconButtonClose = (props: IconButtonCloseProps) => {
 
 	return (
 		<IconButtonBase
+			size="small"
 			{...rest}
 		>
 			<CloseIcon
+				fontSize="inherit"
 				{...iconProps}
 			/>
 		</IconButtonBase>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import SendIcon from '@mui/icons-material/Send';
 
 import ButtonBase, { ButtonBaseProps } from './Button.Base';
 
@@ -17,6 +18,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
 			variant="contained"
 			color="primary"
 			dataId="submit-button"
+			endIcon={<SendIcon fontSize="small" />}
 			{...rest}
 		>
 			{t('btn.submit')}

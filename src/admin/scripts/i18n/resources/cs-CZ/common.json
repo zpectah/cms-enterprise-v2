@@ -9,5 +9,29 @@
   },
   "common": {
     "allRightsReserved": "Všechna práva vyhrazena"
+  },
+  "model": {
+    "Categories": "Kategorie",
+    "Members": "Members",
+    "Menu": "Menu",
+    "MenuItem": "Menu položka",
+    "Pages": "Stránky",
+    "Posts": "Posty",
+    "Tags": "Tagy",
+    "Translations": "Překlady",
+    "Uploads": "Soubory",
+    "Users": "Uživatelé"
+  },
+  "model_new": {
+    "Categories": "Nová kategorie",
+    "Members": "Nový member",
+    "Menu": "Nové Menu",
+    "MenuItem": "Nová menu položka",
+    "Pages": "Nová stránka",
+    "Posts": "Nový post",
+    "Tags": "Nový tag",
+    "Translations": "Nový překlad",
+    "Uploads": "Nový soubor",
+    "Users": "Nový uživatel"
   }
 }
