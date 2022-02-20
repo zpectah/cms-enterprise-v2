@@ -6,6 +6,13 @@
     "active": "Aktivní",
     "actions": "Akce"
   },
+  "row": {
+    "menu": {
+      "detail": "Zobrazit detail",
+      "toggle": "Přepnout",
+      "delete": "Smazat řádek"
+    }
+  },
   "filter": {
     "search": "Hledat v tabulce",
     "type": "Vyberte typ",
@@ -15,5 +22,8 @@
     "selected": "Vybrané",
     "toggle": "Přepnout",
     "delete": "Smazat"
+  },
+  "options": {
+    "rowsPerPage": "Řádků na stránku"
   }
 }

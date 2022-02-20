@@ -21,6 +21,7 @@ import { visuallyHidden } from '@mui/utils';
 
 import { array } from '../../../../../utils/helpers';
 import {
+	DATA_TABLE,
 	FORM_INPUT_MIN_LENGTH,
 	LANGUAGE_OPTION_DEFAULT,
 } from '../../constants';
@@ -242,7 +243,7 @@ const DataTable = (props: DataTableProps) => {
 		id,
 		rows = [],
 		columns = {},
-		defaultOrder = 'desc',
+		defaultOrder = DATA_TABLE.sortDefault as orderType,
 		defaultOrderBy = 'id',
 		onDetail,
 		onToggle,
@@ -251,12 +252,14 @@ const DataTable = (props: DataTableProps) => {
 	} = props;
 
 	const rowPadding = 'normal';
+	const rowToggleActive = true;
+	const rowDeleteActive = true;
 
 	const [ order, setOrder ] = useState<orderType>(defaultOrder);
 	const [ orderBy, setOrderBy ] = useState<keyof string | number | any>(defaultOrderBy);
 	const [ selected, setSelected ] = useState<readonly number[]>([]);
 	const [ page, setPage ] = useState<number>(0);
-	const [ rowsPerPage, setRowsPerPage ] = useState<number>(5);
+	const [ rowsPerPage, setRowsPerPage ] = useState<number>(DATA_TABLE.rowsDefault);
 	const [ filter, setFilter ] = useState<{
 		search: string;
 		type: string;
@@ -317,15 +320,16 @@ const DataTable = (props: DataTableProps) => {
 			setSelected([]);
 		});
 	};
-	const deleteCallback = (ids: number[]) => {
+	const deleteCallback = () => {
+		onDelete(confirmData).then((resp) => {
+			setConfirmOpen(false);
+			setConfirmData([]);
+			setSelected([]);
+		});
+	};
+	const deleteConfirm = (ids: number[]) => {
 		setConfirmData([...ids]);
 		setConfirmOpen(true);
-	};
-	const deleteConfirm = () => {
-		onDelete(confirmData).then((resp) => {
-			setSelected([]);
-			setConfirmData([]);
-		});
 	};
 
 	const getColumns = useCallback((row: any) => {
@@ -426,9 +430,6 @@ const DataTable = (props: DataTableProps) => {
 
 		return items;
 	}, [ rows, filter ]);
-	const getEmptyRows = useCallback(() => {
-		return page > 0 ? Math.max(0, (1 + page) * rowsPerPage - getFilteredItems().length) : 0;
-	}, [ page, rows, filter ]);
 
 	return (
 		<>
@@ -446,7 +447,7 @@ const DataTable = (props: DataTableProps) => {
 						typesOptions={getTypesOptions()}
 						selected={selected}
 						onToggleSelected={() => toggleCallback([...selected])}
-						onDeleteSelected={() => deleteCallback([...selected])}
+						onDeleteSelected={() => deleteConfirm([...selected])}
 					/>
 					<Divider />
 					<TableContainer>
@@ -491,6 +492,7 @@ const DataTable = (props: DataTableProps) => {
 														onChange={(event) => handleClick(row.id)}
 													/>
 												</TableCell>
+
 												{getColumns(row).map((cell) => (
 													<TableCell
 														key={cell.id}
@@ -503,6 +505,7 @@ const DataTable = (props: DataTableProps) => {
 														{cell.children}
 													</TableCell>
 												))}
+
 												<TableCell
 													align="right"
 													padding={rowPadding}
@@ -512,18 +515,20 @@ const DataTable = (props: DataTableProps) => {
 														options={[
 															{
 																key: 'detail',
-																label: 'Detail',
+																label: t('table:row.menu.detail'),
 																onClick: () => detailCallback(row.id),
 															},
 															{
 																key: 'toggle',
-																label: 'Toggle',
+																label: t('table:row.menu.toggle'),
 																onClick: () => toggleCallback([row.id]),
+																disabled: !rowToggleActive,
 															},
 															{
 																key: 'delete',
-																label: 'Delete',
-																onClick: () => deleteCallback([row.id]),
+																label: t('table:row.menu.delete'),
+																onClick: () => deleteConfirm([row.id]),
+																disabled: !rowDeleteActive,
 															},
 														]}
 													/>
@@ -531,26 +536,19 @@ const DataTable = (props: DataTableProps) => {
 											</TableRow>
 										);
 									})}
-								{getEmptyRows() > 0 && (
-									<TableRow
-										style={{
-											height: 53 * getEmptyRows(),
-										}}
-									>
-										<TableCell colSpan={6} />
-									</TableRow>
-								)}
 							</TableBody>
 						</Table>
 					</TableContainer>
 					<TablePagination
-						rowsPerPageOptions={[5, 10, 25]}
+						rowsPerPageOptions={DATA_TABLE.rowsPerPage}
 						component="div"
 						count={getFilteredItems().length}
 						rowsPerPage={rowsPerPage}
 						page={page}
 						onPageChange={handleChangePage}
 						onRowsPerPageChange={handleChangeRowsPerPage}
+						labelRowsPerPage={t('table:options.rowsPerPage')}
+						labelDisplayedRows={({ from, to, count }) => `${from} - ${to} / ${count}`}
 					/>
 				</Paper>
 			</Box>
@@ -559,7 +557,7 @@ const DataTable = (props: DataTableProps) => {
 				open={confirmOpen}
 				onClose={() => setConfirmOpen(false)}
 				confirmData={confirmData}
-				onConfirm={() => deleteConfirm()}
+				onConfirm={() => deleteCallback()}
 			/>
 		</>
 	);

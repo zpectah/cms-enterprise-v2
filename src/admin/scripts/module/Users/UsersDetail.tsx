@@ -43,6 +43,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 		onDelete,
 		loading,
 	} = props;
+
 	const { t } = useTranslation(['form', 'types']);
 	const params = useParams();
 	const [ detailData, setDetailData ] = useState<UsersItemProps>(null);

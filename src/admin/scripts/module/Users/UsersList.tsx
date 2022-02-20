@@ -24,24 +24,18 @@ const UsersList = (props: UsersListProps) => {
 		onDelete,
 		loading,
 	} = props;
+
+	const tableOptions = {
+		id: 'UsersDataTable',
+		root: `/admin/app/${routes.users.path}`,
+	};
+
 	const { t } = useTranslation(['pages']);
 	const navigate = useNavigate();
 
 	const openDetailHandler = (id: string | number) => {
-		navigate(`/admin/app/${routes.users.path}/detail/${id}`);
+		navigate(`${tableOptions.root}/detail/${id}`);
 	};
-
-	const rows = [
-		{ id: 1, email: 'neco1@email', type: 'default', lastName: 'Snow', firstName: 'Jon', age: 35, active: true },
-		{ id: 2, email: 'neco2@email', type: 'default', lastName: 'Lannister', firstName: 'Cersei', age: 42, active: true },
-		{ id: 3, email: 'neco3@email', type: 'default', lastName: 'Lannister', firstName: 'Jaime', age: 45, active: false },
-		{ id: 4, email: 'neco4@email', type: 'default', lastName: 'Stark', firstName: 'Arya', age: 16, active: true },
-		{ id: 5, email: 'neco5@email', type: 'default', lastName: 'Targaryen', firstName: 'Daenerys', age: null, active: true },
-		{ id: 6, email: 'neco6@email', type: 'default', lastName: 'Melisandre', firstName: null, age: 150, active: true },
-		{ id: 7, email: 'neco7@email', type: 'default', lastName: 'Clifford', firstName: 'Ferrara', age: 44, active: false },
-		{ id: 8, email: 'neco8@email', type: 'admin', lastName: 'Frances', firstName: 'Rossini', age: 36, active: true },
-		{ id: 9, email: 'neco9@email', type: 'default', lastName: 'Roxie', firstName: 'Harvey', age: 65, active: true },
-	];
 
 	return (
 		<>
@@ -49,10 +43,9 @@ const UsersList = (props: UsersListProps) => {
 				title={t(`pages:users.page_title`)}
 			/>
 			{loading && <LoadingBar />}
-			<div>...UsersList...{JSON.stringify(dataItems)}...</div>
 			<DataTable
-				id="UsersDataTable"
-				rows={rows}
+				id={tableOptions.id}
+				rows={dataItems}
 				columns={{
 					id: ['center', '100px'],
 					email: ['left', 'auto'],

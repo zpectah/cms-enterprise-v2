@@ -12,8 +12,7 @@ export const EMAIL_REGEX =
 export const DATA_TABLE = {
 	rowsPerPage: [5, 10, 25, 50, 100],
 	rowsDefault: 25,
-	rowHeightDefault: 55,
-	sortDefault: 'asc',
+	sortDefault: 'desc',
 };
 export const USER_LEVEL_KEYS = {
 	redactor: 3,
