@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel, { InputLabelProps } from '@mui/material/InputLabel';
 import FormControl, { FormControlProps } from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import SearchIcon from '@mui/icons-material/Search';
 
 import OutlinedInput, { OutlinedInputProps } from './OutlinedInput';
-import { IconButton } from '../Button';
 
-export interface PasswordInputProps {
+export interface SearchInputProps {
 	formControlProps?: FormControlProps;
 	inputLabelProps?: InputLabelProps;
+	inputType?: 'text' | 'search';
 }
 
-const PasswordInput = (props: PasswordInputProps & OutlinedInputProps) => {
+const SearchInput = (props: SearchInputProps & OutlinedInputProps) => {
 	const {
 		label,
 		required,
@@ -23,12 +22,9 @@ const PasswordInput = (props: PasswordInputProps & OutlinedInputProps) => {
 			size: 'small',
 		},
 		inputLabelProps,
-		onChange,
-		value,
+		inputType = 'search',
 		...rest
 	} = props;
-
-	const [ showPassword, setShowPassword ] = useState(false);
 
 	return (
 		<FormControl
@@ -42,27 +38,18 @@ const PasswordInput = (props: PasswordInputProps & OutlinedInputProps) => {
 				</InputLabel>
 			)}
 			<OutlinedInput
-				type={showPassword ? 'text' : 'password'}
-				endAdornment={
-					<InputAdornment position="end">
-						<IconButton
-							aria-label="toggle password visibility"
-							onClick={() => setShowPassword(!showPassword)}
-							onMouseDown={(e) => e.preventDefault()}
-							edge="end"
-						>
-							{showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
-						</IconButton>
+				type={inputType}
+				startAdornment={
+					<InputAdornment position="start">
+						<SearchIcon fontSize="small" />
 					</InputAdornment>
 				}
 				label={label}
 				required={required}
-				value={value}
-				onChange={onChange}
 				{...rest}
 			/>
 		</FormControl>
 	);
 };
 
-export default PasswordInput;
+export default SearchInput;

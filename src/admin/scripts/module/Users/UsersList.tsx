@@ -65,7 +65,7 @@ const UsersList = (props: UsersListProps) => {
 		{ id: 5, email: 'neco5@email', type: 'default', lastName: 'Targaryen', firstName: 'Daenerys', age: null, active: true },
 		{ id: 6, email: 'neco6@email', type: 'default', lastName: 'Melisandre', firstName: null, age: 150, active: true },
 		{ id: 7, email: 'neco7@email', type: 'default', lastName: 'Clifford', firstName: 'Ferrara', age: 44, active: false },
-		{ id: 8, email: 'neco8@email', type: 'default', lastName: 'Frances', firstName: 'Rossini', age: 36, active: true },
+		{ id: 8, email: 'neco8@email', type: 'admin', lastName: 'Frances', firstName: 'Rossini', age: 36, active: true },
 		{ id: 9, email: 'neco9@email', type: 'default', lastName: 'Roxie', firstName: 'Harvey', age: 65, active: true },
 	];
 
@@ -84,6 +84,12 @@ const UsersList = (props: UsersListProps) => {
 					type: ['left', '150px'],
 					active: ['right', '125px'],
 				}}
+				searchProps={[
+					'email',
+				]}
+				onDetail={(id) => { console.log('onDetail', id) }}
+				onToggle={(id) => { console.log('onToggle', id) }}
+				onDelete={(id) => { console.log('onDelete', id) }}
 			/>
 			<ConfirmDialog
 				context="delete"

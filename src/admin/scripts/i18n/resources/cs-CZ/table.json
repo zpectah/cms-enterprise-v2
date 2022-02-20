@@ -1,1 +1,9 @@
-{}
+{
+  "label": {
+    "id": "#",
+    "email": "E-mail",
+    "type": "Typ",
+    "active": "Aktivní",
+    "actions": "Akce"
+  }
+}

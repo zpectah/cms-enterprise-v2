@@ -26,3 +26,4 @@ export const USER_LEVEL_NAMES = {
 	7: 'admin',
 };
 export const LANGUAGE_OPTION_DEFAULT = 'cs-CZ';
+export const FORM_INPUT_MIN_LENGTH = 3;

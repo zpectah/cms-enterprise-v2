@@ -1,5 +1,10 @@
 import React, { useCallback, useState } from 'react';
-import Box from '@mui/material/Box';
+import {
+	Box,
+	Stack,
+	Divider,
+	ButtonGroup,
+} from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,9 +16,19 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
+import { useTranslation } from 'react-i18next';
 
-import IconButton from '../Button/IconButton';
-import Checkbox from '../Checkbox/Checkbox';
+import { array } from '../../../../../../utils/helpers';
+import {
+	FORM_INPUT_MIN_LENGTH,
+	LANGUAGE_OPTION_DEFAULT,
+} from '../../../constants';
+import { Button, IconButton, IconButtonClose } from '../Button';
+import { Checkbox } from '../Checkbox';
+import { Switch } from '../Switch';
+import { MoreMenu } from '../Menu';
+import { SearchInput } from '../Input';
+import { Select } from '../Select';
 
 type orderType = 'asc' | 'desc';
 type cellAlignType = 'left' | 'center' | 'right';
@@ -26,7 +41,7 @@ export interface columnItemProps {
 	scope?: boolean,
 	children: React.ReactNode,
 }
-export interface EnhancedTableProps {
+export interface TableHeadingProps {
 	numSelected: number;
 	onRequestSort: (event: React.MouseEvent<unknown>, property: keyof any) => void;
 	onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -40,6 +55,12 @@ export interface DataTableProps {
 	columns: {
 		[k: string]: [cellAlignType, string],
 	};
+	defaultOrder?: orderType;
+	defaultOrderBy?: string;
+	onDetail: (id: number) => void;
+	onToggle: (id: number) => void;
+	onDelete: (id: number) => void;
+	searchProps?: string[];
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -64,7 +85,31 @@ function getComparator<Key extends keyof any>(
 		: (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-const EnhancedTableHead = (props: EnhancedTableProps) => {
+function getTypesFromData (data: any[]) {
+	let list = [];
+
+	data.map((item) => {
+		let type = item.type;
+
+		if (list.indexOf(type) < 0) list.push(type);
+	});
+
+	return list;
+}
+
+function getSearchAttrs (attrs: string[], lang: string) {
+	let na = [];
+
+	attrs.map((attr) => {
+		let ni = attr.replace('[lang]', lang);
+		na.push(ni);
+	});
+
+	return na;
+}
+
+const TableHeading = (props: TableHeadingProps) => {
+	const { t } = useTranslation([ 'table' ]);
 	const {
 		onSelectAllClick,
 		order,
@@ -95,7 +140,7 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
 						direction={orderBy === key ? order : 'asc'}
 						onClick={createSortHandler(key)}
 					>
-						{key}
+						{t(`table:label.${key}`)}
 						{orderBy === key ? (
 							<Box component="span" sx={visuallyHidden}>
 								{order === 'desc' ? 'sorted descending' : 'sorted ascending'}
@@ -121,6 +166,7 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
 						inputProps={{
 							'aria-label': 'select all',
 						}}
+						size="small"
 					/>
 				</TableCell>
 				{renderCells()}
@@ -128,7 +174,7 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
 					align="right"
 					padding="normal"
 				>
-					Actions
+					{t(`table:label.actions`)}
 				</TableCell>
 			</TableRow>
 		</TableHead>
@@ -136,16 +182,32 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
 }
 
 const DataTable = (props: DataTableProps) => {
+	const { t } = useTranslation(['types']);
 	const {
 		rows = [],
 		columns = {},
+		defaultOrder = 'desc',
+		defaultOrderBy = 'id',
+		onDetail,
+		onToggle,
+		onDelete,
+		searchProps = [],
 	} = props;
 
-	const [ order, setOrder ] = useState<orderType>('desc');
-	const [ orderBy, setOrderBy ] = useState<keyof string | number | any>('id');
+	const rowPadding = 'normal';
+
+	const [ order, setOrder ] = useState<orderType>(defaultOrder);
+	const [ orderBy, setOrderBy ] = useState<keyof string | number | any>(defaultOrderBy);
 	const [ selected, setSelected ] = useState<readonly number[]>([]);
-	const [ page, setPage ] = useState(0);
-	const [ rowsPerPage, setRowsPerPage ] = useState(5);
+	const [ page, setPage ] = useState<number>(0);
+	const [ rowsPerPage, setRowsPerPage ] = useState<number>(5);
+	const [ filter, setFilter ] = useState<{
+		search: string;
+		type: string;
+	}>({
+		search: '',
+		type: 'all',
+	});
 
 	const handleRequestSort = (
 		event: React.MouseEvent<unknown>,
@@ -163,7 +225,7 @@ const DataTable = (props: DataTableProps) => {
 		}
 		setSelected([]);
 	};
-	const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+	const handleClick = (id: number) => {
 		const selectedIndex = selected.indexOf(id);
 		let newSelected: readonly number[] = [];
 		if (selectedIndex === -1) {
@@ -189,7 +251,15 @@ const DataTable = (props: DataTableProps) => {
 	};
 	const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
-	const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+	const detailClickCallback = (id: number) => {
+		onDetail(id);
+	};
+	const toggleClickCallback = (id: number) => {
+		onToggle(id);
+	};
+	const deleteClickCallback = (id: number) => {
+		onDelete(id);
+	};
 
 	const getColumns = useCallback((row: any) => {
 		const cols: columnItemProps[] = [];
@@ -211,7 +281,11 @@ const DataTable = (props: DataTableProps) => {
 			width: columns.email[1],
 			scope: true,
 			children: (
-				<>{row.email}</>
+				<a
+					onClick={() => detailClickCallback(row.id)}
+				>
+					{row.email}
+				</a>
 			),
 		});
 		if (columns.type) cols.push({
@@ -229,32 +303,166 @@ const DataTable = (props: DataTableProps) => {
 			align: columns.active[0],
 			width: columns.active[1],
 			children: (
-				<>{row.active ? 'yes' : 'no'}</>
+				<>
+					<Switch
+						checked={row.active}
+						onChange={() => toggleClickCallback(row.id)}
+					/>
+				</>
 			),
 		});
 
 		return cols;
 	}, [ columns ]);
+	const getTypesOptions = useCallback(() => {
+		const tmp = getTypesFromData(rows);
+		const options = [
+			{
+				key: 'all',
+				value: 'all',
+				label: 'All',
+			}
+		];
+
+		tmp.map((type) => {
+			options.push({
+				key: type,
+				label: t(`types:${type}`),
+				value: type,
+			});
+		});
+
+		return options;
+	}, [ rows ]);
+	const getFilteredItems = useCallback(() => {
+		let items = [
+			...rows,
+		];
+		if (filter.search !== '' && filter.search.length > FORM_INPUT_MIN_LENGTH) {
+			items = array.search(
+				rows,
+				getSearchAttrs(searchProps, LANGUAGE_OPTION_DEFAULT),
+				filter.search,
+			);
+		}
+		if (filter.type !== 'all') {
+			let tmp = [];
+			items.map((item) => {
+				if (item.type == filter.type) tmp.push(item);
+			});
+			items = tmp;
+		}
+
+		return items;
+	}, [ rows, filter ]);
+	const getEmptyRows = useCallback(() => {
+		return page > 0 ? Math.max(0, (1 + page) * rowsPerPage - getFilteredItems().length) : 0;
+	}, [ page, rows, filter ]);
 
 	return (
-		<Box sx={{ width: '100%' }}>
-			<Paper sx={{ width: '100%', mb: 2 }}>
+		<Box
+			sx={{ width: '100%' }}
+		>
+			<Paper
+				sx={{
+					width: '100%',
+					mb: 2,
+				}}
+			>
+				<div style={{ padding: '1rem' }}>
+					<Stack
+						spacing={2}
+						direction="row"
+						justifyContent="space-between"
+						alignItems="center"
+						width="100%"
+					>
+						<Stack
+							spacing={2}
+							direction="row"
+							justifyContent="space-between"
+							alignItems="center"
+						>
+							<div>
+								<SearchInput
+									value={filter.search}
+									onChange={(e) => {
+										setFilter({
+											...filter,
+											search: e.target.value,
+										});
+									}}
+									inputType="text"
+									placeholder="Search in table"
+									style={{ width: '200px' }}
+								/>
+							</div>
+							<div>
+								<Select
+									options={getTypesOptions()}
+									value={filter.type}
+									onChange={(e) => {
+										setFilter({
+											...filter,
+											type: e.target.value as string,
+										});
+									}}
+									placeholder="Select type"
+									style={{ width: '150px' }}
+								/>
+							</div>
+							<div>
+								<IconButtonClose
+									size="small"
+									disabled={(
+										filter.search === ''
+										&& filter.type === 'all'
+									)}
+									onClick={() => {
+										setFilter({
+											search: '',
+											type: 'all',
+										});
+									}}
+								/>
+							</div>
+						</Stack>
+						<div>
+							<ButtonGroup
+								variant="outlined"
+								color="secondary"
+								aria-label="outlined primary button group"
+							>
+								<Button
+									disabled={selected.length === 0}
+								>
+									Toggle {selected.length}
+								</Button>
+								<Button
+									disabled={selected.length === 0}
+								>
+									Delete {selected.length}
+								</Button>
+							</ButtonGroup>
+						</div>
+					</Stack>
+				</div>
+				<Divider />
 				<TableContainer>
 					<Table
 						sx={{ minWidth: 750 }}
-						aria-labelledby="tableTitle"
 					>
-						<EnhancedTableHead
+						<TableHeading
 							numSelected={selected.length}
 							order={order}
 							orderBy={orderBy}
 							onSelectAllClick={handleSelectAllClick}
 							onRequestSort={handleRequestSort}
-							rowCount={rows.length}
+							rowCount={getFilteredItems().length}
 							cells={columns}
 						/>
 						<TableBody>
-							{rows.slice().sort(getComparator(order, orderBy))
+							{getFilteredItems().slice().sort(getComparator(order, orderBy))
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 								.map((row, index) => {
 									const isItemSelected = isSelected(row.id);
@@ -263,7 +471,7 @@ const DataTable = (props: DataTableProps) => {
 									return (
 										<TableRow
 											hover
-											onClick={(event) => handleClick(event, row.id)}
+											onDoubleClick={(event) => handleClick(row.id)}
 											role="checkbox"
 											aria-checked={isItemSelected}
 											tabIndex={-1}
@@ -277,6 +485,8 @@ const DataTable = (props: DataTableProps) => {
 													inputProps={{
 														'aria-labelledby': labelId,
 													}}
+													size="small"
+													onChange={(event) => handleClick(row.id)}
 												/>
 											</TableCell>
 											{getColumns(row).map((cell) => (
@@ -286,24 +496,43 @@ const DataTable = (props: DataTableProps) => {
 													component={cell.component}
 													width={cell.width}
 													scope={cell.scope ? 'row' : null}
-													padding="normal"
+													padding={rowPadding}
 												>
 													{cell.children}
 												</TableCell>
 											))}
 											<TableCell
 												align="right"
-												padding="normal"
+												padding={rowPadding}
 											>
-												action buttons ...
+												<MoreMenu
+													id={`row_more_${row.id}`}
+													options={[
+														{
+															key: 'detail',
+															label: 'Detail',
+															onClick: () => detailClickCallback(row.id),
+														},
+														{
+															key: 'toggle',
+															label: 'Toggle',
+															onClick: () => toggleClickCallback(row.id),
+														},
+														{
+															key: 'delete',
+															label: 'Delete',
+															onClick: () => deleteClickCallback(row.id),
+														},
+													]}
+												/>
 											</TableCell>
 										</TableRow>
 									);
 								})}
-							{emptyRows > 0 && (
+							{getEmptyRows() > 0 && (
 								<TableRow
 									style={{
-										height: 53 * emptyRows,
+										height: 53 * getEmptyRows(),
 									}}
 								>
 									<TableCell colSpan={6} />
@@ -315,7 +544,7 @@ const DataTable = (props: DataTableProps) => {
 				<TablePagination
 					rowsPerPageOptions={[5, 10, 25]}
 					component="div"
-					count={rows.length}
+					count={getFilteredItems().length}
 					rowsPerPage={rowsPerPage}
 					page={page}
 					onPageChange={handleChangePage}
