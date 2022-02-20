@@ -58,15 +58,15 @@ const UsersList = (props: UsersListProps) => {
 	};
 
 	const rows = [
-		{ id: 1, email: 'neco1@email', lastName: 'Snow', firstName: 'Jon', age: 35 },
-		{ id: 2, email: 'neco2@email', lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-		{ id: 3, email: 'neco3@email', lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-		{ id: 4, email: 'neco4@email', lastName: 'Stark', firstName: 'Arya', age: 16 },
-		{ id: 5, email: 'neco5@email', lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-		{ id: 6, email: 'neco6@email', lastName: 'Melisandre', firstName: null, age: 150 },
-		{ id: 7, email: 'neco7@email', lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-		{ id: 8, email: 'neco8@email', lastName: 'Frances', firstName: 'Rossini', age: 36 },
-		{ id: 9, email: 'neco9@email', lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+		{ id: 1, email: 'neco1@email', type: 'default', lastName: 'Snow', firstName: 'Jon', age: 35, active: true },
+		{ id: 2, email: 'neco2@email', type: 'default', lastName: 'Lannister', firstName: 'Cersei', age: 42, active: true },
+		{ id: 3, email: 'neco3@email', type: 'default', lastName: 'Lannister', firstName: 'Jaime', age: 45, active: false },
+		{ id: 4, email: 'neco4@email', type: 'default', lastName: 'Stark', firstName: 'Arya', age: 16, active: true },
+		{ id: 5, email: 'neco5@email', type: 'default', lastName: 'Targaryen', firstName: 'Daenerys', age: null, active: true },
+		{ id: 6, email: 'neco6@email', type: 'default', lastName: 'Melisandre', firstName: null, age: 150, active: true },
+		{ id: 7, email: 'neco7@email', type: 'default', lastName: 'Clifford', firstName: 'Ferrara', age: 44, active: false },
+		{ id: 8, email: 'neco8@email', type: 'default', lastName: 'Frances', firstName: 'Rossini', age: 36, active: true },
+		{ id: 9, email: 'neco9@email', type: 'default', lastName: 'Roxie', firstName: 'Harvey', age: 65, active: true },
 	];
 
 	return (

@@ -16,10 +16,15 @@ import IconButton from '../Button/IconButton';
 import Checkbox from '../Checkbox/Checkbox';
 
 type orderType = 'asc' | 'desc';
+type cellAlignType = 'left' | 'center' | 'right';
 
-export interface DataTableProps {
-	rows: any[];
-	columns: any; // TODO
+export interface columnItemProps {
+	id: string,
+	component: 'th' | 'td',
+	align: cellAlignType,
+	width: string,
+	scope?: boolean,
+	children: React.ReactNode,
 }
 export interface EnhancedTableProps {
 	numSelected: number;
@@ -28,7 +33,13 @@ export interface EnhancedTableProps {
 	order: orderType;
 	orderBy: string;
 	rowCount: number;
-	cells: any[]; // TODO
+	cells: DataTableProps['columns'];
+}
+export interface DataTableProps {
+	rows: any[];
+	columns: {
+		[k: string]: [cellAlignType, string],
+	};
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -53,7 +64,7 @@ function getComparator<Key extends keyof any>(
 		: (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function EnhancedTableHead(props: EnhancedTableProps) {
+const EnhancedTableHead = (props: EnhancedTableProps) => {
 	const {
 		onSelectAllClick,
 		order,
@@ -63,8 +74,39 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 		onRequestSort,
 		cells,
 	} = props;
+
 	const createSortHandler = (property: keyof any) => (event: React.MouseEvent<unknown>) => {
 		onRequestSort(event, property);
+	};
+
+	const renderCells = () => {
+		const list = [];
+		for (let key in cells) {
+			list.push(
+				<TableCell
+					key={key}
+					align={cells[key][0]}
+					width={cells[key][1]}
+					padding="normal"
+					sortDirection={orderBy === key ? order : false}
+				>
+					<TableSortLabel
+						active={orderBy === key}
+						direction={orderBy === key ? order : 'asc'}
+						onClick={createSortHandler(key)}
+					>
+						{key}
+						{orderBy === key ? (
+							<Box component="span" sx={visuallyHidden}>
+								{order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+							</Box>
+						) : null}
+					</TableSortLabel>
+				</TableCell>
+			);
+		}
+
+		return list;
 	};
 
 	return (
@@ -77,31 +119,17 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 						checked={rowCount > 0 && numSelected === rowCount}
 						onChange={onSelectAllClick}
 						inputProps={{
-							'aria-label': 'select all desserts',
+							'aria-label': 'select all',
 						}}
 					/>
 				</TableCell>
-				{cells.map((headCell) => (
-					<TableCell
-						key={headCell.id}
-						align={headCell.align}
-						padding={headCell.disablePadding ? 'none' : 'normal'}
-						sortDirection={orderBy === headCell.id ? order : false}
-					>
-						<TableSortLabel
-							active={orderBy === headCell.id}
-							direction={orderBy === headCell.id ? order : 'asc'}
-							onClick={createSortHandler(headCell.id)}
-						>
-							{headCell.label}
-							{orderBy === headCell.id ? (
-								<Box component="span" sx={visuallyHidden}>
-									{order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-								</Box>
-							) : null}
-						</TableSortLabel>
-					</TableCell>
-				))}
+				{renderCells()}
+				<TableCell
+					align="right"
+					padding="normal"
+				>
+					Actions
+				</TableCell>
 			</TableRow>
 		</TableHead>
 	);
@@ -113,7 +141,7 @@ const DataTable = (props: DataTableProps) => {
 		columns = {},
 	} = props;
 
-	const [ order, setOrder ] = useState<orderType>('asc');
+	const [ order, setOrder ] = useState<orderType>('desc');
 	const [ orderBy, setOrderBy ] = useState<keyof string | number | any>('id');
 	const [ selected, setSelected ] = useState<readonly number[]>([]);
 	const [ page, setPage ] = useState(0);
@@ -138,7 +166,6 @@ const DataTable = (props: DataTableProps) => {
 	const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
 		const selectedIndex = selected.indexOf(id);
 		let newSelected: readonly number[] = [];
-
 		if (selectedIndex === -1) {
 			newSelected = newSelected.concat(selected, id);
 		} else if (selectedIndex === 0) {
@@ -151,7 +178,6 @@ const DataTable = (props: DataTableProps) => {
 				selected.slice(selectedIndex + 1),
 			);
 		}
-
 		setSelected(newSelected);
 	};
 	const handleChangePage = (event: unknown, newPage: number) => {
@@ -165,37 +191,46 @@ const DataTable = (props: DataTableProps) => {
 
 	const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-	const getColumns = useCallback(() => {
-		const cols = [];
+	const getColumns = useCallback((row: any) => {
+		const cols: columnItemProps[] = [];
 
 		if (columns.id) cols.push({
 			id: 'id',
-			numeric: true,
-			disablePadding: true,
-			label: 'Id',
-			align: 'center',
 			component: 'th',
+			align: columns.id[0],
+			width: columns.id[1],
 			scope: true,
+			children: (
+				<small>{row.id}</small>
+			),
 		});
 		if (columns.email) cols.push({
 			id: 'email',
-			numeric: false,
-			disablePadding: true,
-			label: 'E-mail',
-			align: 'left',
-			component: 'td',
+			component: 'th',
+			align: columns.email[0],
+			width: columns.email[1],
 			scope: true,
+			children: (
+				<>{row.email}</>
+			),
 		});
-
-
-		cols.push({
-			id: 'action',
-			numeric: false,
-			disablePadding: true,
-			label: 'Action',
-			align: 'right',
+		if (columns.type) cols.push({
+			id: 'type',
 			component: 'td',
-			scope: false,
+			align: columns.type[0],
+			width: columns.type[1],
+			children: (
+				<>{row.type}</>
+			),
+		});
+		if (columns.active) cols.push({
+			id: 'active',
+			component: 'td',
+			align: columns.active[0],
+			width: columns.active[1],
+			children: (
+				<>{row.active ? 'yes' : 'no'}</>
+			),
 		});
 
 		return cols;
@@ -216,7 +251,7 @@ const DataTable = (props: DataTableProps) => {
 							onSelectAllClick={handleSelectAllClick}
 							onRequestSort={handleRequestSort}
 							rowCount={rows.length}
-							cells={getColumns()}
+							cells={columns}
 						/>
 						<TableBody>
 							{rows.slice().sort(getComparator(order, orderBy))
@@ -244,23 +279,21 @@ const DataTable = (props: DataTableProps) => {
 													}}
 												/>
 											</TableCell>
-
-											<TableCell
-												component="th"
-												id={labelId}
-												scope="row"
-												padding="none"
-											>
-												{row.id}
-											</TableCell>
-											<TableCell
-												align="right"
-											>
-												{row.email}
-											</TableCell>
-
+											{getColumns(row).map((cell) => (
+												<TableCell
+													key={cell.id}
+													align={cell.align}
+													component={cell.component}
+													width={cell.width}
+													scope={cell.scope ? 'row' : null}
+													padding="normal"
+												>
+													{cell.children}
+												</TableCell>
+											))}
 											<TableCell
 												align="right"
+												padding="normal"
 											>
 												action buttons ...
 											</TableCell>
