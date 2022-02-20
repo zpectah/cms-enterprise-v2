@@ -28,7 +28,15 @@ const Breadcrumbs = () => {
 			label: parsedPath[3],
 		});
 
-		// Panel or Detail
+		// Panel
+		if (parsedPath[4]) {
+			fields.push({
+				key: 3,
+				label: parsedPath[4],
+			});
+		}
+
+		// Detail
 		if (parsedPath[4] && parsedPath[5]) {
 			fields.push({
 				key: 3,

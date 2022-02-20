@@ -15,3 +15,4 @@ export * from './Preloader';
 export * from './Drawer';
 export * from './Separator';
 export * from './Menu';
+export * from './Tabs';

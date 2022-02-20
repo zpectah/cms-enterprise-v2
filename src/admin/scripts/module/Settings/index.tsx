@@ -11,7 +11,7 @@ const SettingsModule = () => {
 	return (
 		<>
 			<PageHeading
-				title={t(`pages:dashboard.page_title`)}
+				title={t(`pages:settings.page_title`)}
 			/>
 			<SettingsForm />
 		</>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { styled, Stack } from '@mui/material';
 
-import Form, { FormProps } from './Form';
+import FormBase, { FormBaseProps } from './Form.Base';
 
-interface DetailFormLayoutProps extends FormProps {
+interface DetailFormLayoutProps extends FormBaseProps {
 	sidebarNode?: React.ReactNode;
 	actionsNode?: React.ReactNode;
 	addonsNode?: React.ReactNode;
@@ -42,7 +42,7 @@ const DetailFormLayout: React.FC<DetailFormLayoutProps> = (props) => {
 
 	return (
 		<FormOuter>
-			<Form {...rest}>
+			<FormBase {...rest}>
 				<FormInner>
 					<FormBody>
 						<FormContent children={children} />
@@ -56,7 +56,7 @@ const DetailFormLayout: React.FC<DetailFormLayoutProps> = (props) => {
 						/>
 					} />
 				</FormInner>
-			</Form>
+			</FormBase>
 			{addonsNode && (
 				<FormAddons children={addonsNode} />
 			)}

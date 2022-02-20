@@ -10,6 +10,9 @@ const FormBase: React.FC<FormBaseProps> = (props) => {
 	const {
 		children,
 		dataId = 'form-base',
+		style = {
+			width: '100%',
+		},
 		...rest
 	} = props;
 
@@ -17,6 +20,7 @@ const FormBase: React.FC<FormBaseProps> = (props) => {
 		<form
 			noValidate
 			autoComplete="off"
+			style={style}
 			{...rest}
 			{...getTestDataAttr(dataId)}
 		>
