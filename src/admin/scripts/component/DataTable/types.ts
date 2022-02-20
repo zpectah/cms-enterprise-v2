@@ -32,8 +32,8 @@ export interface DataTableProps {
 	defaultOrder?: orderType;
 	defaultOrderBy?: string;
 	onDetail: (id: number) => void;
-	onToggle: (id: number[]) => void;
-	onDelete: (id: number[]) => void;
+	onToggle: (ids: number[]) => Promise<unknown>;
+	onDelete: (ids: number[]) => Promise<unknown>;
 	searchProps?: string[];
 }
 

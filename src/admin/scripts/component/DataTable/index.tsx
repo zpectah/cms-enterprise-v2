@@ -26,7 +26,6 @@ import {
 } from '../../constants';
 import {
 	Button,
-	IconButton,
 	IconButtonClose,
 	Checkbox,
 	Switch,
@@ -313,18 +312,20 @@ const DataTable = (props: DataTableProps) => {
 	const detailCallback = (id: number) => {
 		onDetail(id);
 	};
-	const toggleCallback = (id: number[]) => {
-		onToggle(id); // TODO: as Promise
-		setSelected([]);
+	const toggleCallback = (ids: number[]) => {
+		onToggle(ids).then((resp) => {
+			setSelected([]);
+		});
 	};
-	const deleteCallback = (id: number[]) => {
-		setConfirmData([...id]);
+	const deleteCallback = (ids: number[]) => {
+		setConfirmData([...ids]);
 		setConfirmOpen(true);
 	};
-	const deleteCallbackConfirm = () => {
-		onDelete(confirmData); // TODO: as Promise
-		setSelected([]);
-		setConfirmData([]);
+	const deleteConfirm = () => {
+		onDelete(confirmData).then((resp) => {
+			setSelected([]);
+			setConfirmData([]);
+		});
 	};
 
 	const getColumns = useCallback((row: any) => {
@@ -558,7 +559,7 @@ const DataTable = (props: DataTableProps) => {
 				open={confirmOpen}
 				onClose={() => setConfirmOpen(false)}
 				confirmData={confirmData}
-				onConfirm={() => deleteCallbackConfirm()}
+				onConfirm={() => deleteConfirm()}
 			/>
 		</>
 	);
