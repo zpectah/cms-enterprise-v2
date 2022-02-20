@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { Box, BoxProps, Menu, MenuItem } from '@mui/material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-
-import IconButton, { IconButtonProps } from '../Button/IconButton';
 
 export interface MoreMenuItemProps {
 	key: string | number;
@@ -11,25 +8,22 @@ export interface MoreMenuItemProps {
 	disabled?: boolean;
 	hidden?: boolean;
 }
-export interface MoreMenuProps {
+export interface DropdownMenuProps {
+	renderButton: (renderProps: any) => React.ReactNode;
 	options: MoreMenuItemProps[];
 	id: string;
 	maxHeight?: number;
 	width?: string;
-	iconButtonProps?: IconButtonProps;
 	boxProps?: BoxProps;
 }
 
-const MoreMenu = (props: MoreMenuProps) => {
+const DropdownMenu = (props: DropdownMenuProps) => {
 	const {
+		renderButton,
 		options = [],
 		id,
 		maxHeight = 250,
 		width = '10rem',
-		iconButtonProps = {
-			id: `${id}_button`,
-			size: 'small',
-		},
 		boxProps = {
 			component: 'div',
 		},
@@ -54,16 +48,12 @@ const MoreMenu = (props: MoreMenuProps) => {
 		<Box
 			{...boxProps}
 		>
-			<IconButton
-				aria-label="more"
-				aria-controls={open ? id : undefined}
-				aria-expanded={open ? 'true' : undefined}
-				aria-haspopup="true"
-				onClick={openHandler}
-				{...iconButtonProps}
-			>
-				<MoreVertIcon fontSize="small" />
-			</IconButton>
+			{renderButton({
+				'aria-controls': open ? id : undefined,
+				'aria-expanded': open ? 'true' : undefined,
+				'aria-haspopup': 'true',
+				onClick: openHandler,
+			})}
 			<Menu
 				id={id}
 				MenuListProps={{
@@ -95,4 +85,4 @@ const MoreMenu = (props: MoreMenuProps) => {
 	);
 };
 
-export default MoreMenu;
+export default DropdownMenu;

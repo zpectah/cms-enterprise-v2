@@ -31,6 +31,7 @@ import {
 	Checkbox,
 	Switch,
 	MoreMenu,
+	DropdownMenu,
 	SearchInput,
 	Select,
 	ConfirmDialog,
@@ -139,26 +140,31 @@ const TableToolbar = (props: TableToolbarProps) => {
 						/>
 					</div>
 				</Stack>
-				<div>
-					<ButtonGroup
-						variant="outlined"
-						color="secondary"
-						aria-label="outlined primary button group"
-					>
+				<DropdownMenu
+					id="SelectedDropdownOptions"
+					renderButton={(renderProps) => (
 						<Button
+							variant="outlined"
+							color="secondary"
 							disabled={selected.length === 0}
-							onClick={() => onToggleSelected()}
+							{...renderProps}
 						>
-							{t('table:selected.toggle')} {selected.length}
+							{t('table:selected.selected')} {selected.length}
 						</Button>
-						<Button
-							disabled={selected.length === 0}
-							onClick={() => onDeleteSelected()}
-						>
-							{t('table:selected.delete')} {selected.length}
-						</Button>
-					</ButtonGroup>
-				</div>
+					)}
+					options={[
+						{
+							key: 'toggle_selected',
+							label: t('table:selected.toggle'),
+							onClick: () => onToggleSelected(),
+						},
+						{
+							key: 'delete_selected',
+							label: t('table:selected.delete'),
+							onClick: () => onDeleteSelected(),
+						},
+					]}
+				/>
 			</Stack>
 		</div>
 	);

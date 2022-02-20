@@ -6,9 +6,7 @@ import routes from '../../routes';
 import { UsersItemProps } from '../../types/model';
 import PageHeading from '../../component/PageHeading';
 import DataTable from '../../component/DataTable';
-import {
-	LoadingBar,
-} from '../../component/ui';
+import { LoadingBar } from '../../component/ui';
 
 interface UsersListProps {
 	dataItems: UsersItemProps[];
@@ -33,10 +31,6 @@ const UsersList = (props: UsersListProps) => {
 	const { t } = useTranslation(['pages']);
 	const navigate = useNavigate();
 
-	const openDetailHandler = (id: string | number) => {
-		navigate(`${tableOptions.root}/detail/${id}`);
-	};
-
 	return (
 		<>
 			<PageHeading
@@ -55,7 +49,7 @@ const UsersList = (props: UsersListProps) => {
 				searchProps={[
 					'email',
 				]}
-				onDetail={(id) => openDetailHandler(id)}
+				onDetail={(id) => navigate(`${tableOptions.root}/detail/${id}`)}
 				onToggle={onToggle}
 				onDelete={onDelete}
 			/>

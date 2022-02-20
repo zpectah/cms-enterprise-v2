@@ -22,30 +22,30 @@ const UsersModule = () => {
 		switch (method) {
 			case 'create':
 				return createUsers(data).then((resp) => {
-					console.log('createUsers', method, data);
 					reloadUsers();
+
 					return resp;
 				});
 
 			case 'update':
 				return updateUsers(data).then((resp) => {
-					console.log('updateUsers', method, data);
 					reloadUsers();
+
 					return resp;
 				});
 		}
 	};
 	const deleteHandler = (ids: (string | number)[]) => {
 		return deleteUsers(ids).then((resp) => {
-			console.log('deleteUsers', ids);
 			reloadUsers();
+
 			return resp;
 		});
 	};
 	const toggleHandler = (ids: (string | number)[]) => {
 		return toggleUsers(ids).then((resp) => {
-			console.log('toggleUsers', ids);
 			reloadUsers();
+
 			return resp;
 		});
 	};
