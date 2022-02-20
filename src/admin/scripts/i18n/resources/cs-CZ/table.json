@@ -5,5 +5,15 @@
     "type": "Typ",
     "active": "Aktivní",
     "actions": "Akce"
+  },
+  "filter": {
+    "search": "Hledat v tabulce",
+    "type": "Vyberte typ",
+    "clear": "Resetovat filtr"
+  },
+  "selected": {
+    "selected": "Vybrané",
+    "toggle": "Přepnout",
+    "delete": "Smazat"
   }
 }

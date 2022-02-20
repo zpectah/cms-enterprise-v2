@@ -14,5 +14,4 @@ export * from './Slider';
 export * from './Preloader';
 export * from './Drawer';
 export * from './Separator';
-export * from './Table';
 export * from './Menu';

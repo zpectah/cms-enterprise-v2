@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import routes from '../../routes';
 import { UsersItemProps } from '../../types/model';
 import PageHeading from '../../component/PageHeading';
+import DataTable from '../../component/DataTable';
 import {
 	ConfirmDialog,
 	LoadingBar,
-	DataTable,
 } from '../../component/ui';
 
 interface UsersListProps {
@@ -77,6 +77,7 @@ const UsersList = (props: UsersListProps) => {
 			{loading && <LoadingBar />}
 			<div>...UsersList...{JSON.stringify(dataItems)}...</div>
 			<DataTable
+				id="UsersDataTable"
 				rows={rows}
 				columns={{
 					id: ['center', '100px'],
