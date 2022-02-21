@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Stack, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Stack, Typography, Chip } from '@mui/material';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 
@@ -7,7 +8,7 @@ import Dialog, { DialogProps } from './Dialog';
 import { PrimaryButton, SecondaryButton } from '../Button';
 
 interface ConfirmDialogProps extends DialogProps {
-	context?: 'default' | 'delete';
+	context?: 'default' | 'delete' | 'logout';
 	confirmData: (string | number)[];
 	onConfirm: () => void;
 }
@@ -30,6 +31,8 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
 		onClose,
 		...rest
 	} = props;
+
+	const { t } = useTranslation([ 'common', 'components' ]);
 	const [ isOpen, setIsOpen ] = useState<boolean>(open);
 
 	const handleClose = () => {
@@ -60,17 +63,34 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
 					alignItems="center"
 					justifyContent="center"
 				>
-					<Typography variant="h4">
-						custom title in body
+					<Typography variant="h3">
+						{t(`components:ConfirmDialog.title.${context}`)}
 					</Typography>
 				</Stack>
 				<Stack
-					direction="row"
+					direction="column"
 					spacing={4}
 					alignItems="center"
 					justifyContent="center"
 				>
-					bla bla bla ... {context} ... {JSON.stringify(confirmData)}
+					{t(`components:ConfirmDialog.content.${context}`)}
+					{confirmData && (
+						<Stack
+							direction="row"
+							alignItems="center"
+							justifyContent="center"
+							sx={{
+								p: 2
+							}}
+						>
+							{confirmData.map((item) => (
+								<Chip
+									key={item}
+									label={`#${item}`}
+								/>
+							))}
+						</Stack>
+					)}
 				</Stack>
 				<Stack
 					direction="row"
@@ -78,8 +98,18 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
 					alignItems="center"
 					justifyContent="center"
 				>
-					<PrimaryButton onClick={handleConfirm} size="large">Confirm</PrimaryButton>
-					<SecondaryButton onClick={handleClose} size="large">Cancel</SecondaryButton>
+					<SecondaryButton
+						onClick={handleClose}
+						size="large"
+					>
+						{t('btn.cancel')}
+					</SecondaryButton>
+					<PrimaryButton
+						onClick={handleConfirm}
+						size="large"
+					>
+						{t('btn.confirm')}
+					</PrimaryButton>
 				</Stack>
 			</Stack>
 		</Dialog>

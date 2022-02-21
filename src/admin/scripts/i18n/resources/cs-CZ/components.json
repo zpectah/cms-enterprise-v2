@@ -1,0 +1,14 @@
+{
+  "ConfirmDialog": {
+    "title": {
+      "default": "Potvrdit",
+      "delete": "Potvrdit smazání",
+      "logout": "Odhlášení"
+    },
+    "content": {
+      "default": "Jste si jisti, že chcete provést akci?",
+      "delete": "Opravdu chcete smazat tyto položky?",
+      "logout": "Chcete se opravdu odhlásit?"
+    }
+  }
+}

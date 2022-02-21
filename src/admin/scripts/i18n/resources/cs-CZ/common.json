@@ -5,7 +5,9 @@
     "submit": "Odeslat",
     "delete": "Smazat",
     "create": "Vytvořit",
-    "update": "Aktualizovat"
+    "update": "Aktualizovat",
+    "cancel": "Zrušit",
+    "confirm": "Potvrdit"
   },
   "common": {
     "allRightsReserved": "Všechna práva vyhrazena"

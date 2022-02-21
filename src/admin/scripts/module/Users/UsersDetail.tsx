@@ -44,7 +44,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 		loading,
 	} = props;
 
-	const { t } = useTranslation(['common', 'form', 'types']);
+	const { t } = useTranslation([ 'common', 'form', 'types' ]);
 	const params = useParams();
 	const [ detailData, setDetailData ] = useState<UsersItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);

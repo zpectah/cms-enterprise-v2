@@ -27,7 +27,7 @@ import {
 } from '../../constants';
 import {
 	Button,
-	IconButtonClose,
+	CloseIconButton,
 	Checkbox,
 	Switch,
 	MoreMenu,
@@ -124,7 +124,7 @@ const TableToolbar = (props: TableToolbarProps) => {
 						/>
 					</div>
 					<div>
-						<IconButtonClose
+						<CloseIconButton
 							aria-label={t('table:filter.clear')}
 							disabled={(
 								filter.search === ''

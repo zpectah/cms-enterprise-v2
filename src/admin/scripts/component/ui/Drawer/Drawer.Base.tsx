@@ -5,7 +5,7 @@ import Drawer, { DrawerProps } from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled';
 
-import { IconButtonClose } from '../Button';
+import { CloseIconButton } from '../Button';
 import { Scrollable } from '../Scrollable';
 import getTestDataAttr from '../../../utils/getTestDataAttr';
 
@@ -57,7 +57,7 @@ const DrawerBase: React.FC<DrawerBaseProps> = (props) => {
 
 	const renderCloseIconButton = () => {
 		return (
-			<IconButtonClose
+			<CloseIconButton
 				aria-label="close"
 				onClick={onClose}
 				dataId={`${id}_icon-close`}

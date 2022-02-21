@@ -7,5 +7,5 @@ export { default as SecondaryButton } from './SecondaryButton';
 export { default as DeleteButton } from './DeleteButton';
 export { default as SubmitButton } from './SubmitButton';
 export { default as ButtonGroup } from './ButtonGroup';
-export { default as IconButtonClose } from './IconButtonClose';
+export { default as CloseIconButton } from './CloseIconButton';
 export { default as AddButton } from './AddButton';

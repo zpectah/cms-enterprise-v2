@@ -4,6 +4,7 @@ import pages from './pages.json';
 import form from './form.json';
 import table from './table.json';
 import types from './types.json';
+import components from './components.json';
 
 export default {
 	common: common,
@@ -12,4 +13,5 @@ export default {
 	form: form,
 	table: table,
 	types: types,
+	components: components,
 };

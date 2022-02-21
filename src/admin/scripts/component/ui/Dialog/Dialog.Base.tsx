@@ -11,7 +11,7 @@ import { DialogProps } from '@mui/material/Dialog';
 
 import {
 	PrimaryButton,
-	IconButtonClose,
+	CloseIconButton,
 } from '../Button';
 import getTestDataAttr from '../../../utils/getTestDataAttr';
 
@@ -59,7 +59,7 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 
 	const renderCloseIconButton = () => {
 		return (
-			<IconButtonClose
+			<CloseIconButton
 				aria-label="close"
 				onClick={onClose}
 				dataId={`${id}_icon-close`}

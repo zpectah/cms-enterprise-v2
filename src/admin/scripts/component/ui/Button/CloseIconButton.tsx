@@ -4,11 +4,11 @@ import { SvgIconProps } from '@mui/material';
 
 import IconButtonBase, { IconButtonBaseProps } from './IconButton.Base';
 
-interface IconButtonCloseProps extends IconButtonBaseProps {
+interface CloseIconButtonProps extends IconButtonBaseProps {
 	iconProps?: SvgIconProps;
 }
 
-const IconButtonClose = (props: IconButtonCloseProps) => {
+const CloseIconButton = (props: CloseIconButtonProps) => {
 	const {
 		iconProps,
 		...rest
@@ -16,15 +16,17 @@ const IconButtonClose = (props: IconButtonCloseProps) => {
 
 	return (
 		<IconButtonBase
+			color="inherit"
 			size="small"
 			{...rest}
 		>
 			<CloseIcon
 				fontSize="inherit"
+				color="inherit"
 				{...iconProps}
 			/>
 		</IconButtonBase>
 	);
 };
 
-export default IconButtonClose;
+export default CloseIconButton;

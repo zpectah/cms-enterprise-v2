@@ -12,6 +12,7 @@ import LanguageService from './service/Language.service';
 import ThemeService from './service/Theme.service';
 import { appStoreProps } from './types/store';
 import { PagePreloader } from './component/ui';
+import Toasts from './component/Toasts';
 import RequireAuth from './component/RequireAuth';
 import ErrorPage from './page/ErrorPage';
 import LoginPage from './page/LoginPage';
@@ -51,6 +52,7 @@ const App = () => {
 						<Route path="*" element={<ErrorPage errorCode={404} />} />
 					</Routes>
 				</Router>
+				<Toasts />
 			</ErrorBoundary>
 		</ThemeProvider>
 	);

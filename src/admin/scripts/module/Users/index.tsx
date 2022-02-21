@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
 
 import { UsersItemProps } from '../../types/model';
 import { useUsers } from '../../hooks/model';
+import useToasts from '../../hooks/useToasts';
 import UsersList from './UsersList';
 import UsersDetail from './UsersDetail';
 
@@ -17,11 +18,18 @@ const UsersModule = () => {
 		toggleUsers,
 		deleteUsers,
 	} = useUsers();
+	const params = useParams();
+	const { createToast } = useToasts();
 
 	const submitHandler = (method: 'create' | 'update', data: UsersItemProps) => {
 		switch (method) {
 			case 'create':
 				return createUsers(data).then((resp) => {
+					createToast({
+						title: 'Items was created',
+						context: 'success',
+						timeout: 5000,
+					});
 					reloadUsers();
 
 					return resp;
@@ -29,6 +37,11 @@ const UsersModule = () => {
 
 			case 'update':
 				return updateUsers(data).then((resp) => {
+					createToast({
+						title: 'Items was updated',
+						context: 'success',
+						timeout: 5000,
+					});
 					reloadUsers();
 
 					return resp;
@@ -37,6 +50,11 @@ const UsersModule = () => {
 	};
 	const deleteHandler = (ids: (string | number)[]) => {
 		return deleteUsers(ids).then((resp) => {
+			createToast({
+				title: 'Item was deleted',
+				context: 'success',
+				timeout: 5000,
+			});
 			reloadUsers();
 
 			return resp;
@@ -44,6 +62,11 @@ const UsersModule = () => {
 	};
 	const toggleHandler = (ids: (string | number)[]) => {
 		return toggleUsers(ids).then((resp) => {
+			createToast({
+				title: 'Item was updated',
+				context: 'success',
+				timeout: 5000,
+			});
 			reloadUsers();
 
 			return resp;
@@ -51,7 +74,10 @@ const UsersModule = () => {
 	};
 
 	useEffect(() => {
-		if (users_error) console.warn('Error', users_error);
+		if (users_error) createToast({
+			title: users_error,
+			context: 'error',
+		});
 	}, [ users_error ]);
 
 	return (
@@ -59,6 +85,7 @@ const UsersModule = () => {
 			<Routes>
 				<Route path="detail/:id" element={
 					<UsersDetail
+						key={params['*']}
 						dataItems={users}
 						onSubmit={submitHandler}
 						onDelete={deleteHandler}

@@ -9,10 +9,12 @@ import {
 	PrimaryButton,
 	SecondaryButton,
 } from '../../component/ui';
+import useToasts from '../../hooks/useToasts';
 
 const DashboardModule = () => {
 	const { t } = useTranslation(['pages']);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
+	const { createToast } = useToasts();
 
 	return (
 		<>
@@ -23,7 +25,13 @@ const DashboardModule = () => {
 			<Stack direction="row" spacing={2}>
 				<Button onClick={() => setConfirmOpen(true)}>{t('btn.open')}</Button>
 				<PrimaryButton>Primary</PrimaryButton>
-				<SecondaryButton>Secondary</SecondaryButton>
+				<SecondaryButton
+					onClick={() => {
+						createToast({
+							title: 'Created toast item ...',
+						});
+					}}
+				>Create toast</SecondaryButton>
 			</Stack>
 			<ConfirmDialog
 				confirmData={[]}

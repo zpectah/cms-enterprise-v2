@@ -9,6 +9,7 @@ const appStore: appStoreProps = {
 	sidebarOpen: storage.get(config.project.global.keys.APP_SIDEBAR) == 'true',
 	appLanguage: LanguageService.get(),
 	appTheme: ThemeService.get() as themeListProps,
+	toasts: [],
 };
 
 export default appStore;
