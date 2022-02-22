@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Alert } from '@mui/material';
 
+import { settingsProps } from '../../types/app';
 import {
 	Form,
 	Tabs,
@@ -11,16 +13,28 @@ import {
 	Section,
 	ControlledFormRow,
 	Input,
+	Textarea,
+	SubmitButton,
+	LoadingBar,
+	BlockPreloader,
 } from '../../component/ui';
 import { EMAIL_REGEX } from '../../constants';
 import routes from '../../routes';
 
-interface SettingsFormProps {}
+interface SettingsFormProps {
+	data: settingsProps;
+	onSubmit: (data: settingsProps) => Promise<unknown>;
+	loading: boolean;
+}
 
 const SettingsForm = (props: SettingsFormProps) => {
-	const {} = props;
+	const {
+		data,
+		onSubmit,
+		loading,
+	} = props;
 
-	const { t } = useTranslation();
+	const { t } = useTranslation([ 'components' ]);
 	const params = useParams();
 	const navigate = useNavigate();
 	const [ panelValue, setPanelValue ] = useState<number>(0);
@@ -29,36 +43,36 @@ const SettingsForm = (props: SettingsFormProps) => {
 		control,
 		register,
 		handleSubmit,
-		watch,
 		formState: {
 			isDirty,
 			isValid,
+			errors,
 		},
 	} = useForm({
 		mode: 'all',
-		defaultValues: {},
+		defaultValues: data,
 	});
 
 	const panelOptions = [
 		{
 			index: 0,
 			key: 'global',
-			label: 'Global',
+			label: t('components:SettingsForm.panel.global'),
 		},
 		{
 			index: 1,
 			key: 'web',
-			label: 'Web',
+			label: t('components:SettingsForm.panel.web'),
 		},
 		{
 			index: 2,
 			key: 'content',
-			label: 'Content',
+			label: t('components:SettingsForm.panel.content'),
 		},
 		{
 			index: 3,
 			key: 'maintenance',
-			label: 'Maintenance',
+			label: t('components:SettingsForm.panel.maintenance'),
 		},
 	];
 
@@ -67,11 +81,20 @@ const SettingsForm = (props: SettingsFormProps) => {
 	const submitHandler = (data: any) => {
 		const master = _.cloneDeep(data);
 		console.log('submitHandler', master);
+		onSubmit(master).then((resp) => {
+			console.info('After submit', master, resp);
+		});
 	};
 
 	const formMetaProps = {
 		name: 'UsersDetailForm',
 		onSubmit: handleSubmit(submitHandler),
+		errors: errors && t('components:SettingsForm.error_global'),
+		actionsNode: (
+			<SubmitButton
+				disabled={(isDirty && !isValid)}
+			/>
+		),
 	};
 
 	useEffect(() => {
@@ -85,129 +108,173 @@ const SettingsForm = (props: SettingsFormProps) => {
 	}, [ params ]);
 
 	return (
-		<Form {...formMetaProps}>
+		<>
+			{loading && <LoadingBar />}
+			{data ? (
+				<Form {...formMetaProps}>
+					<Tabs
+						labels={[
+							panelOptions[0].label,
+							panelOptions[1].label,
+							panelOptions[2].label,
+							panelOptions[3].label,
+						]}
+						activeValue={panelValue}
+						onChange={panelChangeHandler}
+					>
+						<TabPanel
+							index={panelOptions[0].index}
+							panelValue={panelValue}
+						>
+							<>
+								{/*
+						// project_name?: string;
+						// project_description?: string;
+						// company_name?: string;
+						// company_description?: string;
+						// company_id?: string;
+						// company_address?: string;
+						// company_city?: string;
+						// company_country?: string;
+						// company_zip?: string;
+						// company_location?: [number, number];
+						// company_email?: string[];
+						// company_phone?: number[];
+						// company_bank?: string;
+						*/}
+								<Section
+									title={t('components:SettingsForm.section.project')}
+								>
 
-			<Tabs
-				labels={[
-					panelOptions[0].label,
-					panelOptions[1].label,
-					panelOptions[2].label,
-					panelOptions[3].label,
-				]}
-				activeValue={panelValue}
-				onChange={panelChangeHandler}
-			>
-				<TabPanel
-					index={panelOptions[0].index}
-					panelValue={panelValue}
-				>
-					<>
-						<Section>
+									<ControlledFormRow
+										name="project_name"
+										control={control}
+										rules={{ required: true }}
+										defaultValue={data.project_name}
+										rowProps={{
+											label: t('components:SettingsForm.label.project_name'),
+											id: `${formMetaProps.name}_project_name`,
+											required: true,
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
 
-							... global content ...
+											return (
+												<Input
+													placeholder={t('components:SettingsForm.placeholder.project_name')}
+													id={`${formMetaProps.name}_project_name`}
+													error={!!error}
+													required
+													inputRef={ref}
+													{...rest}
+												/>
+											);
+										}}
+									/>
 
-						</Section>
-					</>
-				</TabPanel>
-				<TabPanel
-					index={panelOptions[1].index}
-					panelValue={panelValue}
-				>
-					<>
-						<Section>
+									<ControlledFormRow
+										name="project_description"
+										control={control}
+										rules={{}}
+										defaultValue={data.project_description}
+										rowProps={{
+											label: t('components:SettingsForm.label.project_description'),
+											id: `${formMetaProps.name}_project_description`,
+											helpTexts: [ t('components:SettingsForm.help.project_description') ],
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
 
-							... web content ...
+											return (
+												<Textarea
+													placeholder={t('components:SettingsForm.placeholder.project_description')}
+													id={`${formMetaProps.name}_project_description`}
+													error={!!error}
+													inputRef={ref}
+													{...rest}
+												/>
+											);
+										}}
+									/>
 
-						</Section>
-					</>
-				</TabPanel>
-				<TabPanel
-					index={panelOptions[2].index}
-					panelValue={panelValue}
-				>
-					<>
-						<Section>
+								</Section>
+								<Section
+									title={t('components:SettingsForm.section.company')}
+								>
 
-							... content content ...
+									... global content ...
 
-						</Section>
-					</>
-				</TabPanel>
-				<TabPanel
-					index={panelOptions[3].index}
-					panelValue={panelValue}
-				>
-					<>
-						<Section>
+								</Section>
+							</>
+						</TabPanel>
+						<TabPanel
+							index={panelOptions[1].index}
+							panelValue={panelValue}
+						>
+							<>
+								{/*
+						// web_meta_title?: string;
+						// web_meta_description?: string;
+						// web_meta_keywords?: string[];
+						// web_meta_robots?: string;
+						// web_mode_debug?: boolean;
+						// web_mode_maintenance?: boolean;
+						// members_login_active?: boolean;
+						// members_lostPassword_active?: boolean;
+						// members_profile_active?: boolean;
+						// members_register_active?: boolean;
+						*/}
+								<Section>
 
-							... maintenance content ...
+									... web content ...
 
-						</Section>
-					</>
-				</TabPanel>
-			</Tabs>
+								</Section>
+							</>
+						</TabPanel>
+						<TabPanel
+							index={panelOptions[2].index}
+							panelValue={panelValue}
+						>
+							<>
+								{/*
+						// comments_anonymous_active?: boolean;
+						// comments_global_active?: boolean;
+						// language_active?: string[];
+						// language_default?: string;
+						// language_installed?: string[];
+						// form_email_recipients?: string[];
+						// form_email_sender?: string;
+						*/}
+								<Section>
 
-			<Section>
+									... content content ...
 
-				<ControlledFormRow
-					name="type"
-					control={control}
-					rules={{ required: true }}
-					defaultValue={''}
-					rowProps={{
-						label: t('form:label.type'),
-						id: `${formMetaProps.name}_type`,
-						required: true,
-					}}
-					render={({ field, fieldState }) => {
-						const { ref, ...rest } = field;
-						const { error } = fieldState;
+								</Section>
+							</>
+						</TabPanel>
+						<TabPanel
+							index={panelOptions[3].index}
+							panelValue={panelValue}
+						>
+							<>
+								{/*
+						Dynamic triggers ...
+						*/}
+								<Section>
 
-						return (
-							<Input
-								label={t('form:label.type')}
-								placeholder={t('form:placeholder.type')}
-								id={`${formMetaProps.name}_type`}
-								error={!!error}
-								required
-								inputRef={ref}
-								{...rest}
-							/>
-						);
-					}}
-				/>
+									... maintenance content ...
 
-				<ControlledFormRow
-					name="email"
-					control={control}
-					rules={{ pattern: EMAIL_REGEX, required: true }}
-					defaultValue={''}
-					rowProps={{
-						label: t('form:label.email'),
-						id: `${formMetaProps.name}_email`,
-						required: true,
-					}}
-					render={({ field, fieldState }) => {
-						const { ref, ...rest } = field;
-						const { error } = fieldState;
-
-						return (
-							<Input
-								type="email"
-								label={t('form:label.email')}
-								placeholder={t('form:placeholder.email')}
-								id={`${formMetaProps.name}_email`}
-								error={!!error}
-								required
-								inputRef={ref}
-								{...rest}
-							/>
-						);
-					}}
-				/>
-
-			</Section>
-		</Form>
+								</Section>
+							</>
+						</TabPanel>
+					</Tabs>
+				</Form>
+			) : (
+				<BlockPreloader />
+			)}
+		</>
 	);
 };
 

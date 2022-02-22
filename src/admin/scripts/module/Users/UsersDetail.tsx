@@ -138,7 +138,9 @@ const UsersDetail = (props: UsersDetailProps) => {
 					{...formMetaProps}
 					actionsNode={
 						<>
-							<SubmitButton disabled={(isDirty && !isValid)} />
+							<SubmitButton
+								disabled={(isDirty && !isValid)}
+							/>
 							<DeleteButton
 								onClick={() => deleteHandler(detailData.id)}
 							/>
@@ -296,6 +298,9 @@ const UsersDetail = (props: UsersDetailProps) => {
 								control={control}
 								rules={{ required: detailData.id === 'new' }}
 								defaultValue={detailData.password || ''}
+								rowProps={{
+									helpTexts: [ detailData.id === 'new' && t('form:help.password') ],
+								}}
 								render={({ field, fieldState }) => {
 									const { ref, ...rest } = field;
 									const { error } = fieldState;

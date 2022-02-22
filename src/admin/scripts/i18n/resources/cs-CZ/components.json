@@ -10,5 +10,29 @@
       "delete": "Opravdu chcete smazat tyto položky?",
       "logout": "Chcete se opravdu odhlásit?"
     }
+  },
+  "SettingsForm": {
+    "panel": {
+      "global": "Obecné",
+      "web": "Web",
+      "content": "Obsah",
+      "maintenance": "Údržba"
+    },
+    "section": {
+      "project": "Projekt",
+      "company": "O společnosti"
+    },
+    "label": {
+      "project_name": "Název projektu",
+      "project_description": "Popis projektu"
+    },
+    "placeholder": {
+      "project_name": "Zadejte název projektu",
+      "project_description": "Zadejte popis projektu"
+    },
+    "help": {
+      "project_description": "Popis je používaný jen pro interní potřeby"
+    },
+    "error_global": "Problémy s validací formuláře, zkontrolujte všechny pole a zkuste znovu"
   }
 }

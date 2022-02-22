@@ -18,6 +18,7 @@
     "item_updated": "Položka byla úspešně aktualizována",
     "items_updated": "Položky byly úspešně aktualizovány",
     "item_deleted": "Položka byla úspešně smazána",
-    "items_deleted": "Položky byly úspešně smazány"
+    "items_deleted": "Položky byly úspešně smazány",
+    "data_updated": "Data byla uložena"
   }
 }

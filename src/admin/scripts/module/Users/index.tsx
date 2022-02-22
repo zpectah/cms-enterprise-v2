@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import _ from 'lodash';
 import { Routes, Route, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -27,9 +28,10 @@ const UsersModule = () => {
 	} = useToasts();
 
 	const submitHandler = (method: 'create' | 'update', data: UsersItemProps) => {
+		const master: UsersItemProps = _.cloneDeep(data);
 		switch (method) {
 			case 'create':
-				return createUsers(data).then((resp) => {
+				return createUsers(master).then((resp) => {
 					createSuccessToast({ title: t('messages:model.item_created') });
 					reloadUsers();
 
@@ -37,7 +39,7 @@ const UsersModule = () => {
 				});
 
 			case 'update':
-				return updateUsers(data).then((resp) => {
+				return updateUsers(master).then((resp) => {
 					createSuccessToast({ title: t('messages:model.item_updated') });
 					reloadUsers();
 
@@ -46,16 +48,18 @@ const UsersModule = () => {
 		}
 	};
 	const deleteHandler = (ids: (string | number)[]) => {
-		return deleteUsers(ids).then((resp) => {
-			createSuccessToast({ title: ids.length === 1 ? t('messages:model.item_deleted') : t('messages:model.items_deleted') });
+		const master = [ ...ids ];
+		return deleteUsers(master).then((resp) => {
+			createSuccessToast({ title: master.length === 1 ? t('messages:model.item_deleted') : t('messages:model.items_deleted') });
 			reloadUsers();
 
 			return resp;
 		});
 	};
 	const toggleHandler = (ids: (string | number)[]) => {
-		return toggleUsers(ids).then((resp) => {
-			createSuccessToast({ title: ids.length === 1 ? t('messages:model.item_updated') : t('messages:model.items_updated') });
+		const master = [ ...ids ];
+		return toggleUsers(master).then((resp) => {
+			createSuccessToast({ title: master.length === 1 ? t('messages:model.item_updated') : t('messages:model.items_updated') });
 			reloadUsers();
 
 			return resp;

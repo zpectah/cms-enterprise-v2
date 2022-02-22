@@ -16,7 +16,7 @@ export const get = async (url: string): Promise<apiResponseDefaultProps> => {
 	return response?.json();
 };
 
-export const post = async (url: string, data: any): Promise<apiResponseDefaultProps> => {
+export const post = async (url: string, data: unknown): Promise<apiResponseDefaultProps> => {
 	const response = await fetch(url, {
 		method: 'POST',
 		...init,
@@ -26,7 +26,7 @@ export const post = async (url: string, data: any): Promise<apiResponseDefaultPr
 	return response?.json();
 };
 
-export const postRaw = async (url: string, data: any): Promise<any> => {
+export const postRaw = async (url: string, data: unknown): Promise<any> => {
 	return await fetch(url, {
 		method: 'POST',
 		...init,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { styled } from '@mui/material';
+import { styled, Typography } from '@mui/material';
 
 import media from '../../../styles/responsive';
 
@@ -23,11 +23,11 @@ const MainRow = styled('div')`
 `;
 const Label = styled('label')`
 	padding-bottom: .25rem;
-	font-size: .9rem;
-	font-weight: 600;
+	font-size: 1rem;
+	font-weight: 500;
 	
 	${media.min.md} {
-		width: 250px;
+		width: 25%;
 		padding-top: .5rem;
 		padding-bottom: 0;		
 	}
@@ -63,14 +63,25 @@ const FormRowBase: React.FC<FormRowBaseProps> = (props) => {
 				{helpTexts && (
 					<HelpersRow>
 						{helpTexts.map((text, index) => (
-							<div key={index}>{text}</div>
+							<Typography
+								key={index}
+								variant="caption"
+							>
+								{text}
+							</Typography>
 						))}
 					</HelpersRow>
 				)}
 				{errors && (
 					<ErrorsRow>
 						{errors.map((text, index) => (
-							<div key={index}>{t(`messages:form.${text}`)}</div>
+							<Typography
+								key={index}
+								variant="caption"
+								color="error"
+							>
+								{t(`messages:form.${text}`)}
+							</Typography>
 						))}
 					</ErrorsRow>
 				)}
