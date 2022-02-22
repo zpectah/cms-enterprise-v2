@@ -12,5 +12,12 @@
     "required": "Pole je povinné",
     "format": "Hodnota je ve špatném formátu",
     "pattern": "Hodnota neodpovídá požadovanému vzoru"
+  },
+  "model": {
+    "item_created": "Položka byla úspešně vytvořena",
+    "item_updated": "Položka byla úspešně aktualizována",
+    "items_updated": "Položky byly úspešně aktualizovány",
+    "item_deleted": "Položka byla úspešně smazána",
+    "items_deleted": "Položky byly úspešně smazány"
   }
 }

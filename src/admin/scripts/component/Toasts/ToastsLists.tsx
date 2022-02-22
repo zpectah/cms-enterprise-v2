@@ -9,11 +9,11 @@ export interface ToastsListsProps {
 }
 
 const Wrapper = styled('div')`
-	width: 300px;
+	width: 330px;
 	height: auto;
 	position: fixed;
 	overflow: visible;
-	right: 1rem;
+	left: calc(50% - 165px);
 	bottom: .5rem;
 	z-index: 1995;	
 `;

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { UsersItemProps } from '../../types/model';
 import { useUsers } from '../../hooks/model';
@@ -8,6 +9,7 @@ import UsersList from './UsersList';
 import UsersDetail from './UsersDetail';
 
 const UsersModule = () => {
+	const { t } = useTranslation([ 'messages' ]);
 	const {
 		users,
 		users_loading,
@@ -19,17 +21,16 @@ const UsersModule = () => {
 		deleteUsers,
 	} = useUsers();
 	const params = useParams();
-	const { createToast } = useToasts();
+	const {
+		createSuccessToast,
+		createErrorToast,
+	} = useToasts();
 
 	const submitHandler = (method: 'create' | 'update', data: UsersItemProps) => {
 		switch (method) {
 			case 'create':
 				return createUsers(data).then((resp) => {
-					createToast({
-						title: 'Items was created',
-						context: 'success',
-						timeout: 5000,
-					});
+					createSuccessToast({ title: t('messages:model.item_created') });
 					reloadUsers();
 
 					return resp;
@@ -37,11 +38,7 @@ const UsersModule = () => {
 
 			case 'update':
 				return updateUsers(data).then((resp) => {
-					createToast({
-						title: 'Items was updated',
-						context: 'success',
-						timeout: 5000,
-					});
+					createSuccessToast({ title: t('messages:model.item_updated') });
 					reloadUsers();
 
 					return resp;
@@ -50,11 +47,7 @@ const UsersModule = () => {
 	};
 	const deleteHandler = (ids: (string | number)[]) => {
 		return deleteUsers(ids).then((resp) => {
-			createToast({
-				title: 'Item was deleted',
-				context: 'success',
-				timeout: 5000,
-			});
+			createSuccessToast({ title: ids.length === 1 ? t('messages:model.item_deleted') : t('messages:model.items_deleted') });
 			reloadUsers();
 
 			return resp;
@@ -62,11 +55,7 @@ const UsersModule = () => {
 	};
 	const toggleHandler = (ids: (string | number)[]) => {
 		return toggleUsers(ids).then((resp) => {
-			createToast({
-				title: 'Item was updated',
-				context: 'success',
-				timeout: 5000,
-			});
+			createSuccessToast({ title: ids.length === 1 ? t('messages:model.item_updated') : t('messages:model.items_updated') });
 			reloadUsers();
 
 			return resp;
@@ -74,10 +63,7 @@ const UsersModule = () => {
 	};
 
 	useEffect(() => {
-		if (users_error) createToast({
-			title: users_error,
-			context: 'error',
-		});
+		if (users_error) createErrorToast({ title: users_error });
 	}, [ users_error ]);
 
 	return (

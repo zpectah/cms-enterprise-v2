@@ -26,3 +26,5 @@ export const USER_LEVEL_NAMES = {
 };
 export const LANGUAGE_OPTION_DEFAULT = 'cs-CZ';
 export const FORM_INPUT_MIN_LENGTH = 3;
+export const TOAST_TIMEOUT_SUCCESS = 3500;
+export const TOAST_TIMEOUT_ERROR = 5000;

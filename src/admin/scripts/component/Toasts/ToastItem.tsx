@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@mui/material';
 
 import palette from '../../styles/palette';
@@ -11,7 +11,7 @@ const Toast = styled('div')(({ context }:{ context: toastItemProps['context'] })
 	width: auto;
 	height: auto;
 	margin-bottom: .5rem;
-	padding: 1rem;
+	padding: 1rem 2rem 1rem 1rem;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -42,7 +42,9 @@ const ToastItem = (props: ToastItemProps) => {
 		timeout,
 	} = props;
 
-	// TODO: timeout
+	useEffect(() => {
+		if (timeout) setTimeout(() => onRemove(id), timeout);
+	}, [ id, timeout ]);
 
 	return (
 		<Toast

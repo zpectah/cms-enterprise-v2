@@ -6,7 +6,10 @@ import { useTranslation } from 'react-i18next';
 
 import config from '../../config';
 import routes from '../../routes';
-import { EMAIL_REGEX, USER_LEVEL_KEYS } from '../../constants';
+import {
+	EMAIL_REGEX,
+	USER_LEVEL_KEYS,
+} from '../../constants';
 import { UsersItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import getDetailData from '../../utils/getDetailData';
