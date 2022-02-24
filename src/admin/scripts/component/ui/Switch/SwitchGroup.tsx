@@ -4,11 +4,11 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 import Switch, { SwitchProps } from './Switch';
 
-interface SwitchItemProps extends SwitchProps {
+export interface SwitchItemProps extends SwitchProps {
 	key: string | number;
 	label: string;
 }
-interface SwitchGroupProps extends FormGroupProps {
+export interface SwitchGroupProps extends FormGroupProps {
 	items: SwitchItemProps[];
 }
 

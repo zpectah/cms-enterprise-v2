@@ -3,7 +3,7 @@ import { styled, Stack } from '@mui/material';
 
 import FormBase, { FormBaseProps } from './Form.Base';
 
-interface DetailFormLayoutProps extends FormBaseProps {
+export interface DetailFormLayoutProps extends FormBaseProps {
 	sidebarNode?: React.ReactNode;
 	actionsNode?: React.ReactNode;
 	addonsNode?: React.ReactNode;

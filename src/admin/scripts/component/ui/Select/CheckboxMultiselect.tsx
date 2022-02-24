@@ -5,7 +5,7 @@ import ListItemText, { ListItemTextProps } from '@mui/material/ListItemText';
 import Checkbox, { CheckboxProps } from '../Checkbox/Checkbox';
 import MultiselectBase, { MultiselectBaseProps } from './Multiselect.Base';
 
-interface CheckboxMultiselectProps extends MultiselectBaseProps {
+export interface CheckboxMultiselectProps extends MultiselectBaseProps {
 	listItemTextProps?: ListItemTextProps;
 	checkboxProps?: CheckboxProps;
 }

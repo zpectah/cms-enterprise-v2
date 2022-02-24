@@ -2,7 +2,7 @@ import React from 'react';
 
 import InputBase, { InputBaseProps } from './Input.Base';
 
-interface InputProps {}
+export interface InputProps {}
 
 const Input = (props: InputProps & InputBaseProps) => {
 	const {

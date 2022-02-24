@@ -6,7 +6,7 @@ import {
 	CircularProgressProps
 } from '@mui/material';
 
-interface BlockPreloaderProps extends BoxProps {
+export interface BlockPreloaderProps extends BoxProps {
 	circularProgressProps?: CircularProgressProps;
 }
 

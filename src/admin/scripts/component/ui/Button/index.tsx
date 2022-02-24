@@ -9,3 +9,13 @@ export { default as SubmitButton } from './SubmitButton';
 export { default as ButtonGroup } from './ButtonGroup';
 export { default as CloseIconButton } from './CloseIconButton';
 export { default as AddButton } from './AddButton';
+
+export type { ButtonProps } from './Button';
+export type { IconButtonProps } from './IconButton';
+export type { PrimaryButtonProps } from './PrimaryButton';
+export type { SecondaryButtonProps } from './SecondaryButton';
+export type { DeleteButtonProps } from './DeleteButton';
+export type { SubmitButtonProps } from './SubmitButton';
+export type { ButtonGroupProps } from './ButtonGroup';
+export type { CloseIconButtonProps } from './CloseIconButton';
+export type { AddButtonProps } from './AddButton';

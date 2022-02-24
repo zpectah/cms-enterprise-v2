@@ -2,7 +2,7 @@ import React from 'react';
 
 import ButtonBase, { ButtonBaseProps } from './Button.Base';
 
-interface PrimaryButtonProps extends ButtonBaseProps {}
+export interface PrimaryButtonProps extends ButtonBaseProps {}
 
 const PrimaryButton: React.FC<PrimaryButtonProps> = (props) => {
 	const {

@@ -39,10 +39,6 @@ const Breadcrumbs = () => {
 		// Detail
 		if (parsedPath[4] && parsedPath[5]) {
 			fields.push({
-				key: 3,
-				label: parsedPath[4],
-			});
-			fields.push({
 				key: 4,
 				label: `#${parsedPath[5]}`,
 			});

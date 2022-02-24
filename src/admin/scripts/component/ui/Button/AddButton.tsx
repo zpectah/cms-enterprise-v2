@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 import ButtonBase, { ButtonBaseProps } from './Button.Base';
 
-interface AddButtonProps extends ButtonBaseProps {
+export interface AddButtonProps extends ButtonBaseProps {
 	label?: string;
 }
 

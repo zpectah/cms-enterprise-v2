@@ -3,7 +3,7 @@ import { Controller, ControllerProps } from 'react-hook-form';
 
 import FormRow, { FormRowProps } from './FormRow';
 
-interface ControlledFormRowProps extends ControllerProps {
+export interface ControlledFormRowProps extends ControllerProps {
 	rowProps?: FormRowProps;
 	control: any;
 }

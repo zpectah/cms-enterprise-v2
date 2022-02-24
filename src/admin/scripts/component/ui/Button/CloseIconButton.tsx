@@ -4,7 +4,7 @@ import { SvgIconProps } from '@mui/material';
 
 import IconButtonBase, { IconButtonBaseProps } from './IconButton.Base';
 
-interface CloseIconButtonProps extends IconButtonBaseProps {
+export interface CloseIconButtonProps extends IconButtonBaseProps {
 	iconProps?: SvgIconProps;
 }
 

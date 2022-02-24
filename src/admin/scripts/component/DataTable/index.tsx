@@ -399,8 +399,8 @@ const DataTable = (props: DataTableProps) => {
 		const options = [
 			{
 				key: 'all',
+				label: t(`types:all`),
 				value: 'all',
-				label: 'All',
 			}
 		];
 

@@ -4,7 +4,7 @@ import SendIcon from '@mui/icons-material/Send';
 
 import ButtonBase, { ButtonBaseProps } from './Button.Base';
 
-interface SubmitButtonProps extends ButtonBaseProps {}
+export interface SubmitButtonProps extends ButtonBaseProps {}
 
 const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
 	const { t } = useTranslation('common');

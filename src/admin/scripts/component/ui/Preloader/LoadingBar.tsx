@@ -1,7 +1,7 @@
 import React from 'react';
 import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress';
 
-interface LoadingBarProps extends LinearProgressProps {}
+export interface LoadingBarProps extends LinearProgressProps {}
 
 const LoadingBar = (props: LoadingBarProps) => {
 	const {

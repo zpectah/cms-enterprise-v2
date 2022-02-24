@@ -3,7 +3,7 @@ import FormControlLabel, { FormControlLabelProps } from '@mui/material/FormContr
 
 import Switch, { SwitchProps } from './Switch';
 
-interface SwitchControlledProps extends SwitchProps {
+export interface SwitchControlledProps extends SwitchProps {
 	label?: string;
 	labelProps?: FormControlLabelProps;
 }

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import { Chip } from '../Chip';
 import MultiselectBase, { MultiselectBaseProps } from './Multiselect.Base';
 
-interface ChipMultiselectProps extends MultiselectBaseProps {}
+export interface ChipMultiselectProps extends MultiselectBaseProps {}
 
 const ChipMultiselect: React.FC<ChipMultiselectProps> = (props) => {
 	const {

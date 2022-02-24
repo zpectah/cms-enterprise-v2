@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import ButtonBase, { ButtonBaseProps } from './Button.Base';
 
-interface DeleteButtonProps extends ButtonBaseProps {}
+export interface DeleteButtonProps extends ButtonBaseProps {}
 
 const DeleteButton: React.FC<DeleteButtonProps> = (props) => {
 	const { t } = useTranslation('common');

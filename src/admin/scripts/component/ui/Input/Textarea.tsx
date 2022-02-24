@@ -2,7 +2,7 @@ import React from 'react';
 
 import InputBase, { InputBaseProps } from './Input.Base';
 
-interface TextareaProps {}
+export interface TextareaProps {}
 
 const Textarea = (props: TextareaProps & InputBaseProps) => {
 	const {

@@ -6,7 +6,7 @@ import {
 	CircularProgressProps
 } from '@mui/material';
 
-interface PagePreloaderProps extends Partial<BackdropProps> {
+export interface PagePreloaderProps extends Partial<BackdropProps> {
 	circularProgressProps?: CircularProgressProps;
 }
 

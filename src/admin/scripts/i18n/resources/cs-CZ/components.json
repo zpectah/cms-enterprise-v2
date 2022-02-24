@@ -24,11 +24,17 @@
     },
     "label": {
       "project_name": "Název projektu",
-      "project_description": "Popis projektu"
+      "project_description": "Popis projektu",
+      "company_name": "Název společnosti",
+      "company_description": "Popis společnosti",
+      "company_id": "ID společnosti"
     },
     "placeholder": {
       "project_name": "Zadejte název projektu",
-      "project_description": "Zadejte popis projektu"
+      "project_description": "Zadejte popis projektu",
+      "company_name": "Zadejte název společnosti",
+      "company_description": "Zadejte popis společnosti",
+      "company_id": "Zadejte ID společnosti"
     },
     "help": {
       "project_description": "Popis je používaný jen pro interní potřeby"

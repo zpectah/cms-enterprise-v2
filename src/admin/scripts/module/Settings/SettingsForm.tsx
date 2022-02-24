@@ -16,7 +16,7 @@ import {
 	Textarea,
 	SubmitButton,
 	LoadingBar,
-	BlockPreloader,
+	BlockPreloader, SwitchControlled,
 } from '../../component/ui';
 import { EMAIL_REGEX } from '../../constants';
 import routes from '../../routes';
@@ -204,7 +204,81 @@ const SettingsForm = (props: SettingsFormProps) => {
 									title={t('components:SettingsForm.section.company')}
 								>
 
-									... global content ...
+									<ControlledFormRow
+										name="company_name"
+										control={control}
+										rules={{}}
+										defaultValue={data.company_name}
+										rowProps={{
+											label: t('components:SettingsForm.label.company_name'),
+											id: `${formMetaProps.name}_company_name`,
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
+
+											return (
+												<Input
+													placeholder={t('components:SettingsForm.placeholder.company_name')}
+													id={`${formMetaProps.name}_company_name`}
+													error={!!error}
+													inputRef={ref}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+
+									<ControlledFormRow
+										name="company_description"
+										control={control}
+										rules={{}}
+										defaultValue={data.company_description}
+										rowProps={{
+											label: t('components:SettingsForm.label.company_description'),
+											id: `${formMetaProps.name}_company_description`,
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
+
+											return (
+												<Textarea
+													placeholder={t('components:SettingsForm.placeholder.company_description')}
+													id={`${formMetaProps.name}_company_description`}
+													error={!!error}
+													inputRef={ref}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+
+									<ControlledFormRow
+										name="company_id"
+										control={control}
+										rules={{}}
+										defaultValue={data.company_id}
+										rowProps={{
+											label: t('components:SettingsForm.label.company_id'),
+											id: `${formMetaProps.name}_company_id`,
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
+
+											return (
+												<Input
+													placeholder={t('components:SettingsForm.placeholder.company_id')}
+													id={`${formMetaProps.name}_company_id`}
+													error={!!error}
+													inputRef={ref}
+													style={{ width: '50%' }}
+													{...rest}
+												/>
+											);
+										}}
+									/>
 
 								</Section>
 							</>
@@ -229,6 +303,26 @@ const SettingsForm = (props: SettingsFormProps) => {
 								<Section>
 
 									... web content ...
+
+									<ControlledFormRow
+										name="web_mode_debug"
+										control={control}
+										rules={{}}
+										defaultValue={data.web_mode_debug}
+										render={({ field }) => {
+											const { ref, value, ...rest } = field;
+
+											return (
+												<SwitchControlled
+													id={`${formMetaProps.name}_active`}
+													label={t('form:label.active')}
+													checked={value}
+													inputRef={ref}
+													{...rest}
+												/>
+											);
+										}}
+									/>
 
 								</Section>
 							</>
