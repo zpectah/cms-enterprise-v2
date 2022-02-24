@@ -27,17 +27,34 @@
       "project_description": "Popis projektu",
       "company_name": "Název společnosti",
       "company_description": "Popis společnosti",
-      "company_id": "ID společnosti"
+      "company_id": "ID společnosti",
+      "company_address": "Adresa",
+      "company_city": "Město",
+      "company_country": "Země / Stát",
+      "company_zip": "PSČ",
+      "company_location": "GPS Lokalita",
+      "company_bank": "Banka",
+      "company_email": "E-mail",
+      "company_phone": "Telefon"
     },
     "placeholder": {
       "project_name": "Zadejte název projektu",
       "project_description": "Zadejte popis projektu",
       "company_name": "Zadejte název společnosti",
       "company_description": "Zadejte popis společnosti",
-      "company_id": "Zadejte ID společnosti"
+      "company_id": "Zadejte ID společnosti",
+      "company_address": "Zadejte adresu společsnoti",
+      "company_city": "Zadejte město",
+      "company_country": "Zadejte zemi nebo stát",
+      "company_zip": "Zadejte PSČ",
+      "company_location": "Vyberte GPS lokalitu",
+      "company_bank": "Zadejte bankovní spojení",
+      "company_email": "Zadejte email",
+      "company_phone": "Zadejte telefon"
     },
     "help": {
-      "project_description": "Popis je používaný jen pro interní potřeby"
+      "project_description": "Popis je používaný jen pro interní potřeby",
+      "company_bank": "Formát bankovního spojení musí být: účet/banka"
     },
     "error_global": "Problémy s validací formuláře, zkontrolujte všechny pole a zkuste znovu"
   }

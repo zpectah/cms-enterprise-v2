@@ -16,7 +16,9 @@ import {
 	Textarea,
 	SubmitButton,
 	LoadingBar,
-	BlockPreloader, SwitchControlled,
+	BlockPreloader,
+	SwitchControlled,
+	TagPicker,
 } from '../../component/ui';
 import { EMAIL_REGEX } from '../../constants';
 import routes from '../../routes';
@@ -53,7 +55,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 		defaultValues: data,
 	});
 
-	const panelOptions = [
+	const panels = [
 		{
 			index: 0,
 			key: 'global',
@@ -76,7 +78,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 		},
 	];
 
-	const panelChangeHandler = (e, value: number) => navigate(`/admin/app/${routes.settings.path}/${panelOptions[value].key}`);
+	const panelChangeHandler = (e, value: number) => navigate(`/admin/app/${routes.settings.path}/${panels[value].key}`);
 
 	const submitHandler = (data: any) => {
 		const master = _.cloneDeep(data);
@@ -99,11 +101,11 @@ const SettingsForm = (props: SettingsFormProps) => {
 
 	useEffect(() => {
 		if (params['*']) {
-			panelOptions.map((panel) => {
+			panels.map((panel) => {
 				if (params['*'] === panel.key) setPanelValue(panel.index);
 			});
 		} else {
-			navigate(`/admin/app/${routes.settings.path}/${panelOptions[0].key}`);
+			navigate(`/admin/app/${routes.settings.path}/${panels[0].key}`);
 		}
 	}, [ params ]);
 
@@ -114,38 +116,22 @@ const SettingsForm = (props: SettingsFormProps) => {
 				<Form {...formMetaProps}>
 					<Tabs
 						labels={[
-							panelOptions[0].label,
-							panelOptions[1].label,
-							panelOptions[2].label,
-							panelOptions[3].label,
+							panels[0].label,
+							panels[1].label,
+							panels[2].label,
+							panels[3].label,
 						]}
 						activeValue={panelValue}
 						onChange={panelChangeHandler}
 					>
 						<TabPanel
-							index={panelOptions[0].index}
+							index={panels[0].index}
 							panelValue={panelValue}
 						>
 							<>
-								{/*
-						// project_name?: string;
-						// project_description?: string;
-						// company_name?: string;
-						// company_description?: string;
-						// company_id?: string;
-						// company_address?: string;
-						// company_city?: string;
-						// company_country?: string;
-						// company_zip?: string;
-						// company_location?: [number, number];
-						// company_email?: string[];
-						// company_phone?: number[];
-						// company_bank?: string;
-						*/}
 								<Section
 									title={t('components:SettingsForm.section.project')}
 								>
-
 									<ControlledFormRow
 										name="project_name"
 										control={control}
@@ -172,7 +158,6 @@ const SettingsForm = (props: SettingsFormProps) => {
 											);
 										}}
 									/>
-
 									<ControlledFormRow
 										name="project_description"
 										control={control}
@@ -198,12 +183,10 @@ const SettingsForm = (props: SettingsFormProps) => {
 											);
 										}}
 									/>
-
 								</Section>
 								<Section
 									title={t('components:SettingsForm.section.company')}
 								>
-
 									<ControlledFormRow
 										name="company_name"
 										control={control}
@@ -228,7 +211,6 @@ const SettingsForm = (props: SettingsFormProps) => {
 											);
 										}}
 									/>
-
 									<ControlledFormRow
 										name="company_description"
 										control={control}
@@ -253,7 +235,6 @@ const SettingsForm = (props: SettingsFormProps) => {
 											);
 										}}
 									/>
-
 									<ControlledFormRow
 										name="company_id"
 										control={control}
@@ -279,12 +260,202 @@ const SettingsForm = (props: SettingsFormProps) => {
 											);
 										}}
 									/>
+									<ControlledFormRow
+										name="company_email"
+										control={control}
+										rules={{}}
+										defaultValue={data.company_email}
+										rowProps={{
+											label: t('components:SettingsForm.label.company_email'),
+											id: `${formMetaProps.name}_company_email`,
+										}}
+										render={({ field }) => {
+											const { value, onChange } = field;
 
+											return (
+												<TagPicker
+													value={value}
+													onChange={onChange}
+													id={`${formMetaProps.name}_company_email`}
+													placeholder={t('components:SettingsForm.placeholder.company_email')}
+													inputType="email"
+												/>
+											);
+										}}
+									/>
+									<ControlledFormRow
+										name="company_phone"
+										control={control}
+										rules={{}}
+										defaultValue={data.company_phone}
+										rowProps={{
+											label: t('components:SettingsForm.label.company_phone'),
+											id: `${formMetaProps.name}_company_phone`,
+										}}
+										render={({ field, fieldState }) => {
+											const { value, onChange } = field;
+
+											return (
+												<TagPicker
+													value={value}
+													onChange={onChange}
+													id={`${formMetaProps.name}_company_phone`}
+													placeholder={t('components:SettingsForm.placeholder.company_phone')}
+													inputType="tel"
+												/>
+											);
+										}}
+									/>
+									<ControlledFormRow
+										name="company_address"
+										control={control}
+										rules={{}}
+										defaultValue={data.company_address}
+										rowProps={{
+											label: t('components:SettingsForm.label.company_address'),
+											id: `${formMetaProps.name}_company_address`,
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
+
+											return (
+												<Input
+													placeholder={t('components:SettingsForm.placeholder.company_address')}
+													id={`${formMetaProps.name}_company_address`}
+													error={!!error}
+													inputRef={ref}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+									<ControlledFormRow
+										name="company_city"
+										control={control}
+										rules={{}}
+										defaultValue={data.company_city}
+										rowProps={{
+											label: t('components:SettingsForm.label.company_city'),
+											id: `${formMetaProps.name}_company_city`,
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
+
+											return (
+												<Input
+													placeholder={t('components:SettingsForm.placeholder.company_city')}
+													id={`${formMetaProps.name}_company_city`}
+													error={!!error}
+													inputRef={ref}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+									<ControlledFormRow
+										name="company_country"
+										control={control}
+										rules={{}}
+										defaultValue={data.company_country}
+										rowProps={{
+											label: t('components:SettingsForm.label.company_country'),
+											id: `${formMetaProps.name}_company_country`,
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
+
+											return (
+												<Input
+													placeholder={t('components:SettingsForm.placeholder.company_country')}
+													id={`${formMetaProps.name}_company_country`}
+													error={!!error}
+													inputRef={ref}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+									<ControlledFormRow
+										name="company_zip"
+										control={control}
+										rules={{}}
+										defaultValue={data.company_zip}
+										rowProps={{
+											label: t('components:SettingsForm.label.company_zip'),
+											id: `${formMetaProps.name}_company_zip`,
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
+
+											return (
+												<Input
+													placeholder={t('components:SettingsForm.placeholder.company_zip')}
+													id={`${formMetaProps.name}_company_zip`}
+													error={!!error}
+													inputRef={ref}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+									<ControlledFormRow
+										name="company_location"
+										control={control}
+										rules={{}}
+										defaultValue={data.company_location}
+										rowProps={{
+											label: t('components:SettingsForm.label.company_location'),
+											id: `${formMetaProps.name}_company_location`,
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
+
+											return (
+												<Input
+													placeholder={t('components:SettingsForm.placeholder.company_location')}
+													id={`${formMetaProps.name}_company_location`}
+													error={!!error}
+													inputRef={ref}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+									<ControlledFormRow
+										name="company_bank"
+										control={control}
+										rules={{}}
+										defaultValue={data.company_bank}
+										rowProps={{
+											label: t('components:SettingsForm.label.company_bank'),
+											id: `${formMetaProps.name}_company_bank`,
+											helpTexts: [ t('components:SettingsForm.help.company_bank') ],
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
+
+											return (
+												<Input
+													placeholder={t('components:SettingsForm.placeholder.company_bank')}
+													id={`${formMetaProps.name}_company_bank`}
+													error={!!error}
+													inputRef={ref}
+													{...rest}
+												/>
+											);
+										}}
+									/>
 								</Section>
 							</>
 						</TabPanel>
 						<TabPanel
-							index={panelOptions[1].index}
+							index={panels[1].index}
 							panelValue={panelValue}
 						>
 							<>
@@ -328,7 +499,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 							</>
 						</TabPanel>
 						<TabPanel
-							index={panelOptions[2].index}
+							index={panels[2].index}
 							panelValue={panelValue}
 						>
 							<>
@@ -349,7 +520,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 							</>
 						</TabPanel>
 						<TabPanel
-							index={panelOptions[3].index}
+							index={panels[3].index}
 							panelValue={panelValue}
 						>
 							<>

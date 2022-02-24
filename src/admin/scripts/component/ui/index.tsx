@@ -17,3 +17,4 @@ export * from './Separator';
 export * from './Menu';
 export * from './Tabs';
 export * from './Snackbar';
+export * from './TagPicker';
