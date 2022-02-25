@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import _ from 'lodash';
-import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import config from '../../config';
@@ -15,10 +14,8 @@ import { submitMethodProps } from '../../types/common';
 import getDetailData from '../../utils/getDetailData';
 import PageHeading from '../../component/PageHeading';
 import {
-	SubmitButton,
-	DeleteButton,
 	ConfirmDialog,
-	DetailFormLayout,
+	ControlledDetailFormLayout,
 	Section,
 	Input,
 	PasswordInput,
@@ -53,19 +50,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
 
-	const {
-		control,
-		register,
-		handleSubmit,
-		watch,
-		formState: {
-			isDirty,
-			isValid,
-		},
-	} = useForm({
-		mode: 'all',
-		defaultValues: detailData,
-	});
 	const detailOptions = {
 		root: `/admin/app/${routes.users.path}`,
 	};
@@ -92,14 +76,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 		setConfirmData([]);
 	};
 
-	const formMetaProps = {
-		name: 'UsersDetailForm',
-		onSubmit: handleSubmit(submitHandler),
-	};
-
 	useEffect(() => setDetailData(getDetailData('Users', dataItems, params.id)), [ dataItems, params ]);
-
-	const watchType = watch('type');
 
 	const getOptionsType = useCallback(
 		() => getOptionsList(config.options.model.Users.type, t),
@@ -134,305 +111,306 @@ const UsersDetail = (props: UsersDetailProps) => {
 			/>
 			{loading && <LoadingBar />}
 			{detailData ? (
-				<DetailFormLayout
-					{...formMetaProps}
-					actionsNode={
-						<>
-							<SubmitButton
-								disabled={(isDirty && !isValid)}
-							/>
-							<DeleteButton
-								onClick={() => deleteHandler(detailData.id)}
-							/>
-						</>
-					}
-					sidebarNode={
-						<>
+				<ControlledDetailFormLayout
+					dataId="UsersDetailForm"
+					detailId={detailData.id}
+					defaultValues={detailData}
+					onSubmit={submitHandler}
+					onDelete={() => deleteHandler(detailData.id)}
+					// renderActions={(form) => (<></>)}
+					renderSidebar={(form) => {
+						const { token, form: { control } } = form;
 
-							<Section>
+						return (
+							<>
+								<Section>
+									<ControlledFormRow
+										name="active"
+										control={control}
+										rules={{}}
+										defaultValue={detailData.active}
+										render={({ field }) => {
+											const { ref, value, ...rest } = field;
 
-								<ControlledFormRow
-									name="active"
-									control={control}
-									rules={{}}
-									defaultValue={detailData.active}
-									render={({ field }) => {
-										const { ref, value, ...rest } = field;
+											return (
+												<SwitchControlled
+													id={`${token}_active`}
+													label={t('form:label.active')}
+													checked={value}
+													inputRef={ref}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+								</Section>
+								<Section>
+									<ControlledFormRow
+										name="user_level"
+										control={control}
+										rules={{ required: true }}
+										defaultValue={detailData.user_level}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
 
-										return (
-											<SwitchControlled
-												id={`${formMetaProps.name}_active`}
-												label={t('form:label.active')}
-												checked={value}
-												inputRef={ref}
-												{...rest}
-											/>
-										);
-									}}
-								/>
+											return (
+												<Select
+													label={t('form:label.level')}
+													placeholder={t('form:placeholder.level')}
+													id={`${token}_user_level`}
+													error={!!error}
+													required
+													inputRef={ref}
+													options={getOptionsLevel()}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+									<ControlledFormRow
+										name="user_group"
+										control={control}
+										rules={{ required: true }}
+										defaultValue={detailData.user_group}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
 
-							</Section>
+											return (
+												<Select
+													label={t('form:label.group')}
+													placeholder={t('form:placeholder.group')}
+													id={`${token}_user_group`}
+													error={!!error}
+													required
+													inputRef={ref}
+													options={getOptionsGroup()}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+								</Section>
+							</>
+						);
+					}}
+					renderPrimary={(form) => {
+						const { token, form: {
+							control,
+							register,
+							watch,
+						} } = form;
 
-							<Section>
+						const watchType = watch('type');
 
-								<ControlledFormRow
-									name="user_level"
-									control={control}
-									rules={{ required: true }}
-									defaultValue={detailData.user_level}
-									render={({ field, fieldState }) => {
-										const { ref, ...rest } = field;
-										const { error } = fieldState;
+						return (
+							<>
+								{/* ==================== FORM CONTENT ==================== */}
+								<div>
 
-										return (
-											<Select
-												label={t('form:label.level')}
-												placeholder={t('form:placeholder.level')}
-												id={`${formMetaProps.name}_user_level`}
-												error={!!error}
-												required
-												inputRef={ref}
-												options={getOptionsLevel()}
-												{...rest}
-											/>
-										);
-									}}
-								/>
+									<input type="hidden" {...register('id')} />
+									<input type="hidden" {...register('img_avatar')} />
 
-								<ControlledFormRow
-									name="user_group"
-									control={control}
-									rules={{ required: true }}
-									defaultValue={detailData.user_group}
-									render={({ field, fieldState }) => {
-										const { ref, ...rest } = field;
-										const { error } = fieldState;
+									<Section>
 
-										return (
-											<Select
-												label={t('form:label.group')}
-												placeholder={t('form:placeholder.group')}
-												id={`${formMetaProps.name}_user_group`}
-												error={!!error}
-												required
-												inputRef={ref}
-												options={getOptionsGroup()}
-												{...rest}
-											/>
-										);
-									}}
-								/>
+										<ControlledFormRow
+											name="type"
+											control={control}
+											rules={{ required: true }}
+											defaultValue={detailData.type}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
 
-							</Section>
-
-						</>
-					}
-					addonsNode={
-						<></>
-					}
-				>
-					{/* ==================== FORM CONTENT ==================== */}
-					<div>
-
-						<input type="hidden" {...register('id')} />
-						<input type="hidden" {...register('img_avatar')} />
-
-						<Section>
-
-							<ControlledFormRow
-								name="type"
-								control={control}
-								rules={{ required: true }}
-								defaultValue={detailData.type}
-								render={({ field, fieldState }) => {
-									const { ref, ...rest } = field;
-									const { error } = fieldState;
-
-									return (
-										<Select
-											label={t('form:label.type')}
-											placeholder={t('form:placeholder.type')}
-											id={`${formMetaProps.name}_type`}
-											error={!!error}
-											required
-											inputRef={ref}
-											options={getOptionsType()}
-											style={{ width: '50%' }}
-											{...rest}
+												return (
+													<Select
+														label={t('form:label.type')}
+														placeholder={t('form:placeholder.type')}
+														id={`${token}_type`}
+														error={!!error}
+														required
+														inputRef={ref}
+														options={getOptionsType()}
+														style={{ width: '50%' }}
+														{...rest}
+													/>
+												);
+											}}
 										/>
-									);
-								}}
-							/>
 
-						</Section>
+									</Section>
 
-						<Section>
+									<Section>
 
-							<ControlledFormRow
-								name="email"
-								control={control}
-								rules={{ pattern: EMAIL_REGEX, required: true }}
-								defaultValue={detailData.email}
-								render={({ field, fieldState }) => {
-									const { ref, ...rest } = field;
-									const { error } = fieldState;
+										<ControlledFormRow
+											name="email"
+											control={control}
+											rules={{ pattern: EMAIL_REGEX, required: true }}
+											defaultValue={detailData.email}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
 
-									return (
-										<Input
-											type="email"
-											label={t('form:label.email')}
-											placeholder={t('form:placeholder.email')}
-											id={`${formMetaProps.name}_email`}
-											error={!!error}
-											required
-											inputRef={ref}
-											style={{ width: '75%' }}
-											{...rest}
+												return (
+													<Input
+														type="email"
+														label={t('form:label.email')}
+														placeholder={t('form:placeholder.email')}
+														id={`${token}_email`}
+														error={!!error}
+														required
+														inputRef={ref}
+														style={{ width: '75%' }}
+														{...rest}
+													/>
+												);
+											}}
 										/>
-									);
-								}}
-							/>
 
-							<ControlledFormRow
-								name="password"
-								control={control}
-								rules={{ required: detailData.id === 'new' }}
-								defaultValue={detailData.password || ''}
-								rowProps={{
-									helpTexts: [ detailData.id === 'new' && t('form:help.password') ],
-								}}
-								render={({ field, fieldState }) => {
-									const { ref, ...rest } = field;
-									const { error } = fieldState;
+										<ControlledFormRow
+											name="password"
+											control={control}
+											rules={{ required: detailData.id === 'new' }}
+											defaultValue={detailData.password || ''}
+											rowProps={{
+												helpTexts: [ detailData.id === 'new' && t('form:help.password') ],
+											}}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
 
-									return (
-										<PasswordInput
-											label={t('form:label.password')}
-											placeholder={t('form:placeholder.password')}
-											id={`${formMetaProps.name}_password`}
-											error={!!error}
-											required={detailData.id === 'new'}
-											inputRef={ref}
-											style={{ width: '75%' }}
-											{...rest}
+												return (
+													<PasswordInput
+														label={t('form:label.password')}
+														placeholder={t('form:placeholder.password')}
+														id={`${token}_password`}
+														error={!!error}
+														required={detailData.id === 'new'}
+														inputRef={ref}
+														style={{ width: '75%' }}
+														{...rest}
+													/>
+												);
+											}}
 										/>
-									);
-								}}
-							/>
 
-							<ControlledFormRow
-								name="name_first"
-								control={control}
-								rules={{ required: true }}
-								defaultValue={detailData.name_first}
-								render={({ field, fieldState }) => {
-									const { ref, ...rest } = field;
-									const { error } = fieldState;
+										<ControlledFormRow
+											name="name_first"
+											control={control}
+											rules={{ required: true }}
+											defaultValue={detailData.name_first}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
 
-									return (
-										<Input
-											label={t('form:label.name_first')}
-											placeholder={t('form:placeholder.name_first')}
-											id={`${formMetaProps.name}_name_first`}
-											error={!!error}
-											required
-											inputRef={ref}
-											style={{ width: '75%' }}
-											{...rest}
+												return (
+													<Input
+														label={t('form:label.name_first')}
+														placeholder={t('form:placeholder.name_first')}
+														id={`${token}_name_first`}
+														error={!!error}
+														required
+														inputRef={ref}
+														style={{ width: '75%' }}
+														{...rest}
+													/>
+												);
+											}}
 										/>
-									);
-								}}
-							/>
 
-							<ControlledFormRow
-								name="name_last"
-								control={control}
-								rules={{ required: true }}
-								defaultValue={detailData.name_last}
-								render={({ field, fieldState }) => {
-									const { ref, ...rest } = field;
-									const { error } = fieldState;
+										<ControlledFormRow
+											name="name_last"
+											control={control}
+											rules={{ required: true }}
+											defaultValue={detailData.name_last}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
 
-									return (
-										<Input
-											label={t('form:label.name_last')}
-											placeholder={t('form:placeholder.name_last')}
-											id={`${formMetaProps.name}_name_last`}
-											error={!!error}
-											required
-											inputRef={ref}
-											style={{ width: '75%' }}
-											{...rest}
+												return (
+													<Input
+														label={t('form:label.name_last')}
+														placeholder={t('form:placeholder.name_last')}
+														id={`${token}_name_last`}
+														error={!!error}
+														required
+														inputRef={ref}
+														style={{ width: '75%' }}
+														{...rest}
+													/>
+												);
+											}}
 										/>
-									);
-								}}
-							/>
 
-							<ControlledFormRow
-								name="nickname"
-								control={control}
-								rules={{ required: true }}
-								defaultValue={detailData.nickname}
-								render={({ field, fieldState }) => {
-									const { ref, ...rest } = field;
-									const { error } = fieldState;
+										<ControlledFormRow
+											name="nickname"
+											control={control}
+											rules={{ required: true }}
+											defaultValue={detailData.nickname}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
 
-									return (
-										<Input
-											label={t('form:label.nickname')}
-											placeholder={t('form:placeholder.nickname')}
-											id={`${formMetaProps.name}_nickname`}
-											error={!!error}
-											required
-											inputRef={ref}
-											style={{ width: '75%' }}
-											{...rest}
+												return (
+													<Input
+														label={t('form:label.nickname')}
+														placeholder={t('form:placeholder.nickname')}
+														id={`${token}_nickname`}
+														error={!!error}
+														required
+														inputRef={ref}
+														style={{ width: '75%' }}
+														{...rest}
+													/>
+												);
+											}}
 										/>
-									);
-								}}
-							/>
 
-						</Section>
+									</Section>
 
-						<Section>
+									<Section>
 
-							<ControlledFormRow
-								name="description"
-								control={control}
-								rules={{}}
-								defaultValue={detailData.description}
-								render={({ field, fieldState }) => {
-									const { ref, ...rest } = field;
-									const { error } = fieldState;
+										<ControlledFormRow
+											name="description"
+											control={control}
+											rules={{}}
+											defaultValue={detailData.description}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
 
-									return (
-										<Textarea
-											label={t('form:label.description')}
-											placeholder={t('form:placeholder.description')}
-											id={`${formMetaProps.name}_description`}
-											error={!!error}
-											inputRef={ref}
-											{...rest}
+												return (
+													<Textarea
+														label={t('form:label.description')}
+														placeholder={t('form:placeholder.description')}
+														id={`${token}_description`}
+														error={!!error}
+														inputRef={ref}
+														{...rest}
+													/>
+												);
+											}}
 										/>
-									);
-								}}
-							/>
 
-						</Section>
+									</Section>
 
-						<Section>
-							<LanguageFieldset
-								render={(lang) => (
-									<>
-										language part {lang}
-									</>
-								)}
-							/>
-						</Section>
+									<Section>
+										<LanguageFieldset
+											render={(lang) => (
+												<>
+													language part {lang}
+												</>
+											)}
+										/>
+									</Section>
 
-					</div>
-					{/* ==================== \ FORM CONTENT ==================== */}
-				</DetailFormLayout>
+								</div>
+								{/* ==================== \ FORM CONTENT ==================== */}
+							</>
+						);
+					}}
+				/>
 			) : (
 				<BlockPreloader />
 			)}

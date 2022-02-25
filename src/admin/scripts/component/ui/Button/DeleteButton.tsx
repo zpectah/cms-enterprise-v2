@@ -9,6 +9,7 @@ export interface DeleteButtonProps extends ButtonBaseProps {}
 const DeleteButton: React.FC<DeleteButtonProps> = (props) => {
 	const { t } = useTranslation('common');
 	const {
+		children,
 		...rest
 	} = props;
 
@@ -20,7 +21,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = (props) => {
 			startIcon={<DeleteIcon fontSize="small" />}
 			{...rest}
 		>
-			{t('btn.delete')}
+			{children ? children : t('btn.delete')}
 		</ButtonBase>
 	);
 };

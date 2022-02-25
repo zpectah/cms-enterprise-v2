@@ -9,6 +9,7 @@ export interface SubmitButtonProps extends ButtonBaseProps {}
 const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
 	const { t } = useTranslation('common');
 	const {
+		children,
 		...rest
 	} = props;
 
@@ -21,7 +22,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
 			endIcon={<SendIcon fontSize="small" />}
 			{...rest}
 		>
-			{t('btn.submit')}
+			{children ? children : t('btn.submit')}
 		</ButtonBase>
 	);
 };
