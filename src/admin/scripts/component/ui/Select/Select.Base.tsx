@@ -33,11 +33,15 @@ const SelectBase: React.FC<SelectBaseProps> = (props) => {
 			id: `${id}_label`,
 			htmlFor: id,
 		},
+		size = 'small',
 		...rest
 	} = props;
 
 	return (
-		<FormControl {...formControlProps}>
+		<FormControl
+			size={size}
+			{...formControlProps}
+		>
 			{label && (
 				<InputLabel {...inputLabelProps}>
 					{label}{required && ' *'}
@@ -49,7 +53,7 @@ const SelectBase: React.FC<SelectBaseProps> = (props) => {
 				id={id}
 				label={label}
 				required={required}
-				size="small"
+				size={size}
 				{...rest}
 				{...getTestDataAttr(dataId)}
 			>

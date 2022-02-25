@@ -16,11 +16,19 @@
       "global": "Obecné",
       "web": "Web",
       "content": "Obsah",
+      "languages": "Jazyky",
       "maintenance": "Údržba"
     },
     "section": {
       "project": "Projekt",
-      "company": "O společnosti"
+      "company": "O společnosti",
+      "meta": "Meta údaje",
+      "modes": "Stavy webu",
+      "emails": "Zprávy a formuláře",
+      "language_list": "Správa jazyků",
+      "language_install": "Instalace nového jazyka",
+      "comments": "Komentáře",
+      "members": "Members"
     },
     "label": {
       "project_name": "Název projektu",
@@ -35,7 +43,24 @@
       "company_location": "GPS Lokalita",
       "company_bank": "Banka",
       "company_email": "E-mail",
-      "company_phone": "Telefon"
+      "company_phone": "Telefon",
+      "web_meta_title": "Titulek webu",
+      "web_meta_description": "Popisek webu",
+      "web_meta_keywords": "Klíčová slova",
+      "web_meta_robots": "Roboti",
+      "web_mode_debug": "Debug mód",
+      "web_mode_maintenance": "Mód údržby",
+      "form_email_recipients": "Příjemci zpráv",
+      "form_email_sender": "Odesílatel zpráv",
+      "language_active": "Aktivní jazyky",
+      "language_default": "Výchozí jazyk",
+      "language_installed": "Instalované jazyky",
+      "comments_anonymous_active": "Anonymní komentáře",
+      "comments_global_active": "Komentáře aktivní",
+      "members_login_active": "Aktivní přihlášení",
+      "members_lostPassword_active": "Obnova ztraceného hesla",
+      "members_profile_active": "Stránka s profilem",
+      "members_register_active": "Registrace uživatele"
     },
     "placeholder": {
       "project_name": "Zadejte název projektu",
@@ -49,13 +74,28 @@
       "company_zip": "Zadejte PSČ",
       "company_location": "Vyberte GPS lokalitu",
       "company_bank": "Zadejte bankovní spojení",
-      "company_email": "Zadejte email",
-      "company_phone": "Zadejte telefon"
+      "company_email": "Zadejte nový email",
+      "company_phone": "Zadejte nový telefon",
+      "web_meta_title": "Zadejte titulek stránky",
+      "web_meta_description": "Zadejte popisek stránky",
+      "web_meta_keywords": "Zadejte nové klíčové slovo",
+      "web_meta_robots": "Vyberte možnost indexace",
+      "form_email_recipients": "Zadejte nový e-mail",
+      "form_email_sender": "Zadejte e-mail"
     },
     "help": {
       "project_description": "Popis je používaný jen pro interní potřeby",
-      "company_bank": "Formát bankovního spojení musí být: účet/banka"
+      "company_bank": "Formát bankovního spojení musí být: účet/banka",
+      "form_email_recipients": "Příjemcům bude zpráva odeslána jako kopie."
     },
-    "error_global": "Problémy s validací formuláře, zkontrolujte všechny pole a zkuste znovu"
+    "error_global": "Problémy s validací formuláře, zkontrolujte všechny pole a zkuste znovu",
+    "language_table": {
+      "label": {
+        "language": "Jazyk",
+        "key": "Klíč",
+        "active": "Aktivní",
+        "default": "Výchozí"
+      }
+    }
   }
 }

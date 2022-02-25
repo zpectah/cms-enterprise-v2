@@ -1,37 +1,44 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { styled, Typography } from '@mui/material';
+import {
+	styled,
+	Typography,
+	Grid,
+	GridProps,
+} from '@mui/material';
 
+import { string } from '../../../../../../utils/helpers';
 import media from '../../../styles/responsive';
 
 export interface FormRowBaseProps {
 	required?: boolean;
 	label?: string;
+	emptyLabel?: boolean;
 	id?: string;
 	helpTexts?: string[];
 	errors?: string[];
+	render?: (id: string) => React.ReactNode;
+	wrapperProps?: GridProps;
+	labelColumnProps?: GridProps;
+	inputColumnProps?: GridProps;
 }
 
-const MainRow = styled('div')`
-	margin-bottom: 1.5rem;
+const StyledGridItem = styled(Grid)`
 	display: flex;
 	flex-direction: column;
-			
-	${media.min.md} {
-		flex-direction: row;
-	}	
+	align-items: flex-start;
+	justify-content: flex-start;
 `;
 const Label = styled('label')`
-	padding-bottom: .25rem;
+	padding-top: 0;
+	padding-bottom: .5rem;
 	font-size: 1rem;
 	font-weight: 500;
 	
 	${media.min.md} {
-		width: 25%;
 		padding-top: .5rem;
 		padding-bottom: 0;		
 	}
-	
 `;
 const InputColumn = styled('div')`
 	width: 100%;
@@ -45,48 +52,93 @@ const FormRowBase: React.FC<FormRowBaseProps> = (props) => {
 		children,
 		required,
 		label,
+		emptyLabel,
 		id,
 		helpTexts = [],
 		errors = [],
+		render,
+		wrapperProps = {
+			spacing: 2,
+			sx: {
+				mb: 2.5,
+			},
+		},
+		labelColumnProps,
+		inputColumnProps,
 	} = props;
+
 	const { t } = useTranslation(['messages']);
 
+	const inputId = id ? id : string.getToken(3, '');
+	const labelVisible = label || emptyLabel;
+	const gridColumns = {
+		label: {
+			xs: 12,
+			sm: 5,
+			md: 4,
+			lg: 3,
+		},
+		input: {
+			xs: 12,
+			sm: labelVisible ? 7 : 12,
+			md: labelVisible ? 8 : 12,
+			lg: labelVisible ? 9 : 12,
+		},
+	};
+
 	return (
-		<MainRow>
-			{label && (
-				<Label htmlFor={id}>{label}{required && ' *'}</Label>
+		<Grid
+			container
+			{...wrapperProps}
+		>
+			{labelVisible && (
+				<StyledGridItem
+					item
+					{...gridColumns.label}
+					{...labelColumnProps}
+				>
+					<Label htmlFor={inputId}>
+						{label}{required && ' *'}
+					</Label>
+				</StyledGridItem>
 			)}
-			<InputColumn>
-				<InputRow>
-					{children}
-				</InputRow>
-				{helpTexts && (
-					<HelpersRow>
-						{helpTexts.map((text, index) => (
-							<Typography
-								key={index}
-								variant="caption"
-							>
-								{text}
-							</Typography>
-						))}
-					</HelpersRow>
-				)}
-				{errors && (
-					<ErrorsRow>
-						{errors.map((text, index) => (
-							<Typography
-								key={index}
-								variant="caption"
-								color="error"
-							>
-								{t(`messages:form.${text}`)}
-							</Typography>
-						))}
-					</ErrorsRow>
-				)}
-			</InputColumn>
-		</MainRow>
+			<StyledGridItem
+				item
+				{...gridColumns.input}
+				{...inputColumnProps}
+			>
+				<InputColumn>
+					<InputRow>
+						{render ? render(inputId) : children}
+					</InputRow>
+					{helpTexts && (
+						<HelpersRow>
+							{helpTexts.map((text, index) => (
+								<Typography
+									key={index}
+									variant="caption"
+								>
+									{text}
+								</Typography>
+							))}
+						</HelpersRow>
+					)}
+					{errors && (
+						<ErrorsRow>
+							{errors.map((text, index) => (
+								<Typography
+									key={index}
+									variant="caption"
+									color="error"
+								>
+									{t(`messages:form.${text}`)}
+								</Typography>
+							))}
+						</ErrorsRow>
+					)}
+				</InputColumn>
+			</StyledGridItem>
+		</Grid>
 	);
 };
 

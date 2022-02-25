@@ -10,6 +10,7 @@ export interface ControlledFormRowProps extends ControllerProps {
 
 const ControlledFormRow = (props: ControlledFormRowProps) => {
 	const {
+		rules,
 		render,
 		control,
 		rowProps,
@@ -18,6 +19,7 @@ const ControlledFormRow = (props: ControlledFormRowProps) => {
 
 	return (
 		<Controller
+			rules={rules}
 			control={control}
 			render={({ field, fieldState, formState  }) => {
 				const { error, isTouched } = fieldState;
@@ -27,6 +29,7 @@ const ControlledFormRow = (props: ControlledFormRowProps) => {
 				return (
 					<FormRow
 						errors={errors}
+						required={!!rules.required}
 						{...rowProps}
 					>
 						{render({ field, fieldState, formState })}
