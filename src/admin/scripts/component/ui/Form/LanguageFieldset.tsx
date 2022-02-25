@@ -7,7 +7,11 @@ import useSettings from '../../../hooks/useSettings';
 import { Select } from '../Select';
 
 export interface LanguageFieldsetProps {
-	render: (lang: string) => React.ReactNode;
+	render: (
+		lang: string,
+		languageList: string[],
+		changeLanguage: (lang: string) => void,
+	) => React.ReactNode;
 	onLanguageChange?: (lang: string) => void;
 }
 
@@ -76,7 +80,11 @@ const LanguageFieldset = (props: LanguageFieldsetProps) => {
 						key={lng}
 						style={{ display: lng === lang ? 'block' : 'none' }}
 					>
-						{render(lng)}
+						{render(
+							lng,
+							languageList,
+							(lang) => changeHandler(lang),
+						)}
 					</StyledSection>
 				))}
 			</section>

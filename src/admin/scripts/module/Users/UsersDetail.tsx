@@ -25,7 +25,6 @@ import {
 	BlockPreloader,
 	LoadingBar,
 	ControlledFormRow,
-	LanguageFieldset,
 } from '../../component/ui';
 import getOptionsList from '../../utils/getOptionsList';
 
@@ -99,7 +98,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 		return options;
 	}, [detailData]);
-
 
 	return (
 		<>

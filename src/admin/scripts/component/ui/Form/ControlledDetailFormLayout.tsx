@@ -29,6 +29,8 @@ export interface ControlledDetailFormLayoutRenderProps {
 }
 export interface ControlledDetailFormLayoutLanguageRenderProps extends ControlledDetailFormLayoutRenderProps {
 	lang: string;
+	languageList: string[];
+	changeLanguage?: (lang: string) => void;
 }
 export interface ControlledDetailFormLayoutProps<TFieldValues extends FieldValues = FieldValues> extends UseFormProps {
 	dataId?: string;
@@ -47,11 +49,11 @@ export interface ControlledDetailFormLayoutProps<TFieldValues extends FieldValue
 }
 
 const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
-	const { t } = useTranslation([ 'common' ]);
+	const { t } = useTranslation([ 'common', 'messages' ]);
 
 	const {
 		dataId = 'controlled-detail-form-layout',
-		errorMessage,
+		errorMessage = t('messages:form.error_global'),
 		renderPrimary,
 		renderSidebar,
 		renderSecondary,
@@ -90,6 +92,7 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 			<form
 				noValidate
 				autoComplete="off"
+				name={dataId}
 				style={{
 					width: '100%',
 				}}
@@ -107,7 +110,16 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 							{renderLanguage && (
 								<Section>
 									<LanguageFieldset
-										render={(lang) => renderLanguage({ lang, ...form })}
+										render={(
+											lang,
+											languageList,
+											changeLanguage,
+										) => renderLanguage({
+											lang,
+											languageList,
+											changeLanguage,
+											...form,
+										})}
 									/>
 								</Section>
 							)}
@@ -119,7 +131,7 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 						</FormContent>
 						<FormSidebar children={renderSidebar(form)} />
 					</FormBody>
-					{(form.form.formState.errors && errorMessage) && (
+					{(form.form.formState.errors && form.form.formState.isSubmitted && errorMessage) && (
 						<Section>
 							<Alert
 								severity="error"

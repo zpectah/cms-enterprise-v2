@@ -1,9 +1,11 @@
 import React, { FormEvent } from 'react';
 import { useForm, UseFormReturn, UseFormProps } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Alert } from '@mui/material';
 
 import { string } from '../../../../../../utils/helpers';
 import { Section } from '../Section';
+import { FormActions } from './detailFormLayoutElements';
 import getTestDataAttr from '../../../utils/getTestDataAttr';
 
 export interface ControlledFormRenderProps {
@@ -22,9 +24,11 @@ export interface ControlledFormProps extends UseFormProps {
 }
 
 const ControlledForm = (props: ControlledFormProps) => {
+	const { t } = useTranslation([ 'messages' ]);
+
 	const {
 		dataId = 'controlled-form',
-		errorMessage,
+		errorMessage = t('messages:form.error_global'),
 		token,
 		formProps,
 		renderMain,
@@ -51,6 +55,7 @@ const ControlledForm = (props: ControlledFormProps) => {
 		<form
 			noValidate
 			autoComplete="off"
+			name={dataId}
 			style={{
 				width: '100%',
 			}}
@@ -61,7 +66,7 @@ const ControlledForm = (props: ControlledFormProps) => {
 			<>
 				{renderMain(form)}
 			</>
-			{(form.form.formState.errors && errorMessage) && (
+			{(form.form.formState.errors && form.form.formState.isSubmitted && errorMessage) && (
 				<Section>
 					<Alert
 						severity="error"
@@ -71,9 +76,9 @@ const ControlledForm = (props: ControlledFormProps) => {
 				</Section>
 			)}
 			{renderActions && (
-				<Section>
+				<FormActions>
 					{renderActions(form)}
-				</Section>
+				</FormActions>
 			)}
 		</form>
 	);

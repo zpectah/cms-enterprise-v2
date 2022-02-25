@@ -15,7 +15,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = (props) => {
 
 	return (
 		<ButtonBase
-			variant="contained"
+			variant="outlined"
 			color="warning"
 			dataId="danger-button"
 			startIcon={<DeleteIcon fontSize="small" />}

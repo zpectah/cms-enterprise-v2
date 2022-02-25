@@ -11,7 +11,8 @@
   "form": {
     "required": "Pole je povinné",
     "format": "Hodnota je ve špatném formátu",
-    "pattern": "Hodnota neodpovídá požadovanému vzoru"
+    "pattern": "Hodnota neodpovídá požadovanému vzoru",
+    "error_global": "Byly nalezeny problémy s validací formuláře, zkontrolujte to prosím."
   },
   "model": {
     "item_created": "Položka byla úspešně vytvořena",
