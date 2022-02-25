@@ -117,7 +117,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 					defaultValues={detailData}
 					onSubmit={submitHandler}
 					onDelete={() => deleteHandler(detailData.id)}
-					// renderActions={(form) => (<></>)}
 					renderSidebar={(form) => {
 						const { token, form: { control } } = form;
 
@@ -395,21 +394,31 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 									</Section>
 
-									<Section>
-										<LanguageFieldset
-											render={(lang) => (
-												<>
-													language part {lang}
-												</>
-											)}
-										/>
-									</Section>
-
 								</div>
 								{/* ==================== \ FORM CONTENT ==================== */}
 							</>
 						);
 					}}
+					renderLanguage={(form) => {
+						const {
+							token,
+							form: {
+								control,
+								register,
+								watch,
+							},
+							lang,
+						} = form;
+
+						return (
+							<>
+								language content {lang}
+							</>
+						);
+					}}
+					// renderActions={(form) => (<> Action buttons </>)}
+					// renderAddons={(form) => (<> Addons (not form part) </>)}
+					// renderSecondary={(form) => (<> Secondary </>)}
 				/>
 			) : (
 				<BlockPreloader />

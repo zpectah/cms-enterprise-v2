@@ -10,6 +10,7 @@ import {
 	SubmitButton,
 	DeleteButton,
 } from '../Button';
+import LanguageFieldset from './LanguageFieldset';
 import {
 	FormOuter,
 	FormInner,
@@ -26,10 +27,15 @@ export interface ControlledDetailFormLayoutRenderProps {
 	token: string;
 	form: UseFormReturn;
 }
+export interface ControlledDetailFormLayoutLanguageRenderProps extends ControlledDetailFormLayoutRenderProps {
+	lang: string;
+}
 export interface ControlledDetailFormLayoutProps<TFieldValues extends FieldValues = FieldValues> extends UseFormProps {
 	dataId?: string;
 	errorMessage?: string;
 	renderPrimary?: (form: ControlledDetailFormLayoutRenderProps) => React.ReactNode;
+	renderSecondary?: (form: ControlledDetailFormLayoutRenderProps) => React.ReactNode;
+	renderLanguage?: (form: ControlledDetailFormLayoutLanguageRenderProps) => React.ReactNode;
 	renderSidebar?: (form: ControlledDetailFormLayoutRenderProps) => React.ReactNode;
 	renderActions?: (form: ControlledDetailFormLayoutRenderProps) => React.ReactNode;
 	renderAddons?: (form: ControlledDetailFormLayoutRenderProps) => React.ReactNode;
@@ -48,6 +54,8 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 		errorMessage,
 		renderPrimary,
 		renderSidebar,
+		renderSecondary,
+		renderLanguage,
 		renderActions,
 		renderAddons,
 		formProps,
@@ -90,7 +98,25 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 			>
 				<FormInner>
 					<FormBody>
-						<FormContent children={renderPrimary(form)} />
+						<FormContent>
+							{renderPrimary && (
+								<Section>
+									{renderPrimary(form)}
+								</Section>
+							)}
+							{renderLanguage && (
+								<Section>
+									<LanguageFieldset
+										render={(lang) => renderLanguage({ lang, ...form })}
+									/>
+								</Section>
+							)}
+							{renderSecondary && (
+								<Section>
+									{renderSecondary(form)}
+								</Section>
+							)}
+						</FormContent>
 						<FormSidebar children={renderSidebar(form)} />
 					</FormBody>
 					{(form.form.formState.errors && errorMessage) && (

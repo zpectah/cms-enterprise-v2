@@ -19,5 +19,9 @@ export const FormSidebar = styled('div')(({ theme }) => ({
 	paddingLeft: theme.spacing(3),
 	paddingRight: theme.spacing(3),
 }));
-export const FormActions = styled('div')``;
-export const FormAddons = styled('div')``;
+export const FormActions = styled('div')(({ theme }) => `
+	padding-top: ${theme.spacing(3)};
+`);
+export const FormAddons = styled('div')(({ theme }) => `
+	padding-top: ${theme.spacing(3)};
+`);
