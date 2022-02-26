@@ -1,6 +1,7 @@
 <?php
 
-class Members
-{
+namespace core\model;
+
+class Members {
 
 }

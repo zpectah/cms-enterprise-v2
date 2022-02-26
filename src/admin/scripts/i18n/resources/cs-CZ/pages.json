@@ -55,6 +55,13 @@
     "description": "",
     "content": ""
   },
+  "messages": {
+    "label": "Zprávy",
+    "meta_title": "Zprávy",
+    "page_title": "Zprávy",
+    "description": "",
+    "content": ""
+  },
   "pages": {
     "label": "Pages",
     "meta_title": "Pages",

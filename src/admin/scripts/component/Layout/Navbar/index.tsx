@@ -14,6 +14,7 @@ import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import LanguageIcon from '@mui/icons-material/Language';
+import MessageIcon from '@mui/icons-material/Message';
 
 import routes from '../../../routes';
 
@@ -33,80 +34,87 @@ const Navbar = (props: NavbarProps) => {
 	};
 	const navItems = [
 		{
-			key: 0,
+			key: 'dashboard',
 			path: root,
 			label: routes.dashboard.label,
 			icon: (<HomeIcon {...iconProps} />),
 			active: true,
 		},
 		{
-			key: 1,
+			key: 'settings',
 			path: `${root}/${routes.settings.path}`,
 			label: routes.settings.label,
 			icon: (<SettingsIcon {...iconProps} />),
 			active: true,
 		},
 		{
-			key: 2,
+			key: 'users',
 			path: `${root}/${routes.users.path}`,
 			label: routes.users.label,
 			icon: (<GroupIcon {...iconProps} />),
 			active: true,
 		},
 		{
-			key: 3,
+			key: 'pages',
 			path: `${root}/${routes.pages.path}`,
 			label: routes.pages.label,
 			icon: (<AutoStoriesIcon {...iconProps} />),
 			active: true,
 		},
 		{
-			key: 4,
+			key: 'posts',
 			path: `${root}/${routes.posts.path}`,
 			label: routes.posts.label,
 			icon: (<AutoAwesomeMotionIcon {...iconProps} />),
 			active: true,
 		},
 		{
-			key: 5,
+			key: 'translations',
 			path: `${root}/${routes.translations.path}`,
 			label: routes.translations.label,
 			icon: (<LanguageIcon {...iconProps} />),
 			active: true,
 		},
 		{
-			key: 6,
+			key: 'categories',
 			path: `${root}/${routes.categories.path}`,
 			label: routes.categories.label,
 			icon: (<CategoryIcon {...iconProps} />),
 			active: true,
 		},
 		{
-			key: 7,
+			key: 'tags',
 			path: `${root}/${routes.tags.path}`,
 			label: routes.tags.label,
 			icon: (<BookmarkIcon {...iconProps} />),
 			active: true,
 		},
 		{
-			key: 8,
+			key: 'uploads',
 			path: `${root}/${routes.uploads.path}`,
 			label: routes.uploads.label,
 			icon: (<CloudUploadIcon {...iconProps} />),
 			active: true,
 		},
 		{
-			key: 9,
+			key: 'menu',
 			path: `${root}/${routes.menu.path}`,
 			label: routes.menu.label,
 			icon: (<MenuIcon {...iconProps} />),
 			active: true,
 		},
 		{
-			key: 10,
+			key: 'members',
 			path: `${root}/${routes.members.path}`,
 			label: routes.members.label,
 			icon: (<SupervisedUserCircleIcon {...iconProps} />),
+			active: true,
+		},
+		{
+			key: 'messages',
+			path: `${root}/${routes.messages.path}`,
+			label: routes.messages.label,
+			icon: (<MessageIcon {...iconProps} />),
 			active: true,
 		},
 	];

@@ -7,7 +7,7 @@ import {
 import { toastItemProps } from '../types/common';
 import { addToast } from '../store/actions';
 
-export default () => {
+const useToasts = () => {
 	const dispatch = useDispatch();
 
 	return {
@@ -27,3 +27,5 @@ export default () => {
 		})),
 	};
 };
+
+export default useToasts;

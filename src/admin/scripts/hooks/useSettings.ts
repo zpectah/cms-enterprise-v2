@@ -4,7 +4,7 @@ import config from '../config';
 import { get, post } from '../utils/api';
 import { settingsProps } from '../types/app';
 
-export default () => {
+const useSettings = () => {
 	const { data, error } = useSWR(`${config.project.api.base_path}/get_cms_settings`, get);
 
 	return {
@@ -15,3 +15,5 @@ export default () => {
 		updateSettings: (data: settingsProps) => post(`${config.project.api.base_path}/update_cms_settings`, data),
 	};
 };
+
+export default useSettings;

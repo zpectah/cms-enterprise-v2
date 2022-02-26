@@ -1,6 +1,7 @@
 <?php
 
-class Comments
-{
+namespace core\model;
+
+class Comments {
 
 }

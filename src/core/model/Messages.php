@@ -2,6 +2,6 @@
 
 namespace core\model;
 
-class Posts {
+class Messages {
 
 }

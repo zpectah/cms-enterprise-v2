@@ -1,6 +1,7 @@
 <?php
 
-class Tags
-{
+namespace core\model;
+
+class Tags {
 
 }

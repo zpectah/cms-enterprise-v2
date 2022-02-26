@@ -56,6 +56,13 @@ export default {
 		title: 'menu.meta_title',
 		auth: 5,
 	},
+	messages: {
+		path: 'messages',
+		key: 'messages',
+		label: 'messages.label',
+		title: 'messages.meta_title',
+		auth: 5,
+	},
 	pages: {
 		path: 'pages',
 		key: 'pages',

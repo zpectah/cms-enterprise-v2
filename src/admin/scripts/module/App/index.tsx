@@ -7,6 +7,7 @@ import DashboardPage from '../../page/DashboardPage';
 import CategoriesPage from '../../page/CategoriesPage';
 import MembersPage from '../../page/MembersPage';
 import MenuPage from '../../page/MenuPage';
+import MessagesPage from '../../page/MessagesPage';
 import PagesPage from '../../page/PagesPage';
 import PostsPage from '../../page/PostsPage';
 import SettingsPage from '../../page/SettingsPage';
@@ -26,6 +27,7 @@ const AppModule = (props: AppModuleProps) => {
 				<Route path={`${routes.categories.path}/*`} element={<CategoriesPage />} />
 				<Route path={`${routes.members.path}/*`} element={<MembersPage />} />
 				<Route path={`${routes.menu.path}/*`} element={<MenuPage />} />
+				<Route path={`${routes.messages.path}/*`} element={<MessagesPage />} />
 				<Route path={`${routes.pages.path}/*`} element={<PagesPage />} />
 				<Route path={`${routes.posts.path}/*`} element={<PostsPage />} />
 				<Route path={`${routes.settings.path}/*`} element={<SettingsPage />} />

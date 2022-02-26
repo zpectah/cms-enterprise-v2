@@ -13,6 +13,7 @@ require PATH_ROOT . 'core/model/Comments.php';
 require PATH_ROOT . 'core/model/Members.php';
 require PATH_ROOT . 'core/model/Menu.php';
 require PATH_ROOT . 'core/model/MenuItems.php';
+require PATH_ROOT . 'core/model/Messages.php';
 require PATH_ROOT . 'core/model/Pages.php';
 require PATH_ROOT . 'core/model/Posts.php';
 require PATH_ROOT . 'core/model/Tags.php';

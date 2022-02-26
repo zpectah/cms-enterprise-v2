@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 
 import config from '../config';
 
-export default () => {
+const useBreadcrumbs = () => {
 	const location = useLocation();
 	const parsedPath = location.pathname.split('/');
 	const isPanel = parsedPath[4] && parsedPath[3] === 'settings';
@@ -17,3 +17,5 @@ export default () => {
 		detail: isDetail && parsedPath[5],
 	};
 };
+
+export default useBreadcrumbs;

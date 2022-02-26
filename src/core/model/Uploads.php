@@ -1,6 +1,7 @@
 <?php
 
-class Uploads
-{
+namespace core\model;
+
+class Uploads {
 
 }

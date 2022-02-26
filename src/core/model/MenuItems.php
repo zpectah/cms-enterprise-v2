@@ -1,6 +1,7 @@
 <?php
 
-class MenuItems
-{
+namespace core\model;
+
+class MenuItems {
 
 }

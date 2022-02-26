@@ -1,6 +1,7 @@
 <?php
 
-class Translations
-{
+namespace core\model;
+
+class Translations {
 
 }

@@ -59,6 +59,11 @@ class ApiProvider {
 
 
             /**
+             * Messages
+             **/
+
+
+            /**
              * Pages
              **/
 

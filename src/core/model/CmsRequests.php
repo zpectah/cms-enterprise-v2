@@ -1,6 +1,7 @@
 <?php
 
-class CmsRequests
-{
+namespace core\model;
+
+class CmsRequests {
 
 }

@@ -9,6 +9,7 @@ import { TagsItemModel } from './Tags';
 import { TranslationsItemModel } from './Translations';
 import { UsersItemModel } from './Users';
 import { UploadsItemModel } from './Uploads';
+import { MessagesItemModel } from './Messages';
 
 export type CategoriesItemProps = CategoriesItemModel;
 export type CommentsItemProps = CommentsItemModel;
@@ -21,3 +22,4 @@ export type TagsItemProps = TagsItemModel;
 export type TranslationsItemProps = TranslationsItemModel;
 export type UsersItemProps = UsersItemModel;
 export type UploadsItemProps = UploadsItemModel;
+export type MessagesItemProps = MessagesItemModel;

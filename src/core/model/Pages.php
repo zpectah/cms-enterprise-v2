@@ -1,6 +1,7 @@
 <?php
 
-class Pages
-{
+namespace core\model;
+
+class Pages {
 
 }

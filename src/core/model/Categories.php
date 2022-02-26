@@ -1,6 +1,7 @@
 <?php
 
-class Categories
-{
+namespace core\model;
+
+class Categories {
 
 }
