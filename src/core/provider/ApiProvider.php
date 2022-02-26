@@ -81,6 +81,35 @@ class ApiProvider {
             /**
              * Tags
              **/
+            case 'get_tags':
+                $response['data'] = $dp -> get_tags($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
+
+            case 'create_tags':
+                $response['data'] = $dp -> create_tags($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                break;
+
+            case 'update_tags':
+                $response['data'] = $dp -> update_tags($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'toggle_tags':
+                $response['data'] = $dp -> toggle_tags($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'delete_tags':
+                $response['data'] = $dp -> delete_tags($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
 
 
             /**

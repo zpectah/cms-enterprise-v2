@@ -25,7 +25,8 @@
     "Tags": "Tagy",
     "Translations": "Překlady",
     "Uploads": "Soubory",
-    "Users": "Uživatelé"
+    "Users": "Uživatelé",
+    "Messages": "Zprávy"
   },
   "model_new": {
     "Categories": "Nová kategorie",
@@ -37,6 +38,7 @@
     "Tags": "Nový tag",
     "Translations": "Nový překlad",
     "Uploads": "Nový soubor",
-    "Users": "Nový uživatel"
+    "Users": "Nový uživatel",
+    "Messages": "Nová zpráva"
   }
 }

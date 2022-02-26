@@ -47,7 +47,7 @@ const UsersModule = () => {
 				});
 		}
 	};
-	const deleteHandler = (ids: (string | number)[]) => {
+	const deleteHandler = (ids: number[]) => {
 		const master = [ ...ids ];
 		return deleteUsers(master).then((resp) => {
 			createSuccessToast({ title: master.length === 1 ? t('messages:model.item_deleted') : t('messages:model.items_deleted') });
@@ -56,7 +56,7 @@ const UsersModule = () => {
 			return resp;
 		});
 	};
-	const toggleHandler = (ids: (string | number)[]) => {
+	const toggleHandler = (ids: number[]) => {
 		const master = [ ...ids ];
 		return toggleUsers(master).then((resp) => {
 			createSuccessToast({ title: master.length === 1 ? t('messages:model.item_updated') : t('messages:model.items_updated') });

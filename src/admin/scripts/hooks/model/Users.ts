@@ -14,8 +14,8 @@ const useUsers = () => {
 		reloadUsers: () => mutate(`${config.project.api.base_path}/get_users`),
 		createUsers: (data: UsersItemProps) => post(`${config.project.api.base_path}/create_users`, data),
 		updateUsers: (data: UsersItemProps) => post(`${config.project.api.base_path}/update_users`, data),
-		toggleUsers: (data: (number | string)[]) => post(`${config.project.api.base_path}/toggle_users`, data),
-		deleteUsers: (data: (number | string)[]) => post(`${config.project.api.base_path}/delete_users`, data),
+		toggleUsers: (data: number[]) => post(`${config.project.api.base_path}/toggle_users`, data),
+		deleteUsers: (data: number[]) => post(`${config.project.api.base_path}/delete_users`, data),
 	};
 };
 

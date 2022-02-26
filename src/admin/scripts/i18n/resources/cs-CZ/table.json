@@ -1,6 +1,7 @@
 {
   "label": {
     "id": "#",
+    "name": "Název",
     "email": "E-mail",
     "type": "Typ",
     "active": "Aktivní",

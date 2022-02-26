@@ -131,7 +131,11 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 						</FormContent>
 						<FormSidebar children={renderSidebar(form)} />
 					</FormBody>
-					{(form.form.formState.errors && form.form.formState.isSubmitted && errorMessage) && (
+					{(form.form.formState.errors
+						&& form.form.formState.isSubmitted
+						&& !form.form.formState.isSubmitSuccessful
+						&& errorMessage
+					) && (
 						<Section noSpacing>
 							<Alert
 								severity="error"

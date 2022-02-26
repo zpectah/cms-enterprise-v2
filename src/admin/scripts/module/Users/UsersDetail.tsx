@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -45,6 +45,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
 	const params = useParams();
+	const navigate = useNavigate();
 	const [ detailData, setDetailData ] = useState<UsersItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
@@ -56,9 +57,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 	const submitHandler = (data: UsersItemProps) => {
 		const master = _.cloneDeep(data);
 		const method: submitMethodProps = master.id == 'new' ? 'create' : 'update';
-		onSubmit(method, master).then((resp) => {
-			console.info('After submit', master, resp);
-		});
+		onSubmit(method, master).then(() => navigate(detailOptions.root));
 	};
 	const deleteHandler = (id: string | number) => {
 		setConfirmOpen(true);
@@ -79,11 +78,11 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 	const getOptionsType = useCallback(
 		() => getOptionsList(config.options.model.Users.type, t),
-		[detailData],
+		[ detailData ],
 	);
 	const getOptionsGroup = useCallback(
 		() => getOptionsList(config.options.model.Users.group, t),
-		[detailData],
+		[ detailData ],
 	);
 	const getOptionsLevel = useCallback(() => {
 		let options = [];
@@ -97,7 +96,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 		});
 
 		return options;
-	}, [detailData]);
+	}, [ detailData ]);
 
 	return (
 		<>
@@ -397,23 +396,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 							</>
 						);
 					}}
-					renderLanguage={(form) => {
-						const {
-							token,
-							form: {
-								control,
-								register,
-								watch,
-							},
-							lang,
-						} = form;
-
-						return (
-							<>
-								language content {lang}
-							</>
-						);
-					}}
+					// renderLanguage={(form) => (<> Language part </>)}
 					// renderActions={(form) => (<> Action buttons </>)}
 					// renderAddons={(form) => (<> Addons (not form part) </>)}
 					// renderSecondary={(form) => (<> Secondary </>)}

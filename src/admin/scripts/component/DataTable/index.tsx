@@ -366,6 +366,20 @@ const DataTable = (props: DataTableProps) => {
 				</RowItemLink>
 			),
 		});
+		if (columns.name) cols.push({
+			id: 'name',
+			component: 'th',
+			align: columns.name[0],
+			width: columns.name[1],
+			scope: true,
+			children: (
+				<RowItemLink
+					onClick={() => detailCallback(row.id)}
+				>
+					{row.name}
+				</RowItemLink>
+			),
+		});
 		if (columns.type) cols.push({
 			id: 'type',
 			component: 'td',
@@ -418,7 +432,7 @@ const DataTable = (props: DataTableProps) => {
 		let items = [
 			...rows,
 		];
-		if (filter.search !== '' && filter.search.length > FORM_INPUT_MIN_LENGTH) {
+		if (filter.search !== '' && filter.search.length >= FORM_INPUT_MIN_LENGTH) {
 			items = array.search(
 				rows,
 				getSearchAttrs(searchProps, LANGUAGE_OPTION_DEFAULT),

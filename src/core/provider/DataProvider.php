@@ -2,6 +2,7 @@
 
 namespace core\provider;
 
+use core\model\Tags;
 use core\model\Users;
 use core\module\admin\Settings;
 use mysqli;
@@ -61,7 +62,50 @@ class DataProvider {
     /**
      * Tags
      **/
+    public function get_tags ($params = []): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $tags = new Tags;
+        $response = $tags -> get($conn, $params);
+        $conn -> close();
 
+        return $response;
+    }
+
+    public function create_tags ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $tags = new Tags;
+        $response = $tags -> create($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_tags ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $tags = new Tags;
+        $response = $tags -> update($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function toggle_tags ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $tags = new Tags;
+        $response = $tags -> toggle($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_tags ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $tags = new Tags;
+        $response = $tags -> delete($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * Translations

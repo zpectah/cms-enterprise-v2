@@ -66,7 +66,11 @@ const ControlledForm = (props: ControlledFormProps) => {
 			<>
 				{renderMain(form)}
 			</>
-			{(form.form.formState.errors && form.form.formState.isSubmitted && errorMessage) && (
+			{(form.form.formState.errors
+				&& form.form.formState.isSubmitted
+				&& !form.form.formState.isSubmitSuccessful
+				&& errorMessage
+			) && (
 				<Section noSpacing>
 					<Alert
 						severity="error"
