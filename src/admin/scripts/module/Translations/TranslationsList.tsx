@@ -10,8 +10,8 @@ import { BarPreloader } from '../../component/ui';
 
 interface TranslationsListProps {
 	dataItems: TagsItemProps[];
-	onToggle: (ids: number[]) => Promise<unknown>;
-	onDelete: (ids: number[]) => Promise<unknown>;
+	onToggle: (master: number[]) => Promise<unknown>;
+	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
 }
 

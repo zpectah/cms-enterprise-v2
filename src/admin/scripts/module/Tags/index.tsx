@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
-import _ from 'lodash';
 import { Routes, Route, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { TagsItemProps } from '../../types/model';
 import { useTags } from '../../hooks/model';
 import useToasts from '../../hooks/useToasts';
-import transformString from '../../utils/transformString';
 import TagsList from './TagsList';
 import TagsDetail from './TagsDetail';
 
@@ -28,9 +26,7 @@ const TagsModule = () => {
 		createErrorToast,
 	} = useToasts();
 
-	const submitHandler = (method: 'create' | 'update', data: TagsItemProps) => {
-		const master: TagsItemProps = _.cloneDeep(data);
-		master.name = transformString(master.name, 'empty-to-dash');
+	const submitHandler = (method: 'create' | 'update', master: TagsItemProps) => {
 		switch (method) {
 			case 'create':
 				return createTags(master).then((resp) => {
@@ -49,8 +45,7 @@ const TagsModule = () => {
 				});
 		}
 	};
-	const deleteHandler = (ids: number[]) => {
-		const master = [ ...ids ];
+	const deleteHandler = (master: number[]) => {
 		return deleteTags(master).then((resp) => {
 			createSuccessToast({ title: master.length === 1 ? t('messages:model.item_deleted') : t('messages:model.items_deleted') });
 			reloadTags();
@@ -58,8 +53,7 @@ const TagsModule = () => {
 			return resp;
 		});
 	};
-	const toggleHandler = (ids: number[]) => {
-		const master = [ ...ids ];
+	const toggleHandler = (master: number[]) => {
 		return toggleTags(master).then((resp) => {
 			createSuccessToast({ title: master.length === 1 ? t('messages:model.item_updated') : t('messages:model.items_updated') });
 			reloadTags();

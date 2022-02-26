@@ -22,8 +22,7 @@ const SettingsModule = () => {
 		createErrorToast,
 	} = useToasts();
 
-	const submitHandler = (data: settingsProps) => {
-		const master = _.cloneDeep(data);
+	const submitHandler = (master: settingsProps) => {
 		return updateSettings(master).then((resp) => {
 			createSuccessToast({ title: t('messages:model.data_updated') });
 			reloadSettings();

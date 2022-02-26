@@ -13,7 +13,6 @@ import {
 	TabPanel,
 	Section,
 	ControlledFormRow,
-	FormRow,
 	Input,
 	Textarea,
 	SubmitButton,
@@ -29,7 +28,7 @@ import getOptionsList from '../../utils/getOptionsList';
 
 interface SettingsFormProps {
 	data: settingsProps;
-	onSubmit: (data: settingsProps) => Promise<unknown>;
+	onSubmit: (master: settingsProps) => Promise<unknown>;
 	loading: boolean;
 }
 

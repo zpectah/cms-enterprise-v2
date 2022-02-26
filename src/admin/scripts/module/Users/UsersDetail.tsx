@@ -30,8 +30,8 @@ import getOptionsList from '../../utils/getOptionsList';
 
 interface UsersDetailProps {
 	dataItems: UsersItemProps[];
-	onSubmit: (method: submitMethodProps, data: UsersItemProps) => Promise<unknown>;
-	onDelete: (ids: (string | number)[]) => Promise<unknown>;
+	onSubmit: (method: submitMethodProps, master: UsersItemProps) => Promise<unknown>;
+	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
 }
 
@@ -64,7 +64,8 @@ const UsersDetail = (props: UsersDetailProps) => {
 		setConfirmData([id]);
 	};
 	const deleteConfirmHandler = () => {
-		onDelete(confirmData).then((resp) => {
+		const master = _.cloneDeep(confirmData);
+		onDelete(master).then((resp) => {
 			setConfirmOpen(false);
 			setConfirmData([]);
 		});

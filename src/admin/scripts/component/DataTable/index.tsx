@@ -321,12 +321,14 @@ const DataTable = (props: DataTableProps) => {
 		onDetail(id);
 	};
 	const toggleCallback = (ids: number[]) => {
-		onToggle(ids).then((resp) => {
+		const master = [ ...ids ];
+		onToggle(master).then((resp) => {
 			setSelected([]);
 		});
 	};
 	const deleteCallback = () => {
-		onDelete(confirmData).then((resp) => {
+		const master = [ ...confirmData ];
+		onDelete(master).then((resp) => {
 			setConfirmOpen(false);
 			setConfirmData([]);
 			setSelected([]);

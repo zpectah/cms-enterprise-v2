@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
-import _ from 'lodash';
 import { Routes, Route, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { TranslationsItemProps } from '../../types/model';
 import { useTranslations } from '../../hooks/model';
 import useToasts from '../../hooks/useToasts';
-import transformString from '../../utils/transformString';
 import TranslationsList from './TranslationsList';
 import TranslationsDetail from './TranslationsDetail';
 
@@ -28,9 +26,7 @@ const TranslationsModule = () => {
 		createErrorToast,
 	} = useToasts();
 
-	const submitHandler = (method: 'create' | 'update', data: TranslationsItemProps) => {
-		const master: TranslationsItemProps = _.cloneDeep(data);
-		master.name = transformString(master.name, 'empty-to-dash');
+	const submitHandler = (method: 'create' | 'update', master: TranslationsItemProps) => {
 		switch (method) {
 			case 'create':
 				return createTranslations(master).then((resp) => {
@@ -49,8 +45,7 @@ const TranslationsModule = () => {
 				});
 		}
 	};
-	const deleteHandler = (ids: number[]) => {
-		const master = [ ...ids ];
+	const deleteHandler = (master: number[]) => {
 		return deleteTranslations(master).then((resp) => {
 			createSuccessToast({ title: master.length === 1 ? t('messages:model.item_deleted') : t('messages:model.items_deleted') });
 			reloadTranslations();
@@ -58,8 +53,7 @@ const TranslationsModule = () => {
 			return resp;
 		});
 	};
-	const toggleHandler = (ids: number[]) => {
-		const master = [ ...ids ];
+	const toggleHandler = (master: number[]) => {
 		return toggleTranslations(master).then((resp) => {
 			createSuccessToast({ title: master.length === 1 ? t('messages:model.item_updated') : t('messages:model.items_updated') });
 			reloadTranslations();

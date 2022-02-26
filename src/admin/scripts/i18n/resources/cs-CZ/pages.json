@@ -7,16 +7,16 @@
     "content": ""
   },
   "login": {
-    "label": "Login",
-    "meta_title": "Login page",
-    "page_title": "Login",
+    "label": "Přihlášení",
+    "meta_title": "Přihlášení do systému",
+    "page_title": "Přihlášení",
     "description": "",
     "content": ""
   },
   "lost-password": {
-    "label": "Lost password",
-    "meta_title": "Recovery lost password",
-    "page_title": "Recovery lost password",
+    "label": "Ztracené heslo",
+    "meta_title": "Obnova ztraceného hesla",
+    "page_title": "Obnova ztraceného hesla",
     "description": "",
     "content": ""
   },
@@ -28,16 +28,16 @@
     "content": ""
   },
   "settings": {
-    "label": "Settings",
-    "meta_title": "Settings",
-    "page_title": "Settings",
+    "label": "Nastavení",
+    "meta_title": "Nastavení",
+    "page_title": "Nastavení systému",
     "description": "",
     "content": ""
   },
   "categories": {
-    "label": "Categories",
-    "meta_title": "Categories",
-    "page_title": "Categories",
+    "label": "Kategorie",
+    "meta_title": "Kategorie",
+    "page_title": "Kategorie",
     "description": "",
     "content": ""
   },
@@ -63,44 +63,44 @@
     "content": ""
   },
   "pages": {
-    "label": "Pages",
-    "meta_title": "Pages",
-    "page_title": "Pages",
+    "label": "Stránky",
+    "meta_title": "Stránky",
+    "page_title": "Stránky",
     "description": "",
     "content": ""
   },
   "posts": {
-    "label": "Posts",
-    "meta_title": "Posts",
-    "page_title": "Posts",
+    "label": "Posty",
+    "meta_title": "Posty",
+    "page_title": "Posty",
     "description": "",
     "content": ""
   },
   "tags": {
-    "label": "Tags",
-    "meta_title": "Tags",
-    "page_title": "Tags",
+    "label": "Tagy",
+    "meta_title": "Tagy",
+    "page_title": "Tagy",
     "description": "",
     "content": ""
   },
   "translations": {
-    "label": "Translations",
-    "meta_title": "Translations",
-    "page_title": "Translations",
+    "label": "Překlady",
+    "meta_title": "Překlady",
+    "page_title": "Překlady",
     "description": "",
     "content": ""
   },
   "uploads": {
-    "label": "Uploads",
-    "meta_title": "Uploads",
-    "page_title": "Uploads",
+    "label": "Soubory",
+    "meta_title": "Soubory",
+    "page_title": "Soubory",
     "description": "",
     "content": ""
   },
   "users": {
-    "label": "Users",
-    "meta_title": "Users",
-    "page_title": "Users",
+    "label": "Uživatelé",
+    "meta_title": "Uživatelé",
+    "page_title": "Uživatelé",
     "description": "",
     "content": ""
   }

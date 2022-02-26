@@ -24,11 +24,12 @@ import {
 	ControlledFormRow,
 } from '../../component/ui';
 import getOptionsList from '../../utils/getOptionsList';
+import transformString from '../../utils/transformString';
 
 interface TranslationsDetailProps {
 	dataItems: TranslationsItemProps[];
-	onSubmit: (method: submitMethodProps, data: TranslationsItemProps) => Promise<unknown>;
-	onDelete: (ids: (string | number)[]) => Promise<unknown>;
+	onSubmit: (method: submitMethodProps, master: TranslationsItemProps) => Promise<unknown>;
+	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
 }
 
@@ -56,6 +57,7 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 	const submitHandler = (data: TranslationsItemProps) => {
 		const master = _.cloneDeep(data);
 		const method: submitMethodProps = master.id == 'new' ? 'create' : 'update';
+		master.name = transformString(master.name, 'empty-to-dash');
 		onSubmit(method, master).then(() => navigate(detailOptions.root));
 	};
 	const deleteHandler = (id: string | number) => {
@@ -63,7 +65,8 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 		setConfirmData([id]);
 	};
 	const deleteConfirmHandler = () => {
-		onDelete(confirmData).then((resp) => {
+		const master = _.cloneDeep(confirmData);
+		onDelete(master).then((resp) => {
 			setConfirmOpen(false);
 			setConfirmData([]);
 		});

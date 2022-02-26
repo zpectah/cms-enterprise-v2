@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import _ from 'lodash';
 import { Routes, Route, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -27,8 +26,7 @@ const UsersModule = () => {
 		createErrorToast,
 	} = useToasts();
 
-	const submitHandler = (method: 'create' | 'update', data: UsersItemProps) => {
-		const master: UsersItemProps = _.cloneDeep(data);
+	const submitHandler = (method: 'create' | 'update', master: UsersItemProps) => {
 		switch (method) {
 			case 'create':
 				return createUsers(master).then((resp) => {
@@ -47,8 +45,7 @@ const UsersModule = () => {
 				});
 		}
 	};
-	const deleteHandler = (ids: number[]) => {
-		const master = [ ...ids ];
+	const deleteHandler = (master: number[]) => {
 		return deleteUsers(master).then((resp) => {
 			createSuccessToast({ title: master.length === 1 ? t('messages:model.item_deleted') : t('messages:model.items_deleted') });
 			reloadUsers();
@@ -56,8 +53,7 @@ const UsersModule = () => {
 			return resp;
 		});
 	};
-	const toggleHandler = (ids: number[]) => {
-		const master = [ ...ids ];
+	const toggleHandler = (master: number[]) => {
 		return toggleUsers(master).then((resp) => {
 			createSuccessToast({ title: master.length === 1 ? t('messages:model.item_updated') : t('messages:model.items_updated') });
 			reloadUsers();

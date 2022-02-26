@@ -1,14 +1,38 @@
 import React from 'react';
+import _ from 'lodash';
 
-interface LoginFormProps {}
+import { ControlledForm } from '../../component/ui';
+
+interface LoginFormProps {
+	onSubmit: (master: any) => Promise<unknown>;
+}
 
 const LoginForm = (props: LoginFormProps) => {
 	const {} = props;
 
+	const submitHandler = (data: any) => {
+		const master = _.cloneDeep(data);
+		console.log('submitHandler', master);
+	};
+
 	return (
-		<>
-			<div>...LoginForm...</div>
-		</>
+		<ControlledForm
+			dataId="LoginForm"
+			defaultValues={{
+				email: '',
+				password: '',
+			}}
+			onSubmit={submitHandler}
+			renderMain={(form) => {
+				const { token, form: { control } } = form;
+
+				return (
+					<div>
+						LoginForm
+					</div>
+				);
+			}}
+		/>
 	);
 };
 
