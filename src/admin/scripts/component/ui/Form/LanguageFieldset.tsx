@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { styled } from '@mui/material';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import config from '../../../config';
 import { LANGUAGE_OPTION_DEFAULT } from '../../../constants';
 import useSettings from '../../../hooks/useSettings';
-import { Select } from '../Select';
+import { DropdownMenu } from '../Menu';
+import { LoadingText } from '../Preloader';
 
 export interface LanguageFieldsetProps {
 	render: (
@@ -23,6 +26,23 @@ const StyledFieldset = styled('fieldset')`
 `;
 const StyledLegend = styled('legend')``;
 const StyledSection = styled('section')``;
+const StyledMenuTrigger = styled('a')`
+	padding: 0 .5rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	font-size: .85rem;
+	cursor: pointer;
+	
+	& > span{
+		margin-left: .35rem;
+		display: flex;
+		font-size: 1rem;
+	}
+	
+`;
 
 const LanguageFieldset = (props: LanguageFieldsetProps) => {
 	const {
@@ -46,6 +66,7 @@ const LanguageFieldset = (props: LanguageFieldsetProps) => {
 				key: lng,
 				value: lng,
 				label: config.locales[lng].label,
+				onClick: () => changeHandler(lng),
 			});
 		});
 
@@ -64,14 +85,28 @@ const LanguageFieldset = (props: LanguageFieldsetProps) => {
 		<StyledFieldset>
 			<StyledLegend>
 				{languageList.length > 0 ? (
-					<Select
-						value={lang}
-						onChange={(e) => changeHandler(e.target.value)}
-						size="small"
+					<DropdownMenu
+						id="LanguageFieldsetMenu"
 						options={getLanguageOptions()}
+						renderButton={(button, open) => (
+							<StyledMenuTrigger
+								{...button}
+							>
+								{lang}
+								<span
+									className="icon"
+								>
+											{open ? (
+												<ExpandLessIcon fontSize="inherit" />
+											) : (
+												<ExpandMoreIcon fontSize="inherit" />
+											)}
+									</span>
+							</StyledMenuTrigger>
+						)}
 					/>
 				) : (
-					<>Loading ...</>
+					<LoadingText />
 				)}
 			</StyledLegend>
 			<section>

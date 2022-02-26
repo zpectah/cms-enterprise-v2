@@ -23,19 +23,18 @@ const SelectBase: React.FC<SelectBaseProps> = (props) => {
 		dataId = 'input-select',
 		children,
 		options = [],
-		id = string.getToken(3, ''),
+		id,
 		label,
 		required,
 		formControlProps = {
 			fullWidth: true,
 		},
-		inputLabelProps = {
-			id: `${id}_label`,
-			htmlFor: id,
-		},
+		inputLabelProps,
 		size = 'small',
 		...rest
 	} = props;
+
+	console.log('inputId', id);
 
 	return (
 		<FormControl
@@ -43,13 +42,17 @@ const SelectBase: React.FC<SelectBaseProps> = (props) => {
 			{...formControlProps}
 		>
 			{label && (
-				<InputLabel {...inputLabelProps}>
+				<InputLabel
+					id={`${id}_label`}
+					htmlFor={id}
+					{...inputLabelProps}
+				>
 					{label}{required && ' *'}
 				</InputLabel>
 			)}
 			<MuiSelect
 				fullWidth
-				labelId={`${id}_label`}
+				labelId={label && `${id}_label`}
 				id={id}
 				label={label}
 				required={required}

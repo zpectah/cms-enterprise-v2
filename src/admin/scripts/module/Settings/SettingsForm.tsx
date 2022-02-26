@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import config from '../../config';
 import { EMAIL_REGEX } from '../../constants';
 import routes from '../../routes';
 import { settingsProps } from '../../types/app';
@@ -20,9 +21,11 @@ import {
 	BlockPreloader,
 	SwitchControlled,
 	TagPicker,
+	Select,
 } from '../../component/ui';
 import SettingsLanguageList from './SettingsLanguageList';
 import SettingsLanguageInstaller from './SettingsLanguageInstaller';
+import getOptionsList from '../../utils/getOptionsList';
 
 interface SettingsFormProps {
 	data: settingsProps;
@@ -89,6 +92,8 @@ const SettingsForm = (props: SettingsFormProps) => {
 		}
 	}, [ params ]);
 
+	const getIndexOptions = useCallback(() => getOptionsList(config.options.common.meta_robots, t), []);
+
 	return (
 		<>
 			{loading && <LoadingBar />}
@@ -105,8 +110,12 @@ const SettingsForm = (props: SettingsFormProps) => {
 								control,
 								formState,
 								setValue,
+								watch,
 							},
 						} = form;
+
+						const watchLanguageActive = watch('language_active');
+						const watchLanguageDefault = watch('language_default');
 
 						return (
 							<>
@@ -544,7 +553,8 @@ const SettingsForm = (props: SettingsFormProps) => {
 														const { error } = fieldState;
 
 														return (
-															<Input
+															<Select
+																options={getIndexOptions()}
 																placeholder={t('components:SettingsForm.placeholder.web_meta_robots')}
 																id={`${token}_web_meta_robots`}
 																error={!!error}
@@ -822,21 +832,6 @@ const SettingsForm = (props: SettingsFormProps) => {
 									>
 										<>
 											<Section
-												title={t('components:SettingsForm.section.language_install')}
-											>
-												<FormRow
-													emptyLabel
-												>
-													<SettingsLanguageInstaller
-														installed={data.language_installed}
-														afterInstall={(lang) => {
-															console.log('afterInstall lang', lang);
-															// TODO: reload data
-														}}
-													/>
-												</FormRow>
-											</Section>
-											<Section
 												title={t('components:SettingsForm.section.language_list')}
 											>
 												<SettingsLanguageList
@@ -846,6 +841,19 @@ const SettingsForm = (props: SettingsFormProps) => {
 													onChange={(languageObject) => {
 														setValue('language_active', languageObject.active);
 														setValue('language_default', languageObject.default);
+													}}
+												/>
+											</Section>
+											<Section
+												title={t('components:SettingsForm.section.language_install')}
+											>
+												<SettingsLanguageInstaller
+													installed={data.language_installed}
+													active={watchLanguageActive}
+													current={watchLanguageDefault}
+													afterInstall={(lang) => {
+														console.log('afterInstall lang', lang);
+														// TODO: reload data
 													}}
 												/>
 											</Section>

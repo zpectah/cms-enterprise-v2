@@ -58,8 +58,13 @@ const SettingsLanguageList = (props: SettingsLanguageListProps) => {
 		onChange(model);
 	};
 	const onDefaultToggle = (lang: string) => {
+		const active = [
+			...langModel.active,
+		];
+		const index = active.indexOf(lang);
+		if (!(index > -1)) active.push(lang);
 		const model = {
-			...langModel,
+			active: active,
 			default: lang,
 		};
 		setLangModel(model);
@@ -111,6 +116,7 @@ const SettingsLanguageList = (props: SettingsLanguageListProps) => {
 								<Checkbox
 									checked={langModel.active.includes(lang)}
 									onClick={() => onActiveToggle(lang)}
+									disabled={lang === langModel.default}
 								/>
 							</TableCell>
 							<TableCell>

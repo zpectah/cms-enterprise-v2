@@ -1,9 +1,16 @@
 {
-  "all": "Všechno",
+  "all": "Vše",
+  "none": "Nic",
   "default": "Výchozí",
   "redactor": "Redaktor",
   "manager": "Manager",
   "admin": "Admin",
   "company": "Společnost",
-  "redaction": "Redakce"
+  "redaction": "Redakce",
+  "noindex": "No index",
+  "nofollow": "No follow",
+  "index": "Index",
+  "follow": "Follow",
+  "nosnippet": "No snippet",
+  "noarchive": "No archive"
 }

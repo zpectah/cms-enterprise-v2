@@ -15,7 +15,6 @@ export interface ControlledFormRenderProps {
 export interface ControlledFormProps extends UseFormProps {
 	dataId?: string;
 	errorMessage?: string;
-	token?: string;
 	formProps?: React.HTMLProps<HTMLFormElement>;
 	renderMain: (form: ControlledFormRenderProps) => React.ReactNode;
 	renderActions?: (form: ControlledFormRenderProps) => React.ReactNode;
@@ -29,7 +28,6 @@ const ControlledForm = (props: ControlledFormProps) => {
 	const {
 		dataId = 'controlled-form',
 		errorMessage = t('messages:form.error_global'),
-		token,
 		formProps,
 		renderMain,
 		renderActions,
@@ -39,8 +37,10 @@ const ControlledForm = (props: ControlledFormProps) => {
 		...rest
 	} = props;
 
+
+	const uid = dataId ? dataId : string.getToken(3, '');
 	const form: ControlledFormRenderProps = {
-		token: token ? token : string.getToken(4, ''),
+		token: uid,
 		form: useForm({
 			mode,
 			...rest,
@@ -61,13 +61,13 @@ const ControlledForm = (props: ControlledFormProps) => {
 			}}
 			onSubmit={form.form.handleSubmit(onSubmit,  errorHandler)}
 			{...formProps}
-			{...getTestDataAttr(`${dataId}_${form.token}`)}
+			{...getTestDataAttr(dataId)}
 		>
 			<>
 				{renderMain(form)}
 			</>
 			{(form.form.formState.errors && form.form.formState.isSubmitted && errorMessage) && (
-				<Section>
+				<Section noSpacing>
 					<Alert
 						severity="error"
 					>

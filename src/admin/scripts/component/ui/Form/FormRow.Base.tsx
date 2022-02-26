@@ -31,7 +31,6 @@ const StyledGridItem = styled(Grid)`
 `;
 const Label = styled('label')`
 	padding-top: 0;
-	padding-bottom: .5rem;
 	font-size: 1rem;
 	font-weight: 500;
 	
@@ -69,7 +68,7 @@ const FormRowBase: React.FC<FormRowBaseProps> = (props) => {
 
 	const { t } = useTranslation(['messages']);
 
-	const inputId = id ? id : string.getToken(3, '');
+	const inputId = id ? id : string.getToken(2, '');
 	const labelVisible = label || emptyLabel;
 	const gridColumns = {
 		label: {
@@ -97,7 +96,9 @@ const FormRowBase: React.FC<FormRowBaseProps> = (props) => {
 					{...gridColumns.label}
 					{...labelColumnProps}
 				>
-					<Label htmlFor={inputId}>
+					<Label
+						htmlFor={inputId}
+					>
 						{label}{required && ' *'}
 					</Label>
 				</StyledGridItem>

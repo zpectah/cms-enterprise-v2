@@ -8,7 +8,7 @@ import getTestDataAttr from '../../../utils/getTestDataAttr';
 const Wrapper = styled.section<{ visible: boolean; noSpacing: boolean }>`
 	width: 100%;
 	height: auto;
-	margin-bottom: ${(props) => (props.noSpacing ? '0' : '1rem')};
+	margin-bottom: ${(props) => (props.noSpacing ? '0' : '2.5rem')};
 	display: ${(props) => (props.visible ? 'flex' : 'none')};
 	flex-direction: column;
 `;
@@ -23,7 +23,7 @@ export interface SectionBaseProps {
 	invisible?: boolean;
 	noSpacing?: boolean;
 	titleVariant?: TypographyProps['variant'];
-	bottomDivider?: boolean;
+	divider?: boolean;
 }
 
 const SectionBase: React.FC<SectionBaseProps> = (props) => {
@@ -35,7 +35,7 @@ const SectionBase: React.FC<SectionBaseProps> = (props) => {
 		invisible,
 		noSpacing,
 		titleVariant = 'h3',
-		bottomDivider,
+		divider,
 	} = props;
 
 	return (
@@ -45,17 +45,29 @@ const SectionBase: React.FC<SectionBaseProps> = (props) => {
 			{...getTestDataAttr(dataId)}
 		>
 			{title && (
-				<Typography variant={titleVariant} component="div" gutterBottom>
+				<Typography
+					variant={titleVariant}
+					component="div"
+					sx={{
+						mb: subtitle ? 2 : 3,
+					}}
+				>
 					{title}
 				</Typography>
 			)}
 			{subtitle && (
-				<Typography variant="subtitle1" component="div" gutterBottom>
+				<Typography
+					variant="subtitle1"
+					component="div"
+					sx={{
+						mb: 3,
+					}}
+				>
 					{subtitle}
 				</Typography>
 			)}
 			<Content>{children}</Content>
-			{bottomDivider && <Divider />}
+			{divider && <Divider />}
 		</Wrapper>
 	);
 };

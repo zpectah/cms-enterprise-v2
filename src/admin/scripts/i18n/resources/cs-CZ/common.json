@@ -12,6 +12,9 @@
   "common": {
     "allRightsReserved": "Všechna práva vyhrazena"
   },
+  "label": {
+    "loading": "Načítání"
+  },
   "model": {
     "Categories": "Kategorie",
     "Members": "Members",

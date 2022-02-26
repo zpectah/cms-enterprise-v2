@@ -96,6 +96,12 @@
         "active": "Aktivní",
         "default": "Výchozí"
       }
+    },
+    "language_installer": {
+      "new_language_label": "Nový jazyk",
+      "source_language_label": "Zdroj",
+      "btn_install": "Instalovat",
+      "success_message": "Jazyk byl úspěšně nainstalován"
     }
   }
 }

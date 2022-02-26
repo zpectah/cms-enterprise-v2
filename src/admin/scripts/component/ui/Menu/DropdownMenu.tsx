@@ -9,7 +9,7 @@ export interface MoreMenuItemProps {
 	hidden?: boolean;
 }
 export interface DropdownMenuProps {
-	renderButton: (renderProps: any) => React.ReactNode;
+	renderButton: (renderProps: any, open: boolean) => React.ReactNode;
 	options: MoreMenuItemProps[];
 	id: string;
 	maxHeight?: number;
@@ -53,7 +53,7 @@ const DropdownMenu = (props: DropdownMenuProps) => {
 				'aria-expanded': open ? 'true' : undefined,
 				'aria-haspopup': 'true',
 				onClick: openHandler,
-			})}
+			}, open)}
 			<Menu
 				id={id}
 				MenuListProps={{

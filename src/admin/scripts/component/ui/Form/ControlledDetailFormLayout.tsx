@@ -69,7 +69,7 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 		...rest
 	} = props;
 
-	const token = dataId ? dataId : string.getToken(4, '');
+	const token = dataId ? dataId : string.getToken(3, '');
 	const form: ControlledDetailFormLayoutRenderProps = {
 		token,
 		form: useForm({
@@ -103,12 +103,12 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 					<FormBody>
 						<FormContent>
 							{renderPrimary && (
-								<Section>
+								<Section noSpacing>
 									{renderPrimary(form)}
 								</Section>
 							)}
 							{renderLanguage && (
-								<Section>
+								<Section noSpacing>
 									<LanguageFieldset
 										render={(
 											lang,
@@ -124,7 +124,7 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 								</Section>
 							)}
 							{renderSecondary && (
-								<Section>
+								<Section noSpacing>
 									{renderSecondary(form)}
 								</Section>
 							)}
@@ -132,7 +132,7 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 						<FormSidebar children={renderSidebar(form)} />
 					</FormBody>
 					{(form.form.formState.errors && form.form.formState.isSubmitted && errorMessage) && (
-						<Section>
+						<Section noSpacing>
 							<Alert
 								severity="error"
 							>
