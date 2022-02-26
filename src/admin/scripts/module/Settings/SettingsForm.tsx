@@ -137,6 +137,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 										<>
 											<Section
 												title={t('components:SettingsForm.section.project')}
+												divider
 											>
 												<ControlledFormRow
 													name="project_name"
@@ -466,6 +467,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 										<>
 											<Section
 												title={t('components:SettingsForm.section.meta')}
+												divider
 											>
 
 												<ControlledFormRow
@@ -569,6 +571,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 											</Section>
 											<Section
 												title={t('components:SettingsForm.section.modes')}
+												divider
 											>
 
 												<ControlledFormRow
@@ -682,6 +685,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 										<>
 											<Section
 												title={t('components:SettingsForm.section.comments')}
+												divider
 											>
 
 												<ControlledFormRow
@@ -833,6 +837,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 										<>
 											<Section
 												title={t('components:SettingsForm.section.language_list')}
+												divider
 											>
 												<SettingsLanguageList
 													installed={data.language_installed}

@@ -14,11 +14,11 @@ export default {
 		title: 'login.meta_title',
 		auth: 0,
 	},
-	lostPassword: {
+	'lost-password': {
 		path: 'lost-password',
-		key: 'lostPassword',
-		label: 'lostPassword.label',
-		title: 'lostPassword.meta_title',
+		key: 'lost-password',
+		label: 'lost-password.label',
+		title: 'lost-password.meta_title',
 		auth: 0,
 	},
 	dashboard: {

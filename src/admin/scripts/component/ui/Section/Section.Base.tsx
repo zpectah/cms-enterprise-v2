@@ -1,18 +1,15 @@
 import React from 'react';
 import Typography, { TypographyProps } from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import styled from '@emotion/styled';
+import { styled, Divider } from '@mui/material';
 
 import getTestDataAttr from '../../../utils/getTestDataAttr';
 
-const Wrapper = styled.section<{ visible: boolean; noSpacing: boolean }>`
+const Wrapper = styled('section')`
 	width: 100%;
 	height: auto;
-	margin-bottom: ${(props) => (props.noSpacing ? '0' : '2.5rem')};
-	display: ${(props) => (props.visible ? 'flex' : 'none')};
 	flex-direction: column;
 `;
-const Content = styled.div`
+const Content = styled('div')`
 	width: 100%;
 `;
 
@@ -40,8 +37,10 @@ const SectionBase: React.FC<SectionBaseProps> = (props) => {
 
 	return (
 		<Wrapper
-			visible={!invisible}
-			noSpacing={noSpacing}
+			style={{
+				marginBottom: noSpacing ? '0' : '2.5rem',
+				display: !invisible ? 'flex' : 'none',
+			}}
 			{...getTestDataAttr(dataId)}
 		>
 			{title && (
@@ -66,7 +65,13 @@ const SectionBase: React.FC<SectionBaseProps> = (props) => {
 					{subtitle}
 				</Typography>
 			)}
-			<Content>{children}</Content>
+			<Content
+				style={{
+					paddingBottom: divider ? '1.5rem' : '0',
+				}}
+			>
+				{children}
+			</Content>
 			{divider && <Divider />}
 		</Wrapper>
 	);

@@ -13,7 +13,7 @@
     "description": "",
     "content": ""
   },
-  "lostPassword": {
+  "lost-password": {
     "label": "Lost password",
     "meta_title": "Recovery lost password",
     "page_title": "Recovery lost password",

@@ -1,48 +1,48 @@
 import React, { useCallback } from 'react';
 import { default as MuiBreadcrumbs } from '@mui/material/Breadcrumbs';
 import { Box, Typography } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import config from '../../../config';
+import useBreadcrumbs from '../../../hooks/useBreadcrumbs';
 
 const Breadcrumbs = () => {
-	const location = useLocation();
+	const { t } = useTranslation([ 'pages', 'components' ]);
+	const {
+		cms,
+		app,
+		page,
+		panel,
+		detail,
+		location,
+	} = useBreadcrumbs();
+
 	const getBreadcrumbs = useCallback(() => {
-		const parsedPath = location.pathname.split('/');
 		const fields = [
 			{
 				key: 0,
-				label: config.project.meta.name,
+				label: cms,
 			},
 		];
-
-		// App
-		if (parsedPath[2]) fields.push({
+		if (app) fields.push({
 			key: 1,
-			label: parsedPath[2],
+			label: app,
 		});
-
-		// Page
-		if (parsedPath[3]) fields.push({
+		if (page) fields.push({
 			key: 2,
-			label: parsedPath[3],
+			label: t(`pages:${page}.label`),
 		});
-
-		// Panel
-		if (parsedPath[4]) {
+		if (panel) {
+			let label = panel;
+			if (page === 'settings') label = t(`components:SettingsForm.panel.${panel}`);
 			fields.push({
 				key: 3,
-				label: parsedPath[4],
+				label: label,
 			});
 		}
-
-		// Detail
-		if (parsedPath[4] && parsedPath[5]) {
-			fields.push({
-				key: 4,
-				label: `#${parsedPath[5]}`,
-			});
-		}
+		if (detail) fields.push({
+			key: 4,
+			label: `#${detail}`,
+		});
 
 		return fields;
 	},[ location ]);
