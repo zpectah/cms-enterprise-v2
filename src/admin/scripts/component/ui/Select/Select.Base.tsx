@@ -34,8 +34,6 @@ const SelectBase: React.FC<SelectBaseProps> = (props) => {
 		...rest
 	} = props;
 
-	console.log('inputId', id);
-
 	return (
 		<FormControl
 			size={size}

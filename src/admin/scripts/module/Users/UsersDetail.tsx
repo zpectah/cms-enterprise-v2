@@ -23,7 +23,7 @@ import {
 	Textarea,
 	SwitchControlled,
 	BlockPreloader,
-	LoadingBar,
+	BarPreloader,
 	ControlledFormRow,
 } from '../../component/ui';
 import getOptionsList from '../../utils/getOptionsList';
@@ -107,7 +107,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 				createButtonLabel={t('model_new.Users')}
 				createButtonPath={detailData?.id !== 'new' && `${detailOptions.root}/detail/new`}
 			/>
-			{loading && <LoadingBar />}
+			{loading && <BarPreloader />}
 			{detailData ? (
 				<ControlledDetailFormLayout
 					dataId="UsersDetailForm"

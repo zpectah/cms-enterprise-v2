@@ -1,9 +1,9 @@
 import React from 'react';
 import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress';
 
-export interface LoadingBarProps extends LinearProgressProps {}
+export interface BarPreloaderProps extends LinearProgressProps {}
 
-const LoadingBar = (props: LoadingBarProps) => {
+const BarPreloader = (props: BarPreloaderProps) => {
 	const {
 		sx = {
 			width: '100%',
@@ -25,4 +25,4 @@ const LoadingBar = (props: LoadingBarProps) => {
 	);
 };
 
-export default LoadingBar;
+export default BarPreloader;

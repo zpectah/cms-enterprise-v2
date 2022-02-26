@@ -6,7 +6,7 @@ import routes from '../../routes';
 import { UsersItemProps } from '../../types/model';
 import PageHeading from '../../component/PageHeading';
 import DataTable from '../../component/DataTable';
-import { LoadingBar } from '../../component/ui';
+import { BarPreloader } from '../../component/ui';
 
 interface UsersListProps {
 	dataItems: UsersItemProps[];
@@ -38,7 +38,7 @@ const UsersList = (props: UsersListProps) => {
 				createButtonLabel={t('model_new.Users')}
 				createButtonPath={`${tableOptions.root}/detail/new`}
 			/>
-			{loading && <LoadingBar />}
+			{loading && <BarPreloader />}
 			<DataTable
 				id={tableOptions.id}
 				rows={dataItems}

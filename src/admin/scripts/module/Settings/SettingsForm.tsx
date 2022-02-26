@@ -17,7 +17,7 @@ import {
 	Input,
 	Textarea,
 	SubmitButton,
-	LoadingBar,
+	BarPreloader,
 	BlockPreloader,
 	SwitchControlled,
 	TagPicker,
@@ -96,7 +96,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 
 	return (
 		<>
-			{loading && <LoadingBar />}
+			{loading && <BarPreloader />}
 			{data ? (
 				<ControlledForm
 					dataId="UsersDetailForm"
