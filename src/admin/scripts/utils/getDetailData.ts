@@ -14,46 +14,71 @@ import usersModel from '../module/Users/model';
 export default (
 	model: appModel,
 	items: any[],
-	id: string | number
+	id: string | number,
+	languages?: string[],
+	languageModel?: any,
 ) => {
-	if (id == 'new') {
+	let modelData: any = {};
+
+	if (id === 'new') {
 		switch (model) {
 
 			case 'Categories':
-				return categoriesModel;
+				modelData = categoriesModel;
+				break;
 
 			case 'Comments':
-				return commentsModel;
+				modelData = commentsModel;
+				break;
 
 			case 'Members':
-				return membersModel;
+				modelData = membersModel;
+				break;
 
 			case 'Menu':
-				return menuModel;
+				modelData = menuModel;
+				break;
 
 			case 'Messages':
-				return messagesModel;
+				modelData = messagesModel;
+				break;
 
 			case 'Pages':
-				return pagesModel;
+				modelData = pagesModel;
+				break;
 
 			case 'Posts':
-				return postsModel;
+				modelData = postsModel;
+				break;
 
 			case 'Tags':
-				return tagsModel;
+				modelData = tagsModel;
+				break;
 
 			case 'Translations':
-				return translationsModel;
+				modelData = translationsModel;
+				break;
 
 			case 'Uploads':
-				return uploadsModel;
+				modelData = uploadsModel;
+				break;
 
 			case 'Users':
-				return usersModel;
+				modelData = usersModel;
+				break;
 
 		}
+
+		if (languages && languageModel) {
+			modelData['lang'] = {};
+			languages.map((lng) => {
+				modelData['lang'][lng] = languageModel;
+			});
+		}
+
 	} else {
-		return items.find((item) => item.id == id);
+		modelData = items.find((item) => item.id == id);
 	}
+
+	return modelData;
 };

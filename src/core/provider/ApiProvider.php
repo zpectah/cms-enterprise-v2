@@ -115,6 +115,35 @@ class ApiProvider {
             /**
              * Translations
              **/
+            case 'get_translations':
+                $response['data'] = $dp -> get_translations($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
+
+            case 'create_translations':
+                $response['data'] = $dp -> create_translations($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                break;
+
+            case 'update_translations':
+                $response['data'] = $dp -> update_translations($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'toggle_translations':
+                $response['data'] = $dp -> toggle_translations($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'delete_translations':
+                $response['data'] = $dp -> delete_translations($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
 
 
             /**
@@ -169,6 +198,12 @@ class ApiProvider {
                 $response['data'] = $dp -> update_cms_settings($data);
                 $response['status'] = 'ok';
                 $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'get_cms_languages':
+                $response['data'] = $dp -> get_cms_languages();
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
                 break;
 
         }

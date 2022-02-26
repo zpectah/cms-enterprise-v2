@@ -1,6 +1,6 @@
 export default (
 	input: string,
-	method: 'empty-space' | 'empty-dash',
+	method: 'empty-space' | 'empty-to-dash' | 'empty-to-dot',
 ): string => {
 	let output: string;
 
@@ -10,8 +10,12 @@ export default (
 			output = input.split(' ').join('');
 			break;
 
-		case 'empty-dash':
+		case 'empty-to-dash':
 			output = input.split(' ').join('-');
+			break;
+
+		case 'empty-to-dot':
+			output = input.split(' ').join('.');
 			break;
 
 	}

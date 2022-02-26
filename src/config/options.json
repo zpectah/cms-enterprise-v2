@@ -59,6 +59,31 @@
           }
         ]
       }
+    },
+    "Categories": {
+      "type": ["posts", "products"]
+    },
+    "Menu": {
+      "type": ["primary", "secondary", "tertiary", "custom"]
+    },
+    "MenuItems": {
+      "type": ["page", "local", "external"]
+    },
+    "Pages": {
+      "type": ["default", "category"],
+      "elements": ["contact_form", "subscribe_form"]
+    },
+    "Posts": {
+      "type": ["article", "blog", "media", "gallery", "event", "reference", "testimonial"]
+    },
+    "Tags": {
+      "type": ["default"]
+    },
+    "Translations": {
+      "type": ["default"]
+    },
+    "Members": {
+      "type": ["default", "customer", "subscriber", "hidden"]
     }
   },
   "common": {

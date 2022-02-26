@@ -99,7 +99,7 @@ class Tags {
         return $response; // list of affected ids
     }
 
-    public function toggle ($conn, $data) {
+    public function toggle ($conn, $data): array {
         $response = [];
         $helpers = new Helpers;
 
@@ -110,7 +110,7 @@ class Tags {
         return $response; // list of affected ids
     }
 
-    public function delete ($conn, $data) {
+    public function delete ($conn, $data): array {
         $response = [];
         $helpers = new Helpers;
 

@@ -30,7 +30,7 @@ const TagsModule = () => {
 
 	const submitHandler = (method: 'create' | 'update', data: TagsItemProps) => {
 		const master: TagsItemProps = _.cloneDeep(data);
-		master.name = transformString(master.name, 'empty-dash');
+		master.name = transformString(master.name, 'empty-to-dash');
 		switch (method) {
 			case 'create':
 				return createTags(master).then((resp) => {

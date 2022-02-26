@@ -3,6 +3,7 @@
 namespace core\provider;
 
 use core\model\Tags;
+use core\model\Translations;
 use core\model\Users;
 use core\module\admin\Settings;
 use mysqli;
@@ -110,7 +111,56 @@ class DataProvider {
     /**
      * Translations
      **/
+    public function get_translations ($params = []): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $translations = new Translations;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $translations -> get($conn, $params, $languages['language_active']);
+        $conn -> close();
 
+        return $response;
+    }
+
+    public function create_translations ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $translations = new Translations;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $translations -> create($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_translations ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $translations = new Translations;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $translations -> update($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function toggle_translations ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $translations = new Translations;
+        $response = $translations -> toggle($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_translations ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $translations = new Translations;
+        $response = $translations -> delete($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * Uploads
@@ -187,6 +237,14 @@ class DataProvider {
         return $response;
     }
 
+    public function get_cms_languages (): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $settings = new Settings;
+        $response = $settings -> get_cms_languages($conn);
+        $conn -> close();
+
+        return $response;
+    }
 
 
 }

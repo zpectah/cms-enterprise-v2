@@ -91,4 +91,30 @@ class Settings {
         return $response;
     }
 
+    public function get_cms_languages ($conn): array {
+        $response = [];
+
+        // prepare
+        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM cms_settings WHERE context = ?');
+        $types = 's';
+        $args = [ 'language' ];
+
+        // execute
+        $stmt = $conn -> prepare($query);
+        $stmt -> bind_param($types, ...$args);
+        $stmt -> execute();
+        $result = $stmt -> get_result();
+        $stmt -> close();
+
+        if ($result -> num_rows > 0) {
+            while($row = $result -> fetch_assoc()) {
+                if ($row['name'] == 'language_default') $response['language_default'] = $row['value'];
+                if ($row['name'] == 'language_installed') $response['language_installed'] = explode(",", $row['value']);
+                if ($row['name'] == 'language_active') $response['language_active'] = explode(",", $row['value']);
+            }
+        }
+
+        return $response;
+    }
+
 }

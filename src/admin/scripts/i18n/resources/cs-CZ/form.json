@@ -10,7 +10,8 @@
     "name_first": "Jméno",
     "name_last": "Příjmení",
     "nickname": "Přezdívka",
-    "description": "Poznámka"
+    "description": "Poznámka",
+    "value": "Hodnota"
   },
   "placeholder": {
     "name": "Zadejte název",
@@ -22,7 +23,8 @@
     "name_first": "Zadejte jméno",
     "name_last": "Zadejte příjmení",
     "nickname": "Zadejte přezdívku",
-    "description": "Zadejte poznámku"
+    "description": "Zadejte poznámku",
+    "value": "Zadejte hodnotu"
   },
   "help": {
     "password": "Heslo by mělo obsahovat velké a malé znaky a číslo"
