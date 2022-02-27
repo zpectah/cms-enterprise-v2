@@ -15,7 +15,7 @@ import {
 	ControlledFormRow,
 	Input,
 	Textarea,
-	SubmitButton,
+	PrimaryButton,
 	BarPreloader,
 	BlockPreloader,
 	SwitchControlled,
@@ -23,13 +23,14 @@ import {
 	Select,
 } from '../../component/ui';
 import SettingsLanguageList from './SettingsLanguageList';
-import SettingsLanguageInstaller from './SettingsLanguageInstaller';
+import SettingsLanguageInstaller, { installerRequestProps } from './SettingsLanguageInstaller';
 import getOptionsList from '../../utils/getOptionsList';
 
 interface SettingsFormProps {
 	data: settingsProps;
 	onSubmit: (master: settingsProps) => Promise<unknown>;
 	loading: boolean;
+	afterLanguageInstall: (lang: installerRequestProps) => void;
 }
 
 const SettingsForm = (props: SettingsFormProps) => {
@@ -37,6 +38,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 		data,
 		onSubmit,
 		loading,
+		afterLanguageInstall,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'components' ]);
@@ -80,6 +82,9 @@ const SettingsForm = (props: SettingsFormProps) => {
 			console.info('After submit', master, resp);
 		});
 	};
+	const afterLanguageInstallHandler = (lang: installerRequestProps) => {
+		if (afterLanguageInstall) afterLanguageInstall(lang);
+	};
 
 	useEffect(() => {
 		if (params['*']) {
@@ -115,6 +120,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 
 						const watchLanguageActive = watch('language_active');
 						const watchLanguageDefault = watch('language_default');
+						const watchCommentsGlobal = watch('comments_global_active');
 
 						return (
 							<>
@@ -688,28 +694,6 @@ const SettingsForm = (props: SettingsFormProps) => {
 											>
 
 												<ControlledFormRow
-													name="comments_anonymous_active"
-													control={control}
-													rules={{}}
-													defaultValue={data.comments_anonymous_active}
-													rowProps={{
-														emptyLabel: true,
-													}}
-													render={({ field }) => {
-														const { ref, value, ...rest } = field;
-
-														return (
-															<SwitchControlled
-																id={`${token}_comments_anonymous_active`}
-																label={t('components:SettingsForm.label.comments_anonymous_active')}
-																checked={value}
-																inputRef={ref}
-																{...rest}
-															/>
-														);
-													}}
-												/>
-												<ControlledFormRow
 													name="comments_global_active"
 													control={control}
 													rules={{}}
@@ -726,6 +710,29 @@ const SettingsForm = (props: SettingsFormProps) => {
 																label={t('components:SettingsForm.label.comments_global_active')}
 																checked={value}
 																inputRef={ref}
+																{...rest}
+															/>
+														);
+													}}
+												/>
+												<ControlledFormRow
+													name="comments_anonymous_active"
+													control={control}
+													rules={{}}
+													defaultValue={data.comments_anonymous_active}
+													rowProps={{
+														emptyLabel: true,
+													}}
+													render={({ field }) => {
+														const { ref, value, ...rest } = field;
+
+														return (
+															<SwitchControlled
+																id={`${token}_comments_anonymous_active`}
+																label={t('components:SettingsForm.label.comments_anonymous_active')}
+																checked={value}
+																inputRef={ref}
+																disabled={!watchCommentsGlobal}
 																{...rest}
 															/>
 														);
@@ -855,10 +862,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 													installed={data.language_installed}
 													active={watchLanguageActive}
 													current={watchLanguageDefault}
-													afterInstall={(lang) => {
-														console.log('afterInstall lang', lang);
-														// TODO: reload data
-													}}
+													afterInstall={afterLanguageInstallHandler}
 												/>
 											</Section>
 										</>
@@ -894,11 +898,11 @@ const SettingsForm = (props: SettingsFormProps) => {
 
 						return (
 							<>
-								<SubmitButton
+								<PrimaryButton
 									disabled={(isDirty && !isValid)}
 								>
 									{t('btn.save_changes')}
-								</SubmitButton>
+								</PrimaryButton>
 							</>
 						);
 					}}

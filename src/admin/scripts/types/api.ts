@@ -5,7 +5,7 @@ export interface apiRequestHeadersProps {
 }
 
 export interface apiResponseDefaultProps {
-	data: any[];
+	data: any | any[];
 	status: 'ok' | 'error';
 	message: string;
 }

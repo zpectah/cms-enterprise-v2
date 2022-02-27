@@ -16,5 +16,113 @@
     "time_format": "HH:MM:ss",
     "date_format": "YYYY/MM/DD",
     "ltr": true
+  },
+  "en-GB": {
+    "key": "en",
+    "int": "en-GB",
+    "label": "English",
+    "label_int": "English (UK)",
+    "time_format": "HH:MM:ss",
+    "date_format": "YYYY/MM/DD",
+    "ltr": true
+  },
+  "sk-SK": {
+    "key": "sk",
+    "int": "sk-SK",
+    "label": "Slovenčina",
+    "label_int": "Slovak",
+    "time_format": "HH:MM:ss",
+    "date_format": "YYYY/MM/DD",
+    "ltr": true
+  },
+  "pl-PL": {
+    "key": "pl",
+    "int": "pl-PL",
+    "label": "Polish",
+    "label_int": "Polish",
+    "time_format": "HH:MM:ss",
+    "date_format": "YYYY/MM/DD",
+    "ltr": true
+  },
+  "hu-HU": {
+    "key": "hu",
+    "int": "hu-HU",
+    "label": "Hungarian",
+    "label_int": "Hungarian",
+    "time_format": "HH:MM:ss",
+    "date_format": "YYYY/MM/DD",
+    "ltr": true
+  },
+  "de-DE": {
+    "key": "de",
+    "int": "de-DE",
+    "label": "German",
+    "label_int": "German (Germany)",
+    "time_format": "HH:MM:ss",
+    "date_format": "YYYY/MM/DD",
+    "ltr": true
+  },
+  "de-AT": {
+    "key": "de",
+    "int": "de-AT",
+    "label": "German",
+    "label_int": "German (Austria)",
+    "time_format": "HH:MM:ss",
+    "date_format": "YYYY/MM/DD",
+    "ltr": true
+  },
+  "de-CH": {
+    "key": "de",
+    "int": "de-CH",
+    "label": "German",
+    "label_int": "German (Switzerland)",
+    "time_format": "HH:MM:ss",
+    "date_format": "YYYY/MM/DD",
+    "ltr": true
+  },
+  "fr-FR": {
+    "key": "fr",
+    "int": "fr-FR",
+    "label": "French",
+    "label_int": "French (France)",
+    "time_format": "HH:MM:ss",
+    "date_format": "YYYY/MM/DD",
+    "ltr": true
+  },
+  "fr-CH": {
+    "key": "fr",
+    "int": "fr-CH",
+    "label": "French",
+    "label_int": "French (Switzerland)",
+    "time_format": "HH:MM:ss",
+    "date_format": "YYYY/MM/DD",
+    "ltr": true
+  },
+  "es-ES": {
+    "key": "es",
+    "int": "es-ES",
+    "label": "Spanish",
+    "label_int": "Spanish (Spain)",
+    "time_format": "HH:MM:ss",
+    "date_format": "YYYY/MM/DD",
+    "ltr": true
+  },
+  "pt-PT": {
+    "key": "pt",
+    "int": "pt-PT",
+    "label": "Portuguese",
+    "label_int": "Portuguese (Portugal)",
+    "time_format": "HH:MM:ss",
+    "date_format": "YYYY/MM/DD",
+    "ltr": true
+  },
+  "uk-UA": {
+    "key": "uk",
+    "int": "uk-UA",
+    "label": "Ukrainian",
+    "label_int": "Ukrainian (Ukraine)",
+    "time_format": "HH:MM:ss",
+    "date_format": "YYYY/MM/DD",
+    "ltr": true
   }
 }

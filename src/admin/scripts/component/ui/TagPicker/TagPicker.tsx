@@ -38,7 +38,6 @@ const TagPicker = (props: TagPickerProps) => {
 		inputType = 'text',
 		boxProps,
 		chipProps = {
-			size: 'small',
 			sx: {
 				marginRight: 1,
 				marginBottom: 1,
@@ -47,6 +46,7 @@ const TagPicker = (props: TagPickerProps) => {
 		inputProps = {
 			sx: {
 				width: '100%',
+				paddingRight: .5,
 			},
 		},
 		id,

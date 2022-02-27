@@ -7,8 +7,8 @@ import { Alert } from '@mui/material';
 import { string } from '../../../../../../utils/helpers';
 import { Section } from '../Section';
 import {
-	SubmitButton,
 	DeleteButton,
+	PrimaryButton,
 } from '../Button';
 import LanguageFieldset from './LanguageFieldset';
 import {
@@ -151,11 +151,11 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 						>
 							{renderActions ? renderActions(form) : (
 								<>
-									<SubmitButton
+									<PrimaryButton
 										disabled={(form.form.formState.isDirty && !form.form.formState.isValid)}
 									>
 										{detailId === 'new' ? t('btn.create') : t('btn.update')}
-									</SubmitButton>
+									</PrimaryButton>
 									{detailId !== 'new' && (
 										<DeleteButton
 											onClick={deleteHandler}

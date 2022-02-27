@@ -6,7 +6,7 @@ import config from '../../config';
 import useToasts from '../../hooks/useToasts';
 import {
 	Select,
-	Button,
+	SuccessButton,
 } from '../../component/ui';
 
 export type installerRequestProps = {
@@ -122,15 +122,13 @@ const SettingsLanguageInstaller = (props: SettingsLanguageInstallerProps) => {
 						}}
 					/>
 				</div>
-				<Button
-					variant="outlined"
-					color="success"
+				<SuccessButton
 					onClick={installHandler}
 					disabled={selectedLanguage === ''}
 					loading={installing}
 				>
 					{t('components:SettingsForm.language_installer.btn_install')}
-				</Button>
+				</SuccessButton>
 			</Stack>
 		</>
 	);

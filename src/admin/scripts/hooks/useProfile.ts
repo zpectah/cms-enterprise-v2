@@ -2,13 +2,14 @@ import useSWR, { mutate } from 'swr';
 
 import config from '../config';
 import { get, post } from '../utils/api';
+import { profileProps } from '../types/profile';
 
 const useProfile = () => {
 	const { data, error } = useSWR(`${config.project.api.base_path}/get_user_profile`, get);
 	const data_loading = !(!(!data && data == null) && !error);
 
 	return {
-		profile: {},
+		profile: data as unknown | profileProps,
 		profile_loading: data_loading,
 		profile_error: false,
 		reloadProfile: () => mutate(`${config.project.api.base_path}/get_user_profile`),

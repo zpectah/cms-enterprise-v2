@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { settingsProps } from '../../types/app';
@@ -30,6 +29,9 @@ const SettingsModule = () => {
 			return resp;
 		});
 	};
+	const afterLanguageInstallHandler = () => {
+		reloadSettings();
+	};
 
 	useEffect(() => {
 		if (settings_error) createErrorToast({ title: settings_error });
@@ -44,6 +46,7 @@ const SettingsModule = () => {
 				data={settings}
 				onSubmit={submitHandler}
 				loading={settings_loading}
+				afterLanguageInstall={afterLanguageInstallHandler}
 			/>
 		</>
 	);
