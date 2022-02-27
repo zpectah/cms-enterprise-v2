@@ -7,7 +7,9 @@
     "create": "Vytvořit",
     "update": "Aktualizovat",
     "cancel": "Zrušit",
-    "confirm": "Potvrdit"
+    "confirm": "Potvrdit",
+    "save": "Uložit",
+    "save_changes": "Uložit změny"
   },
   "common": {
     "allRightsReserved": "Všechna práva vyhrazena"

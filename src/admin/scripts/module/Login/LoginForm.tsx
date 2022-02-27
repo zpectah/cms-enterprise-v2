@@ -1,7 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
 
-import { ControlledForm } from '../../component/ui';
+import { EMAIL_REGEX } from '../../constants';
+import {
+	ControlledForm,
+	ControlledFormRow,
+	Input,
+	PasswordInput,
+} from '../../component/ui';
 
 interface LoginFormProps {
 	onSubmit: (master: any) => Promise<unknown>;
@@ -9,6 +16,8 @@ interface LoginFormProps {
 
 const LoginForm = (props: LoginFormProps) => {
 	const {} = props;
+
+	const { t } = useTranslation([ 'form' ]);
 
 	const submitHandler = (data: any) => {
 		const master = _.cloneDeep(data);
@@ -27,8 +36,59 @@ const LoginForm = (props: LoginFormProps) => {
 				const { token, form: { control } } = form;
 
 				return (
-					<div>
-						LoginForm
+					<div
+						style={{
+							width: '250px',
+						}}
+					>
+
+						<ControlledFormRow
+							name="email"
+							control={control}
+							rules={{ pattern: EMAIL_REGEX, required: true }}
+							defaultValue={''}
+							render={({ field, fieldState }) => {
+								const { ref, ...rest } = field;
+								const { error } = fieldState;
+
+								return (
+									<Input
+										type="email"
+										label={t('form:label.email')}
+										placeholder={t('form:placeholder.email')}
+										id={`${token}_email`}
+										error={!!error}
+										required
+										inputRef={ref}
+										{...rest}
+									/>
+								);
+							}}
+						/>
+
+						<ControlledFormRow
+							name="password"
+							control={control}
+							rules={{ required: true }}
+							defaultValue={''}
+							render={({ field, fieldState }) => {
+								const { ref, ...rest } = field;
+								const { error } = fieldState;
+
+								return (
+									<PasswordInput
+										label={t('form:label.password')}
+										placeholder={t('form:placeholder.password')}
+										id={`${token}_password`}
+										error={!!error}
+										required
+										inputRef={ref}
+										{...rest}
+									/>
+								);
+							}}
+						/>
+
 					</div>
 				);
 			}}

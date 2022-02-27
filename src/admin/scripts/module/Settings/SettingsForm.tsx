@@ -39,7 +39,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 		loading,
 	} = props;
 
-	const { t } = useTranslation([ 'components' ]);
+	const { t } = useTranslation([ 'common', 'components' ]);
 	const params = useParams();
 	const navigate = useNavigate();
 	const [ panelValue, setPanelValue ] = useState<number>(0);
@@ -896,7 +896,9 @@ const SettingsForm = (props: SettingsFormProps) => {
 							<>
 								<SubmitButton
 									disabled={(isDirty && !isValid)}
-								/>
+								>
+									{t('btn.save_changes')}
+								</SubmitButton>
 							</>
 						);
 					}}

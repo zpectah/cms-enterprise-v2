@@ -8,7 +8,7 @@ import LostPasswordModule from '../module/LostPassword';
 interface LostPasswordPageProps {}
 
 const LostPasswordPage = ({}: LostPasswordPageProps) => {
-	const pageMeta: pageMetaProps = routes.lostPassword;
+	const pageMeta: pageMetaProps = routes['lost-password'];
 
 	return (
 		<Layout.Minimal meta={pageMeta} withOptions>

@@ -12,13 +12,21 @@ const SwitchControlled = (props: SwitchControlledProps) => {
 	const {
 		label,
 		labelProps,
+		sx = {
+			marginRight: 1.5,
+		},
 		...rest
 	} = props;
 
 	return (
 		<FormControlLabel
 			label={label}
-			control={<Switch {...rest} />}
+			control={
+				<Switch
+					sx={sx}
+					{...rest}
+				/>
+			}
 			{...labelProps}
 		/>
 	);

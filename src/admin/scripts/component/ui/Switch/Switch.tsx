@@ -11,6 +11,7 @@ const Switch = (props: SwitchProps) => {
 
 	return (
 		<SwitchBase
+			value={true}
 			{...rest}
 		/>
 	);

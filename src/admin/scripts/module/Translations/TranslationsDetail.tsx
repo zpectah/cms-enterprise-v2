@@ -86,7 +86,7 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 				value: '',
 			},
 			)),
-		[ dataItems, params ],
+		[ dataItems, params, languageActive ],
 	);
 
 	const getOptionsType = useCallback(
