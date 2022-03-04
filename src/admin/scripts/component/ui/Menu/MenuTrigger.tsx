@@ -1,5 +1,5 @@
-import React from 'react';
-import { styled } from '@mui/material';
+import React, { createRef } from 'react';
+import { styled, Theme } from '@mui/material';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -12,7 +12,7 @@ export interface MenuTriggerProps {
 	ariaHaspopup?: boolean | 'false' | 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog' | undefined;
 }
 
-const TriggerElement = styled('a')`
+const TriggerElement = styled('a')(({ theme, open }: { theme?: Theme, open: boolean }) => (`
 	padding: .25rem .5rem;
 	display: flex;
 	flex-direction: row;
@@ -21,15 +21,19 @@ const TriggerElement = styled('a')`
 	justify-content: center;
 	font-size: .85rem;
 	cursor: pointer;
-	border: 1px solid rgba(175,175,175,.5);
+	border: 1px solid ${open ? theme.palette.primary.main : 'rgba(175,175,175,.5)'};
 	border-radius: 4px;
 		
-	& > span{
+	& > .label{
+		padding-left: .125rem;
+		padding-right: .125rem;
+	}
+	& > .icon{
 		margin-left: .35rem;
 		display: flex;
 		font-size: 1rem;
 	}
-`;
+`));
 
 const MenuTrigger = (props: MenuTriggerProps) => {
 	const {
@@ -40,15 +44,24 @@ const MenuTrigger = (props: MenuTriggerProps) => {
 		ariaHaspopup,
 		...rest
 	} = props;
+
+	const elemRef: React.Ref<any> = createRef();
 	
 	return (
 		<TriggerElement
 			aria-controls={ariaControls}
 			aria-expanded={ariaExpanded}
 			aria-haspopup={ariaHaspopup}
+			ref={elemRef}
+			className={[].join(' ')}
+			open={open}
 			{...rest}
 		>
-			{label}
+			<span
+				className="label"
+			>
+				{label}
+			</span>
 			<span
 				className="icon"
 			>

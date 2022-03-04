@@ -10,7 +10,8 @@
     "name_first": "Jméno",
     "name_last": "Příjmení",
     "nickname": "Přezdívka",
-    "description": "Poznámka",
+    "description": "Popis",
+    "note": "Poznámka",
     "value": "Hodnota",
     "title": "Titulek",
     "parent": "Rodič"
@@ -25,7 +26,8 @@
     "name_first": "Zadejte jméno",
     "name_last": "Zadejte příjmení",
     "nickname": "Zadejte přezdívku",
-    "description": "Zadejte poznámku",
+    "description": "Zadejte popis",
+    "note": "Zadejte poznámku",
     "value": "Zadejte hodnotu",
     "title": "Zadejte titulek",
     "parent": "Vyberte rodiče"

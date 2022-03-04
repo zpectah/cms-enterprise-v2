@@ -238,8 +238,8 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 
 										return (
 											<Textarea
-												label={`[${getLocaleObject(lang).key}] ${t('form:label.value')}`}
-												placeholder={`[${getLocaleObject(lang).key}] ${t('form:placeholder.value')}`}
+												label={t('form:label.value')}
+												placeholder={t('form:placeholder.value')}
 												id={`${token}_${lang}_value`}
 												error={!!error}
 												required

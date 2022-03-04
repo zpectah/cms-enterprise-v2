@@ -7,6 +7,7 @@ export interface MoreMenuItemProps {
 	onClick: () => void;
 	disabled?: boolean;
 	hidden?: boolean;
+	selected?: boolean;
 }
 export interface DropdownMenuProps {
 	renderButton: (renderProps: any, open: boolean) => React.ReactNode;
@@ -75,6 +76,7 @@ const DropdownMenu = (props: DropdownMenuProps) => {
 							key={option.key}
 							onClick={() => onClickCallback(option.onClick)}
 							disabled={option.disabled}
+							selected={option.selected}
 						>
 							{option.label}
 						</MenuItem>

@@ -18,11 +18,14 @@ export interface LanguageFieldsetProps {
 
 const StyledFieldset = styled('fieldset')`
 	margin-bottom: 1rem;
-	padding: 2rem 1rem;
-	border: 1px dotted rgba(175,175,175,.35);
-	border-radius: 4px;
+	padding: 2rem 0 1.75rem 0;
+	border: 0;
+	border-top: 1px dotted rgba(175,175,175,.35);
+	border-bottom: 1px dotted rgba(175,175,175,.125);	
 `;
-const StyledLegend = styled('legend')``;
+const StyledLegend = styled('legend')`
+	margin-left: .75rem;
+`;
 const StyledSection = styled('section')``;
 
 const LanguageFieldset = (props: LanguageFieldsetProps) => {
@@ -48,6 +51,7 @@ const LanguageFieldset = (props: LanguageFieldsetProps) => {
 				value: lng,
 				label: config.locales[lng].label,
 				onClick: () => changeHandler(lng),
+				selected: lang === lng,
 			});
 		});
 

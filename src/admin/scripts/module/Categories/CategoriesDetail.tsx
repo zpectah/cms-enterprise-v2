@@ -271,8 +271,8 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 
 										return (
 											<Input
-												label={`[${getLocaleObject(lang).key}] ${t('form:label.title')}`}
-												placeholder={`[${getLocaleObject(lang).key}] ${t('form:placeholder.title')}`}
+												label={t('form:label.title')}
+												placeholder={t('form:placeholder.title')}
 												id={`${token}_${lang}_title`}
 												error={!!error}
 												required
@@ -294,8 +294,8 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 
 										return (
 											<Textarea
-												label={`[${getLocaleObject(lang).key}] ${t('form:label.description')}`}
-												placeholder={`[${getLocaleObject(lang).key}] ${t('form:placeholder.description')}`}
+												label={t('form:label.description')}
+												placeholder={t('form:placeholder.description')}
 												id={`${token}_${lang}_title`}
 												error={!!error}
 												inputRef={ref}
