@@ -24,6 +24,7 @@ import {
 	ControlledFormRow,
 } from '../../component/ui';
 import getOptionsList from '../../utils/getOptionsList';
+import getLocaleObject from '../../utils/getLocaleObject';
 import transformString from '../../utils/transformString';
 
 interface TranslationsDetailProps {
@@ -237,8 +238,8 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 
 										return (
 											<Textarea
-												label={t('form:label.value')}
-												placeholder={t('form:placeholder.value')}
+												label={`[${getLocaleObject(lang).key}] ${t('form:label.value')}`}
+												placeholder={`[${getLocaleObject(lang).key}] ${t('form:placeholder.value')}`}
 												id={`${token}_${lang}_value`}
 												error={!!error}
 												required
