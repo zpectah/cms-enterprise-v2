@@ -31,7 +31,35 @@ class ApiProvider {
             /**
              * Categories
              **/
+            case 'get_categories':
+                $response['data'] = $dp -> get_categories($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
 
+            case 'create_categories':
+                $response['data'] = $dp -> create_categories($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                break;
+
+            case 'update_categories':
+                $response['data'] = $dp -> update_categories($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'toggle_categories':
+                $response['data'] = $dp -> toggle_categories($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'delete_categories':
+                $response['data'] = $dp -> delete_categories($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
 
             /**
              * CmsRequests

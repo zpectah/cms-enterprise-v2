@@ -1,4 +1,4 @@
-import { CategoriesItemModel } from './Categories';
+import { CategoriesItemModel, CategoriesItemLangModel } from './Categories';
 import { CommentsItemModel } from './Comments';
 import { MembersItemModel } from './Members';
 import { MenuItemModel } from './Menu';
@@ -12,6 +12,7 @@ import { UploadsItemModel } from './Uploads';
 import { MessagesItemModel } from './Messages';
 
 export type CategoriesItemProps = CategoriesItemModel;
+export type CategoriesItemLangProps = CategoriesItemLangModel;
 export type CommentsItemProps = CommentsItemModel;
 export type MembersItemProps = MembersItemModel;
 export type MenuItemProps = MenuItemModel;

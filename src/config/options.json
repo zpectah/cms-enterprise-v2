@@ -61,7 +61,7 @@
       }
     },
     "Categories": {
-      "type": ["posts", "products"]
+      "type": ["posts"]
     },
     "Menu": {
       "type": ["primary", "secondary", "tertiary", "custom"]

@@ -891,10 +891,10 @@ const SettingsForm = (props: SettingsFormProps) => {
 					}}
 					renderActions={(form) => {
 						const {
-							token,
+							// token,
 							form: {
 								formState: {
-									isDirty,
+									// isDirty,
 									isValid,
 								}
 							},
@@ -903,7 +903,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 						return (
 							<>
 								<PrimaryButton
-									disabled={(isDirty && !isValid)}
+									disabled={!isValid}
 								>
 									{t('btn.save_changes')}
 								</PrimaryButton>

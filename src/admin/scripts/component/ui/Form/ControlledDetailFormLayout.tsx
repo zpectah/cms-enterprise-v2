@@ -153,7 +153,7 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 								<>
 									<PrimaryButton
 										type="submit"
-										disabled={(form.form.formState.isDirty && !form.form.formState.isValid)}
+										disabled={!form.form.formState.isValid}
 									>
 										{detailId === 'new' ? t('btn.create') : t('btn.update')}
 									</PrimaryButton>

@@ -2,6 +2,7 @@
 
 namespace core\provider;
 
+use core\model\Categories;
 use core\model\Tags;
 use core\model\Translations;
 use core\model\Users;
@@ -13,7 +14,56 @@ class DataProvider {
     /**
      * Categories
      **/
+    public function get_categories ($params = []): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $categories = new Categories;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $categories -> get($conn, $params, $languages['language_active']);
+        $conn -> close();
 
+        return $response;
+    }
+
+    public function create_categories ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $categories = new Categories;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $categories -> create($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_categories ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $categories = new Categories;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $categories -> update($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function toggle_categories ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $categories = new Categories;
+        $response = $categories -> toggle($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_categories ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $categories = new Categories;
+        $response = $categories -> delete($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * CmsRequests

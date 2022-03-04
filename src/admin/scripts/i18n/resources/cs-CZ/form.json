@@ -11,7 +11,9 @@
     "name_last": "Příjmení",
     "nickname": "Přezdívka",
     "description": "Poznámka",
-    "value": "Hodnota"
+    "value": "Hodnota",
+    "title": "Titulek",
+    "parent": "Rodič"
   },
   "placeholder": {
     "name": "Zadejte název",
@@ -24,9 +26,11 @@
     "name_last": "Zadejte příjmení",
     "nickname": "Zadejte přezdívku",
     "description": "Zadejte poznámku",
-    "value": "Zadejte hodnotu"
+    "value": "Zadejte hodnotu",
+    "title": "Zadejte titulek",
+    "parent": "Vyberte rodiče"
   },
   "help": {
-    "password": "Heslo by mělo obsahovat velké a malé znaky a číslo"
+    "password": "Heslo by mělo obsahovat velké, malé znaky a číslo"
   }
 }
