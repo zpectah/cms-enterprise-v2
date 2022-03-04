@@ -5,14 +5,19 @@ import Box from '@mui/material/Box';
 
 export interface TabsProps extends MuiTabsProps {
 	children?: React.ReactNode[];
-	labels: string[];
+	items: {
+		index: number,
+		key: string,
+		label: string,
+		icon?: string | React.ReactElement<any, string | React.JSXElementConstructor<any>>,
+	}[];
 	activeValue: number;
 }
 
 const Tabs = (props: TabsProps) => {
 	const {
 		activeValue,
-		labels = [],
+		items = [],
 		onChange,
 		children,
 		...rest
@@ -29,18 +34,44 @@ const Tabs = (props: TabsProps) => {
 		<Box
 			sx={{ width: '100%' }}
 		>
-			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+			<Box sx={{
+				borderBottom: 1,
+				borderColor: 'divider',
+			}}>
 				<MuiTabs
 					value={activeValue}
 					onChange={onChange}
 					aria-label="basic tabs example"
 					{...rest}
 				>
-					{labels.map((label, index) => (
+					{items.map((item) => (
 						<Tab
-							key={label}
-							label={label}
-							{...a11yProps(index)}
+							key={item.key}
+							label={
+								<span
+									style={{
+										display: 'flex',
+										flexDirection: 'row',
+										alignItems: 'center',
+									}}
+								>
+									{item.icon && item.icon}
+									<span
+										style={{
+											marginLeft: item.icon ? '.5rem' : 0,
+										}}
+									>
+										{item.label}
+									</span>
+								</span>
+							}
+							// icon={item.icon}
+							// iconPosition="start"
+							style={{
+								maxHeight: '2rem',
+								textTransform: 'initial',
+							}}
+							{...a11yProps(item.index)}
 						/>
 					))}
 				</MuiTabs>

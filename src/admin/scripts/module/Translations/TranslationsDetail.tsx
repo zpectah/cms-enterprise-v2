@@ -253,6 +253,23 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 							</>
 						);
 					}}
+					renderSecondary={(form) => {
+						const { token, form: {
+							watch,
+						} } = form;
+
+						const watchAll = watch();
+
+						return (
+							<>
+								<pre>
+									<code>
+										{JSON.stringify(watchAll, null, 2)}
+									</code>
+								</pre>
+							</>
+						);
+					}}
 				/>
 			) : (
 				<BlockPreloader />

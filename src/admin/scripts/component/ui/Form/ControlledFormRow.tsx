@@ -5,7 +5,7 @@ import FormRow, { FormRowProps } from './FormRow';
 
 export interface ControlledFormRowProps extends ControllerProps {
 	rowProps?: FormRowProps;
-	control: any;
+	// control: any;
 }
 
 const ControlledFormRow = (props: ControlledFormRowProps) => {

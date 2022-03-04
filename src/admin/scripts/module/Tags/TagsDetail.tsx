@@ -202,26 +202,6 @@ const TagsDetail = (props: TagsDetailProps) => {
 							</>
 						);
 					}}
-					renderLanguage={(form) => {
-						const {
-							token,
-							form: {
-								control,
-								register,
-								watch,
-							},
-							lang,
-						} = form;
-
-						return (
-							<>
-								language content {lang}
-							</>
-						);
-					}}
-					// renderActions={(form) => (<> Action buttons </>)}
-					// renderAddons={(form) => (<> Addons (not form part) </>)}
-					// renderSecondary={(form) => (<> Secondary </>)}
 				/>
 			) : (
 				<BlockPreloader />

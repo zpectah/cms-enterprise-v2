@@ -2,6 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import WebIcon from '@mui/icons-material/Web';
+import LanguageIcon from '@mui/icons-material/Language';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import EngineeringIcon from '@mui/icons-material/Engineering';
 
 import config from '../../config';
 import { EMAIL_REGEX } from '../../constants';
@@ -51,26 +56,31 @@ const SettingsForm = (props: SettingsFormProps) => {
 			index: 0,
 			key: 'global',
 			label: t('components:SettingsForm.panel.global'),
+			icon: <ApartmentIcon fontSize="small" />,
 		},
 		{
 			index: 1,
 			key: 'web',
 			label: t('components:SettingsForm.panel.web'),
+			icon: <WebIcon fontSize="small" />,
 		},
 		{
 			index: 2,
 			key: 'content',
 			label: t('components:SettingsForm.panel.content'),
+			icon: <ContentPasteIcon fontSize="small" />,
 		},
 		{
 			index: 3,
 			key: 'languages',
 			label: t('components:SettingsForm.panel.languages'),
+			icon: <LanguageIcon fontSize="small" />,
 		},
 		{
 			index: 4,
 			key: 'maintenance',
 			label: t('components:SettingsForm.panel.maintenance'),
+			icon: <EngineeringIcon fontSize="small" />,
 		},
 	];
 	const panelChangeHandler = (e, value: number) => navigate(`/admin/app/${routes.settings.path}/${panels[value].key}`);
@@ -125,13 +135,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 						return (
 							<>
 								<Tabs
-									labels={[
-										panels[0].label,
-										panels[1].label,
-										panels[2].label,
-										panels[3].label,
-										panels[4].label,
-									]}
+									items={panels}
 									activeValue={panelValue}
 									onChange={panelChangeHandler}
 								>
