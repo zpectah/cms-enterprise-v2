@@ -4,6 +4,20 @@ export type orderType = 'asc' | 'desc';
 
 export type cellAlignType = 'left' | 'center' | 'right';
 
+export type filterProps = {
+	search: string;
+	type: string;
+	categories?: (number | string)[],
+	tags?: (number | string)[],
+};
+
+export type optionsItemProps = {
+	key: number | string,
+	value: number | string,
+	label: string,
+	disabled?: boolean,
+};
+
 export interface columnItemProps {
 	id: string,
 	component: 'th' | 'td',
@@ -38,11 +52,10 @@ export interface DataTableProps {
 }
 
 export interface TableToolbarProps {
-	onFilterChange: (filter: {
-		search: string;
-		type: string;
-	}) => void;
-	typesOptions: any[];
+	onFilterChange: (filter: filterProps) => void;
+	optionsType?: optionsItemProps[];
+	optionsCategories?: optionsItemProps[];
+	optionsTags?: optionsItemProps[];
 	selected: readonly number[];
 	onToggleSelected: () => void;
 	onDeleteSelected: () => void;

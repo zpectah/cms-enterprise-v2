@@ -27,18 +27,16 @@ import {
 } from '../../constants';
 import {
 	Button,
-	CloseIconButton,
 	Checkbox,
 	Switch,
 	MoreMenu,
 	DropdownMenu,
-	SearchInput,
-	Select,
 	ConfirmDialog,
 } from '../ui';
 import {
 	orderType,
 	columnItemProps,
+	filterProps,
 	TableHeadingProps,
 	DataTableProps,
 	TableToolbarProps,
@@ -46,9 +44,12 @@ import {
 import {
 	getComparator,
 	getTypesFromData,
+	getCategoriesFromData,
+	getTagsFromData,
 	getSearchAttrs,
+	filterDefaultValue,
 } from './utils';
-import DataTableFilter, { filterProps } from './DataTableFilter';
+import DataTableFilter from './DataTableFilter';
 
 const RowItemSmall = styled('small')`
 	opacity: .75;
@@ -63,16 +64,15 @@ const TableToolbar = (props: TableToolbarProps) => {
 	const { t } = useTranslation(['table']);
 	const {
 		onFilterChange,
-		typesOptions = [],
+		optionsType = [],
+		optionsCategories = [],
+		optionsTags = [],
 		selected,
 		onToggleSelected,
 		onDeleteSelected,
 	} = props;
 
-	const [ filter, setFilter ] = useState<filterProps>({
-		search: '',
-		type: 'all',
-	});
+	const [ filter, setFilter ] = useState<filterProps>(filterDefaultValue);
 
 	useEffect(() => onFilterChange(filter), [ filter ]);
 
@@ -86,8 +86,10 @@ const TableToolbar = (props: TableToolbarProps) => {
 				width="100%"
 			>
 				<DataTableFilter
+					optionsType={optionsType}
+					optionsCategories={optionsCategories}
+					optionsTags={optionsTags}
 					onFilterChange={(filter) => setFilter(filter)}
-					optionsType={typesOptions}
 				/>
 				<DropdownMenu
 					id="SelectedDropdownOptions"
@@ -215,13 +217,7 @@ const DataTable = (props: DataTableProps) => {
 	const [ selected, setSelected ] = useState<readonly number[]>([]);
 	const [ page, setPage ] = useState<number>(0);
 	const [ rowsPerPage, setRowsPerPage ] = useState<number>(DATA_TABLE.rowsDefault);
-	const [ filter, setFilter ] = useState<{
-		search: string;
-		type: string;
-	}>({
-		search: '',
-		type: 'all',
-	});
+	const [ filter, setFilter ] = useState<filterProps>(filterDefaultValue);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<number[]>([]);
 
@@ -360,26 +356,6 @@ const DataTable = (props: DataTableProps) => {
 
 		return cols;
 	}, [ columns ]);
-	const getTypesOptions = useCallback(() => {
-		const tmp = getTypesFromData(rows);
-		const options = [
-			{
-				key: 'all',
-				label: t(`types:all`),
-				value: 'all',
-			}
-		];
-
-		tmp.map((type) => {
-			options.push({
-				key: type,
-				label: t(`types:${type}`),
-				value: type,
-			});
-		});
-
-		return options;
-	}, [ rows ]);
 	const getFilteredItems = useCallback(() => {
 		let items = [
 			...rows,
@@ -401,6 +377,66 @@ const DataTable = (props: DataTableProps) => {
 
 		return items;
 	}, [ rows, filter ]);
+	const getTypesOptions = useCallback(() => {
+		const tmp = getTypesFromData(rows);
+		const options = [
+			{
+				key: 'all',
+				label: t(`types:all`),
+				value: 'all',
+			}
+		];
+
+		tmp.map((type) => {
+			options.push({
+				key: type,
+				label: t(`types:${type}`),
+				value: type,
+			});
+		});
+
+		return options;
+	}, [ rows ]);
+	const getCategoriesOptions = useCallback(() => {
+		const tmp = getCategoriesFromData(rows);
+		const options = [
+			{
+				key: 'all',
+				label: t(`types:all`),
+				value: 'all',
+			}
+		];
+
+		tmp.map((category) => {
+			options.push({
+				key: category,
+				label: t(`types:${category}`),
+				value: category,
+			});
+		});
+
+		return options;
+	}, [ rows ]);
+	const getTagsOptions = useCallback(() => {
+		const tmp = getTagsFromData(rows);
+		const options = [
+			{
+				key: 'all',
+				label: t(`types:all`),
+				value: 'all',
+			}
+		];
+
+		tmp.map((tag) => {
+			options.push({
+				key: tag,
+				label: t(`types:${tag}`),
+				value: tag,
+			});
+		});
+
+		return options;
+	}, [ rows ]);
 
 	return (
 		<>
@@ -415,10 +451,12 @@ const DataTable = (props: DataTableProps) => {
 				>
 					<TableToolbar
 						onFilterChange={setFilter}
-						typesOptions={getTypesOptions()}
 						selected={selected}
 						onToggleSelected={() => toggleCallback([...selected])}
 						onDeleteSelected={() => deleteConfirm([...selected])}
+						optionsType={getTypesOptions()}
+						optionsCategories={getCategoriesOptions()}
+						optionsTags={getTagsOptions()}
 					/>
 					<Divider />
 					<TableContainer>

@@ -5,29 +5,30 @@ import { Stack } from '@mui/material';
 import {
 	SearchInput,
 	Select,
-	SelectProps,
 } from '../ui';
+import { filterDefaultValue } from './utils';
+import {
+	filterProps,
+	optionsItemProps,
+} from './types';
 
-export type filterProps = {
-	search: string;
-	type: string;
-};
 export interface DataTableFilterProps {
 	onFilterChange: (filter: filterProps) => void;
-	optionsType: SelectProps['options'];
+	optionsType: optionsItemProps[];
+	optionsCategories?: optionsItemProps[];
+	optionsTags?: optionsItemProps[];
 }
 
 const DataTableFilter = (props: DataTableFilterProps) => {
 	const {
 		onFilterChange,
 		optionsType = [],
+		optionsCategories = [],
+		optionsTags = [],
 	} = props;
 
 	const { t } = useTranslation([ 'table' ]);
-	const [ filter, setFilter ] = useState<filterProps>({
-		search: '',
-		type: 'all',
-	});
+	const [ filter, setFilter ] = useState<filterProps>(filterDefaultValue);
 
 	const changeHandler = (key, value) => {
 		let obj = {
@@ -37,6 +38,8 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 		setFilter(obj);
 		onFilterChange(obj);
 	};
+
+	console.log('...', optionsCategories, optionsTags);
 
 	return (
 		<Stack
