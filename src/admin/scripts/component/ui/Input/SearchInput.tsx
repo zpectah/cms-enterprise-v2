@@ -10,6 +10,7 @@ export interface SearchInputProps {
 	formControlProps?: FormControlProps;
 	inputLabelProps?: InputLabelProps;
 	inputType?: 'text' | 'search';
+	inputEndAdornment?: React.ReactNode;
 }
 
 const SearchInput = (props: SearchInputProps & OutlinedInputProps) => {
@@ -23,6 +24,7 @@ const SearchInput = (props: SearchInputProps & OutlinedInputProps) => {
 		},
 		inputLabelProps,
 		inputType = 'search',
+		inputEndAdornment,
 		...rest
 	} = props;
 
@@ -44,6 +46,11 @@ const SearchInput = (props: SearchInputProps & OutlinedInputProps) => {
 						<SearchIcon fontSize="small" />
 					</InputAdornment>
 				}
+				endAdornment={inputEndAdornment && (
+					<InputAdornment position="end">
+						{inputEndAdornment}
+					</InputAdornment>
+				)}
 				label={label}
 				required={required}
 				{...rest}

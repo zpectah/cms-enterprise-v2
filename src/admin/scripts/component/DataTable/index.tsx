@@ -72,9 +72,9 @@ const TableToolbar = (props: TableToolbarProps) => {
 		onDeleteSelected,
 	} = props;
 
-	const [ filter, setFilter ] = useState<filterProps>(filterDefaultValue);
+	// const [ filter, setFilter ] = useState<filterProps>(filterDefaultValue);
 
-	useEffect(() => onFilterChange(filter), [ filter ]);
+	// useEffect(() => onFilterChange(filter), [ filter ]);
 
 	return (
 		<div style={{ padding: '1rem' }}>
@@ -89,7 +89,7 @@ const TableToolbar = (props: TableToolbarProps) => {
 					optionsType={optionsType}
 					optionsCategories={optionsCategories}
 					optionsTags={optionsTags}
-					onFilterChange={(filter) => setFilter(filter)}
+					onFilterChange={onFilterChange}
 				/>
 				<DropdownMenu
 					id="SelectedDropdownOptions"
@@ -450,7 +450,7 @@ const DataTable = (props: DataTableProps) => {
 					}}
 				>
 					<TableToolbar
-						onFilterChange={setFilter}
+						onFilterChange={(filter) => setFilter(filter)}
 						selected={selected}
 						onToggleSelected={() => toggleCallback([...selected])}
 						onDeleteSelected={() => deleteConfirm([...selected])}
