@@ -1,3 +1,27 @@
 import { PostsItemProps } from '../../types/model';
 
-export default {} as PostsItemProps;
+export default {
+	id: 'new',
+	type: 'article',
+	name: '',
+	categories: [],
+	tags: [],
+	event_start: '',
+	event_end: '',
+	event_location: '',
+	event_address: '',
+	event_city: '',
+	event_country: '',
+	event_zip: '',
+	attachments: [],
+	media: [],
+	links: [],
+	img_main: '',
+	img_thumbnail: '',
+	published: '',
+	author: null,
+	rating: 0,
+	template: false,
+	active: true,
+	lang: {},
+} as PostsItemProps;

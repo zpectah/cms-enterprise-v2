@@ -8,9 +8,9 @@ export default {
 	name_last: '',
 	nickname: '',
 	password: '',
-	user_group: 'company',
+	item_group: 'company',
 	description: '',
 	img_avatar: '',
-	user_level: 3,
+	item_level: 3,
 	active: true,
 } as UsersItemProps;

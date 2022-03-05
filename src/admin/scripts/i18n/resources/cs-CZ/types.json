@@ -23,5 +23,12 @@
   "undefined": "Nedefinováno",
   "category": "Kategorie",
   "contact_form": "Kontaktní formulář",
-  "subscribe_form": "Formulář k přihlášení odběru"
+  "subscribe_form": "Formulář k přihlášení odběru",
+  "article": "Článek",
+  "blog": "Blog",
+  "media": "Media",
+  "gallery": "Galerie",
+  "event": "Událost",
+  "reference": "Reference",
+  "testimonial": "Doporučení"
 }

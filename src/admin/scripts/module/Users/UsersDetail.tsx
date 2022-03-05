@@ -143,10 +143,10 @@ const UsersDetail = (props: UsersDetailProps) => {
 								</Section>
 								<Section>
 									<ControlledFormRow
-										name="user_level"
+										name="item_level"
 										control={control}
 										rules={{ required: true }}
-										defaultValue={detailData.user_level}
+										defaultValue={detailData.item_level}
 										render={({ field, fieldState }) => {
 											const { ref, ...rest } = field;
 											const { error } = fieldState;
@@ -155,7 +155,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 												<Select
 													label={t('form:label.level')}
 													placeholder={t('form:placeholder.level')}
-													id={`${token}_user_level`}
+													id={`${token}_item_level`}
 													error={!!error}
 													required
 													inputRef={ref}
@@ -166,10 +166,10 @@ const UsersDetail = (props: UsersDetailProps) => {
 										}}
 									/>
 									<ControlledFormRow
-										name="user_group"
+										name="item_group"
 										control={control}
 										rules={{ required: true }}
-										defaultValue={detailData.user_group}
+										defaultValue={detailData.item_group}
 										render={({ field, fieldState }) => {
 											const { ref, ...rest } = field;
 											const { error } = fieldState;
@@ -178,7 +178,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 												<Select
 													label={t('form:label.group')}
 													placeholder={t('form:placeholder.group')}
-													id={`${token}_user_group`}
+													id={`${token}_item_group`}
 													error={!!error}
 													required
 													inputRef={ref}
@@ -188,6 +188,11 @@ const UsersDetail = (props: UsersDetailProps) => {
 											);
 										}}
 									/>
+								</Section>
+								<Section>
+
+									img_avatar
+
 								</Section>
 							</>
 						);

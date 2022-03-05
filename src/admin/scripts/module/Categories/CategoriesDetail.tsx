@@ -139,6 +139,13 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 										}}
 									/>
 								</Section>
+								<Section>
+
+									img_main
+
+									img_thumbnail
+
+								</Section>
 							</>
 						);
 					}}

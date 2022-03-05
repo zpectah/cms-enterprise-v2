@@ -7,7 +7,16 @@ import { PostsItemProps } from '../../types/model';
 const usePosts = () => {
 	const { data, error } = useSWR(`${config.project.api.base_path}/get_posts`, get);
 
-	return {};
+	return {
+		posts: data?.data as PostsItemProps[],
+		posts_loading: !data && !error,
+		posts_error: error,
+		reloadPosts: () => mutate(`${config.project.api.base_path}/get_posts`),
+		createPosts: (data: PostsItemProps) => post(`${config.project.api.base_path}/create_posts`, data),
+		updatePosts: (data: PostsItemProps) => post(`${config.project.api.base_path}/update_posts`, data),
+		togglePosts: (data: number[]) => post(`${config.project.api.base_path}/toggle_posts`, data),
+		deletePosts: (data: number[]) => post(`${config.project.api.base_path}/delete_posts`, data),
+	};
 };
 
 export default usePosts;

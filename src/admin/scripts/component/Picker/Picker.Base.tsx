@@ -50,32 +50,14 @@ const PickerBase = (props: PickerBaseProps) => {
 	} = props;
 
 	// const [ showField, setShowField ] = useState(true);
+	const emptyValue = emptyValueOption && !multiple;
 
-	const changeHandler = (e) => {
-		const val = e.target.value;
-
-		if (multiple) {
-
-			// const arr = [ value ];
-			// const index = arr.indexOf(val);
-			//
-			// if (index > -1) {
-			//
-			// } else {
-			//
-			// }
-
-			onChange(val);
-		} else {
-
-			onChange(val);
-		}
-	};
+	const changeHandler = (e) => onChange(e.target.value);
 
 	const getOptionsList = useCallback(() => {
 		const list = [];
 		// const optionsMin = (emptyValueOption && placeholder) ? 2 : 1;
-		if (emptyValueOption) {
+		if (emptyValue) {
 			list.push({
 				key: 0,
 				value: '',
@@ -116,6 +98,7 @@ const PickerBase = (props: PickerBaseProps) => {
 					disabled={disabled}
 					error={error}
 					sx={inputSx}
+					multiple={multiple}
 				/>
 			)}
 		</>

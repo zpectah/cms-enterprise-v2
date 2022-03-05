@@ -155,7 +155,35 @@ class ApiProvider {
             /**
              * Posts
              **/
+            case 'get_posts':
+                $response['data'] = $dp -> get_posts($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
 
+            case 'create_posts':
+                $response['data'] = $dp -> create_posts($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                break;
+
+            case 'update_posts':
+                $response['data'] = $dp -> update_posts($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'toggle_posts':
+                $response['data'] = $dp -> toggle_posts($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'delete_posts':
+                $response['data'] = $dp -> delete_posts($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
 
             /**
              * PostsOptions
@@ -233,7 +261,35 @@ class ApiProvider {
             /**
              * Uploads
              **/
+            case 'get_uploads':
+                $response['data'] = $dp -> get_uploads($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
 
+            case 'create_uploads':
+                $response['data'] = $dp -> create_uploads($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                break;
+
+            case 'update_uploads':
+                $response['data'] = $dp -> update_uploads($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'toggle_uploads':
+                $response['data'] = $dp -> toggle_uploads($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'delete_uploads':
+                $response['data'] = $dp -> delete_uploads($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
 
             /**
              * Users

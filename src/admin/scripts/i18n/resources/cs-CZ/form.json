@@ -29,7 +29,16 @@
     "category": "Kategorie",
     "meta_robots": "Meta roboti",
     "page_elements": "Prvky na stránce",
-    "content": "Obsah"
+    "content": "Obsah",
+    "categories": "Kategorie",
+    "tags": "Tagy",
+    "template": "Šablona",
+    "event_start": "Začátek události",
+    "event_end": "Konec události",
+    "location": "Lokace",
+    "media": "Media",
+    "links": "Odkazy",
+    "published": "Publikováno"
   },
   "placeholder": {
     "name": "Zadejte název",
@@ -59,9 +68,18 @@
     "category": "Vyberte kategorii",
     "meta_robots": "Možnost indexace",
     "page_elements": "Vyberte prvky",
-    "content": "Zadejte obsah"
+    "content": "Zadejte obsah",
+    "categories": "Vyberte kategorie",
+    "tags": "Vyberte tagy",
+    "event_start": "Vyberte začátek události",
+    "event_end": "Vyberte konec události",
+    "location": "Vyberte lokaci",
+    "media": "Vyberte media",
+    "links": "Zadejte odkaz",
+    "published": "Vyberte datum"
   },
   "help": {
-    "password": "Heslo by mělo obsahovat velké, malé znaky a číslo"
+    "password": "Heslo by mělo obsahovat velké, malé znaky a číslo",
+    "published": "Toho data bude položka zvěřejněna"
   }
 }

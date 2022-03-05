@@ -7,8 +7,8 @@ export interface UsersItemModel extends modelItemBase {
 	name_last: string;
 	nickname: string;
 	password?: string;
-	user_group: string;
+	item_group: string;
 	description: string;
 	img_avatar: string;
-	user_level: number;
+	item_level: number;
 }

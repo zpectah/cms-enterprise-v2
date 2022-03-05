@@ -1,6 +1,33 @@
 import { modelItemBase } from './common';
 
+export interface PostsItemLangModel {
+	id: number;
+	title: string;
+	description?: string;
+	content?: string;
+}
 export interface PostsItemModel extends modelItemBase {
 	type: string;
 	name: string;
+	categories?: number[];
+	tags?: number[];
+	event_start?: string;
+	event_end?: string;
+	event_location?: string;
+	event_address?: string;
+	event_city?: string;
+	event_country?: string;
+	event_zip?: string;
+	attachments?: number[];
+	media?: number[];
+	links?: string[];
+	img_main?: string;
+	img_thumbnail?: string;
+	published: string;
+	author: number;
+	rating?: number;
+	template: boolean;
+	lang: {
+		[k: string]: PostsItemLangModel;
+	};
 }

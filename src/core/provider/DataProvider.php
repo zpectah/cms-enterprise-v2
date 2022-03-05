@@ -5,8 +5,10 @@ namespace core\provider;
 use core\model\Categories;
 use core\model\Members;
 use core\model\Pages;
+use core\model\Posts;
 use core\model\Tags;
 use core\model\Translations;
+use core\model\Uploads;
 use core\model\Users;
 use core\module\admin\Settings;
 use mysqli;
@@ -197,7 +199,56 @@ class DataProvider {
     /**
      * Posts
      **/
+    public function get_posts ($params = []): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $posts = new Posts;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $posts -> get($conn, $params, $languages['language_active']);
+        $conn -> close();
 
+        return $response;
+    }
+
+    public function create_posts ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $posts = new Posts;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $posts -> create($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_posts ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $posts = new Posts;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $posts -> update($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function toggle_posts ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $posts = new Posts;
+        $response = $posts -> toggle($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_posts ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $posts = new Posts;
+        $response = $posts -> delete($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * PostsOptions
@@ -309,7 +360,56 @@ class DataProvider {
     /**
      * Uploads
      **/
+    public function get_uploads ($params = []): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $uploads = new Uploads;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $uploads -> get($conn, $params, $languages['language_active']);
+        $conn -> close();
 
+        return $response;
+    }
+
+    public function create_uploads ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $uploads = new Uploads;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $uploads -> create($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_uploads ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $uploads = new Uploads;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $uploads -> update($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function toggle_uploads ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $uploads = new Uploads;
+        $response = $uploads -> toggle($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_uploads ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $uploads = new Uploads;
+        $response = $uploads -> delete($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * Users

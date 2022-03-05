@@ -176,6 +176,11 @@ const MembersDetail = (props: MembersDetailProps) => {
 									/>
 
 								</Section>
+								<Section>
+
+									img_avatar
+
+								</Section>
 							</>
 						);
 					}}

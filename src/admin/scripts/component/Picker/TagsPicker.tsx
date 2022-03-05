@@ -1,27 +1,27 @@
 import React, { useCallback } from 'react';
 
-import { useCategories } from '../../hooks/model';
+import { useTags } from '../../hooks/model';
 import PickerBase, { DefaultPickerBaseProps } from './Picker.Base';
 
-export interface CategoriesPickerProps extends DefaultPickerBaseProps {}
+export interface TagsPickerProps extends DefaultPickerBaseProps {}
 
-const CategoriesPicker = (props: CategoriesPickerProps) => {
+const TagsPicker = (props: TagsPickerProps) => {
 	const {
-		placeholder = 'Select category',
+		placeholder = 'Select tag',
 		...rest
 	} = props;
 
 	const {
-		categories,
-		categories_loading,
-	} = useCategories();
+		tags,
+		tags_loading,
+	} = useTags();
 
 	const getOptionsList = useCallback(() => {
 		const list = [];
 
-		if (categories && categories.length > 0) {
+		if (tags && tags.length > 0) {
 
-			categories.map((item) => {
+			tags.map((item) => {
 
 				list.push({
 					key: item.id,
@@ -34,12 +34,12 @@ const CategoriesPicker = (props: CategoriesPickerProps) => {
 		}
 
 		return list;
-	}, [ categories ]);
+	}, [ tags ]);
 
 	return (
 		<>
 			<PickerBase
-				loading={categories_loading}
+				loading={tags_loading}
 				options={getOptionsList()}
 				placeholder={placeholder}
 				emptyValueOption
@@ -49,4 +49,4 @@ const CategoriesPicker = (props: CategoriesPickerProps) => {
 	);
 };
 
-export default CategoriesPicker;
+export default TagsPicker;
