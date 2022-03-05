@@ -399,14 +399,7 @@ const DataTable = (props: DataTableProps) => {
 	}, [ rows ]);
 	const getCategoriesOptions = useCallback(() => {
 		const tmp = getCategoriesFromData(rows);
-		const options = [
-			{
-				key: 'all',
-				label: t(`types:all`),
-				value: 'all',
-			}
-		];
-
+		const options = [];
 		tmp.map((category) => {
 			options.push({
 				key: category,
@@ -419,14 +412,7 @@ const DataTable = (props: DataTableProps) => {
 	}, [ rows ]);
 	const getTagsOptions = useCallback(() => {
 		const tmp = getTagsFromData(rows);
-		const options = [
-			{
-				key: 'all',
-				label: t(`types:all`),
-				value: 'all',
-			}
-		];
-
+		const options = [];
 		tmp.map((tag) => {
 			options.push({
 				key: tag,

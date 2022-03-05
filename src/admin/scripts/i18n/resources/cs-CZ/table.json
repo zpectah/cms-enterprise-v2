@@ -17,7 +17,10 @@
   "filter": {
     "search": "Hledat v tabulce",
     "type": "Vyberte typ",
-    "clear": "Resetovat filtr"
+    "categories": "Kategorie",
+    "tags": "Tagy",
+    "clear": "Resetovat filtr",
+    "trigger": "Hledat"
   },
   "selected": {
     "selected": "Vybrané",
