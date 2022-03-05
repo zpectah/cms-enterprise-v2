@@ -83,7 +83,9 @@
       "type": ["default"]
     },
     "Members": {
-      "type": ["default", "customer", "subscriber", "hidden"]
+      "type": ["default", "customer", "subscriber", "hidden"],
+      "group": ["company", "redaction", "unknown"],
+      "sex": ["male", "female", "undefined"]
     }
   },
   "common": {

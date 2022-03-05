@@ -3,6 +3,7 @@
 namespace core\provider;
 
 use core\model\Categories;
+use core\model\Members;
 use core\model\Tags;
 use core\model\Translations;
 use core\model\Users;
@@ -78,7 +79,50 @@ class DataProvider {
     /**
      * Members
      **/
+    public function get_members ($params = []): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $members = new Members;
+        $response = $members -> get($conn, $params);
+        $conn -> close();
 
+        return $response;
+    }
+
+    public function create_members ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $members = new Members;
+        $response = $members -> create($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_members ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $members = new Members;
+        $response = $members -> update($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function toggle_members ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $members = new Members;
+        $response = $members -> toggle($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_members ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $members = new Members;
+        $response = $members -> delete($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * Menu

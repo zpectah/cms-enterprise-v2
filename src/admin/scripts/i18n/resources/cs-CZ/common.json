@@ -15,7 +15,8 @@
     "allRightsReserved": "Všechna práva vyhrazena"
   },
   "label": {
-    "loading": "Načítání"
+    "loading": "Načítání",
+    "no_selected": "Nevybráno"
   },
   "model": {
     "Categories": "Kategorie",

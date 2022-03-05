@@ -238,7 +238,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 									</Section>
 
-									<Section>
+									<Section divider>
 
 										<ControlledFormRow
 											name="email"
@@ -264,7 +264,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 												);
 											}}
 										/>
-
 										<ControlledFormRow
 											name="password"
 											control={control}
@@ -291,7 +290,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 												);
 											}}
 										/>
-
 										<ControlledFormRow
 											name="name_first"
 											control={control}
@@ -315,7 +313,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 												);
 											}}
 										/>
-
 										<ControlledFormRow
 											name="name_last"
 											control={control}
@@ -339,7 +336,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 												);
 											}}
 										/>
-
 										<ControlledFormRow
 											name="nickname"
 											control={control}
@@ -379,8 +375,8 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 												return (
 													<Textarea
-														label={t('form:label.description')}
-														placeholder={t('form:placeholder.description')}
+														label={t('form:label.note')}
+														placeholder={t('form:placeholder.note')}
 														id={`${token}_description`}
 														error={!!error}
 														inputRef={ref}

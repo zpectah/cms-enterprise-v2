@@ -14,7 +14,18 @@
     "note": "Poznámka",
     "value": "Hodnota",
     "title": "Titulek",
-    "parent": "Rodič"
+    "parent": "Rodič",
+    "phone": "Telefon",
+    "address": "Adresa",
+    "city": "Město",
+    "country": "Země",
+    "zip": "PSČ",
+    "position": "Pozice",
+    "phone_alt": "Další telefon",
+    "email_alt": "Další e-mail",
+    "sex": "Pohlaví",
+    "birthdate": "Datum narození",
+    "subscription": "Odběr novinek"
   },
   "placeholder": {
     "name": "Zadejte název",
@@ -30,7 +41,17 @@
     "note": "Zadejte poznámku",
     "value": "Zadejte hodnotu",
     "title": "Zadejte titulek",
-    "parent": "Vyberte rodiče"
+    "parent": "Vyberte rodiče",
+    "phone": "Zadejte telefon",
+    "address": "Zadejte adresu",
+    "city": "Zadejte město",
+    "country": "Zadejte země",
+    "zip": "Zadejte PSČ",
+    "position": "Zadejte pozici",
+    "phone_alt": "Zadejte další telefon",
+    "email_alt": "Zadejte další e-mail",
+    "sex": "Vyberte pohlaví",
+    "birthdate": "Vyberte datum narození"
   },
   "help": {
     "password": "Heslo by mělo obsahovat velké, malé znaky a číslo"

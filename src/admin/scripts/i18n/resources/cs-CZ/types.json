@@ -13,5 +13,12 @@
   "follow": "Follow",
   "nosnippet": "No snippet",
   "noarchive": "No archive",
-  "posts": "Posty"
+  "posts": "Posty",
+  "customer": "Zákazník",
+  "subscriber": "Odběratel",
+  "hidden": "Skryté",
+  "unknown": "Neznámé",
+  "male": "Muž",
+  "female": "Žena",
+  "undefined": "Nedefinováno"
 }

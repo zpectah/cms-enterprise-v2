@@ -74,7 +74,35 @@ class ApiProvider {
             /**
              * Members
              **/
+            case 'get_members':
+                $response['data'] = $dp -> get_members($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
 
+            case 'create_members':
+                $response['data'] = $dp -> create_members($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                break;
+
+            case 'update_members':
+                $response['data'] = $dp -> update_members($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'toggle_members':
+                $response['data'] = $dp -> toggle_members($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'delete_members':
+                $response['data'] = $dp -> delete_members($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
 
             /**
              * Menu

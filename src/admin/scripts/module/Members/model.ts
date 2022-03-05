@@ -1,3 +1,26 @@
 import { MembersItemProps } from '../../types/model';
 
-export default {} as MembersItemProps;
+export default {
+	id: 'new',
+	type: 'default',
+	email: '',
+	phone: '',
+	name_first: '',
+	name_last: '',
+	nickname: '',
+	password: '',
+	position: '',
+	address: '',
+	city: '',
+	country: '',
+	zip: '',
+	item_group: 'unknown',
+	img_avatar: '',
+	phone_alt: [],
+	email_alt: [],
+	sex: 'undefined',
+	birthdate: '',
+	description: '',
+	subscription: false,
+	active: true,
+} as MembersItemProps;
