@@ -48,6 +48,7 @@ import {
 	getTypesFromData,
 	getSearchAttrs,
 } from './utils';
+import DataTableFilter, { filterProps } from './DataTableFilter';
 
 const RowItemSmall = styled('small')`
 	opacity: .75;
@@ -68,17 +69,12 @@ const TableToolbar = (props: TableToolbarProps) => {
 		onDeleteSelected,
 	} = props;
 
-	const [ filter, setFilter ] = useState<{
-		search: string;
-		type: string;
-	}>({
+	const [ filter, setFilter ] = useState<filterProps>({
 		search: '',
 		type: 'all',
 	});
 
-	useEffect(() => {
-		onFilterChange(filter);
-	}, [ filter ]);
+	useEffect(() => onFilterChange(filter), [ filter ]);
 
 	return (
 		<div style={{ padding: '1rem' }}>
@@ -89,56 +85,10 @@ const TableToolbar = (props: TableToolbarProps) => {
 				alignItems="center"
 				width="100%"
 			>
-				<Stack
-					spacing={2}
-					direction="row"
-					justifyContent="space-between"
-					alignItems="center"
-				>
-					<div>
-						<SearchInput
-							value={filter.search}
-							onChange={(e) => {
-								setFilter({
-									...filter,
-									search: e.target.value,
-								});
-							}}
-							inputType="text"
-							placeholder={t('table:filter.search')}
-							style={{ width: '200px' }}
-						/>
-					</div>
-					<div>
-						<Select
-							options={typesOptions}
-							value={filter.type}
-							onChange={(e) => {
-								setFilter({
-									...filter,
-									type: e.target.value as string,
-								});
-							}}
-							placeholder={t('table:filter.type')}
-							style={{ width: '150px' }}
-						/>
-					</div>
-					<div>
-						<CloseIconButton
-							aria-label={t('table:filter.clear')}
-							disabled={(
-								filter.search === ''
-								&& filter.type === 'all'
-							)}
-							onClick={() => {
-								setFilter({
-									search: '',
-									type: 'all',
-								});
-							}}
-						/>
-					</div>
-				</Stack>
+				<DataTableFilter
+					onFilterChange={(filter) => setFilter(filter)}
+					optionsType={typesOptions}
+				/>
 				<DropdownMenu
 					id="SelectedDropdownOptions"
 					renderButton={(renderProps) => (

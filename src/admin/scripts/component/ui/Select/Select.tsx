@@ -2,9 +2,9 @@ import React from 'react';
 
 import SelectBase, { SelectBaseProps } from './Select.Base';
 
-export interface SelectProps {}
+export interface SelectProps extends SelectBaseProps {}
 
-const Select = (props: SelectProps & SelectBaseProps) => {
+const Select = (props: SelectProps) => {
 	const {
 		...rest
 	} = props;
