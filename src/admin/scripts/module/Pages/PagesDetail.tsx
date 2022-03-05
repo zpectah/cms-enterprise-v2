@@ -7,7 +7,7 @@ import config from '../../config';
 import routes from '../../routes';
 import { USER_LEVEL_KEYS } from '../../constants';
 import useSettings from '../../hooks/useSettings';
-import { CategoriesItemProps } from '../../types/model';
+import { PagesItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import getDetailData from '../../utils/getDetailData';
 import PageHeading from '../../component/PageHeading';
@@ -28,14 +28,14 @@ import getOptionsList from '../../utils/getOptionsList';
 import getLocaleObject from '../../utils/getLocaleObject';
 import transformString from '../../utils/transformString';
 
-interface CategoriesDetailProps {
-	dataItems: CategoriesItemProps[];
-	onSubmit: (method: submitMethodProps, master: CategoriesItemProps) => Promise<unknown>;
+interface PagesDetailProps {
+	dataItems: PagesItemProps[];
+	onSubmit: (method: submitMethodProps, master: PagesItemProps) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
 }
 
-const CategoriesDetail = (props: CategoriesDetailProps) => {
+const PagesDetail = (props: PagesDetailProps) => {
 	const {
 		dataItems = [],
 		onSubmit,
@@ -46,17 +46,17 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
 	const params = useParams();
 	const navigate = useNavigate();
-	const [ detailData, setDetailData ] = useState<CategoriesItemProps>(null);
+	const [ detailData, setDetailData ] = useState<PagesItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
 	const { settings } = useSettings();
 	const languageActive = settings?.language_active;
 
 	const detailOptions = {
-		root: `/admin/app/${routes.categories.path}`,
+		root: `/admin/app/${routes.pages.path}`,
 	};
 
-	const submitHandler = (data: CategoriesItemProps) => {
+	const submitHandler = (data: PagesItemProps) => {
 		const master = _.cloneDeep(data);
 		const method: submitMethodProps = master.id == 'new' ? 'create' : 'update';
 		master.name = transformString(master.name, 'empty-to-dash');
@@ -80,35 +80,44 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 
 	useEffect(
 		() => setDetailData(getDetailData(
-			'Categories',
+			'Pages',
 			dataItems,
 			params.id,
 			languageActive,
 			{
 				title: '',
 				description: '',
+				content: '',
 			},
 		)),
 		[ dataItems, params, languageActive ],
 	);
 
 	const getOptionsType = useCallback(
-		() => getOptionsList(config.options.model.Categories.type, t),
+		() => getOptionsList(config.options.model.Pages.type, t),
+		[ detailData ],
+	);
+	const getOptionsElements = useCallback(
+		() => getOptionsList(config.options.model.Pages.elements, t),
+		[ detailData ],
+	);
+	const getOptionsIndex = useCallback(
+		() => getOptionsList(config.options.common.meta_robots, t),
 		[ detailData ],
 	);
 
 	return (
 		<>
 			<PageHeading
-				title={detailData?.id === 'new' ? t('model_new.Categories') : detailData?.name}
+				title={detailData?.id === 'new' ? t('model_new.Pages') : detailData?.name}
 				returnTo={detailOptions.root}
-				createButtonLabel={t('model_new.Categories')}
+				createButtonLabel={t('model_new.Pages')}
 				createButtonPath={detailData?.id !== 'new' && `${detailOptions.root}/detail/new`}
 			/>
 			{loading && <BarPreloader />}
 			{detailData ? (
 				<ControlledDetailFormLayout
-					dataId="CategoriesDetailForm"
+					dataId="PagesDetailForm"
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}
@@ -184,6 +193,32 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 												);
 											}}
 										/>
+										<ControlledFormRow
+											name="type_id"
+											control={control}
+											rules={{ required: watchType === 'category' }}
+											defaultValue={detailData.type_id}
+											render={({ field, fieldState }) => {
+												const { ref, value, onChange } = field;
+												const { error } = fieldState;
+
+												return (
+													<CategoriesPicker
+														value={value}
+														onChange={onChange}
+														label={t('form:label.category')}
+														placeholder={t('form:placeholder.category')}
+														id={`${token}_type_id`}
+														error={!!error}
+														disabled={watchType !== 'category'}
+														required={watchType === 'category'}
+														inputSx={{
+															width: '250px',
+														}}
+													/>
+												);
+											}}
+										/>
 
 									</Section>
 									<Section>
@@ -213,37 +248,6 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 										/>
 
 									</Section>
-									<Section>
-
-										<ControlledFormRow
-											name="parent"
-											control={control}
-											rules={{}}
-											defaultValue={detailData.parent}
-											render={({ field, fieldState }) => {
-												const { ref, value, onChange } = field;
-												const { error } = fieldState;
-
-												return (
-													<CategoriesPicker
-														value={value}
-														onChange={onChange}
-														label={t('form:label.parent')}
-														placeholder={t('form:placeholder.parent')}
-														id={`${token}_parent`}
-														error={!!error}
-														ignored={detailData.id !== 'new' ? [
-															detailData.id as number
-														] : []}
-														inputSx={{
-															width: '200px',
-														}}
-													/>
-												);
-											}}
-										/>
-
-									</Section>
 
 								</div>
 								{/* ==================== \ FORM CONTENT ==================== */}
@@ -253,9 +257,14 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 					renderLanguage={(form) => {
 						const {
 							token,
-							form: { control },
+							form: {
+								control,
+								watch,
+							},
 							lang,
 						} = form;
+
+						const watchType = watch('type');
 
 						return (
 							<>
@@ -306,23 +315,93 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 									}}
 								/>
 
+								<ControlledFormRow
+									name={`lang.${lang}.content`}
+									control={control}
+									rules={{ required: watchType !== 'category' }}
+									defaultValue={detailData.lang[lang].content}
+									render={({ field, fieldState }) => {
+										const { ref, ...rest } = field;
+										const { error } = fieldState;
+
+										return (
+											<Textarea
+												label={t('form:label.content')}
+												placeholder={t('form:placeholder.content')}
+												id={`${token}_${lang}_content`}
+												error={!!error}
+												inputRef={ref}
+												rows={10}
+												required={watchType !== 'category'}
+												{...rest}
+											/>
+										);
+									}}
+								/>
+
 							</>
 						);
 					}}
 					renderSecondary={(form) => {
-						const { token, form: {
-							watch,
-						} } = form;
-
-						const watchAll = watch();
+						const {
+							token,
+							form: { control },
+						} = form;
 
 						return (
 							<>
-								<pre>
-									<code>
-										{JSON.stringify(watchAll, null, 2)}
-									</code>
-								</pre>
+								<Section>
+
+									<ControlledFormRow
+										name="meta_robots"
+										control={control}
+										rules={{ required: true }}
+										defaultValue={detailData.meta_robots}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
+
+											return (
+												<Select
+													options={getOptionsIndex()}
+													label={t('form:label.meta_robots')}
+													placeholder={t('form:placeholder.meta_robots')}
+													id={`${token}_meta_robots`}
+													error={!!error}
+													required
+													inputRef={ref}
+													style={{ width: '250px' }}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+									<ControlledFormRow
+										name="page_elements"
+										control={control}
+										rules={{}}
+										defaultValue={detailData.page_elements}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
+
+											return (
+												<Select
+													options={getOptionsElements()}
+													label={t('form:label.page_elements')}
+													placeholder={t('form:placeholder.page_elements')}
+													id={`${token}_page_elements`}
+													error={!!error}
+													inputRef={ref}
+													multiple
+													{...rest}
+												/>
+											);
+										}}
+									/>
+
+								</Section>
+
 							</>
 						);
 					}}
@@ -341,4 +420,4 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 	);
 };
 
-export default CategoriesDetail;
+export default PagesDetail;

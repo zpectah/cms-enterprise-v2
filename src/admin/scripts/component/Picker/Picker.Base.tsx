@@ -20,6 +20,7 @@ export interface DefaultPickerBaseProps {
 	label?: string;
 	placeholder?: string;
 	required?: boolean;
+	disabled?: boolean;
 	loading?: boolean;
 	emptyValueOption?: boolean;
 	error?: boolean;
@@ -40,6 +41,7 @@ const PickerBase = (props: PickerBaseProps) => {
 		label,
 		placeholder,
 		required,
+		disabled,
 		loading,
 		emptyValueOption,
 		options = [],
@@ -111,6 +113,7 @@ const PickerBase = (props: PickerBaseProps) => {
 					label={label}
 					placeholder={placeholder}
 					required={required}
+					disabled={disabled}
 					error={error}
 					sx={inputSx}
 				/>

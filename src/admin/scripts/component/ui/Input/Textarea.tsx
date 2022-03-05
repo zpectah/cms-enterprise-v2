@@ -13,6 +13,10 @@ const Textarea = (props: TextareaProps & InputBaseProps) => {
 		<InputBase
 			multiline
 			rows={5}
+			inputProps={{
+				wrap: 'hard',
+				resize: 'vertical',
+			}}
 			{...rest}
 		/>
 	);

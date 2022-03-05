@@ -20,5 +20,8 @@
   "unknown": "Neznámé",
   "male": "Muž",
   "female": "Žena",
-  "undefined": "Nedefinováno"
+  "undefined": "Nedefinováno",
+  "category": "Kategorie",
+  "contact_form": "Kontaktní formulář",
+  "subscribe_form": "Formulář k přihlášení odběru"
 }

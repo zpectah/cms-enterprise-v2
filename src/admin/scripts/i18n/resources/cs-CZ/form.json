@@ -25,7 +25,11 @@
     "email_alt": "Další e-mail",
     "sex": "Pohlaví",
     "birthdate": "Datum narození",
-    "subscription": "Odběr novinek"
+    "subscription": "Odběr novinek",
+    "category": "Kategorie",
+    "meta_robots": "Meta roboti",
+    "page_elements": "Prvky na stránce",
+    "content": "Obsah"
   },
   "placeholder": {
     "name": "Zadejte název",
@@ -51,7 +55,11 @@
     "phone_alt": "Zadejte další telefon",
     "email_alt": "Zadejte další e-mail",
     "sex": "Vyberte pohlaví",
-    "birthdate": "Vyberte datum narození"
+    "birthdate": "Vyberte datum narození",
+    "category": "Vyberte kategorii",
+    "meta_robots": "Možnost indexace",
+    "page_elements": "Vyberte prvky",
+    "content": "Zadejte obsah"
   },
   "help": {
     "password": "Heslo by mělo obsahovat velké, malé znaky a číslo"

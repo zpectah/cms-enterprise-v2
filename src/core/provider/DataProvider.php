@@ -4,6 +4,7 @@ namespace core\provider;
 
 use core\model\Categories;
 use core\model\Members;
+use core\model\Pages;
 use core\model\Tags;
 use core\model\Translations;
 use core\model\Users;
@@ -142,7 +143,56 @@ class DataProvider {
     /**
      * Pages
      **/
+    public function get_pages ($params = []): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $pages = new Pages;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $pages -> get($conn, $params, $languages['language_active']);
+        $conn -> close();
 
+        return $response;
+    }
+
+    public function create_pages ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $pages = new Pages;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $pages -> create($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_pages ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $pages = new Pages;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $pages -> update($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function toggle_pages ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $pages = new Pages;
+        $response = $pages -> toggle($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_pages ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $pages = new Pages;
+        $response = $pages -> delete($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * Posts

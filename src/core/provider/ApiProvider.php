@@ -122,7 +122,35 @@ class ApiProvider {
             /**
              * Pages
              **/
+            case 'get_pages':
+                $response['data'] = $dp -> get_pages($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
 
+            case 'create_pages':
+                $response['data'] = $dp -> create_pages($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                break;
+
+            case 'update_pages':
+                $response['data'] = $dp -> update_pages($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'toggle_pages':
+                $response['data'] = $dp -> toggle_pages($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'delete_pages':
+                $response['data'] = $dp -> delete_pages($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
 
             /**
              * Posts

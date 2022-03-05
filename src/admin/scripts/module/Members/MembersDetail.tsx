@@ -216,7 +216,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														required
 														inputRef={ref}
 														options={getOptionsType()}
-														style={{ width: '50%' }}
+														style={{ width: '250px' }}
 														{...rest}
 													/>
 												);
