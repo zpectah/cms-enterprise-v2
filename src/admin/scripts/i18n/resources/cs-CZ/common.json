@@ -16,7 +16,9 @@
   },
   "label": {
     "loading": "Načítání",
-    "no_selected": "Nevybráno"
+    "no_selected": "Nevybráno",
+    "status": "Status",
+    "created": "Vytvořeno"
   },
   "model": {
     "Categories": "Kategorie",

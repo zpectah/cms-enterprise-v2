@@ -145,7 +145,41 @@ class ApiProvider {
             /**
              * Messages
              **/
+            case 'get_messages':
+                $response['data'] = $dp -> get_messages($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
 
+            case 'create_messages':
+                $response['data'] = $dp -> create_messages($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                break;
+
+            case 'update_messages':
+                $response['data'] = $dp -> update_messages($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'toggle_messages':
+                $response['data'] = $dp -> toggle_messages($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'delete_messages':
+                $response['data'] = $dp -> delete_messages($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'mark_read_messages':
+                $response['data'] = $dp -> mark_read_messages($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
 
             /**
              * Pages

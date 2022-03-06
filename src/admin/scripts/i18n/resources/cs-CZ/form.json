@@ -40,7 +40,9 @@
     "media": "Media",
     "links": "Odkazy",
     "published": "Publikováno",
-    "label": "Značka"
+    "label": "Značka",
+    "sender": "Odesílatel",
+    "recipients": "Příjemci"
   },
   "placeholder": {
     "name": "Zadejte název",
@@ -80,7 +82,9 @@
     "media": "Vyberte media",
     "links": "Zadejte odkaz",
     "published": "Vyberte datum",
-    "label": "Zadejte značku"
+    "label": "Zadejte značku",
+    "sender": "Vyberte odesílatele",
+    "recipients": "Vyberte příjemce"
   },
   "help": {
     "password": "Heslo by mělo obsahovat velké, malé znaky a číslo",

@@ -1,5 +1,5 @@
 export interface MessagesItemModel {
-	id: number;
+	id: number | 'new';
 	type: string;
 	sender?: string;
 	recipients?: string[];

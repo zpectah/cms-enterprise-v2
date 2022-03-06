@@ -86,6 +86,9 @@
       "type": ["default", "customer", "subscriber", "hidden"],
       "group": ["company", "redaction", "unknown"],
       "sex": ["male", "female", "undefined"]
+    },
+    "Messages": {
+      "type": ["email", "intern", "contact_form"]
     }
   },
   "common": {

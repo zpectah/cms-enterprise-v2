@@ -34,5 +34,7 @@
   "primary": "Primární",
   "secondary": "Sekundární",
   "tertiary": "Terciální",
-  "custom": "Vlastní"
+  "custom": "Vlastní",
+  "email": "E-mail",
+  "intern": "Interní"
 }

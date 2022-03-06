@@ -5,6 +5,7 @@ namespace core\provider;
 use core\model\Categories;
 use core\model\Members;
 use core\model\Menu;
+use core\model\Messages;
 use core\model\Pages;
 use core\model\Posts;
 use core\model\Tags;
@@ -190,7 +191,59 @@ class DataProvider {
     /**
      * Messages
      **/
+    public function get_messages ($params = []): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $messages = new Messages;
+        $response = $messages -> get($conn, $params);
+        $conn -> close();
 
+        return $response;
+    }
+
+    public function create_messages ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $messages = new Messages;
+        $response = $messages -> create($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_messages ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $messages = new Messages;
+        $response = $messages -> update($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function toggle_messages ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $messages = new Messages;
+        $response = $messages -> toggle($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_messages ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $messages = new Messages;
+        $response = $messages -> delete($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function mark_read_messages ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $messages = new Messages;
+        $response = $messages -> mark_read($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * Pages

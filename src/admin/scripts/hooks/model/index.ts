@@ -8,3 +8,4 @@ export { default as useTags } from './Tags';
 export { default as useTranslations } from './Translations';
 export { default as useUploads } from './Uploads';
 export { default as useUsers } from './Users';
+export { default as useMessages } from './Messages';
