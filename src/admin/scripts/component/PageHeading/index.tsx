@@ -3,10 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { styled, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import {
-	IconButton,
-	AddButton,
-} from '../ui';
+import { IconButton } from '../ui';
+import AddMenuButton from '../AddMenuButton';
 
 interface PageHeadingProps {
 	title: string;
@@ -39,6 +37,7 @@ const PageHeading: React.FC<PageHeadingProps> = (props) => {
 		createButtonLabel,
 		createButtonPath,
 	} = props;
+
 	const navigate = useNavigate();
 
 	return (
@@ -65,9 +64,9 @@ const PageHeading: React.FC<PageHeadingProps> = (props) => {
 			)}
 			{(createButtonLabel && createButtonPath) && (
 				<RestBlock>
-					<AddButton
-						onClick={() => navigate(createButtonPath)}
-						label={createButtonLabel}
+					<AddMenuButton
+						addLabel={createButtonLabel}
+						addCallback={() => navigate(createButtonPath)}
 					/>
 				</RestBlock>
 			)}

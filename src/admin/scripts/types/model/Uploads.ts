@@ -14,6 +14,7 @@ export interface UploadsItemModel extends modelItemBase {
 	file_extension: string;
 	file_mime: string;
 	file_size: number;
+	created?: string;
 	lang: {
 		[k: string]: UploadsItemLangModel;
 	};

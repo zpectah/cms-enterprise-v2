@@ -1,7 +1,7 @@
 import { CategoriesItemModel, CategoriesItemLangModel } from './Categories';
 import { CommentsItemModel } from './Comments';
 import { MembersItemModel } from './Members';
-import { MenuItemModel } from './Menu';
+import { MenuItemModel, MenuItemLangModel } from './Menu';
 import { MenuItemsItemModel } from './MenuItems';
 import { PagesItemModel, PagesItemLangModel } from './Pages';
 import { PostsItemModel, PostsItemLangModel } from './Posts';
@@ -16,6 +16,7 @@ export type CategoriesItemLangProps = CategoriesItemLangModel;
 export type CommentsItemProps = CommentsItemModel;
 export type MembersItemProps = MembersItemModel;
 export type MenuItemProps = MenuItemModel;
+export type MenuItemLangProps = MenuItemLangModel;
 export type MenuItemsItemProps = MenuItemsItemModel;
 export type PagesItemProps = PagesItemModel;
 export type PagesItemLangProps = PagesItemLangModel;

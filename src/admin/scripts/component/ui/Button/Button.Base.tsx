@@ -6,6 +6,9 @@ import styled from '@emotion/styled';
 import getTestDataAttr from '../../../utils/getTestDataAttr';
 
 const ButtonLabel = styled.span<{ isLoading: boolean }>`
+	flex: none;
+	display: flex;
+	white-space: nowrap;
 	opacity: ${(props) => (props.isLoading ? '.125' : '1')};
 `;
 const StyledProgress = styled(CircularProgress)`

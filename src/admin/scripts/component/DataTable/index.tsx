@@ -6,7 +6,6 @@ import {
 	Box,
 	Stack,
 	Divider,
-	ButtonGroup,
 	Table,
 	TableBody,
 	TableCell,
@@ -17,8 +16,10 @@ import {
 	TableSortLabel,
 	Paper,
 	Chip,
+	Typography,
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import { array } from '../../../../../utils/helpers';
 import {
@@ -82,7 +83,14 @@ const InfoRowCell: React.FC<{ colspan: number }> = (props) => {
 						borderBottom: '1px solid rgba(200,200,200,.5)',
 					}}
 				>
-					{children}
+					<Stack
+						direction="row"
+						spacing={2}
+						alignItems="center"
+						justifyContent="center"
+					>
+						{children}
+					</Stack>
 				</td>
 			</tr>
 		</tbody>
@@ -546,12 +554,17 @@ const DataTable = (props: DataTableProps) => {
 							/>
 							{loading && (
 								<InfoRowCell colspan={innerState.columnsCount}>
-									{t('table:row.info.loading')}
+									<CircularProgress size={24}/>
+									<Typography variant="caption">
+										{t('table:row.info.loading')}
+									</Typography>
 								</InfoRowCell>
 							)}
 							{(innerState.itemsLoaded && innerState.itemsCount === 0) && (
 								<InfoRowCell colspan={innerState.columnsCount}>
-									{t('table:row.info.no_items')}
+									<Typography variant="caption">
+										{t('table:row.info.no_items')}
+									</Typography>
 								</InfoRowCell>
 							)}
 							{(innerState.itemsLoaded
@@ -560,7 +573,9 @@ const DataTable = (props: DataTableProps) => {
 								&& innerState.rowsCount === 0
 							) && (
 								<InfoRowCell colspan={innerState.columnsCount}>
-									{t('table:row.info.not_found')}
+									<Typography variant="caption">
+										{t('table:row.info.not_found')}
+									</Typography>
 								</InfoRowCell>
 							)}
 							<TableBody>

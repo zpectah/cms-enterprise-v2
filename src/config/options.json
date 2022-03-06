@@ -6,7 +6,7 @@
       "group": ["company", "redaction"]
     },
     "Uploads": {
-      "type": ["image", "audio", "video", "document", "archive"],
+      "type": ["image", "audio", "video", "document", "archive", "unknown"],
       "audio": {
         "extension": ["mp3", "aac"]
       },
