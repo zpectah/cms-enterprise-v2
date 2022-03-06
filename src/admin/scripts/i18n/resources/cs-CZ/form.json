@@ -39,7 +39,8 @@
     "location": "Lokace",
     "media": "Media",
     "links": "Odkazy",
-    "published": "Publikováno"
+    "published": "Publikováno",
+    "label": "Značka"
   },
   "placeholder": {
     "name": "Zadejte název",
@@ -78,7 +79,8 @@
     "location": "Vyberte lokaci",
     "media": "Vyberte media",
     "links": "Zadejte odkaz",
-    "published": "Vyberte datum"
+    "published": "Vyberte datum",
+    "label": "Zadejte značku"
   },
   "help": {
     "password": "Heslo by mělo obsahovat velké, malé znaky a číslo",

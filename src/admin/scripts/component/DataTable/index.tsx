@@ -79,6 +79,7 @@ const InfoRowCell: React.FC<{ colspan: number }> = (props) => {
 						padding: '1.25rem 1rem',
 						textAlign: 'center',
 						verticalAlign: 'middle',
+						borderBottom: '1px solid rgba(200,200,200,.5)',
 					}}
 				>
 					{children}

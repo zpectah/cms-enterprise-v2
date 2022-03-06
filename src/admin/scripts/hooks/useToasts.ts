@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { TFunction } from 'i18next';
 
 import {
 	TOAST_TIMEOUT_SUCCESS,
@@ -6,6 +7,23 @@ import {
 } from '../constants';
 import { toastItemProps } from '../types/common';
 import { addToast } from '../store/actions';
+
+type responseToastProps = {
+	message: string,
+	status: string,
+	t: TFunction,
+};
+
+const getResponseToast = (data: responseToastProps) => {
+	const context = data.status === 'ok' ? 'success' : 'error';
+	const title = data.t(`messages:api.${data.message}`);
+
+	return {
+		title,
+		context,
+		timeout: TOAST_TIMEOUT_SUCCESS,
+	};
+};
 
 const useToasts = () => {
 	const dispatch = useDispatch();
@@ -25,6 +43,7 @@ const useToasts = () => {
 			timeout: TOAST_TIMEOUT_SUCCESS,
 			...data,
 		})),
+		createApiResponseToast: (data: responseToastProps) => dispatch(addToast(getResponseToast(data))),
 	};
 };
 

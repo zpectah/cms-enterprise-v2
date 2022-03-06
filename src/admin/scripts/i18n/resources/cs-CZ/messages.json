@@ -4,9 +4,9 @@
     "wrong_request": "Špatný request",
     "unauthorized_request": "Neautorizovaný požadavek",
     "request_success": "Úspěch",
-    "no_data_found": "Data nenalezena",
-    "no_data_created": "Data nevytvořena",
-    "no_data_updated": "Deta neaktualizována"
+    "no_data_found": "Data nebyla nalezena",
+    "no_data_created": "Data nebyla vytvořena",
+    "no_data_updated": "Deta nebyla aktualizována"
   },
   "form": {
     "required": "Pole je povinné",

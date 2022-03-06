@@ -107,7 +107,35 @@ class ApiProvider {
             /**
              * Menu
              **/
+            case 'get_menu':
+                $response['data'] = $dp -> get_menu($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
 
+            case 'create_menu':
+                $response['data'] = $dp -> create_menu($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                break;
+
+            case 'update_menu':
+                $response['data'] = $dp -> update_menu($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'toggle_menu':
+                $response['data'] = $dp -> toggle_menu($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'delete_menu':
+                $response['data'] = $dp -> delete_menu($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
 
             /**
              * MenuItems

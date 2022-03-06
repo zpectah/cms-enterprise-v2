@@ -30,5 +30,9 @@
   "gallery": "Galerie",
   "event": "Událost",
   "reference": "Reference",
-  "testimonial": "Doporučení"
+  "testimonial": "Doporučení",
+  "primary": "Primární",
+  "secondary": "Sekundární",
+  "tertiary": "Terciální",
+  "custom": "Vlastní"
 }

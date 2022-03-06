@@ -3,19 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import routes from '../../routes';
-import { TranslationsItemProps } from '../../types/model';
+import { MenuItemProps } from '../../types/model';
 import PageHeading from '../../component/PageHeading';
 import DataTable from '../../component/DataTable';
 import { BarPreloader } from '../../component/ui';
 
-interface TranslationsListProps {
-	dataItems: TranslationsItemProps[];
+interface MenuListProps {
+	dataItems: MenuItemProps[];
 	onToggle: (master: number[]) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
 }
 
-const TranslationsList = (props: TranslationsListProps) => {
+const MenuList = (props: MenuListProps) => {
 	const {
 		dataItems = [],
 		onToggle,
@@ -24,18 +24,18 @@ const TranslationsList = (props: TranslationsListProps) => {
 	} = props;
 
 	const tableOptions = {
-		id: 'TranslationsDataTable',
-		root: `/admin/app/${routes.translations.path}`,
+		id: 'MenuDataTable',
+		root: `/admin/app/${routes.menu.path}`,
 	};
 
-	const { t } = useTranslation(['common', 'pages']);
+	const { t } = useTranslation([ 'common', 'pages' ]);
 	const navigate = useNavigate();
 
 	return (
 		<>
 			<PageHeading
-				title={t(`pages:translations.page_title`)}
-				createButtonLabel={t('model_new.Translations')}
+				title={t(`pages:menu.page_title`)}
+				createButtonLabel={t('model_new.Menu')}
 				createButtonPath={`${tableOptions.root}/detail/new`}
 			/>
 			{loading && <BarPreloader />}
@@ -60,4 +60,4 @@ const TranslationsList = (props: TranslationsListProps) => {
 	);
 };
 
-export default TranslationsList;
+export default MenuList;

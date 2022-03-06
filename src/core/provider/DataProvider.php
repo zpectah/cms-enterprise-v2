@@ -4,6 +4,7 @@ namespace core\provider;
 
 use core\model\Categories;
 use core\model\Members;
+use core\model\Menu;
 use core\model\Pages;
 use core\model\Posts;
 use core\model\Tags;
@@ -130,7 +131,56 @@ class DataProvider {
     /**
      * Menu
      **/
+    public function get_menu ($params = []): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $menu = new Menu;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $menu -> get($conn, $params, $languages['language_active']);
+        $conn -> close();
 
+        return $response;
+    }
+
+    public function create_menu ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $menu = new Menu;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $menu -> create($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_menu ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $menu = new Menu;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $menu -> update($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function toggle_menu ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $menu = new Menu;
+        $response = $menu -> toggle($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_menu ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $menu = new Menu;
+        $response = $menu -> delete($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * MenuItems

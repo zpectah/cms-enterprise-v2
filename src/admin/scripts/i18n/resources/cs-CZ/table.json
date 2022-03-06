@@ -14,9 +14,9 @@
       "delete": "Smazat řádek"
     },
     "info": {
-      "loading": "Načítání dat",
+      "loading": "Načítání dat, vydržte prosím",
       "not_found": "Nebylo nic nalezeno",
-      "no_items": "Žádné položky nebyl zatím vytvořeny"
+      "no_items": "Žádné položky nebyly zatím vytvořeny"
     }
   },
   "filter": {
