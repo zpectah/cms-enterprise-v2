@@ -145,11 +145,10 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 						{dirty ? (
 							<CloseIconButton
 								onClick={resetHandler}
+								title={t('table:filter.clear')}
 							/>
 						) : (
-							<div
-								style={{ width: '28px' }}
-							/>
+							<div style={{ width: '28px' }} />
 						)}
 						<IconButton
 							id="data-table-filter-search_button"
@@ -157,6 +156,7 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 							aria-controls={open ? 'data-table-filter-search' : undefined}
 							aria-expanded={open ? 'true' : undefined}
 							aria-haspopup="true"
+							title={t('table:filter.options')}
 						>
 							<TuneIcon fontSize="small" />
 						</IconButton>

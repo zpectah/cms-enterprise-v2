@@ -54,6 +54,7 @@ const TranslationsList = (props: TranslationsListProps) => {
 				onDetail={(id) => navigate(`${tableOptions.root}/detail/${id}`)}
 				onToggle={onToggle}
 				onDelete={onDelete}
+				loading={loading}
 			/>
 		</>
 	);

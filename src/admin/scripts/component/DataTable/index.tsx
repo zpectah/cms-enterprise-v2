@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import {
 	styled,
@@ -63,6 +64,29 @@ const RowItemLink = styled('a')`
 	font-weight: bold;
 	cursor: pointer;
 `;
+const InfoRowCell: React.FC<{ colspan: number }> = (props) => {
+	const {
+		children,
+		colspan,
+	} = props;
+
+	return (
+		<tbody>
+			<tr>
+				<td
+					colSpan={colspan}
+					style={{
+						padding: '1.25rem 1rem',
+						textAlign: 'center',
+						verticalAlign: 'middle',
+					}}
+				>
+					{children}
+				</td>
+			</tr>
+		</tbody>
+	);
+};
 
 const TableToolbar = (props: TableToolbarProps) => {
 	const { t } = useTranslation(['table']);
@@ -206,11 +230,13 @@ const DataTable = (props: DataTableProps) => {
 		onToggle,
 		onDelete,
 		searchProps = [],
+		rowToggleActive = true,
+		rowDeleteActive = true,
+		loading,
 	} = props;
 
 	const rowPadding = 'normal';
-	const rowToggleActive = true;
-	const rowDeleteActive = true;
+	const tableElement = useRef();
 
 	const { categories } = useCategories();
 	const { tags } = useTags();
@@ -222,7 +248,23 @@ const DataTable = (props: DataTableProps) => {
 	const [ filter, setFilter ] = useState<filterProps>(filterDefaultValue);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<number[]>([]);
+	const [ innerState, setInnerState ] = useState({
+		filterDirty: false,
+		itemsCount: 0,
+		itemsLoaded: false,
+		itemsFound: 0,
+		rowsCount: 0,
+		columnsCount: 0,
+	});
 
+	const getColumnsCount = () => {
+		const root: any = tableElement.current;
+		const heading = root?.querySelector('thead');
+		const row = heading?.querySelector('tr');
+		const cols = row?.querySelectorAll('th');
+
+		return cols.length;
+	};
 	const handleRequestSort = (
 		event: React.MouseEvent<unknown>,
 		property: keyof any,
@@ -358,10 +400,9 @@ const DataTable = (props: DataTableProps) => {
 
 		return cols;
 	}, [ columns ]);
-	const getFilteredItems = useCallback(() => {
-		let items = [
-			...rows,
-		];
+	const getRows = useCallback(() => {
+		let items = [ ...rows ];
+		// Filter by search
 		if (filter.search !== '' && filter.search.length >= FORM_INPUT_MIN_LENGTH) {
 			items = array.search(
 				rows,
@@ -369,6 +410,7 @@ const DataTable = (props: DataTableProps) => {
 				filter.search,
 			);
 		}
+		// Filter by type
 		if (filter.type !== 'all') {
 			let tmp = [];
 			items.map((item) => {
@@ -376,9 +418,28 @@ const DataTable = (props: DataTableProps) => {
 			});
 			items = tmp;
 		}
+		// Filter by categories
+		if (filter.categories.length > 0) {
+			let tmp = [];
+			items.map((item) => {
+				const presents = _.intersectionWith(item.categories, filter.categories, _.isEqual);
+				if (presents.length > 0) tmp.push(item);
+			});
+			items = tmp;
+		}
+		// Filter by tags
+		if (filter.tags.length > 0) {
+			let tmp = [];
+			items.map((item) => {
+				const presents = _.intersectionWith(item.tags, filter.tags, _.isEqual);
+				if (presents.length > 0) tmp.push(item);
+			});
+			items = tmp;
+		}
 
-		return items;
-	}, [ rows, filter ]);
+		// Paginating and orders
+		return items.slice().sort(getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+	}, [ rows, filter, order, orderBy, page, rowsPerPage ]);
 	const getTypesOptions = useCallback(() => {
 		const tmp = getTypesFromData(rows);
 		const options = [
@@ -402,10 +463,10 @@ const DataTable = (props: DataTableProps) => {
 	const getCategoriesOptions = useCallback(() => {
 		const tmp = getCategoriesFromData(rows);
 		const options = [];
-		if (tmp.length > 0) {
+		if (tmp.length > 0 && categories) {
 			tmp.map((ctgId) => {
 				const id = ctgId;
-				const category = categories.find((item) => item.id === id);
+				const category = categories?.find((item) => item.id === id);
 				options.push({
 					key: `category_${id}`,
 					label: category.name,
@@ -419,10 +480,10 @@ const DataTable = (props: DataTableProps) => {
 	const getTagsOptions = useCallback(() => {
 		const tmp = getTagsFromData(rows);
 		const options = [];
-		if (tmp.length > 0) {
+		if (tmp.length > 0 && tags) {
 			tmp.map((tagId) => {
 				const id = tagId;
-				const tag = tags.find((item) => item.id === id);
+				const tag = tags?.find((item) => item.id === id);
 				options.push({
 					key: `tag_${id}`,
 					label: tag.name,
@@ -433,6 +494,18 @@ const DataTable = (props: DataTableProps) => {
 
 		return options;
 	}, [ rows, tags ]);
+
+	useEffect(() => {
+		getColumnsCount();
+		setInnerState({
+			...innerState,
+			itemsCount: rows.length,
+			itemsLoaded: !!rows,
+			filterDirty: JSON.stringify(filter) !== JSON.stringify(filterDefaultValue),
+			rowsCount: getRows().length,
+			columnsCount: getColumnsCount(),
+		});
+	}, [ rows, filter, columns ]);
 
 	return (
 		<>
@@ -459,6 +532,7 @@ const DataTable = (props: DataTableProps) => {
 						<Table
 							id={id}
 							sx={{ minWidth: 750 }}
+							ref={tableElement}
 						>
 							<TableHeading
 								numSelected={selected.length}
@@ -466,13 +540,30 @@ const DataTable = (props: DataTableProps) => {
 								orderBy={orderBy}
 								onSelectAllClick={handleSelectAllClick}
 								onRequestSort={handleRequestSort}
-								rowCount={getFilteredItems().length}
+								rowCount={innerState.rowsCount}
 								cells={columns}
 							/>
+							{loading && (
+								<InfoRowCell colspan={innerState.columnsCount}>
+									{t('table:row.info.loading')}
+								</InfoRowCell>
+							)}
+							{(innerState.itemsLoaded && innerState.itemsCount === 0) && (
+								<InfoRowCell colspan={innerState.columnsCount}>
+									{t('table:row.info.no_items')}
+								</InfoRowCell>
+							)}
+							{(innerState.itemsLoaded
+								&& innerState.itemsCount > 0
+								&& innerState.filterDirty
+								&& innerState.rowsCount === 0
+							) && (
+								<InfoRowCell colspan={innerState.columnsCount}>
+									{t('table:row.info.not_found')}
+								</InfoRowCell>
+							)}
 							<TableBody>
-								{getFilteredItems().slice().sort(getComparator(order, orderBy))
-									.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-									.map((row, index) => {
+								{getRows().map((row, index) => {
 										const isItemSelected = isSelected(row.id);
 										const labelId = `${id}_checkbox_${index}`;
 
@@ -547,7 +638,7 @@ const DataTable = (props: DataTableProps) => {
 					<TablePagination
 						rowsPerPageOptions={DATA_TABLE.rowsPerPage}
 						component="div"
-						count={getFilteredItems().length}
+						count={innerState.rowsCount}
 						rowsPerPage={rowsPerPage}
 						page={page}
 						onPageChange={handleChangePage}

@@ -12,6 +12,11 @@
       "detail": "Zobrazit detail",
       "toggle": "Přepnout",
       "delete": "Smazat řádek"
+    },
+    "info": {
+      "loading": "Načítání dat",
+      "not_found": "Nebylo nic nalezeno",
+      "no_items": "Žádné položky nebyl zatím vytvořeny"
     }
   },
   "filter": {
@@ -20,7 +25,8 @@
     "categories": "Kategorie",
     "tags": "Tagy",
     "clear": "Resetovat filtr",
-    "trigger": "Hledat"
+    "trigger": "Hledat",
+    "options": "Možnosti filtrování"
   },
   "selected": {
     "selected": "Vybrané",

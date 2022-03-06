@@ -49,6 +49,9 @@ export interface DataTableProps {
 	onToggle: (ids: number[]) => Promise<unknown>;
 	onDelete: (ids: number[]) => Promise<unknown>;
 	searchProps?: string[];
+	rowToggleActive?: boolean;
+	rowDeleteActive?: boolean;
+	loading?: boolean;
 }
 
 export interface TableToolbarProps {
