@@ -201,7 +201,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 									<input type="hidden" {...register('id')} />
 									<input type="hidden" {...register('img_avatar')} />
 
-									<Section>
+									<Section divider>
 
 										<ControlledFormRow
 											name="type"
@@ -227,11 +227,6 @@ const MembersDetail = (props: MembersDetailProps) => {
 												);
 											}}
 										/>
-
-									</Section>
-
-									<Section>
-
 										<ControlledFormRow
 											name="email"
 											control={control}
@@ -308,7 +303,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 
 									</Section>
 
-									<Section>
+									<Section divider>
 
 										<ControlledFormRow
 											name="nickname"
@@ -551,6 +546,11 @@ const MembersDetail = (props: MembersDetailProps) => {
 												);
 											}}
 										/>
+
+									</Section>
+
+									<Section divider>
+
 										<ControlledFormRow
 											name="description"
 											control={control}

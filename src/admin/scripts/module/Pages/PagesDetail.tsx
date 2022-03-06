@@ -167,7 +167,7 @@ const PagesDetail = (props: PagesDetailProps) => {
 
 									<input type="hidden" {...register('id')} />
 
-									<Section>
+									<Section divider={watchType === 'category'}>
 
 										<ControlledFormRow
 											name="type"
@@ -194,36 +194,6 @@ const PagesDetail = (props: PagesDetailProps) => {
 											}}
 										/>
 										<ControlledFormRow
-											name="type_id"
-											control={control}
-											rules={{ required: watchType === 'category' }}
-											defaultValue={detailData.type_id}
-											render={({ field, fieldState }) => {
-												const { ref, value, onChange } = field;
-												const { error } = fieldState;
-
-												return (
-													<CategoriesPicker
-														value={value}
-														onChange={onChange}
-														label={t('form:label.category')}
-														placeholder={t('form:placeholder.category')}
-														id={`${token}_type_id`}
-														error={!!error}
-														disabled={watchType !== 'category'}
-														required={watchType === 'category'}
-														inputSx={{
-															width: '250px',
-														}}
-													/>
-												);
-											}}
-										/>
-
-									</Section>
-									<Section>
-
-										<ControlledFormRow
 											name="name"
 											control={control}
 											rules={{ required: true }}
@@ -248,6 +218,38 @@ const PagesDetail = (props: PagesDetailProps) => {
 										/>
 
 									</Section>
+
+									{watchType === 'category' ? (
+										<Section>
+											<ControlledFormRow
+												name="type_id"
+												control={control}
+												rules={{ required: true }}
+												defaultValue={detailData.type_id}
+												render={({ field, fieldState }) => {
+													const { ref, value, onChange } = field;
+													const { error } = fieldState;
+
+													return (
+														<CategoriesPicker
+															value={value}
+															onChange={onChange}
+															label={t('form:label.category')}
+															placeholder={t('form:placeholder.category')}
+															id={`${token}_type_id`}
+															error={!!error}
+															required
+															inputSx={{
+																width: '250px',
+															}}
+														/>
+													);
+												}}
+											/>
+										</Section>
+									) : (
+										<input type="hidden" {...register('type_id', { value: detailData.type_id })} />
+									)}
 
 								</div>
 								{/* ==================== \ FORM CONTENT ==================== */}

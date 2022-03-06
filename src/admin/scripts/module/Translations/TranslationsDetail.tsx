@@ -182,10 +182,6 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 												);
 											}}
 										/>
-
-									</Section>
-									<Section>
-
 										<ControlledFormRow
 											name="name"
 											control={control}

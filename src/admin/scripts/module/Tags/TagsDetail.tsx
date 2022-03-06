@@ -166,11 +166,6 @@ const TagsDetail = (props: TagsDetailProps) => {
 												);
 											}}
 										/>
-
-									</Section>
-
-									<Section>
-
 										<ControlledFormRow
 											name="name"
 											control={control}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Stack } from '@mui/material';
 import { useForm, UseFormReturn, UseFormProps } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Alert } from '@mui/material';
+import { Alert, Divider } from '@mui/material';
 
 import { string } from '../../../../../../utils/helpers';
 import { Section } from '../Section';
@@ -121,6 +121,13 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 											...form,
 										})}
 									/>
+									{!!renderSecondary && (
+										<Divider
+											sx={{
+												marginBottom: '2rem',
+											}}
+										/>
+									)}
 								</Section>
 							)}
 							{renderSecondary && (

@@ -214,7 +214,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 									<input type="hidden" {...register('id')} />
 									<input type="hidden" {...register('img_avatar')} />
 
-									<Section>
+									<Section divider>
 
 										<ControlledFormRow
 											name="type"
@@ -240,11 +240,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 												);
 											}}
 										/>
-
-									</Section>
-
-									<Section divider>
-
 										<ControlledFormRow
 											name="email"
 											control={control}
@@ -283,8 +278,8 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 												return (
 													<PasswordInput
-														label={t('form:label.password')}
-														placeholder={t('form:placeholder.password')}
+														label={detailData.id === 'new' ? t('form:label.password') : t('form:label.password_new')}
+														placeholder={detailData.id === 'new' ? t('form:placeholder.password') : t('form:placeholder.password_new')}
 														id={`${token}_password`}
 														error={!!error}
 														required={detailData.id === 'new'}
@@ -295,52 +290,11 @@ const UsersDetail = (props: UsersDetailProps) => {
 												);
 											}}
 										/>
-										<ControlledFormRow
-											name="name_first"
-											control={control}
-											rules={{ required: true }}
-											defaultValue={detailData.name_first}
-											render={({ field, fieldState }) => {
-												const { ref, ...rest } = field;
-												const { error } = fieldState;
 
-												return (
-													<Input
-														label={t('form:label.name_first')}
-														placeholder={t('form:placeholder.name_first')}
-														id={`${token}_name_first`}
-														error={!!error}
-														required
-														inputRef={ref}
-														style={{ width: '75%' }}
-														{...rest}
-													/>
-												);
-											}}
-										/>
-										<ControlledFormRow
-											name="name_last"
-											control={control}
-											rules={{ required: true }}
-											defaultValue={detailData.name_last}
-											render={({ field, fieldState }) => {
-												const { ref, ...rest } = field;
-												const { error } = fieldState;
+									</Section>
 
-												return (
-													<Input
-														label={t('form:label.name_last')}
-														placeholder={t('form:placeholder.name_last')}
-														id={`${token}_name_last`}
-														error={!!error}
-														required
-														inputRef={ref}
-														style={{ width: '75%' }}
-														{...rest}
-													/>
-												);
-											}}
-										/>
+									<Section divider>
+
 										<ControlledFormRow
 											name="nickname"
 											control={control}
@@ -357,6 +311,50 @@ const UsersDetail = (props: UsersDetailProps) => {
 														id={`${token}_nickname`}
 														error={!!error}
 														required
+														inputRef={ref}
+														style={{ width: '75%' }}
+														{...rest}
+													/>
+												);
+											}}
+										/>
+										<ControlledFormRow
+											name="name_first"
+											control={control}
+											rules={{}}
+											defaultValue={detailData.name_first}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
+
+												return (
+													<Input
+														label={t('form:label.name_first')}
+														placeholder={t('form:placeholder.name_first')}
+														id={`${token}_name_first`}
+														error={!!error}
+														inputRef={ref}
+														style={{ width: '75%' }}
+														{...rest}
+													/>
+												);
+											}}
+										/>
+										<ControlledFormRow
+											name="name_last"
+											control={control}
+											rules={{}}
+											defaultValue={detailData.name_last}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
+
+												return (
+													<Input
+														label={t('form:label.name_last')}
+														placeholder={t('form:placeholder.name_last')}
+														id={`${token}_name_last`}
+														error={!!error}
 														inputRef={ref}
 														style={{ width: '75%' }}
 														{...rest}

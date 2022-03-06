@@ -249,6 +249,34 @@ const PostsDetail = (props: PostsDetailProps) => {
 												);
 											}}
 										/>
+										<ControlledFormRow
+											name="published"
+											control={control}
+											rules={{}}
+											defaultValue={detailData.published}
+											rowProps={{
+												helpTexts: detailData.id === 'new' ? [
+													t('form:help.published'),
+												] : [],
+											}}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
+
+												return (
+													<Input
+														label={t('form:label.published')}
+														placeholder={t('form:placeholder.published')}
+														id={`${token}_published`}
+														error={!!error}
+														inputRef={ref}
+														style={{ width: '75%' }}
+														{...rest}
+													/>
+												);
+											}}
+										/>
+
 									</Section>
 
 									{watchType === 'event' ? (
@@ -630,33 +658,6 @@ const PostsDetail = (props: PostsDetailProps) => {
 											);
 										}}
 									/>
-									<ControlledFormRow
-										name="published"
-										control={control}
-										rules={{}}
-										defaultValue={detailData.published}
-										rowProps={{
-											helpTexts: [
-												t('form:help.published'),
-											],
-										}}
-										render={({ field, fieldState }) => {
-											const { ref, ...rest } = field;
-											const { error } = fieldState;
-
-											return (
-												<Input
-													label={t('form:label.published')}
-													placeholder={t('form:placeholder.published')}
-													id={`${token}_published`}
-													error={!!error}
-													inputRef={ref}
-													style={{ width: '75%' }}
-													{...rest}
-												/>
-											);
-										}}
-									/>
 
 								</Section>
 								<Section>
@@ -667,6 +668,18 @@ const PostsDetail = (props: PostsDetailProps) => {
 
 								</Section>
 
+							</>
+						);
+					}}
+					renderAddons={(form) => {
+						const {
+							token,
+							form: { control },
+						} = form;
+
+						return (
+							<>
+								addons ... comments
 							</>
 						);
 					}}

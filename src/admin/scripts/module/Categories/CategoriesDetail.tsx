@@ -165,7 +165,7 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 
 									<input type="hidden" {...register('id')} />
 
-									<Section>
+									<Section divider>
 
 										<ControlledFormRow
 											name="type"
@@ -191,10 +191,6 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 												);
 											}}
 										/>
-
-									</Section>
-									<Section>
-
 										<ControlledFormRow
 											name="name"
 											control={control}
@@ -325,11 +321,19 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 
 						return (
 							<>
-								<pre>
-									<code>
-										{JSON.stringify(watchAll, null, 2)}
-									</code>
-								</pre>
+								... secondary
+							</>
+						);
+					}}
+					renderAddons={(form) => {
+						const {
+							token,
+							form: { control },
+						} = form;
+
+						return (
+							<>
+								addons ... comments
 							</>
 						);
 					}}
