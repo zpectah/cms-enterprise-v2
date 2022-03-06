@@ -26,6 +26,10 @@ import {
 	LANGUAGE_OPTION_DEFAULT,
 } from '../../constants';
 import {
+	useCategories,
+	useTags,
+} from '../../hooks/model';
+import {
 	Button,
 	Checkbox,
 	Switch,
@@ -71,10 +75,6 @@ const TableToolbar = (props: TableToolbarProps) => {
 		onToggleSelected,
 		onDeleteSelected,
 	} = props;
-
-	// const [ filter, setFilter ] = useState<filterProps>(filterDefaultValue);
-
-	// useEffect(() => onFilterChange(filter), [ filter ]);
 
 	return (
 		<div style={{ padding: '1rem' }}>
@@ -212,6 +212,8 @@ const DataTable = (props: DataTableProps) => {
 	const rowToggleActive = true;
 	const rowDeleteActive = true;
 
+	const { categories } = useCategories();
+	const { tags } = useTags();
 	const [ order, setOrder ] = useState<orderType>(defaultOrder);
 	const [ orderBy, setOrderBy ] = useState<keyof string | number | any>(defaultOrderBy);
 	const [ selected, setSelected ] = useState<readonly number[]>([]);
@@ -400,29 +402,37 @@ const DataTable = (props: DataTableProps) => {
 	const getCategoriesOptions = useCallback(() => {
 		const tmp = getCategoriesFromData(rows);
 		const options = [];
-		tmp.map((category) => {
-			options.push({
-				key: category,
-				label: t(`types:${category}`),
-				value: category,
+		if (tmp.length > 0) {
+			tmp.map((ctgId) => {
+				const id = ctgId;
+				const category = categories.find((item) => item.id === id);
+				options.push({
+					key: `category_${id}`,
+					label: category.name,
+					value: id,
+				});
 			});
-		});
+		}
 
 		return options;
-	}, [ rows ]);
+	}, [ rows, categories ]);
 	const getTagsOptions = useCallback(() => {
 		const tmp = getTagsFromData(rows);
 		const options = [];
-		tmp.map((tag) => {
-			options.push({
-				key: tag,
-				label: t(`types:${tag}`),
-				value: tag,
+		if (tmp.length > 0) {
+			tmp.map((tagId) => {
+				const id = tagId;
+				const tag = tags.find((item) => item.id === id);
+				options.push({
+					key: `tag_${id}`,
+					label: tag.name,
+					value: id,
+				});
 			});
-		});
+		}
 
 		return options;
-	}, [ rows ]);
+	}, [ rows, tags ]);
 
 	return (
 		<>

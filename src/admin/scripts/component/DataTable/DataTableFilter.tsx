@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+	styled,
 	Stack,
 	Box,
 	BoxProps,
@@ -24,6 +25,7 @@ import {
 	filterProps,
 	optionsItemProps,
 } from './types';
+import placeholder from 'lodash/fp/placeholder';
 
 export type filterTmpProps = {
 	type: string,
@@ -36,6 +38,19 @@ export interface DataTableFilterProps {
 	optionsCategories?: optionsItemProps[];
 	optionsTags?: optionsItemProps[];
 }
+
+const OuterWrapper = styled(Stack)`
+	padding: 1rem;
+`;
+const RowWrapper = styled('div')`
+	padding-bottom: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+`;
+const RowLabel = styled(FormLabel)`
+	width: 50%;
+`;
 
 const filterDefaultTmp: filterTmpProps = {
 	type: filterDefaultValue.type,
@@ -51,13 +66,19 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 		optionsTags = [],
 	} = props;
 
-	const { t } = useTranslation([ 'table' ]);
+	const { t } = useTranslation([ 'common', 'table' ]);
 	const [ filter, setFilter ] = useState<filterProps>(filterDefaultValue);
 	const [ filterTmp, setFilterTmp ] = useState<filterTmpProps>(filterDefaultTmp);
 	const [ dirty, setDirty ] = useState(false);
+	const [ dirtyTmp, setDirtyTmp ] = useState(false);
 	const [ anchorEl, setAnchorEl ] = useState<null | HTMLElement>(null);
 
+	const typesActive = optionsType.length > 0;
+	const categoriesActive = optionsCategories.length > 0;
+	const tagsActive = optionsTags.length > 0;
+
 	const inputRef = useRef();
+
 	const open = Boolean(anchorEl);
 	const openHandler = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(inputRef.current);
@@ -82,7 +103,6 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 		});
 		setFilter(tmp);
 		onFilterChange(tmp);
-		setTimeout(() => setDirty(false), 0);
 	};
 	const filterTrigger = () => {
 		const tmp = {
@@ -94,18 +114,27 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 		closeHandler();
 	};
 
-	useEffect(() => {
-		setDirty(filter !== filterDefaultValue);
-	}, [ filter ]);
+	const getInputPlaceholder = useCallback(() => {
+		let placeholder = t('table:filter.search');
+		if (dirty) {
+			placeholder = '';
+			if (filter.type !== 'all') placeholder = `type:${filter.type};`;
+			if (filter.categories.length > 0) placeholder += `categories:${JSON.stringify(filter.categories)};`;
+			if (filter.tags.length > 0) placeholder += `tags:${JSON.stringify(filter.tags)};`;
+		}
+
+		return placeholder;
+	}, [ placeholder, filter, dirty ]);
+
+	useEffect(() => setDirty(JSON.stringify(filter) !== JSON.stringify(filterDefaultValue)), [ filter ]);
+	useEffect(() => setDirtyTmp(JSON.stringify(filterTmp) !== JSON.stringify(filterDefaultTmp)), [ filterTmp ]);
 
 	return (
-		<Box
-			ref={inputRef}
-		>
+		<Box ref={inputRef}>
 			<SearchInput
 				value={filter.search}
 				onChange={(e) => changeHandler('search', e.target.value)}
-				placeholder={t('table:filter.search')}
+				placeholder={getInputPlaceholder()}
 				inputType="text"
 				endAdornment={
 					<Stack
@@ -133,9 +162,7 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 						</IconButton>
 					</Stack>
 				}
-				sx={{
-					width: '300px',
-				}}
+				sx={{ width: '300px' }}
 			/>
 			<Menu
 				id="data-table-filter-search"
@@ -145,67 +172,41 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 				anchorEl={anchorEl}
 				open={open}
 				onClose={closeHandler}
-
 			>
-				<Stack
+				<OuterWrapper
 					direction="column"
-					style={{
-						width: '35vw',
-						padding: '1rem',
-					}}
+					style={{ width: '35vw' }}
 				>
-					<div
-						style={{
-							paddingBottom: '1rem',
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'space-between',
-						}}
-					>
-						<FormLabel
-							htmlFor="data-table-filter_types"
-							sx={{
-								width: '50%',
-							}}
-						>
-							{t('table:filter.type')}
-						</FormLabel>
-						<Select
-							options={optionsType}
-							value={filterTmp.type}
-							onChange={(e) => {
-								const tmp = {
-									...filterTmp,
-									type: e.target.value as string,
-								};
-								setFilterTmp(tmp);
-							}}
-							placeholder={t('table:filter.type')}
-							style={{
-								minWidth: '150px',
-							}}
-							inputProps={{
-								id: 'data-table-filter_types',
-							}}
-						/>
-					</div>
-					{optionsCategories.length > 0 && (
-						<div
-							style={{
-								paddingBottom: '1rem',
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'space-between',
-							}}
-						>
-							<FormLabel
-								htmlFor="data-table-filter_categories"
-								sx={{
-									width: '50%',
+					{typesActive && (
+						<RowWrapper>
+							<RowLabel htmlFor="data-table-filter_types">
+								{t('table:filter.type')}
+							</RowLabel>
+							<Select
+								options={optionsType}
+								value={filterTmp.type}
+								onChange={(e) => {
+									const tmp = {
+										...filterTmp,
+										type: e.target.value as string,
+									};
+									setFilterTmp(tmp);
 								}}
-							>
+								placeholder={t('table:filter.type')}
+								style={{
+									minWidth: '150px',
+								}}
+								inputProps={{
+									id: 'data-table-filter_types',
+								}}
+							/>
+						</RowWrapper>
+					)}
+					{categoriesActive && (
+						<RowWrapper>
+							<RowLabel htmlFor="data-table-filter_categories">
 								{t('table:filter.categories')}
-							</FormLabel>
+							</RowLabel>
 							<Select
 								options={optionsCategories}
 								value={filterTmp.categories}
@@ -225,25 +226,13 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 								}}
 								multiple
 							/>
-						</div>
+						</RowWrapper>
 					)}
-					{optionsTags.length > 0 && (
-						<div
-							style={{
-								paddingBottom: '1rem',
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'space-between',
-							}}
-						>
-							<FormLabel
-								htmlFor="data-table-filter_tags"
-								sx={{
-									width: '50%',
-								}}
-							>
+					{tagsActive && (
+						<RowWrapper>
+							<RowLabel htmlFor="data-table-filter_tags">
 								{t('table:filter.tags')}
-							</FormLabel>
+							</RowLabel>
 							<Select
 								options={optionsTags}
 								value={filterTmp.tags}
@@ -263,26 +252,34 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 								}}
 								multiple
 							/>
-						</div>
+						</RowWrapper>
 					)}
-					<div
-						style={{
-							width: '100%',
-							paddingTop: '1rem',
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'flex-end',
+					<Stack
+						direction="row"
+						spacing={2}
+						justifyContent="flex-end"
+						sx={{
+							paddingTop: '.5rem',
 						}}
 					>
+						<Button
+							size="small"
+							onClick={() => {
+								closeHandler();
+								resetHandler();
+							}}
+						>
+							{t('btn.cancel')}
+						</Button>
 						<PrimaryButton
 							size="small"
-							variant="outlined"
 							onClick={filterTrigger}
+							disabled={!dirtyTmp}
 						>
 							{t('table:filter.trigger')}
 						</PrimaryButton>
-					</div>
-				</Stack>
+					</Stack>
+				</OuterWrapper>
 			</Menu>
 		</Box>
 	);
