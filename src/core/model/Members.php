@@ -12,6 +12,7 @@ class Members {
         $row['subscription'] = $row['subscription'] == 1;
         $row['phone_alt'] = $row['phone_alt'] == '' ? [] : explode(",", $row['phone_alt']);
         $row['email_alt'] = $row['email_alt'] == '' ? [] : explode(",", $row['email_alt']);
+        $row['birthdate'] = $row['birthdate'] == '' ? null : $row['birthdate'];
         unset($row['deleted']);
 
         return $row;

@@ -18,7 +18,7 @@ export interface MembersItemModel extends modelItemBase {
 	phone_alt?: string[];
 	email_alt?: string[];
 	sex?: 'male' | 'female' | 'undefined';
-	birthdate?: string;
+	birthdate?: string | null;
 	description?: string;
 	subscription?: boolean;
 }

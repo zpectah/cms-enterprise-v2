@@ -24,7 +24,7 @@ import {
 	SwitchControlled,
 	BlockPreloader,
 	BarPreloader,
-	ControlledFormRow, TagPicker,
+	ControlledFormRow, TagPicker, DateInput,
 } from '../../component/ui';
 import getOptionsList from '../../utils/getOptionsList';
 
@@ -221,7 +221,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														required
 														inputRef={ref}
 														options={getOptionsType()}
-														style={{ width: '250px' }}
+														sx={{ width: { xs: '100%', md: '250px' } }}
 														{...rest}
 													/>
 												);
@@ -245,7 +245,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														error={!!error}
 														required
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);
@@ -271,7 +271,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														error={!!error}
 														required={(detailData.id === 'new' && watchType === 'customer')}
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);
@@ -294,7 +294,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														id={`${token}_phone`}
 														error={!!error}
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);
@@ -322,7 +322,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														error={!!error}
 														required={watchType !== 'customer'}
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);
@@ -345,7 +345,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														error={!!error}
 														required={watchType === 'customer'}
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);
@@ -368,7 +368,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														error={!!error}
 														required={watchType === 'customer'}
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);
@@ -396,7 +396,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														error={!!error}
 														required={watchType === 'customer'}
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);
@@ -419,7 +419,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														error={!!error}
 														required={watchType === 'customer'}
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);
@@ -442,7 +442,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														error={!!error}
 														required={watchType === 'customer'}
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);
@@ -465,7 +465,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														error={!!error}
 														required={watchType === 'customer'}
 														inputRef={ref}
-														style={{ width: '200px' }}
+														sx={{ width: { xs: '100%', md: '200px' } }}
 														{...rest}
 													/>
 												);
@@ -493,9 +493,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														error={!!error}
 														inputRef={ref}
 														options={getOptionsSex()}
-														style={{
-															width: '200px',
-														}}
+														sx={{ width: { xs: '100%', md: '200px' } }}
 														{...rest}
 													/>
 												);
@@ -511,14 +509,16 @@ const MembersDetail = (props: MembersDetailProps) => {
 												const { error } = fieldState;
 
 												return (
-													<Input
-														type="datetime-local"
+													<DateInput
 														label={t('form:label.birthdate')}
-														placeholder={t('form:placeholder.birthdate')}
-														id={`${token}_birthdate`}
-														error={!!error}
 														inputRef={ref}
-														style={{ width: '250px' }}
+														InputProps={{
+															placeholder: t('form:placeholder.birthdate'),
+															id: `${token}_birthdate`,
+															error: !!error,
+															required: true,
+															sx: { width: { xs: '100%', md: '250px' } }
+														}}
 														{...rest}
 													/>
 												);
@@ -540,7 +540,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														id={`${token}_position`}
 														error={!!error}
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);

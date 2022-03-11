@@ -187,7 +187,7 @@ const PagesDetail = (props: PagesDetailProps) => {
 														required
 														inputRef={ref}
 														options={getOptionsType()}
-														style={{ width: '250px' }}
+														sx={{ width: { xs: '100%', md: '250px' } }}
 														{...rest}
 													/>
 												);
@@ -210,7 +210,7 @@ const PagesDetail = (props: PagesDetailProps) => {
 														error={!!error}
 														required
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);
@@ -239,9 +239,6 @@ const PagesDetail = (props: PagesDetailProps) => {
 															id={`${token}_type_id`}
 															error={!!error}
 															required
-															inputSx={{
-																width: '250px',
-															}}
 														/>
 													);
 												}}
@@ -372,7 +369,7 @@ const PagesDetail = (props: PagesDetailProps) => {
 													error={!!error}
 													required
 													inputRef={ref}
-													style={{ width: '250px' }}
+													sx={{ width: { xs: '100%', md: '50%' } }}
 													{...rest}
 												/>
 											);
@@ -396,6 +393,7 @@ const PagesDetail = (props: PagesDetailProps) => {
 													error={!!error}
 													inputRef={ref}
 													multiple
+													sx={{ width: { xs: '100%', md: '75%' } }}
 													{...rest}
 												/>
 											);

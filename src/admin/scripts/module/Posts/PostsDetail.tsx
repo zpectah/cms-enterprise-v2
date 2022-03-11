@@ -21,7 +21,9 @@ import {
 	SwitchControlled,
 	BlockPreloader,
 	BarPreloader,
-	ControlledFormRow, TagPicker,
+	ControlledFormRow,
+	TagPicker,
+	DateInput,
 } from '../../component/ui';
 import {
 	CategoriesPicker,
@@ -220,7 +222,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 														required
 														inputRef={ref}
 														options={getOptionsType()}
-														style={{ width: '250px' }}
+														sx={{ width: { xs: '100%', md: '250px' } }}
 														{...rest}
 													/>
 												);
@@ -243,7 +245,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 														error={!!error}
 														required
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);
@@ -264,13 +266,15 @@ const PostsDetail = (props: PostsDetailProps) => {
 												const { error } = fieldState;
 
 												return (
-													<Input
+													<DateInput
 														label={t('form:label.published')}
-														placeholder={t('form:placeholder.published')}
-														id={`${token}_published`}
-														error={!!error}
 														inputRef={ref}
-														style={{ width: '75%' }}
+														InputProps={{
+															placeholder: t('form:placeholder.published'),
+															id: `${token}_published`,
+															error: !!error,
+															sx: { width: { xs: '100%', md: '250px' } }
+														}}
 														{...rest}
 													/>
 												);
@@ -291,14 +295,16 @@ const PostsDetail = (props: PostsDetailProps) => {
 													const { error } = fieldState;
 
 													return (
-														<Input
+														<DateInput
 															label={t('form:label.event_start')}
-															placeholder={t('form:placeholder.event_start')}
-															id={`${token}_event_start`}
-															error={!!error}
-															required
 															inputRef={ref}
-															style={{ width: '75%' }}
+															InputProps={{
+																placeholder: t('form:placeholder.event_start'),
+																id: `${token}_event_start`,
+																error: !!error,
+																required: true,
+																sx: { width: { xs: '100%', md: '250px' } }
+															}}
 															{...rest}
 														/>
 													);
@@ -314,14 +320,16 @@ const PostsDetail = (props: PostsDetailProps) => {
 													const { error } = fieldState;
 
 													return (
-														<Input
+														<DateInput
 															label={t('form:label.event_end')}
-															placeholder={t('form:placeholder.event_end')}
-															id={`${token}_event_end`}
-															error={!!error}
-															required
 															inputRef={ref}
-															style={{ width: '75%' }}
+															InputProps={{
+																placeholder: t('form:placeholder.event_end'),
+																id: `${token}_event_end`,
+																error: !!error,
+																required: true,
+																sx: { width: { xs: '100%', md: '250px' } }
+															}}
 															{...rest}
 														/>
 													);
@@ -330,7 +338,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 											<ControlledFormRow
 												name="event_location"
 												control={control}
-												rules={{ required: true }}
+												rules={{}}
 												defaultValue={detailData.event_location}
 												render={({ field, fieldState }) => {
 													const { ref, ...rest } = field;
@@ -342,9 +350,8 @@ const PostsDetail = (props: PostsDetailProps) => {
 															placeholder={t('form:placeholder.location')}
 															id={`${token}_event_location`}
 															error={!!error}
-															required
 															inputRef={ref}
-															style={{ width: '75%' }}
+															sx={{ width: { xs: '100%', md: '75%' } }}
 															{...rest}
 														/>
 													);
@@ -353,7 +360,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 											<ControlledFormRow
 												name="event_address"
 												control={control}
-												rules={{ required: true }}
+												rules={{}}
 												defaultValue={detailData.event_address}
 												render={({ field, fieldState }) => {
 													const { ref, ...rest } = field;
@@ -365,9 +372,8 @@ const PostsDetail = (props: PostsDetailProps) => {
 															placeholder={t('form:placeholder.address')}
 															id={`${token}_event_address`}
 															error={!!error}
-															required
 															inputRef={ref}
-															style={{ width: '75%' }}
+															sx={{ width: { xs: '100%', md: '75%' } }}
 															{...rest}
 														/>
 													);
@@ -376,7 +382,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 											<ControlledFormRow
 												name="event_city"
 												control={control}
-												rules={{ required: true }}
+												rules={{}}
 												defaultValue={detailData.event_city}
 												render={({ field, fieldState }) => {
 													const { ref, ...rest } = field;
@@ -388,9 +394,8 @@ const PostsDetail = (props: PostsDetailProps) => {
 															placeholder={t('form:placeholder.city')}
 															id={`${token}_event_city`}
 															error={!!error}
-															required
 															inputRef={ref}
-															style={{ width: '75%' }}
+															sx={{ width: { xs: '100%', md: '75%' } }}
 															{...rest}
 														/>
 													);
@@ -399,7 +404,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 											<ControlledFormRow
 												name="event_country"
 												control={control}
-												rules={{ required: true }}
+												rules={{}}
 												defaultValue={detailData.event_country}
 												render={({ field, fieldState }) => {
 													const { ref, ...rest } = field;
@@ -411,9 +416,8 @@ const PostsDetail = (props: PostsDetailProps) => {
 															placeholder={t('form:placeholder.country')}
 															id={`${token}_event_country`}
 															error={!!error}
-															required
 															inputRef={ref}
-															style={{ width: '75%' }}
+															sx={{ width: { xs: '100%', md: '75%' } }}
 															{...rest}
 														/>
 													);
@@ -422,7 +426,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 											<ControlledFormRow
 												name="event_zip"
 												control={control}
-												rules={{ required: true }}
+												rules={{}}
 												defaultValue={detailData.event_zip}
 												render={({ field, fieldState }) => {
 													const { ref, ...rest } = field;
@@ -434,9 +438,8 @@ const PostsDetail = (props: PostsDetailProps) => {
 															placeholder={t('form:placeholder.zip')}
 															id={`${token}_event_zip`}
 															error={!!error}
-															required
 															inputRef={ref}
-															style={{ width: '75%' }}
+															sx={{ width: { xs: '100%', md: '200px' } }}
 															{...rest}
 														/>
 													);

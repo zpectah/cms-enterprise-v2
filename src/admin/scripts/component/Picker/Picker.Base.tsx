@@ -46,7 +46,12 @@ const PickerBase = (props: PickerBaseProps) => {
 		emptyValueOption,
 		options = [],
 		error,
-		inputSx,
+		inputSx = {
+			width: {
+				xs: '100%',
+				md: '75%',
+			}
+		},
 	} = props;
 
 	// const [ showField, setShowField ] = useState(true);

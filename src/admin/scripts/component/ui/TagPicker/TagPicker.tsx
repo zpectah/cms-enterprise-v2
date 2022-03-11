@@ -45,7 +45,10 @@ const TagPicker = (props: TagPickerProps) => {
 		},
 		inputProps = {
 			sx: {
-				width: '100%',
+				width: {
+					sx: '100%',
+					md: '75%',
+				},
 				paddingRight: .5,
 			},
 		},

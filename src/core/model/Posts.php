@@ -25,6 +25,9 @@ class Posts {
         $row['links'] = $row['links'] == '' ? [] : explode(",", $row['links']);
         $row['template'] = $row['template'] == 1;
         $row['active'] = $row['active'] == 1;
+        $row['event_start'] = $row['event_start'] == '' ? null : $row['event_start'];
+        $row['event_end'] = $row['event_end'] == '' ? null : $row['event_end'];
+        $row['published'] = $row['published'] == '' ? null : $row['published'];
         unset($row['deleted']);
 
         return $row;

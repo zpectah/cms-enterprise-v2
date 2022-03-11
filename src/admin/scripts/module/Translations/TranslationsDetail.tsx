@@ -176,7 +176,7 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 														required
 														inputRef={ref}
 														options={getOptionsType()}
-														style={{ width: '250px' }}
+														sx={{ width: { xs: '100%', md: '250px' } }}
 														{...rest}
 													/>
 												);
@@ -199,7 +199,7 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 														error={!!error}
 														required
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);

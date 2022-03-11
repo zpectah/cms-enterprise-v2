@@ -185,7 +185,7 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 														required
 														inputRef={ref}
 														options={getOptionsType()}
-														style={{ width: '250px' }}
+														sx={{ width: { xs: '100%', md: '250px' } }}
 														{...rest}
 													/>
 												);
@@ -208,7 +208,7 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 														error={!!error}
 														required
 														inputRef={ref}
-														style={{ width: '75%' }}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);
@@ -238,9 +238,6 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 														ignored={detailData.id !== 'new' ? [
 															detailData.id as number
 														] : []}
-														inputSx={{
-															width: '200px',
-														}}
 													/>
 												);
 											}}

@@ -11,8 +11,8 @@ export interface PostsItemModel extends modelItemBase {
 	name: string;
 	categories?: number[];
 	tags?: number[];
-	event_start?: string;
-	event_end?: string;
+	event_start?: string | null;
+	event_end?: string | null;
 	event_location?: string;
 	event_address?: string;
 	event_city?: string;
@@ -23,7 +23,7 @@ export interface PostsItemModel extends modelItemBase {
 	links?: string[];
 	img_main?: string;
 	img_thumbnail?: string;
-	published: string;
+	published: string | null;
 	author: number;
 	rating?: number;
 	template: boolean;
