@@ -50,6 +50,7 @@ const MenuList = (props: MenuListProps) => {
 				}}
 				searchProps={[
 					'name',
+					'lang.[lang].label',
 				]}
 				onDetail={(id) => navigate(`${tableOptions.root}/detail/${id}`)}
 				onToggle={onToggle}

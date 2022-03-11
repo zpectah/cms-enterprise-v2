@@ -50,6 +50,9 @@ const MembersList = (props: MembersListProps) => {
 				}}
 				searchProps={[
 					'email',
+					'name_first',
+					'name_last',
+					'nickname',
 				]}
 				onDetail={(id) => navigate(`${tableOptions.root}/detail/${id}`)}
 				onToggle={onToggle}

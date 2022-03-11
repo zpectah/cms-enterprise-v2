@@ -4,10 +4,7 @@ import {
 	styled,
 	Stack,
 	Box,
-	BoxProps,
 	Menu,
-	MenuItem,
-	Divider,
 	FormLabel,
 } from '@mui/material';
 import TuneIcon from '@mui/icons-material/Tune';
@@ -32,11 +29,18 @@ export type filterTmpProps = {
 	categories?: filterProps['categories'],
 	tags?: filterProps['tags'],
 };
+const filterDefaultTmp: filterTmpProps = {
+	type: filterDefaultValue.type,
+	categories: filterDefaultValue.categories,
+	tags: filterDefaultValue.tags,
+};
 export interface DataTableFilterProps {
 	onFilterChange: (filter: filterProps) => void;
 	optionsType: optionsItemProps[];
 	optionsCategories?: optionsItemProps[];
 	optionsTags?: optionsItemProps[];
+	width?: string;
+	popupWidth?: string;
 }
 
 const OuterWrapper = styled(Stack)`
@@ -52,18 +56,14 @@ const RowLabel = styled(FormLabel)`
 	width: 50%;
 `;
 
-const filterDefaultTmp: filterTmpProps = {
-	type: filterDefaultValue.type,
-	categories: filterDefaultValue.categories,
-	tags: filterDefaultValue.tags,
-};
-
 const DataTableFilter = (props: DataTableFilterProps) => {
 	const {
 		onFilterChange,
 		optionsType = [],
 		optionsCategories = [],
 		optionsTags = [],
+		width = '30vw',
+		popupWidth = '35vw',
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'table' ]);
@@ -162,7 +162,10 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 						</IconButton>
 					</Stack>
 				}
-				sx={{ width: '300px' }}
+				sx={{ width: {
+						xs: '100%',
+						md: width,
+					} }}
 			/>
 			<Menu
 				id="data-table-filter-search"
@@ -175,7 +178,10 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 			>
 				<OuterWrapper
 					direction="column"
-					style={{ width: '35vw' }}
+					sx={{ width: {
+						xs: '100%',
+							md: popupWidth,
+						} }}
 				>
 					{typesActive && (
 						<RowWrapper>
@@ -217,7 +223,7 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 									};
 									setFilterTmp(tmp);
 								}}
-								placeholder={t('table:filter.categories')}
+								label={t('table:filter.categories')}
 								style={{
 									minWidth: '150px',
 								}}
@@ -243,7 +249,7 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 									};
 									setFilterTmp(tmp);
 								}}
-								placeholder={t('table:filter.tags')}
+								label={t('table:filter.tags')}
 								style={{
 									minWidth: '150px',
 								}}
@@ -268,6 +274,7 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 								closeHandler();
 								resetHandler();
 							}}
+							disabled={!dirtyTmp}
 						>
 							{t('btn.cancel')}
 						</Button>

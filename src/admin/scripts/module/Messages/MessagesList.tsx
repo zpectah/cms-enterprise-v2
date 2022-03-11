@@ -50,6 +50,9 @@ const MessagesList = (props: MessagesListProps) => {
 				}}
 				searchProps={[
 					'sender',
+					'recipients',
+					'title',
+					'content',
 				]}
 				onDetail={(id) => navigate(`${tableOptions.root}/detail/${id}`)}
 				onToggle={onToggle}

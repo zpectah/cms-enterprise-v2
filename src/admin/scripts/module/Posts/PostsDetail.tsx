@@ -115,7 +115,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 				title={detailData?.id === 'new' ? t('model_new.Posts') : detailData?.name}
 				returnTo={detailOptions.root}
 				createButtonLabel={t('model_new.Posts')}
-				createButtonPath={detailData?.id !== 'new' && `${detailOptions.root}/detail/new`}
+				createButtonPath={`${detailOptions.root}/detail/new`}
 			/>
 			{loading && <BarPreloader />}
 			{detailData ? (

@@ -228,7 +228,6 @@ const TableHeading = (props: TableHeadingProps) => {
 }
 
 const DataTable = (props: DataTableProps) => {
-	const { t } = useTranslation(['table', 'types']);
 	const {
 		id,
 		rows = [],
@@ -245,8 +244,9 @@ const DataTable = (props: DataTableProps) => {
 	} = props;
 
 	const rowPadding = 'normal';
-	const tableElement = useRef();
 
+	const tableElement = useRef();
+	const { t } = useTranslation([ 'table', 'types' ]);
 	const { categories } = useCategories();
 	const { tags } = useTags();
 	const [ order, setOrder ] = useState<orderType>(defaultOrder);
@@ -388,7 +388,8 @@ const DataTable = (props: DataTableProps) => {
 			width: columns.type[1],
 			children: (
 				<Chip
-					label={row.type}
+					label={t(`types:${row.type}`)}
+					color="info"
 					variant="outlined"
 					size="small"
 				/>

@@ -50,6 +50,8 @@ const PostsList = (props: PostsListProps) => {
 				}}
 				searchProps={[
 					'name',
+					'lang.[lang].title',
+					'lang.[lang].description',
 				]}
 				onDetail={(id) => navigate(`${tableOptions.root}/detail/${id}`)}
 				onToggle={onToggle}

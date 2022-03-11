@@ -21,7 +21,7 @@
   },
   "filter": {
     "search": "Hledat v tabulce",
-    "type": "Vyberte typ",
+    "type": "Typ",
     "categories": "Kategorie",
     "tags": "Tagy",
     "clear": "Resetovat filtr",

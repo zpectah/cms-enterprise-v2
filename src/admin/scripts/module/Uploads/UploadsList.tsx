@@ -50,6 +50,10 @@ const UploadsList = (props: UploadsListProps) => {
 				}}
 				searchProps={[
 					'name',
+					'lang.[lang].label',
+					'lang.[lang].description',
+					'file_name',
+					'file_mime',
 				]}
 				onDetail={(id) => navigate(`${tableOptions.root}/detail/${id}`)}
 				onToggle={onToggle}

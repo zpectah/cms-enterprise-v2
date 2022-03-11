@@ -102,7 +102,7 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 				title={detailData?.id === 'new' ? t('model_new.Uploads') : detailData?.name}
 				returnTo={detailOptions.root}
 				createButtonLabel={t('model_new.Uploads')}
-				createButtonPath={detailData?.id !== 'new' && `${detailOptions.root}/detail/new`}
+				createButtonPath={`${detailOptions.root}/detail/new`}
 			/>
 			{loading && <BarPreloader />}
 			{detailData ? (

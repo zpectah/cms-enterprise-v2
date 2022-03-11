@@ -88,7 +88,7 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 				title={detailData?.id === 'new' ? t('model_new.Messages') : detailData?.sender}
 				returnTo={detailOptions.root}
 				createButtonLabel={t('model_new.Messages')}
-				createButtonPath={detailData?.id !== 'new' && `${detailOptions.root}/detail/new`}
+				createButtonPath={`${detailOptions.root}/detail/new`}
 			/>
 			{loading && <BarPreloader />}
 			{detailData ? (

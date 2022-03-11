@@ -103,7 +103,7 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 				title={detailData?.id === 'new' ? t('model_new.Categories') : detailData?.name}
 				returnTo={detailOptions.root}
 				createButtonLabel={t('model_new.Categories')}
-				createButtonPath={detailData?.id !== 'new' && `${detailOptions.root}/detail/new`}
+				createButtonPath={`${detailOptions.root}/detail/new`}
 			/>
 			{loading && <BarPreloader />}
 			{detailData ? (
