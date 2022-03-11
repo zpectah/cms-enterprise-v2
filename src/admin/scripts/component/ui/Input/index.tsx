@@ -6,6 +6,7 @@ export { default as OutlinedInput } from './OutlinedInput';
 export { default as PasswordInput } from './PasswordInput';
 export { default as SearchInput } from './SearchInput';
 export { default as DateInput } from './DateInput';
+export { default as DateTimeInput } from './DateTimeInput';
 
 export type { InputProps } from './Input';
 export type { TextareaProps } from './Textarea';
@@ -13,3 +14,4 @@ export type { OutlinedInputProps } from './OutlinedInput';
 export type { PasswordInputProps } from './PasswordInput';
 export type { SearchInputProps } from './SearchInput';
 export type { DateInputProps } from './DateInput';
+export type { DateTimeInputProps } from './DateTimeInput';

@@ -238,6 +238,7 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 														ignored={detailData.id !== 'new' ? [
 															detailData.id as number
 														] : []}
+														emptyValueOption
 													/>
 												);
 											}}

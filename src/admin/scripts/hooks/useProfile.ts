@@ -9,7 +9,21 @@ const useProfile = () => {
 	const data_loading = !(!(!data && data == null) && !error);
 
 	return {
-		profile: data as unknown | profileProps,
+		// profile: data as unknown | profileProps,
+		profile: {
+			id: 1,
+			type: 'default',
+			email: 'demo@demo.demo',
+			name_first: 'Demo',
+			name_last: 'Demo',
+			nickname: 'demo',
+			password: '',
+			item_group: 'company',
+			description: '',
+			img_avatar: '',
+			item_level: 7,
+			active: true,
+		},
 		profile_loading: data_loading,
 		profile_error: false,
 		reloadProfile: () => mutate(`${config.project.api.base_path}/get_user_profile`),

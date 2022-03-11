@@ -239,6 +239,7 @@ const PagesDetail = (props: PagesDetailProps) => {
 															id={`${token}_type_id`}
 															error={!!error}
 															required
+															emptyValueOption
 														/>
 													);
 												}}

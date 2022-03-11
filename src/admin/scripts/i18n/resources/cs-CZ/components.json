@@ -86,6 +86,7 @@
     "help": {
       "project_description": "Popis je používaný jen pro interní potřeby",
       "company_bank": "Formát bankovního spojení musí být: účet/banka",
+      "company_phone": "Telefon by měl být včetně předvolby, např. +420...",
       "form_email_recipients": "Příjemcům bude zpráva odeslána jako kopie."
     },
     "error_global": "Problémy s validací formuláře, zkontrolujte všechny pole a zkuste znovu",

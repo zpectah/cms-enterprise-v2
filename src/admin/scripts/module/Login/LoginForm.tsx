@@ -10,8 +10,12 @@ import {
 	PasswordInput,
 } from '../../component/ui';
 
+interface loginFormProps {
+	email: string;
+	password: string;
+}
 interface LoginFormProps {
-	onSubmit: (master: any) => Promise<unknown>;
+	onSubmit: (master: loginFormProps) => Promise<unknown>;
 }
 
 const LoginForm = (props: LoginFormProps) => {
@@ -19,7 +23,7 @@ const LoginForm = (props: LoginFormProps) => {
 
 	const { t } = useTranslation([ 'form' ]);
 
-	const submitHandler = (data: any) => {
+	const submitHandler = (data: loginFormProps) => {
 		const master = _.cloneDeep(data);
 		console.log('submitHandler', master);
 	};

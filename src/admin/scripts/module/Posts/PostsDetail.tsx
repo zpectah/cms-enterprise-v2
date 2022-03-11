@@ -2,11 +2,13 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+import Rating from '@mui/material/Rating';
 
 import config from '../../config';
 import routes from '../../routes';
 import { USER_LEVEL_KEYS } from '../../constants';
 import useSettings from '../../hooks/useSettings';
+import useProfile from '../../hooks/useProfile';
 import { PostsItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import getDetailData from '../../utils/getDetailData';
@@ -24,11 +26,14 @@ import {
 	ControlledFormRow,
 	TagPicker,
 	DateInput,
+	DateTimeInput,
 } from '../../component/ui';
 import {
 	CategoriesPicker,
 	TagsPicker,
+	UsersPicker,
 } from '../../component/Picker';
+import InfoMetaBlock from '../../component/InfoMetaBlock';
 import getOptionsList from '../../utils/getOptionsList';
 import getLocaleObject from '../../utils/getLocaleObject';
 import transformString from '../../utils/transformString';
@@ -55,6 +60,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
 	const { settings } = useSettings();
+	const { profile } = useProfile();
 	const languageActive = settings?.language_active;
 
 	const detailOptions = {
@@ -103,6 +109,9 @@ const PostsDetail = (props: PostsDetailProps) => {
 		() => getOptionsList(config.options.model.Posts.type, t),
 		[ detailData ],
 	);
+	const getOptionsAuthor = useCallback(() => {
+
+	}, []);
 
 	const getUserId = useCallback(() => {
 		let uid = detailData.author;
@@ -132,6 +141,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 
 						return (
 							<>
+
 								<Section>
 									<ControlledFormRow
 										name="active"
@@ -174,6 +184,37 @@ const PostsDetail = (props: PostsDetailProps) => {
 								</Section>
 								<Section>
 
+									<ControlledFormRow
+										name="author"
+										control={control}
+										rules={{ required: true }}
+										defaultValue={detailData.id === 'new' ? profile?.id : detailData.author}
+										render={({ field, fieldState }) => {
+											const { ref, value, onChange } = field;
+											const { error } = fieldState;
+
+											return (
+												<UsersPicker
+													value={value}
+													onChange={onChange}
+													label={t('form:label.author')}
+													placeholder={t('form:placeholder.author')}
+													id={`${token}_author`}
+													error={!!error}
+													currentUserId={detailData.id === 'new' ? profile?.id : detailData.author}
+													inputSx={{
+														width: {
+															md: '100%',
+														}
+													}}
+												/>
+											);
+										}}
+									/>
+
+								</Section>
+								<Section>
+
 									img_main
 
 									img_thumbnail
@@ -181,9 +222,14 @@ const PostsDetail = (props: PostsDetailProps) => {
 								</Section>
 								<Section>
 
-									nějakej meta info blok ... pro rating ...
+									<InfoMetaBlock
+										list={{
+											rating: <Rating name="read-only" size="small" value={detailData.rating} readOnly />,
+										}}
+									/>
 
 								</Section>
+
 							</>
 						);
 					}}
@@ -295,7 +341,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 													const { error } = fieldState;
 
 													return (
-														<DateInput
+														<DateTimeInput
 															label={t('form:label.event_start')}
 															inputRef={ref}
 															InputProps={{
@@ -320,7 +366,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 													const { error } = fieldState;
 
 													return (
-														<DateInput
+														<DateTimeInput
 															label={t('form:label.event_end')}
 															inputRef={ref}
 															InputProps={{
@@ -677,12 +723,13 @@ const PostsDetail = (props: PostsDetailProps) => {
 					renderAddons={(form) => {
 						const {
 							token,
-							form: { control },
+							form: { watch }
 						} = form;
 
 						return (
 							<>
 								addons ... comments
+
 							</>
 						);
 					}}

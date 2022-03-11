@@ -18,19 +18,14 @@ const CategoriesPicker = (props: CategoriesPickerProps) => {
 
 	const getOptionsList = useCallback(() => {
 		const list = [];
-
 		if (categories && categories.length > 0) {
-
 			categories.map((item) => {
-
 				list.push({
 					key: item.id,
 					value: item.id,
 					label: item.name,
 				});
-
 			});
-
 		}
 
 		return list;
@@ -42,7 +37,6 @@ const CategoriesPicker = (props: CategoriesPickerProps) => {
 				loading={categories_loading}
 				options={getOptionsList()}
 				placeholder={placeholder}
-				emptyValueOption
 				{...rest}
 			/>
 		</>

@@ -18,7 +18,8 @@
     "loading": "Načítání",
     "no_selected": "Nevybráno",
     "status": "Status",
-    "created": "Vytvořeno"
+    "created": "Vytvořeno",
+    "rating": "Hodnocení"
   },
   "model": {
     "Categories": "Kategorie",
@@ -36,7 +37,7 @@
   "model_new": {
     "Categories": "Nová kategorie",
     "Members": "Nový member",
-    "Menu": "Nové Menu",
+    "Menu": "Nové menu",
     "MenuItem": "Nová menu položka",
     "Pages": "Nová stránka",
     "Posts": "Nový post",

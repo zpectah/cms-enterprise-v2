@@ -5,10 +5,9 @@ import { styled, Stack } from '@mui/material';
 import config from '../../../config';
 import palette from '../../../styles/palette';
 import { HEADER_HEIGHT } from '../../../styles/variables';
+import useSettings from '../../../hooks/useSettings';
 import SidebarToggle from '../../SidebarToggle';
 import UserDrawer from '../../../module/Profile/UserDrawer';
-
-interface HeaderProps {}
 
 const Wrapper = styled('header')`
 	width: 100vw;
@@ -53,9 +52,10 @@ const BrandBlock = styled(Block)`
 `;
 const SecondaryBlock = styled(Block)``;
 
-const Header = (props: HeaderProps) => {
-	const {} = props;
+const Header = () => {
 	const navigate = useNavigate();
+	const { settings } = useSettings();
+	const projectName = settings?.project_name ? settings?.project_name : config.project.web.meta.title;
 
 	return (
 		<>
@@ -71,7 +71,7 @@ const Header = (props: HeaderProps) => {
 					</PrimaryBlock>
 					<BrandBlock onClick={() => navigate('/admin/app/')}>
 						<span>{config.project.meta.name}</span>
-						<small>{config.project.web.meta.title}</small>
+						<small>{projectName}</small>
 					</BrandBlock>
 					<SecondaryBlock>
 						<UserDrawer />

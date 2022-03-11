@@ -18,19 +18,14 @@ const TagsPicker = (props: TagsPickerProps) => {
 
 	const getOptionsList = useCallback(() => {
 		const list = [];
-
 		if (tags && tags.length > 0) {
-
 			tags.map((item) => {
-
 				list.push({
 					key: item.id,
 					value: item.id,
 					label: item.name,
 				});
-
 			});
-
 		}
 
 		return list;
@@ -42,7 +37,6 @@ const TagsPicker = (props: TagsPickerProps) => {
 				loading={tags_loading}
 				options={getOptionsList()}
 				placeholder={placeholder}
-				emptyValueOption
 				{...rest}
 			/>
 		</>

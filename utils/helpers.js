@@ -192,8 +192,8 @@ export const date = {
         };
         return {
             year: D.getFullYear(),
-            month: D.getMonth() + 1,
-            day: D.getDate(),
+            month: number.getTwoDecimal(D.getMonth() + 1),
+            day: number.getTwoDecimal(D.getDate()),
             hour: number.getTwoDecimal(D.getHours()),
             minute: number.getTwoDecimal(D.getMinutes()),
             second: number.getTwoDecimal(D.getSeconds()),

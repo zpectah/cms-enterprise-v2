@@ -306,6 +306,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 													rowProps={{
 														label: t('components:SettingsForm.label.company_phone'),
 														id: `${token}_company_phone`,
+														helpTexts: [ t('components:SettingsForm.help.company_phone') ],
 													}}
 													render={({ field, fieldState }) => {
 														const { value, onChange } = field;
