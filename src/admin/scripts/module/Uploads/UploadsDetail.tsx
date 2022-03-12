@@ -107,6 +107,7 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 			{loading && <BarPreloader />}
 			{detailData ? (
 				<ControlledDetailFormLayout
+					mandatoryInfo
 					dataId="UploadsDetailForm"
 					detailId={detailData.id}
 					defaultValues={detailData}

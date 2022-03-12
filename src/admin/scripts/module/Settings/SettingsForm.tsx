@@ -113,6 +113,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 			{loading && <BarPreloader />}
 			{data ? (
 				<ControlledForm
+					mandatoryInfo
 					dataId="UsersDetailForm"
 					defaultValues={data}
 					onSubmit={submitHandler}

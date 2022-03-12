@@ -93,6 +93,7 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 			{loading && <BarPreloader />}
 			{detailData ? (
 				<ControlledDetailFormLayout
+					mandatoryInfo
 					dataId="MessagesDetailForm"
 					detailId={detailData.id}
 					defaultValues={detailData}

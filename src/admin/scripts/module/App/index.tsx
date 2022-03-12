@@ -4,13 +4,14 @@ import { Routes, Route } from 'react-router-dom';
 import routes from '../../routes';
 import ErrorPage from '../../page/ErrorPage';
 import DashboardPage from '../../page/DashboardPage';
+import SettingsPage from '../../page/SettingsPage';
+import ProfilePage from '../../page/ProfilePage';
 import CategoriesPage from '../../page/CategoriesPage';
 import MembersPage from '../../page/MembersPage';
 import MenuPage from '../../page/MenuPage';
 import MessagesPage from '../../page/MessagesPage';
 import PagesPage from '../../page/PagesPage';
 import PostsPage from '../../page/PostsPage';
-import SettingsPage from '../../page/SettingsPage';
 import TagsPage from '../../page/TagsPage';
 import TranslationsPage from '../../page/TranslationsPage';
 import UsersPage from '../../page/UsersPage';
@@ -24,6 +25,7 @@ const AppModule = (props: AppModuleProps) => {
 	return (
 		<>
 			<Routes>
+				<Route path={`${routes.profile.path}/*`} element={<ProfilePage />} />
 				<Route path={`${routes.categories.path}/*`} element={<CategoriesPage />} />
 				<Route path={`${routes.members.path}/*`} element={<MembersPage />} />
 				<Route path={`${routes.menu.path}/*`} element={<MenuPage />} />

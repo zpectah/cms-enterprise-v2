@@ -106,6 +106,7 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 			{loading && <BarPreloader />}
 			{detailData ? (
 				<ControlledDetailFormLayout
+					mandatoryInfo
 					dataId="TranslationsDetailForm"
 					detailId={detailData.id}
 					defaultValues={detailData}

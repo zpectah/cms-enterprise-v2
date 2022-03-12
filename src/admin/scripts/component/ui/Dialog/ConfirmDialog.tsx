@@ -7,9 +7,9 @@ import { TransitionProps } from '@mui/material/transitions';
 import Dialog, { DialogProps } from './Dialog';
 import { PrimaryButton, SecondaryButton } from '../Button';
 
-export interface ConfirmDialogProps extends DialogProps {
+export interface ConfirmDialogProps extends Partial<DialogProps> {
 	context?: 'default' | 'delete' | 'logout';
-	confirmData: (string | number)[];
+	confirmData?: (string | number)[];
 	onConfirm: () => void;
 }
 

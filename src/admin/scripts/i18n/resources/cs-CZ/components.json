@@ -3,7 +3,7 @@
     "title": {
       "default": "Potvrdit",
       "delete": "Potvrdit smazání",
-      "logout": "Odhlášení"
+      "logout": "Odhlášení ze systému"
     },
     "content": {
       "default": "Jste si jisti, že chcete provést akci?",
@@ -103,6 +103,21 @@
       "source_language_label": "Zdroj",
       "btn_install": "Instalovat",
       "success_message": "Jazyk byl úspěšně nainstalován"
+    }
+  },
+  "ProfileForm": {
+    "label": {
+      "language": "Jazyk systému",
+      "theme": "Téma",
+      "avatar": "Avatar"
+    },
+    "submit": "Aktualizovat profil"
+  },
+  "ProfileDropdown": {
+    "label": {
+      "profile": "Profil",
+      "help": "Nápověda",
+      "logout": "Odhlásit se"
     }
   }
 }

@@ -101,6 +101,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 			{loading && <BarPreloader />}
 			{detailData ? (
 				<ControlledDetailFormLayout
+					mandatoryInfo
 					dataId="MembersDetailForm"
 					detailId={detailData.id}
 					defaultValues={detailData}

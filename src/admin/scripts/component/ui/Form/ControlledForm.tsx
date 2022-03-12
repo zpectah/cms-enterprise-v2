@@ -1,11 +1,11 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
 import { useForm, UseFormReturn, UseFormProps } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Alert } from '@mui/material';
+import { Alert, Typography } from '@mui/material';
 
 import { string } from '../../../../../../utils/helpers';
 import { Section } from '../Section';
-import { FormActions } from './detailFormLayoutElements';
+import { FormActions, FormBody } from './detailFormLayoutElements';
 import getTestDataAttr from '../../../utils/getTestDataAttr';
 
 export interface ControlledFormRenderProps {
@@ -20,10 +20,11 @@ export interface ControlledFormProps extends UseFormProps {
 	renderActions?: (form: ControlledFormRenderProps) => React.ReactNode;
 	onSubmit?: (data: any, e: any) => void;
 	onError?: (fields: any) => void;
+	mandatoryInfo?: boolean;
 }
 
 const ControlledForm = (props: ControlledFormProps) => {
-	const { t } = useTranslation([ 'messages' ]);
+	const { t } = useTranslation([ 'messages', 'form' ]);
 
 	const {
 		dataId = 'controlled-form',
@@ -34,6 +35,7 @@ const ControlledForm = (props: ControlledFormProps) => {
 		onSubmit,
 		onError,
 		mode = 'all',
+		mandatoryInfo,
 		...rest
 	} = props;
 
@@ -66,6 +68,13 @@ const ControlledForm = (props: ControlledFormProps) => {
 			<>
 				{renderMain(form)}
 			</>
+			{mandatoryInfo && (
+				<FormBody>
+					<Typography variant="caption">
+						{t('form:mandatoryInfo')}
+					</Typography>
+				</FormBody>
+			)}
 			{(form.form.formState.errors
 				&& form.form.formState.isSubmitted
 				&& !form.form.formState.isSubmitSuccessful

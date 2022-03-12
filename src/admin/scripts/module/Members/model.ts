@@ -19,7 +19,7 @@ export default {
 	phone_alt: [],
 	email_alt: [],
 	sex: 'undefined',
-	birthdate: '',
+	birthdate: null,
 	description: '',
 	subscription: false,
 	active: true,

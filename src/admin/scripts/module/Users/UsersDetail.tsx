@@ -110,6 +110,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 			{loading && <BarPreloader />}
 			{detailData ? (
 				<ControlledDetailFormLayout
+					mandatoryInfo
 					dataId="UsersDetailForm"
 					detailId={detailData.id}
 					defaultValues={detailData}

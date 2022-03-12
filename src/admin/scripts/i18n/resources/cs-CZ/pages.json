@@ -34,6 +34,13 @@
     "description": "",
     "content": ""
   },
+  "profile": {
+    "label": "Profil",
+    "meta_title": "Profil",
+    "page_title": "Profil uživatele",
+    "description": "",
+    "content": ""
+  },
   "categories": {
     "label": "Kategorie",
     "meta_title": "Kategorie",

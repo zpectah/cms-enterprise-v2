@@ -91,5 +91,6 @@
   "help": {
     "password": "Heslo by mělo obsahovat velké, malé znaky a číslo",
     "published": "Toho data bude položka zvěřejněna"
-  }
+  },
+  "mandatoryInfo": "* Tyto pole jsou povinné"
 }

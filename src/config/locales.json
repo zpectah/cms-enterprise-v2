@@ -4,125 +4,167 @@
     "int": "cs-CZ",
     "label": "Čeština",
     "label_int": "Czech",
-    "time_format": "HH:MM:ss",
-    "date_format": "DD.MM.YYYY",
-    "ltr": true
+    "format": {
+      "date": "DD.MM.YYYY",
+      "time": "hh:mm:ss",
+      "datetime": "DD.MM.YYYY hh:mm:ss"
+    },
+    "direction": "ltr"
   },
   "en-US": {
     "key": "en",
     "int": "en-US",
     "label": "English",
     "label_int": "English (US)",
-    "time_format": "HH:MM:ss",
-    "date_format": "YYYY/MM/DD",
-    "ltr": true
+    "format": {
+      "date": "YYYY-MM-DD",
+      "time": "hh:mm:ss",
+      "datetime": "YYYY-MM-DD hh:mm:ss"
+    },
+    "direction": "ltr"
   },
   "en-GB": {
     "key": "en",
     "int": "en-GB",
     "label": "English",
     "label_int": "English (UK)",
-    "time_format": "HH:MM:ss",
-    "date_format": "YYYY/MM/DD",
-    "ltr": true
+    "format": {
+      "date": "YYYY-MM-DD",
+      "time": "hh:mm:ss",
+      "datetime": "YYYY-MM-DD hh:mm:ss"
+    },
+    "direction": "ltr"
   },
   "sk-SK": {
     "key": "sk",
     "int": "sk-SK",
     "label": "Slovenčina",
     "label_int": "Slovak",
-    "time_format": "HH:MM:ss",
-    "date_format": "YYYY/MM/DD",
-    "ltr": true
+    "format": {
+      "date": "DD.MM.YYYY",
+      "time": "hh:mm:ss",
+      "datetime": "DD.MM.YYYY hh:mm:ss"
+    },
+    "direction": "ltr"
   },
   "pl-PL": {
     "key": "pl",
     "int": "pl-PL",
     "label": "Polish",
     "label_int": "Polish",
-    "time_format": "HH:MM:ss",
-    "date_format": "YYYY/MM/DD",
-    "ltr": true
+    "format": {
+      "date": "YYYY-MM-DD",
+      "time": "hh:mm:ss",
+      "datetime": "YYYY-MM-DD hh:mm:ss"
+    },
+    "direction": "ltr"
   },
   "hu-HU": {
     "key": "hu",
     "int": "hu-HU",
     "label": "Hungarian",
     "label_int": "Hungarian",
-    "time_format": "HH:MM:ss",
-    "date_format": "YYYY/MM/DD",
-    "ltr": true
+    "format": {
+      "date": "YYYY-MM-DD",
+      "time": "hh:mm:ss",
+      "datetime": "YYYY-MM-DD hh:mm:ss"
+    },
+    "direction": "ltr"
   },
   "de-DE": {
     "key": "de",
     "int": "de-DE",
     "label": "German",
     "label_int": "German (Germany)",
-    "time_format": "HH:MM:ss",
-    "date_format": "YYYY/MM/DD",
-    "ltr": true
+    "format": {
+      "date": "YYYY-MM-DD",
+      "time": "hh:mm:ss",
+      "datetime": "YYYY-MM-DD hh:mm:ss"
+    },
+    "direction": "ltr"
   },
   "de-AT": {
     "key": "de",
     "int": "de-AT",
     "label": "German",
     "label_int": "German (Austria)",
-    "time_format": "HH:MM:ss",
-    "date_format": "YYYY/MM/DD",
-    "ltr": true
+    "format": {
+      "date": "YYYY-MM-DD",
+      "time": "hh:mm:ss",
+      "datetime": "YYYY-MM-DD hh:mm:ss"
+    },
+    "direction": "ltr"
   },
   "de-CH": {
     "key": "de",
     "int": "de-CH",
     "label": "German",
     "label_int": "German (Switzerland)",
-    "time_format": "HH:MM:ss",
-    "date_format": "YYYY/MM/DD",
-    "ltr": true
+    "format": {
+      "date": "YYYY-MM-DD",
+      "time": "hh:mm:ss",
+      "datetime": "YYYY-MM-DD hh:mm:ss"
+    },
+    "direction": "ltr"
   },
   "fr-FR": {
     "key": "fr",
     "int": "fr-FR",
     "label": "French",
     "label_int": "French (France)",
-    "time_format": "HH:MM:ss",
-    "date_format": "YYYY/MM/DD",
-    "ltr": true
+    "format": {
+      "date": "YYYY-MM-DD",
+      "time": "hh:mm:ss",
+      "datetime": "YYYY-MM-DD hh:mm:ss"
+    },
+    "direction": "ltr"
   },
   "fr-CH": {
     "key": "fr",
     "int": "fr-CH",
     "label": "French",
     "label_int": "French (Switzerland)",
-    "time_format": "HH:MM:ss",
-    "date_format": "YYYY/MM/DD",
-    "ltr": true
+    "format": {
+      "date": "YYYY-MM-DD",
+      "time": "hh:mm:ss",
+      "datetime": "YYYY-MM-DD hh:mm:ss"
+    },
+    "direction": "ltr"
   },
   "es-ES": {
     "key": "es",
     "int": "es-ES",
     "label": "Spanish",
     "label_int": "Spanish (Spain)",
-    "time_format": "HH:MM:ss",
-    "date_format": "YYYY/MM/DD",
-    "ltr": true
+    "format": {
+      "date": "YYYY-MM-DD",
+      "time": "hh:mm:ss",
+      "datetime": "YYYY-MM-DD hh:mm:ss"
+    },
+    "direction": "ltr"
   },
   "pt-PT": {
     "key": "pt",
     "int": "pt-PT",
     "label": "Portuguese",
     "label_int": "Portuguese (Portugal)",
-    "time_format": "HH:MM:ss",
-    "date_format": "YYYY/MM/DD",
-    "ltr": true
+    "format": {
+      "date": "YYYY-MM-DD",
+      "time": "hh:mm:ss",
+      "datetime": "YYYY-MM-DD hh:mm:ss"
+    },
+    "direction": "ltr"
   },
   "uk-UA": {
     "key": "uk",
     "int": "uk-UA",
     "label": "Ukrainian",
     "label_int": "Ukrainian (Ukraine)",
-    "time_format": "HH:MM:ss",
-    "date_format": "YYYY/MM/DD",
-    "ltr": true
+    "format": {
+      "date": "YYYY-MM-DD",
+      "time": "hh:mm:ss",
+      "datetime": "YYYY-MM-DD hh:mm:ss"
+    },
+    "direction": "ltr"
   }
 }

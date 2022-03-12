@@ -108,6 +108,7 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 			{loading && <BarPreloader />}
 			{detailData ? (
 				<ControlledDetailFormLayout
+					mandatoryInfo
 					dataId="CategoriesDetailForm"
 					detailId={detailData.id}
 					defaultValues={detailData}

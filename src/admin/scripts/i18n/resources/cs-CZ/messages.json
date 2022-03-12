@@ -21,5 +21,9 @@
     "item_deleted": "Položka byla úspešně smazána",
     "items_deleted": "Položky byly úspešně smazány",
     "data_updated": "Data byla uložena"
+  },
+  "profile": {
+    "success_update": "Údaje byly aktualizovány",
+    "error_data": "Vyskytl se nějaký problém s načítáním profilu, načtěte stránku znovu prosím, nebo kontaktujte svého administrátora"
   }
 }

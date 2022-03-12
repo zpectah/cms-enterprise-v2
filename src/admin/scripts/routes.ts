@@ -35,6 +35,13 @@ export default {
 		title: 'settings.meta_title',
 		auth: 7,
 	},
+	profile: {
+		path: 'profile',
+		key: 'profile',
+		label: 'profile.label',
+		title: 'profile.meta_title',
+		auth: 3,
+	},
 	categories: {
 		path: 'categories',
 		key: 'categories',

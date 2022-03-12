@@ -7,7 +7,7 @@ import palette from '../../../styles/palette';
 import { HEADER_HEIGHT } from '../../../styles/variables';
 import useSettings from '../../../hooks/useSettings';
 import SidebarToggle from '../../SidebarToggle';
-import UserDrawer from '../../../module/Profile/UserDrawer';
+import ProfileDropdown from '../../../module/Profile/ProfileDropdown';
 
 const Wrapper = styled('header')`
 	width: 100vw;
@@ -74,7 +74,7 @@ const Header = () => {
 						<small>{projectName}</small>
 					</BrandBlock>
 					<SecondaryBlock>
-						<UserDrawer />
+						<ProfileDropdown />
 					</SecondaryBlock>
 				</StyledStack>
 			</Wrapper>

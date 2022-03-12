@@ -117,6 +117,7 @@ const PagesDetail = (props: PagesDetailProps) => {
 			{loading && <BarPreloader />}
 			{detailData ? (
 				<ControlledDetailFormLayout
+					mandatoryInfo
 					dataId="PagesDetailForm"
 					detailId={detailData.id}
 					defaultValues={detailData}

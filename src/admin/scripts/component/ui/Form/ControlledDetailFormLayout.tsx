@@ -2,7 +2,11 @@ import React from 'react';
 import { Stack } from '@mui/material';
 import { useForm, UseFormReturn, UseFormProps } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Alert, Divider } from '@mui/material';
+import {
+	Alert,
+	Divider,
+	Typography,
+} from '@mui/material';
 
 import { string } from '../../../../../../utils/helpers';
 import { Section } from '../Section';
@@ -46,10 +50,11 @@ export interface ControlledDetailFormLayoutProps<TFieldValues extends FieldValue
 	onDelete?: () => void;
 	onError?: (fields: any) => void;
 	detailId: string | number;
+	mandatoryInfo?: boolean;
 }
 
 const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
-	const { t } = useTranslation([ 'common', 'messages' ]);
+	const { t } = useTranslation([ 'common', 'messages', 'form' ]);
 
 	const {
 		dataId = 'controlled-detail-form-layout',
@@ -66,6 +71,7 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 		onDelete,
 		detailId,
 		mode = 'all',
+		mandatoryInfo,
 		...rest
 	} = props;
 
@@ -138,6 +144,13 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 						</FormContent>
 						<FormSidebar children={renderSidebar(form)} />
 					</FormBody>
+					{mandatoryInfo && (
+						<FormBody>
+							<Typography variant="caption">
+								{t('form:mandatoryInfo')}
+							</Typography>
+						</FormBody>
+					)}
 					{(form.form.formState.errors
 						&& form.form.formState.isSubmitted
 						&& !form.form.formState.isSubmitSuccessful
