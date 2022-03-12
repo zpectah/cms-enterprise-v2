@@ -119,5 +119,12 @@
       "help": "Nápověda",
       "logout": "Odhlásit se"
     }
+  },
+  "FileUploader": {
+    "messages": {
+      "file_not_supported": "Nepodporovaný soubor",
+      "file_over_size_limit": "Velikost souboru překračuje povolený limit",
+      "image_over_size_limit": "Velikost obrázku překračuje povolený limit"
+    }
   }
 }

@@ -28,3 +28,35 @@ export const LANGUAGE_OPTION_DEFAULT = 'cs-CZ';
 export const FORM_INPUT_MIN_LENGTH = 3;
 export const TOAST_TIMEOUT_SUCCESS = 3500;
 export const TOAST_TIMEOUT_ERROR = 5000;
+export const UPLOAD_FILE_LIMIT = 25000000;
+export const UPLOAD_IMAGE_LIMIT = 10000000;
+export const UPLOAD_IMAGE_CROP_OPTIONS = [
+	{
+		label: '1:1',
+		value: 1 / 1,
+	},
+	{
+		label: '3:2',
+		value: 3 / 2,
+	},
+	{
+		label: '4:3',
+		value: 4 / 3,
+	},
+	{
+		label: '16:9',
+		value: 16 / 9,
+	},
+	{
+		label: '2:3',
+		value: 2 / 3,
+	},
+	{
+		label: '3:4',
+		value: 3 / 4,
+	},
+	{
+		label: '9:16',
+		value: 9 / 16,
+	},
+];

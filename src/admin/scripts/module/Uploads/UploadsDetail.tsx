@@ -26,6 +26,7 @@ import {
 import getOptionsList from '../../utils/getOptionsList';
 import getLocaleObject from '../../utils/getLocaleObject';
 import transformString from '../../utils/transformString';
+import Uploader from './Uploader';
 
 interface UploadsDetailProps {
 	dataItems: UploadsItemProps[];
@@ -106,190 +107,198 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 			/>
 			{loading && <BarPreloader />}
 			{detailData ? (
-				<ControlledDetailFormLayout
-					mandatoryInfo
-					dataId="UploadsDetailForm"
-					detailId={detailData.id}
-					defaultValues={detailData}
-					onSubmit={submitHandler}
-					onDelete={() => deleteHandler(detailData.id)}
-					renderSidebar={(form) => {
-						const { token, form: { control } } = form;
+				<>
+					{detailData.id === 'new' ? (
+						<>
+							<Uploader />
+						</>
+					) : (
+						<ControlledDetailFormLayout
+							mandatoryInfo
+							dataId="UploadsDetailForm"
+							detailId={detailData.id}
+							defaultValues={detailData}
+							onSubmit={submitHandler}
+							onDelete={() => deleteHandler(detailData.id)}
+							renderSidebar={(form) => {
+								const { token, form: { control } } = form;
 
-						return (
-							<>
-								<Section>
-									<ControlledFormRow
-										name="active"
-										control={control}
-										rules={{}}
-										defaultValue={detailData.active}
-										render={({ field }) => {
-											const { ref, value, ...rest } = field;
+								return (
+									<>
+										<Section>
+											<ControlledFormRow
+												name="active"
+												control={control}
+												rules={{}}
+												defaultValue={detailData.active}
+												render={({ field }) => {
+													const { ref, value, ...rest } = field;
 
-											return (
-												<SwitchControlled
-													id={`${token}_active`}
-													label={t('form:label.active')}
-													checked={value}
-													inputRef={ref}
-													{...rest}
+													return (
+														<SwitchControlled
+															id={`${token}_active`}
+															label={t('form:label.active')}
+															checked={value}
+															inputRef={ref}
+															{...rest}
+														/>
+													);
+												}}
+											/>
+										</Section>
+									</>
+								);
+							}}
+							renderPrimary={(form) => {
+								const { token, form: {
+									control,
+									register,
+									watch,
+								} } = form;
+
+								const watchType = watch('type');
+
+								return (
+									<>
+										{/* ==================== FORM CONTENT ==================== */}
+										<div>
+
+											<input type="hidden" {...register('id')} />
+
+											<Section>
+
+												<ControlledFormRow
+													name="type"
+													control={control}
+													rules={{ required: true }}
+													defaultValue={detailData.type}
+													render={({ field, fieldState }) => {
+														const { ref, ...rest } = field;
+														const { error } = fieldState;
+
+														return (
+															<Select
+																label={t('form:label.type')}
+																placeholder={t('form:placeholder.type')}
+																id={`${token}_type`}
+																error={!!error}
+																required
+																inputRef={ref}
+																options={getOptionsType()}
+																style={{ width: '250px' }}
+																{...rest}
+															/>
+														);
+													}}
 												/>
-											);
-										}}
-									/>
-								</Section>
-							</>
-						);
-					}}
-					renderPrimary={(form) => {
-						const { token, form: {
-							control,
-							register,
-							watch,
-						} } = form;
+												<ControlledFormRow
+													name="name"
+													control={control}
+													rules={{ required: true }}
+													defaultValue={detailData.name}
+													render={({ field, fieldState }) => {
+														const { ref, ...rest } = field;
+														const { error } = fieldState;
 
-						const watchType = watch('type');
+														return (
+															<Input
+																label={t('form:label.name')}
+																placeholder={t('form:placeholder.name')}
+																id={`${token}_name`}
+																error={!!error}
+																required
+																inputRef={ref}
+																style={{ width: '75%' }}
+																{...rest}
+															/>
+														);
+													}}
+												/>
 
-						return (
-							<>
-								{/* ==================== FORM CONTENT ==================== */}
-								<div>
+											</Section>
 
-									<input type="hidden" {...register('id')} />
+										</div>
+										{/* ==================== \ FORM CONTENT ==================== */}
+									</>
+								);
+							}}
+							renderLanguage={(form) => {
+								const {
+									token,
+									form: { control },
+									lang,
+								} = form;
 
-									<Section>
+								return (
+									<>
 
 										<ControlledFormRow
-											name="type"
+											name={`lang.${lang}.label`}
 											control={control}
-											rules={{ required: true }}
-											defaultValue={detailData.type}
-											render={({ field, fieldState }) => {
-												const { ref, ...rest } = field;
-												const { error } = fieldState;
-
-												return (
-													<Select
-														label={t('form:label.type')}
-														placeholder={t('form:placeholder.type')}
-														id={`${token}_type`}
-														error={!!error}
-														required
-														inputRef={ref}
-														options={getOptionsType()}
-														style={{ width: '250px' }}
-														{...rest}
-													/>
-												);
-											}}
-										/>
-										<ControlledFormRow
-											name="name"
-											control={control}
-											rules={{ required: true }}
-											defaultValue={detailData.name}
+											rules={{}}
+											defaultValue={detailData.lang[lang].label}
 											render={({ field, fieldState }) => {
 												const { ref, ...rest } = field;
 												const { error } = fieldState;
 
 												return (
 													<Input
-														label={t('form:label.name')}
-														placeholder={t('form:placeholder.name')}
-														id={`${token}_name`}
+														label={t('form:label.label')}
+														placeholder={t('form:placeholder.label')}
+														id={`${token}_${lang}_label`}
 														error={!!error}
-														required
 														inputRef={ref}
-														style={{ width: '75%' }}
+														{...rest}
+													/>
+												);
+											}}
+										/>
+										<ControlledFormRow
+											name={`lang.${lang}.description`}
+											control={control}
+											rules={{}}
+											defaultValue={detailData.lang[lang].description}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
+
+												return (
+													<Textarea
+														label={t('form:label.description')}
+														placeholder={t('form:placeholder.description')}
+														id={`${token}_${lang}_description`}
+														error={!!error}
+														inputRef={ref}
+														rows={5}
 														{...rest}
 													/>
 												);
 											}}
 										/>
 
-									</Section>
+									</>
+								);
+							}}
+							renderSecondary={(form) => {
+								const { token, form: {
+									watch,
+								} } = form;
 
-								</div>
-								{/* ==================== \ FORM CONTENT ==================== */}
-							</>
-						);
-					}}
-					renderLanguage={(form) => {
-						const {
-							token,
-							form: { control },
-							lang,
-						} = form;
+								const watchAll = watch();
 
-						return (
-							<>
-
-								<ControlledFormRow
-									name={`lang.${lang}.label`}
-									control={control}
-									rules={{}}
-									defaultValue={detailData.lang[lang].label}
-									render={({ field, fieldState }) => {
-										const { ref, ...rest } = field;
-										const { error } = fieldState;
-
-										return (
-											<Input
-												label={t('form:label.label')}
-												placeholder={t('form:placeholder.label')}
-												id={`${token}_${lang}_label`}
-												error={!!error}
-												inputRef={ref}
-												{...rest}
-											/>
-										);
-									}}
-								/>
-								<ControlledFormRow
-									name={`lang.${lang}.description`}
-									control={control}
-									rules={{}}
-									defaultValue={detailData.lang[lang].description}
-									render={({ field, fieldState }) => {
-										const { ref, ...rest } = field;
-										const { error } = fieldState;
-
-										return (
-											<Textarea
-												label={t('form:label.description')}
-												placeholder={t('form:placeholder.description')}
-												id={`${token}_${lang}_description`}
-												error={!!error}
-												inputRef={ref}
-												rows={5}
-												{...rest}
-											/>
-										);
-									}}
-								/>
-
-							</>
-						);
-					}}
-					renderSecondary={(form) => {
-						const { token, form: {
-							watch,
-						} } = form;
-
-						const watchAll = watch();
-
-						return (
-							<>
+								return (
+									<>
 								<pre>
 									<code>
 										{JSON.stringify(watchAll, null, 2)}
 									</code>
 								</pre>
-							</>
-						);
-					}}
-				/>
+									</>
+								);
+							}}
+						/>
+					)}
+				</>
 			) : (
 				<BlockPreloader />
 			)}
