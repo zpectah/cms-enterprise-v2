@@ -225,7 +225,7 @@ const FileUploader = (props: FileUploaderProps) => {
 	return (
 		<>
 			{processing && <BarPreloader />}
-			{dragOver && (
+			{(!disableDragAndDrop && dragOver) && (
 				<DragWrapper
 					onDragLeave={dragEvents.onDragLeave}
 					htmlFor={inputProps.id}

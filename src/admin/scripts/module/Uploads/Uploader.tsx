@@ -37,9 +37,10 @@ const Uploader = (props: UploaderProps) => {
 			>
 
 				<FileUploader
-					id="modelFileUploader"
+					id="ModelFileUploader"
 					onAdd={onAddHandler}
 					compact={queue.length > 0}
+					disableDragAndDrop={queue.length > 0}
 					multiple
 				/>
 
