@@ -1,22 +1,31 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import config from '../../config';
+import { uploadItemTemporaryType } from '../../types/uploader';
 import FileUploader from '../../component/FileUploader';
-import ImageCropper from '../../component/ImageCropper';
+import UploaderQueueItem from './UploaderQueueItem';
 
 export interface UploaderProps {}
 
 const Uploader = (props: UploaderProps) => {
 	const {} = props;
 
-	const [ queue, setQueue ] = useState<any[]>([]);
+	const [ queue, setQueue ] = useState<uploadItemTemporaryType[]>([]);
 
-	const onAddHandler = useCallback((files: any[]) => {
-		const nq = [
+	const onAddHandler = useCallback((files: uploadItemTemporaryType[]) => {
+		const tmp = [
 			...queue,
 			...files,
 		];
-		setQueue(nq);
+		setQueue(tmp);
+	}, [ queue ]);
+
+	const onRemoveHandler = useCallback((id: string) => {
+		const tmp = [ ...queue ];
+		const item = tmp.find((item) => item.tmp_id === id);
+		const index = tmp.indexOf(item);
+		tmp.splice(index, 1);
+		setQueue(tmp);
 	}, [ queue ]);
 
 	return (
@@ -40,14 +49,13 @@ const Uploader = (props: UploaderProps) => {
 			<br />
 
 			{queue.map((file) => (
-				<div key={file.file_name}>
-					{file.file_name}
-				</div>
+				<UploaderQueueItem
+					key={file.tmp_id}
+					data={file}
+					onRemove={onRemoveHandler}
+					onSubmit={(item) => {console.log('onSubmit', item) }}
+				/>
 			))}
-
-			<br />
-
-			<ImageCropper />
 
 		</>
 	);

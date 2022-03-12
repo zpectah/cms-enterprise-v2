@@ -4,16 +4,17 @@ import { styled, Box, BoxProps } from '@mui/material';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 
-import { file as fileUtils } from '../../../../../utils/helpers';
+import { file as fileUtils, string as stringUtils } from '../../../../../utils/helpers';
 import { UPLOAD_IMAGE_LIMIT, UPLOAD_FILE_LIMIT } from '../../constants';
 import useToasts from '../../hooks/useToasts';
+import { uploadItemTemporaryType } from '../../types/uploader';
 import { getFileType } from '../../utils/getFileType';
 import { BarPreloader } from '../ui';
 
 export interface FileUploaderProps {
 	id?: string;
 	multiple?: boolean;
-	onAdd: (files: any | any[]) => void;
+	onAdd: (files: uploadItemTemporaryType[]) => void;
 	render?: () => React.ReactNode;
 	disableDragAndDrop?: boolean;
 	compact?: boolean;
@@ -93,14 +94,14 @@ const FileUploader = (props: FileUploaderProps) => {
 		const file_size = file.size;
 
 		return {
+			tmp_id: stringUtils.getToken(2, ''),
 			file_extension,
 			file_type,
 			file_size,
 			file_mime: file.type,
 			file_name: file.name,
 			file_base64: blob,
-			file_base64_cropped: null,
-		};
+		} as uploadItemTemporaryType;
 	};
 	const getFileBlob = async (file) => {
 		const blob = await fileUtils.toBase64(file);
