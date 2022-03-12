@@ -71,7 +71,6 @@ const PostsDetail = (props: PostsDetailProps) => {
 		const master = _.cloneDeep(data);
 		const method: submitMethodProps = master.id == 'new' ? 'create' : 'update';
 		master.name = transformString(master.name, 'empty-to-dash');
-		master.author = getUserId();
 		onSubmit(method, master).then(() => navigate(detailOptions.root));
 	};
 	const deleteHandler = (id: string | number) => {
@@ -109,16 +108,6 @@ const PostsDetail = (props: PostsDetailProps) => {
 		() => getOptionsList(config.options.model.Posts.type, t),
 		[ detailData ],
 	);
-	const getOptionsAuthor = useCallback(() => {
-
-	}, []);
-
-	const getUserId = useCallback(() => {
-		let uid = detailData.author;
-		if (detailData.id === 'new') uid = 0; // TODO ... from profile object !!!
-
-		return uid;
-	}, [ detailData ]);
 
 	return (
 		<>
@@ -304,9 +293,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 											rules={{}}
 											defaultValue={detailData.published}
 											rowProps={{
-												helpTexts: detailData.id === 'new' ? [
-													t('form:help.published'),
-												] : [],
+												helpTexts: [ detailData.id === 'new' && t('form:help.published') ],
 											}}
 											render={({ field, fieldState }) => {
 												const { ref, ...rest } = field;
@@ -320,7 +307,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 															placeholder: t('form:placeholder.published'),
 															id: `${token}_published`,
 															error: !!error,
-															sx: { width: { xs: '100%', md: '250px' } }
+															sx: { width: { xs: '100%', md: '250px' } },
 														}}
 														{...rest}
 													/>
@@ -337,6 +324,11 @@ const PostsDetail = (props: PostsDetailProps) => {
 												control={control}
 												rules={{ required: true }}
 												defaultValue={detailData.event_start}
+												rowProps={{
+													helpTexts: [
+														t('form:help.common_datetime_format'),
+													],
+												}}
 												render={({ field, fieldState }) => {
 													const { ref, ...rest } = field;
 													const { error } = fieldState;
@@ -362,6 +354,11 @@ const PostsDetail = (props: PostsDetailProps) => {
 												control={control}
 												rules={{ required: true }}
 												defaultValue={detailData.event_end}
+												rowProps={{
+													helpTexts: [
+														t('form:help.common_datetime_format'),
+													],
+												}}
 												render={({ field, fieldState }) => {
 													const { ref, ...rest } = field;
 													const { error } = fieldState;

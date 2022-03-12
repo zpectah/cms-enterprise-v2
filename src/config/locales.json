@@ -5,9 +5,9 @@
     "label": "Čeština",
     "label_int": "Czech",
     "format": {
-      "date": "DD.MM.YYYY",
-      "time": "hh:mm:ss",
-      "datetime": "DD.MM.YYYY hh:mm:ss"
+      "date": "dd.MM.yyyy",
+      "time": "HH:mm:ss",
+      "datetime": "dd.MM.yyyy HH:mm:ss"
     },
     "direction": "ltr"
   },
@@ -17,9 +17,9 @@
     "label": "English",
     "label_int": "English (US)",
     "format": {
-      "date": "YYYY-MM-DD",
-      "time": "hh:mm:ss",
-      "datetime": "YYYY-MM-DD hh:mm:ss"
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
     },
     "direction": "ltr"
   },
@@ -29,9 +29,9 @@
     "label": "English",
     "label_int": "English (UK)",
     "format": {
-      "date": "YYYY-MM-DD",
-      "time": "hh:mm:ss",
-      "datetime": "YYYY-MM-DD hh:mm:ss"
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
     },
     "direction": "ltr"
   },
@@ -41,9 +41,9 @@
     "label": "Slovenčina",
     "label_int": "Slovak",
     "format": {
-      "date": "DD.MM.YYYY",
-      "time": "hh:mm:ss",
-      "datetime": "DD.MM.YYYY hh:mm:ss"
+      "date": "dd.MM.yyyy",
+      "time": "HH:mm:ss",
+      "datetime": "dd.MM.yyyy HH:mm:ss"
     },
     "direction": "ltr"
   },
@@ -53,9 +53,9 @@
     "label": "Polish",
     "label_int": "Polish",
     "format": {
-      "date": "YYYY-MM-DD",
-      "time": "hh:mm:ss",
-      "datetime": "YYYY-MM-DD hh:mm:ss"
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
     },
     "direction": "ltr"
   },
@@ -65,9 +65,9 @@
     "label": "Hungarian",
     "label_int": "Hungarian",
     "format": {
-      "date": "YYYY-MM-DD",
-      "time": "hh:mm:ss",
-      "datetime": "YYYY-MM-DD hh:mm:ss"
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
     },
     "direction": "ltr"
   },
@@ -77,9 +77,9 @@
     "label": "German",
     "label_int": "German (Germany)",
     "format": {
-      "date": "YYYY-MM-DD",
-      "time": "hh:mm:ss",
-      "datetime": "YYYY-MM-DD hh:mm:ss"
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
     },
     "direction": "ltr"
   },
@@ -89,9 +89,9 @@
     "label": "German",
     "label_int": "German (Austria)",
     "format": {
-      "date": "YYYY-MM-DD",
-      "time": "hh:mm:ss",
-      "datetime": "YYYY-MM-DD hh:mm:ss"
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
     },
     "direction": "ltr"
   },
@@ -101,9 +101,9 @@
     "label": "German",
     "label_int": "German (Switzerland)",
     "format": {
-      "date": "YYYY-MM-DD",
-      "time": "hh:mm:ss",
-      "datetime": "YYYY-MM-DD hh:mm:ss"
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
     },
     "direction": "ltr"
   },
@@ -113,9 +113,9 @@
     "label": "French",
     "label_int": "French (France)",
     "format": {
-      "date": "YYYY-MM-DD",
-      "time": "hh:mm:ss",
-      "datetime": "YYYY-MM-DD hh:mm:ss"
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
     },
     "direction": "ltr"
   },
@@ -125,9 +125,9 @@
     "label": "French",
     "label_int": "French (Switzerland)",
     "format": {
-      "date": "YYYY-MM-DD",
-      "time": "hh:mm:ss",
-      "datetime": "YYYY-MM-DD hh:mm:ss"
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
     },
     "direction": "ltr"
   },
@@ -137,9 +137,9 @@
     "label": "Spanish",
     "label_int": "Spanish (Spain)",
     "format": {
-      "date": "YYYY-MM-DD",
-      "time": "hh:mm:ss",
-      "datetime": "YYYY-MM-DD hh:mm:ss"
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
     },
     "direction": "ltr"
   },
@@ -149,9 +149,9 @@
     "label": "Portuguese",
     "label_int": "Portuguese (Portugal)",
     "format": {
-      "date": "YYYY-MM-DD",
-      "time": "hh:mm:ss",
-      "datetime": "YYYY-MM-DD hh:mm:ss"
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
     },
     "direction": "ltr"
   },
@@ -161,9 +161,9 @@
     "label": "Ukrainian",
     "label_int": "Ukrainian (Ukraine)",
     "format": {
-      "date": "YYYY-MM-DD",
-      "time": "hh:mm:ss",
-      "datetime": "YYYY-MM-DD hh:mm:ss"
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
     },
     "direction": "ltr"
   }

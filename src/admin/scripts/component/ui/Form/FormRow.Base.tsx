@@ -45,6 +45,10 @@ const InputColumn = styled('div')`
 const InputRow = styled('div')``;
 const HelpersRow = styled('div')``;
 const ErrorsRow = styled('div')``;
+const TextItem = styled('div')`
+	padding-left: .75rem;
+	color: rgb(150,150,150);
+`;
 
 const FormRowBase: React.FC<FormRowBaseProps> = (props) => {
 	const {
@@ -115,25 +119,31 @@ const FormRowBase: React.FC<FormRowBaseProps> = (props) => {
 					{helpTexts && (
 						<HelpersRow>
 							{helpTexts.map((text, index) => (
-								<Typography
+								<TextItem
 									key={index}
-									variant="caption"
 								>
-									{text}
-								</Typography>
+									<Typography
+										variant="caption"
+									>
+										{text}
+									</Typography>
+								</TextItem>
 							))}
 						</HelpersRow>
 					)}
 					{errors && (
 						<ErrorsRow>
 							{errors.map((text, index) => (
-								<Typography
+								<TextItem
 									key={index}
-									variant="caption"
-									color="error"
 								>
-									{t(`messages:form.${text}`)}
-								</Typography>
+									<Typography
+										variant="caption"
+										color="error"
+									>
+										{t(`messages:form.${text}`)}
+									</Typography>
+								</TextItem>
 							))}
 						</ErrorsRow>
 					)}

@@ -505,6 +505,11 @@ const MembersDetail = (props: MembersDetailProps) => {
 											control={control}
 											rules={{}}
 											defaultValue={detailData.birthdate}
+											rowProps={{
+												helpTexts: [
+													t('form:help.common_date_format'),
+												],
+											}}
 											render={({ field, fieldState }) => {
 												const { ref, ...rest } = field;
 												const { error } = fieldState;
