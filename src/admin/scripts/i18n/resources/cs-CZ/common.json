@@ -9,7 +9,8 @@
     "cancel": "Zrušit",
     "confirm": "Potvrdit",
     "save": "Uložit",
-    "save_changes": "Uložit změny"
+    "save_changes": "Uložit změny",
+    "remove": "Odstranit"
   },
   "common": {
     "allRightsReserved": "Všechna práva vyhrazena"

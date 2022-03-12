@@ -71,7 +71,7 @@ const CardBase = (props: CardBaseProps) => {
 		<Card
 			sx={{
 				width: '100%',
-				mb: 1.5,
+				mb: 2,
 			}}
 			{...rest}
 		>

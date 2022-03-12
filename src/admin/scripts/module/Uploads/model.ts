@@ -10,7 +10,6 @@ export default {
 	file_extension: '',
 	file_mime: '',
 	file_size: 0,
-	created: '',
 	active: true,
 	lang: {},
 } as UploadsItemProps;

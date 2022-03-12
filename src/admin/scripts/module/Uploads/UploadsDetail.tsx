@@ -110,7 +110,9 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 				<>
 					{detailData.id === 'new' ? (
 						<>
-							<Uploader />
+							<Uploader
+								modelData={detailData}
+							/>
 						</>
 					) : (
 						<ControlledDetailFormLayout

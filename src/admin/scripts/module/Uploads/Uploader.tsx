@@ -2,25 +2,51 @@ import React, { useCallback, useState } from 'react';
 
 import config from '../../config';
 import { uploadItemTemporaryType } from '../../types/uploader';
+import { UploadsItemProps } from '../../types/model';
 import FileUploader from '../../component/FileUploader';
 import UploaderQueueItem from './UploaderQueueItem';
 
-export interface UploaderProps {}
+type combinedUploadsItemProps = uploadItemTemporaryType & UploadsItemProps;
+export interface UploaderProps {
+	modelData: UploadsItemProps;
+}
 
 const Uploader = (props: UploaderProps) => {
-	const {} = props;
+	const {
+		modelData,
+	} = props;
 
-	const [ queue, setQueue ] = useState<uploadItemTemporaryType[]>([]);
+	const [ queue, setQueue ] = useState<combinedUploadsItemProps[]>([]);
 
-	const onAddHandler = useCallback((files: uploadItemTemporaryType[]) => {
+	const onItemChange = (data: UploadsItemProps, index: number) => {
+		console.log('onItemChange', data, queue[index]);
+	};
+
+	const getUpdatedQueue = (files: uploadItemTemporaryType[]) => {
+		const tmp = [];
+		const ni = [
+			...files,
+		];
+		ni.map((file) => {
+			tmp.push({
+				...modelData,
+				...file,
+				type: file.file_type,
+				name: file.file_name.split('.').slice(0, -1).join('.'),
+			});
+		});
+
+		return tmp;
+	};
+
+	const addHandler = useCallback((files: uploadItemTemporaryType[]) => {
 		const tmp = [
 			...queue,
-			...files,
+			...getUpdatedQueue(files),
 		];
 		setQueue(tmp);
 	}, [ queue ]);
-
-	const onRemoveHandler = useCallback((id: string) => {
+	const removeHandler = useCallback((id: string) => {
 		const tmp = [ ...queue ];
 		const item = tmp.find((item) => item.tmp_id === id);
 		const index = tmp.indexOf(item);
@@ -38,7 +64,7 @@ const Uploader = (props: UploaderProps) => {
 
 				<FileUploader
 					id="ModelFileUploader"
-					onAdd={onAddHandler}
+					onAdd={addHandler}
 					compact={queue.length > 0}
 					disableDragAndDrop={queue.length > 0}
 					multiple
@@ -49,12 +75,12 @@ const Uploader = (props: UploaderProps) => {
 
 			<br />
 
-			{queue.map((file) => (
+			{queue.map((file, index) => (
 				<UploaderQueueItem
 					key={file.tmp_id}
 					data={file}
-					onRemove={onRemoveHandler}
-					onSubmit={(item) => {console.log('onSubmit', item) }}
+					onRemove={removeHandler}
+					onChange={(file) => onItemChange(file, index)}
 				/>
 			))}
 

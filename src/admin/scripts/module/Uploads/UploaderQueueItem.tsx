@@ -2,31 +2,54 @@ import React from 'react';
 import {
 	Stack,
 	Typography,
+	Divider,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
+import { file as fileUtils } from '../../../../../utils/helpers';
+import { UPLOAD_IMAGE_LIMIT, UPLOAD_FILE_LIMIT } from '../../constants';
 import { uploadItemTemporaryType } from '../../types/uploader';
 import { UploadsItemProps } from '../../types/model';
 import {
 	Card,
-	DeleteButton,
-	SubmitButton,
 	Button,
+	ControlledForm,
+	ControlledFormRow,
+	Section,
+	Input,
+	Textarea,
+	LanguageFieldset,
+	Chip,
+	ChipProps,
 } from '../../component/ui';
 import ImageCropper from '../../component/ImageCropper';
 
+type combinedUploadsItemProps = uploadItemTemporaryType & UploadsItemProps;
 export interface UploaderQueueItemProps {
-	data: uploadItemTemporaryType;
+	data: combinedUploadsItemProps;
 	onRemove: (id: string) => void;
-	// onSubmit?: (item: UploadsItemProps) => Promise<unknown>;
-	onSubmit?: (item: UploadsItemProps) => void; // TODO
+	onChange?: (item: combinedUploadsItemProps) => void;
 }
 
 const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 	const {
 		data,
 		onRemove,
-		onSubmit,
+		onChange,
 	} = props;
+
+	const { t } = useTranslation([ 'common', 'form' ]);
+
+	const getSizeColor = () => {
+		let color = 'info';
+		if (data.file_type === 'image') {
+			if (data.file_size >= (UPLOAD_IMAGE_LIMIT / 1.5)) color = 'warning';
+		} else {
+			if (data.file_size >= (UPLOAD_FILE_LIMIT / 1.5)) color = 'warning';
+		}
+
+		return color as ChipProps['color'];
+	};
 
 	return (
 		<Card
@@ -34,6 +57,15 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 			title={data.file_name}
 			collapsible
 			collapse
+			cardContentProps={{
+				sx: [
+					{
+						'&:last-child': {
+							pb: 0,
+						},
+					},
+				],
+			}}
 			actionsNode={
 				<Stack
 					direction="row"
@@ -47,17 +79,22 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 						direction="row"
 						alignItems="center"
 						justifyContent="space-between"
+						spacing={1}
 						sx={{
 							px: 1,
 						}}
 					>
-						<Typography
-							variant="caption"
-						>
-							Mime: {data.file_mime}
-							&nbsp;|
-							Size: {data.file_size}
-						</Typography>
+						<Chip
+							label={fileUtils.formatBytes(data.file_size)}
+							size="small"
+							color={getSizeColor()}
+							variant="outlined"
+						/>
+						<Chip
+							label={data.file_mime}
+							size="small"
+							variant="outlined"
+						/>
 					</Stack>
 					<Stack
 						direction="row"
@@ -66,39 +103,118 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 						spacing={2}
 					>
 						<Button
-							color="success"
-						>
-							submit single ...
-						</Button>
-						<Button
 							color="warning"
 							onClick={() => onRemove(data.tmp_id)}
 						>
-							remove from queue
+							{t('btn.remove')}
 						</Button>
 					</Stack>
 				</Stack>
 			}
 		>
 
-			{data.file_name} |
-			{data.file_size} |
-			{data.file_mime}
-
-			<br />
-
-
-
-			<br />
-
 			{data.file_type === 'image' && (
 				<ImageCropper />
 			)}
 
+			<Divider
+				sx={{
+					mt: 2,
+					mb: 3,
+				}}
+			/>
 
-			<br />
-			<br />
+			<ControlledForm
+				dataId="UploaderQueueItemForm"
+				defaultValues={data}
+				onChange={onChange}
+				renderMain={(form) => {
+					const { token, form: { control } } = form;
 
+					return (
+						<>
+							<Section
+								style={{
+									marginBottom: '.5rem',
+								}}
+								noSpacing
+							>
+								<ControlledFormRow
+									name="name"
+									control={control}
+									rules={{ required: true }}
+									defaultValue={''}
+									render={({ field, fieldState }) => {
+										const { ref, ...rest } = field;
+										const { error } = fieldState;
+
+										return (
+											<Input
+												label={t('form:label.name')}
+												placeholder={t('form:placeholder.name')}
+												id={`${token}_name`}
+												error={!!error}
+												required
+												inputRef={ref}
+												{...rest}
+											/>
+										);
+									}}
+								/>
+							</Section>
+							<LanguageFieldset
+								render={(lang) => (
+									<>
+										<ControlledFormRow
+											name={`lang.${lang}.label`}
+											control={control}
+											rules={{}}
+											defaultValue={''}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
+
+												return (
+													<Input
+														label={t('form:label.label')}
+														placeholder={t('form:placeholder.label')}
+														id={`${token}_${lang}_label`}
+														error={!!error}
+														inputRef={ref}
+														{...rest}
+													/>
+												);
+											}}
+										/>
+										<ControlledFormRow
+											name={`lang.${lang}.description`}
+											control={control}
+											rules={{}}
+											defaultValue={''}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
+
+												return (
+													<Textarea
+														label={t('form:label.description')}
+														placeholder={t('form:placeholder.description')}
+														id={`${token}_${lang}_description`}
+														error={!!error}
+														inputRef={ref}
+														rows={4}
+														{...rest}
+													/>
+												);
+											}}
+										/>
+									</>
+								)}
+							/>
+						</>
+					);
+				}}
+			/>
 		</Card>
 	);
 };

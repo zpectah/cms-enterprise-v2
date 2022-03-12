@@ -20,6 +20,7 @@ export interface ControlledFormProps extends UseFormProps {
 	renderActions?: (form: ControlledFormRenderProps) => React.ReactNode;
 	onSubmit?: (data: any, e: any) => void;
 	onError?: (fields: any) => void;
+	onChange?: (fields: any) => void;
 	mandatoryInfo?: boolean;
 }
 
@@ -34,6 +35,7 @@ const ControlledForm = (props: ControlledFormProps) => {
 		renderActions,
 		onSubmit,
 		onError,
+		onChange,
 		mode = 'all',
 		mandatoryInfo,
 		...rest
@@ -52,6 +54,9 @@ const ControlledForm = (props: ControlledFormProps) => {
 	const errorHandler = (fields: any) => {
 		if (onError) onError(fields);
 	};
+	const changeHandler = () => {
+		if (onChange) onChange(form.form.watch());
+	};
 
 	return (
 		<form
@@ -62,6 +67,7 @@ const ControlledForm = (props: ControlledFormProps) => {
 				width: '100%',
 			}}
 			onSubmit={form.form.handleSubmit(onSubmit,  errorHandler)}
+			onChange={changeHandler}
 			{...formProps}
 			{...getTestDataAttr(dataId)}
 		>

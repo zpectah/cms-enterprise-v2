@@ -1,5 +1,9 @@
 import React from 'react';
-import Typography, { TypographyProps } from '@mui/material/Typography';
+import {
+	Typography,
+	TypographyProps,
+	GlobalStylesProps,
+} from '@mui/material';
 import { styled, Divider } from '@mui/material';
 
 import getTestDataAttr from '../../../utils/getTestDataAttr';
@@ -13,7 +17,7 @@ const Content = styled('div')`
 	width: 100%;
 `;
 
-export interface SectionBaseProps {
+export interface SectionBaseProps extends React.HTMLProps<HTMLElement>, React.HTMLAttributes<HTMLElement> {
 	dataId?: string;
 	title?: string;
 	subtitle?: string;
@@ -33,6 +37,7 @@ const SectionBase: React.FC<SectionBaseProps> = (props) => {
 		noSpacing,
 		titleVariant = 'h3',
 		divider,
+		style,
 	} = props;
 
 	return (
@@ -40,6 +45,7 @@ const SectionBase: React.FC<SectionBaseProps> = (props) => {
 			style={{
 				marginBottom: noSpacing ? '0' : '2.5rem',
 				display: !invisible ? 'flex' : 'none',
+				...style,
 			}}
 			{...getTestDataAttr(dataId)}
 		>
