@@ -1,10 +1,16 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	Stack,
 	Typography,
 	Divider,
+	Box,
 } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import AudiotrackIcon from '@mui/icons-material/Audiotrack';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import ArticleIcon from '@mui/icons-material/Article';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 
 import { file as fileUtils } from '../../../../../utils/helpers';
 import { UPLOAD_IMAGE_LIMIT, UPLOAD_FILE_LIMIT } from '../../constants';
@@ -112,18 +118,55 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 				</Stack>
 			}
 		>
-
-			{data.file_type === 'image' && (
-				<ImageCropper />
+			{data.file_type === 'image' ? (
+				<ImageCropper
+					source={data.file_base64}
+					onConfirm={(blob) => { console.log('onConfirm', blob) }}
+				/>
+			) : (
+				<Box
+					sx={{
+						width: '100%',
+						mb: 2,
+						p: 4,
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						flexDirection: 'column',
+					}}
+				>
+					{
+						{
+							'audio': (
+								<AudiotrackIcon fontSize="large" />
+							),
+							'video': (
+								<OndemandVideoIcon fontSize="large" />
+							),
+							'document': (
+								<ArticleIcon fontSize="large" />
+							),
+							'archive': (
+								<AttachFileIcon fontSize="large" />
+							),
+							'undefined': (
+								<QuestionMarkIcon fontSize="large" />
+							),
+						}[ data.file_type ]
+					}
+					<Typography
+						variant="caption"
+					>
+						{data.file_name}
+					</Typography>
+				</Box>
 			)}
-
 			<Divider
 				sx={{
 					mt: 2,
 					mb: 3,
 				}}
 			/>
-
 			<ControlledForm
 				dataId="UploaderQueueItemForm"
 				defaultValues={data}

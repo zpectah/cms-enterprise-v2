@@ -1,8 +1,16 @@
 import React, { useCallback, useState } from 'react';
+import {
+	Divider,
+	Stack,
+} from '@mui/material';
 
 import config from '../../config';
 import { uploadItemTemporaryType } from '../../types/uploader';
 import { UploadsItemProps } from '../../types/model';
+import {
+	Button,
+	PrimaryButton,
+} from '../../component/ui';
 import FileUploader from '../../component/FileUploader';
 import UploaderQueueItem from './UploaderQueueItem';
 
@@ -59,9 +67,9 @@ const Uploader = (props: UploaderProps) => {
 			<div
 				style={{
 					width: '100%',
+					marginBottom: '2rem',
 				}}
 			>
-
 				<FileUploader
 					id="ModelFileUploader"
 					onAdd={addHandler}
@@ -69,12 +77,7 @@ const Uploader = (props: UploaderProps) => {
 					disableDragAndDrop={queue.length > 0}
 					multiple
 				/>
-
 			</div>
-
-
-			<br />
-
 			{queue.map((file, index) => (
 				<UploaderQueueItem
 					key={file.tmp_id}
@@ -83,7 +86,29 @@ const Uploader = (props: UploaderProps) => {
 					onChange={(file) => onItemChange(file, index)}
 				/>
 			))}
-
+			{queue.length > 0 && (
+				<Stack
+					direction="row"
+					alignItems="center"
+					justifyContent="center"
+					spacing={2}
+					sx={{
+						mt: 2.5,
+					}}
+				>
+					<PrimaryButton
+						onClick={() => { console.log('on submit queue', queue) }}
+					>
+						Submit queue
+					</PrimaryButton>
+					<Button
+						color="warning"
+						onClick={() => setQueue([])}
+					>
+						Clear queue
+					</Button>
+				</Stack>
+			)}
 		</>
 	);
 };
