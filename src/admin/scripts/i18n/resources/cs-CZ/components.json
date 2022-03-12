@@ -121,6 +121,10 @@
     }
   },
   "FileUploader": {
+    "label": {
+      "select_files": "Přetáhněte nebo vyberte soubory",
+      "drop_files": "Přetáhněte soubory sem"
+    },
     "messages": {
       "file_not_supported": "Nepodporovaný soubor",
       "file_over_size_limit": "Velikost souboru překračuje povolený limit",

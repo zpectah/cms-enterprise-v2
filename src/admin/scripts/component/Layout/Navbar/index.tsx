@@ -12,7 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import LanguageIcon from '@mui/icons-material/Language';
 import MessageIcon from '@mui/icons-material/Message';
 
@@ -93,7 +93,7 @@ const Navbar = (props: NavbarProps) => {
 			key: 'uploads',
 			path: `${root}/${routes.uploads.path}`,
 			label: routes.uploads.label,
-			icon: (<CloudUploadIcon {...iconProps} />),
+			icon: (<CloudDownloadIcon {...iconProps} />),
 			active: true,
 		},
 		{

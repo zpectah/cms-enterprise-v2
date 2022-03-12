@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { styled } from '@mui/material';
+import { styled, Box, BoxProps } from '@mui/material';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 
 import { file as fileUtils } from '../../../../../utils/helpers';
 import { UPLOAD_IMAGE_LIMIT, UPLOAD_FILE_LIMIT } from '../../constants';
 import useToasts from '../../hooks/useToasts';
 import { getFileType } from '../../utils/getFileType';
+import { BarPreloader } from '../ui';
 
 export interface FileUploaderProps {
+	id?: string;
 	multiple?: boolean;
 	onAdd: (files: any | any[]) => void;
 	render?: () => React.ReactNode;
-	id?: string;
+	disableDragAndDrop?: boolean;
+	compact?: boolean;
+	rounderProps?: BoxProps;
 }
 
 const StyledLabelWrapper = styled('label')`
@@ -25,13 +31,55 @@ const StyledInputElement = styled('input')`
 	left: 0;
 	opacity: 0;
 `;
+const DragWrapper = styled('label')`
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1250;
+	color: rgb(200,200,200);
+	background-color: rgba(25,25,25,.75);
+`;
+const UploaderRoundedBox = styled(Box)`
+	width: 100%;
+	padding: 5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	border: 5px dashed rgba(200,200,200,.5);
+	border-radius: 1rem;
+`;
+const FakeUploaderButton = styled('span')`
+	width: auto;
+	height: auto;
+	padding: .5rem .75rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	border: 1px solid rgba(175,175,175,.5);
+	border-radius: 4px;
+	cursor: pointer;
+	
+	&:hover{
+		border-color: rgba(175,175,175,.75);
+	}
+`;
 
 const FileUploader = (props: FileUploaderProps) => {
 	const {
+		id = 'FileUploader',
 		multiple,
 		onAdd,
 		render,
-		id = 'FileUploader',
+		disableDragAndDrop,
+		compact,
+		rounderProps,
 	} = props;
 
 	const { t } = useTranslation([ 'components' ]);
@@ -39,7 +87,7 @@ const FileUploader = (props: FileUploaderProps) => {
 	const [ dragOver, setDragOver ] = useState(false);
 	const { createErrorToast } = useToasts();
 
-	const getFileObject = (blob, file) => {
+	const getFileObject = async (blob, file) => {
 		const file_extension = file.name.split('.').pop().toLowerCase();
 		const file_type = getFileType(file_extension);
 		const file_size = file.size;
@@ -59,6 +107,8 @@ const FileUploader = (props: FileUploaderProps) => {
 		return getFileObject(blob, file);
 	};
 	const addHandler = async (files: any[]) => {
+		const fileList = [];
+
 		return files.map(async (file) => {
 			const file_extension = file.name.split('.').pop().toLowerCase();
 			const file_type = getFileType(file_extension);
@@ -67,14 +117,16 @@ const FileUploader = (props: FileUploaderProps) => {
 					if (file.size <= UPLOAD_IMAGE_LIMIT) {
 						const fileObject = await getFileBlob(file);
 
-						return onAdd([ fileObject ]);
+						fileList.push(fileObject);
+						return onAdd(fileList);
 					} else {
 						createErrorToast({ title: t('components:FileUploader.messages.image_over_size_limit') });
 					}
 				} else if (file.size <= UPLOAD_FILE_LIMIT) {
 					const fileObject = await getFileBlob(file);
 
-					return onAdd([ fileObject ]);
+					fileList.push(fileObject);
+					return onAdd(fileList);
 				} else {
 					createErrorToast({ title: t('components:FileUploader.messages.file_over_size_limit') });
 				}
@@ -91,10 +143,10 @@ const FileUploader = (props: FileUploaderProps) => {
 		multiple,
 		onChange: async (e) => {
 			setProcessing(true);
-			let files = [...e.target.files];
+			const files = Array.from(e.target.files);
 			if (files) {
+				setProcessing(false);
 				await addHandler(files);
-				await setProcessing(false);
 			}
 		},
 	};
@@ -102,12 +154,12 @@ const FileUploader = (props: FileUploaderProps) => {
 		onDrop: async (e) => {
 			e.stopPropagation();
 			e.preventDefault();
-			setDragOver(false);
 			setProcessing(true);
-			let files = [...e.dataTransfer.files];
+			setDragOver(false);
+			const files = Array.from(e.dataTransfer.files);
 			if (files) {
+				setProcessing(false);
 				await addHandler(files);
-				await setProcessing(false);
 			}
 		},
 		onDragOver: (e) => {
@@ -133,16 +185,34 @@ const FileUploader = (props: FileUploaderProps) => {
 	};
 
 	const onInit = () => {
-		window.addEventListener('mouseup', dragEvents.onDragLeave);
-		window.addEventListener('dragover', dragEvents.onDragOver);
-		window.addEventListener('dragenter', dragEvents.onDragEnter);
-		window.addEventListener('drop', dragEvents.onDrop);
+		if (!disableDragAndDrop) {
+			window.addEventListener('mouseup', dragEvents.onDragLeave);
+			window.addEventListener('dragover', dragEvents.onDragOver);
+			window.addEventListener('dragenter', dragEvents.onDragEnter);
+			window.addEventListener('drop', dragEvents.onDrop);
+		}
 	};
 	const onDestroy = () => {
-		window.removeEventListener('mouseup', dragEvents.onDragLeave);
-		window.removeEventListener('dragover', dragEvents.onDragOver);
-		window.removeEventListener('dragenter', dragEvents.onDragEnter);
-		window.removeEventListener('drop', dragEvents.onDrop);
+		if (!disableDragAndDrop) {
+			window.removeEventListener('mouseup', dragEvents.onDragLeave);
+			window.removeEventListener('dragover', dragEvents.onDragOver);
+			window.removeEventListener('dragenter', dragEvents.onDragEnter);
+			window.removeEventListener('drop', dragEvents.onDrop);
+		}
+	};
+
+	const renderUploaderWrapper = (children: React.ReactNode) => {
+		if (compact) {
+			return children;
+		}
+
+		return (
+			<UploaderRoundedBox
+				{...rounderProps}
+			>
+				{children}
+			</UploaderRoundedBox>
+		);
 	};
 
 	useEffect(() => {
@@ -153,15 +223,37 @@ const FileUploader = (props: FileUploaderProps) => {
 
 	return (
 		<>
-			{dragOver ? 'dragOver' : '...'}
-			{processing ? 'processing' : 'no processing'}
+			{processing && <BarPreloader />}
+			{dragOver && (
+				<DragWrapper
+					onDragLeave={dragEvents.onDragLeave}
+					htmlFor={inputProps.id}
+				>
+					<FakeUploaderButton
+						style={{ borderColor: 'transparent' }}
+					>
+						<CloudDownloadIcon
+							fontSize="large"
+							sx={{
+								mr: 2,
+							}}
+						/>
+						{t('components:FileUploader.label.drop_files')}
+					</FakeUploaderButton>
+				</DragWrapper>
+			)}
 			<StyledLabelWrapper
 				htmlFor={inputProps.id}
 			>
-				{render ? render() : (
-					<>
-						Select files to upload
-					</>
+				{render ? render() : renderUploaderWrapper(
+					<FakeUploaderButton>
+						<FileUploadIcon
+							sx={{
+								mr: 1,
+							}}
+						/>
+						{t('components:FileUploader.label.select_files')}
+					</FakeUploaderButton>
 				)}
 				<StyledInputElement
 					{...inputProps}
