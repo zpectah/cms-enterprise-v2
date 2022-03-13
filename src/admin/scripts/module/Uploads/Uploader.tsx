@@ -28,8 +28,20 @@ const Uploader = (props: UploaderProps) => {
 	const { t } = useTranslation([ 'components' ]);
 	const [ queue, setQueue ] = useState<combinedUploadsItemProps[]>([]);
 
-	const onItemChange = (data: UploadsItemProps, index: number) => {
+	const onItemChange = (data: combinedUploadsItemProps, index: number) => {
 		console.log('onItemChange', data, queue[index]);
+
+		const nqf = [
+			...queue,
+		];
+		nqf[index] = {
+			...data,
+		};
+
+		console.log('new queue item data', nqf);
+
+		setQueue(nqf);
+
 	};
 
 	const getUpdatedQueue = (files: uploadItemTemporaryType[]) => {
@@ -86,6 +98,10 @@ const Uploader = (props: UploaderProps) => {
 					data={file}
 					onRemove={removeHandler}
 					onChange={(file) => onItemChange(file, index)}
+					onCropImageUpdate={(file, blob) => onItemChange({
+						...file,
+						fileBase64_cropped: blob,
+					}, index)}
 				/>
 			))}
 			{queue.length > 0 && (

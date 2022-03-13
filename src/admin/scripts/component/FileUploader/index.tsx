@@ -102,7 +102,7 @@ const FileUploader = (props: FileUploaderProps) => {
 			file_size,
 			file_mime: file.type,
 			file_name: file.name,
-			file_base64: blob,
+			fileBase64: blob,
 		} as uploadItemTemporaryType;
 	};
 	const getFileBlob = async (file) => {

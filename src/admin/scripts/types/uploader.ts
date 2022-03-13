@@ -5,5 +5,5 @@ export type uploadItemTemporaryType = {
 	file_size: number,
 	file_mime: string,
 	file_name: string,
-	file_base64: Blob,
+	fileBase64: Blob,
 };

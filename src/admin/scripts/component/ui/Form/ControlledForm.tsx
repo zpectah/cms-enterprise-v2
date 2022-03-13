@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, UseFormReturn, UseFormProps } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Alert, Typography } from '@mui/material';
@@ -22,6 +22,7 @@ export interface ControlledFormProps extends UseFormProps {
 	onError?: (fields: any) => void;
 	onChange?: (fields: any) => void;
 	mandatoryInfo?: boolean;
+	onTrigger?: (name: string | string[] | readonly string[]) => Promise<{ name: string | string[] | readonly string[] }>;
 }
 
 const ControlledForm = (props: ControlledFormProps) => {
@@ -38,6 +39,7 @@ const ControlledForm = (props: ControlledFormProps) => {
 		onChange,
 		mode = 'all',
 		mandatoryInfo,
+		onTrigger,
 		...rest
 	} = props;
 

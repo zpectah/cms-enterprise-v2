@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
 	Stack,
@@ -35,6 +35,7 @@ export interface UploaderQueueItemProps {
 	data: combinedUploadsItemProps;
 	onRemove: (id: string) => void;
 	onChange?: (item: combinedUploadsItemProps) => void;
+	onCropImageUpdate?: (item: any, blob: Blob | string | null) => void;
 }
 
 const UploaderQueueItem = (props: UploaderQueueItemProps) => {
@@ -42,10 +43,10 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 		data,
 		onRemove,
 		onChange,
+		onCropImageUpdate,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'components' ]);
-	const [ croppedImage, setCroppedImage ] = useState<Blob | string | null>(null);
 
 	const getSizeColor = () => {
 		let color = 'info';
@@ -57,6 +58,7 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 
 		return color as ChipProps['color'];
 	};
+	const formChangeHandler = (fields) => onChange(fields);
 
 	return (
 		<Card
@@ -64,6 +66,7 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 			title={data.file_name}
 			collapsible
 			collapse
+			actionsDivider
 			cardContentProps={{
 				sx: [
 					{
@@ -100,16 +103,6 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 							label={data.file_mime}
 							variant="outlined"
 						/>
-						{croppedImage && (
-							<Chip
-								label={t('components:UploaderQueueItem.label.image_is_cropped')}
-								color="secondary"
-								variant="filled"
-								onDelete={() => {
-									setCroppedImage(null);
-								}}
-							/>
-						)}
 					</Stack>
 					<Stack
 						direction="row"
@@ -127,64 +120,72 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 				</Stack>
 			}
 		>
-			{data.file_type === 'image' ? (
-				<ImageCropper
-					source={data.file_base64}
-					onConfirm={(blob) => setCroppedImage(blob)}
-				/>
-			) : (
-				<Box
-					sx={{
-						width: '100%',
-						mb: 2,
-						p: 4,
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center',
-						flexDirection: 'column',
-					}}
-				>
-					{
-						{
-							'audio': (
-								<AudiotrackIcon fontSize="large" />
-							),
-							'video': (
-								<OndemandVideoIcon fontSize="large" />
-							),
-							'document': (
-								<ArticleIcon fontSize="large" />
-							),
-							'archive': (
-								<AttachFileIcon fontSize="large" />
-							),
-							'undefined': (
-								<QuestionMarkIcon fontSize="large" />
-							),
-						}[ data.file_type ]
-					}
-					<Typography
-						variant="caption"
-					>
-						{data.file_name}
-					</Typography>
-				</Box>
-			)}
-			<Divider
-				sx={{
-					mt: 2,
-					mb: 3,
-				}}
-			/>
 			<ControlledForm
 				dataId="UploaderQueueItemForm"
 				defaultValues={data}
-				onChange={onChange}
+				onChange={formChangeHandler}
 				renderMain={(form) => {
-					const { token, form: { control } } = form;
+					const { token, form: {
+						control,
+						setValue,
+						watch,
+					} } = form;
+					const watchCroppedImage = watch('fileBase64_cropped');
 
 					return (
 						<>
+							{data.file_type === 'image' ? (
+								<ImageCropper
+									source={data.fileBase64}
+									onConfirm={(blob) => {
+										setValue('fileBase64_cropped', blob as string);
+										onCropImageUpdate(watch(), blob);
+									}}
+								/>
+							) : (
+								<Box
+									sx={{
+										width: '100%',
+										mb: 2,
+										p: 4,
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+										flexDirection: 'column',
+									}}
+								>
+									{
+										{
+											'audio': (
+												<AudiotrackIcon fontSize="large" />
+											),
+											'video': (
+												<OndemandVideoIcon fontSize="large" />
+											),
+											'document': (
+												<ArticleIcon fontSize="large" />
+											),
+											'archive': (
+												<AttachFileIcon fontSize="large" />
+											),
+											'undefined': (
+												<QuestionMarkIcon fontSize="large" />
+											),
+										}[ data.file_type ]
+									}
+									<Typography
+										variant="caption"
+									>
+										{data.file_name}
+									</Typography>
+								</Box>
+							)}
+							<Divider
+								sx={{
+									mt: 3,
+									mb: 4,
+								}}
+							/>
 							<Section
 								style={{
 									marginBottom: '.5rem',
@@ -263,6 +264,19 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 									</>
 								)}
 							/>
+							{watchCroppedImage && (
+								<Section>
+									<Chip
+										label={t('components:UploaderQueueItem.label.reset_cropped_image')}
+										color="warning"
+										variant="outlined"
+										onDelete={() => {
+											setValue('fileBase64_cropped', null);
+											onCropImageUpdate(watch(), null);
+										}}
+									/>
+								</Section>
+							)}
 						</>
 					);
 				}}
