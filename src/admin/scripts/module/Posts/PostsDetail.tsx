@@ -33,6 +33,7 @@ import {
 	TagsPicker,
 	UsersPicker,
 } from '../../component/Picker';
+import LocationPicker from '../../component/LocationPicker';
 import InfoMetaBlock from '../../component/InfoMetaBlock';
 import getOptionsList from '../../utils/getOptionsList';
 import getLocaleObject from '../../utils/getLocaleObject';
@@ -385,18 +386,21 @@ const PostsDetail = (props: PostsDetailProps) => {
 												rules={{}}
 												defaultValue={detailData.event_location}
 												render={({ field, fieldState }) => {
-													const { ref, ...rest } = field;
+													const {
+														ref,
+														value,
+														onChange,
+													} = field;
 													const { error } = fieldState;
 
 													return (
-														<Input
-															label={t('form:label.location')}
+														<LocationPicker
 															placeholder={t('form:placeholder.location')}
 															id={`${token}_event_location`}
-															error={!!error}
 															inputRef={ref}
-															sx={{ width: { xs: '100%', md: '75%' } }}
-															{...rest}
+															error={!!error}
+															value={value}
+															onSelect={onChange}
 														/>
 													);
 												}}

@@ -10,7 +10,10 @@
     "confirm": "Potvrdit",
     "save": "Uložit",
     "save_changes": "Uložit změny",
-    "remove": "Odstranit"
+    "remove": "Odstranit",
+    "reset": "Vymazat",
+    "close": "Zavřít",
+    "select": "Vybrat"
   },
   "common": {
     "allRightsReserved": "Všechna práva vyhrazena"

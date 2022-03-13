@@ -11,7 +11,7 @@ export default {
 	tags: [],
 	event_start: null,
 	event_end: null,
-	event_location: '',
+	event_location: [ 0, 0 ],
 	event_address: '',
 	event_city: '',
 	event_country: '',

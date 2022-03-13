@@ -120,6 +120,10 @@ const TaskDef = {
 			module: {
 				rules: [
 					{
+						test: /\.css$/i,
+						use: ['style-loader', 'css-loader'],
+					},
+					{
 						test: /\.(js|jsx|ts|tsx)$/,
 						include: _path.resolve(__dirname, 'src'),
 						exclude: /node_modules/,

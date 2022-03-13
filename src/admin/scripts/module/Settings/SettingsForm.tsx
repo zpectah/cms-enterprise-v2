@@ -27,6 +27,7 @@ import {
 	TagPicker,
 	Select,
 } from '../../component/ui';
+import LocationPicker from '../../component/LocationPicker';
 import SettingsLanguageList from './SettingsLanguageList';
 import SettingsLanguageInstaller, { installerRequestProps } from './SettingsLanguageInstaller';
 import getOptionsList from '../../utils/getOptionsList';
@@ -429,16 +430,21 @@ const SettingsForm = (props: SettingsFormProps) => {
 														id: `${token}_company_location`,
 													}}
 													render={({ field, fieldState }) => {
-														const { ref, ...rest } = field;
+														const {
+															ref,
+															value,
+															onChange,
+														} = field;
 														const { error } = fieldState;
 
 														return (
-															<Input
+															<LocationPicker
 																placeholder={t('components:SettingsForm.placeholder.company_location')}
 																id={`${token}_company_location`}
-																error={!!error}
 																inputRef={ref}
-																{...rest}
+																error={!!error}
+																value={value}
+																onSelect={onChange}
 															/>
 														);
 													}}

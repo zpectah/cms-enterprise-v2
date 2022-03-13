@@ -22,6 +22,12 @@
       "weight": "kg",
       "length": "mm",
       "units": "pcs"
+    },
+    "plugin": {
+      "mapbox": {
+        "TOKEN": "pk.eyJ1IjoienBlY3RlciIsImEiOiJja3BhYm5qMDIwc2plMnVuMTUzb3cxdWl6In0.BmfujOqcuQklZDV3HB-JCA",
+        "TOKEN_DEV": "pk.eyJ1IjoiZmFicmljOCIsImEiOiJjaWc5aTV1ZzUwMDJwdzJrb2w0dXRmc2d0In0.p6GGlfyV-WksaDV_KdN27A"
+      }
     }
   },
   "admin": {

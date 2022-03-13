@@ -60,3 +60,4 @@ export const UPLOAD_IMAGE_CROP_OPTIONS = [
 		value: 9 / 16,
 	},
 ];
+export const MAPBOX_DEFAULT_COORDS = [ -0.13235092163085938, 51.518250335096376 ]; // London

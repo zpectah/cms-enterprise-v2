@@ -130,5 +130,8 @@
       "file_over_size_limit": "Velikost souboru překračuje povolený limit",
       "image_over_size_limit": "Velikost obrázku překračuje povolený limit"
     }
+  },
+  "LocationPicker": {
+    "title": "Vyberte lokalitu"
   }
 }

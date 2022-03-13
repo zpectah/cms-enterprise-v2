@@ -13,7 +13,7 @@ export interface PostsItemModel extends modelItemBase {
 	tags?: number[];
 	event_start?: string | null;
 	event_end?: string | null;
-	event_location?: string;
+	event_location?: [number, number];
 	event_address?: string;
 	event_city?: string;
 	event_country?: string;

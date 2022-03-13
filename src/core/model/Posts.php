@@ -28,6 +28,7 @@ class Posts {
         $row['event_start'] = $row['event_start'] == '' ? null : $row['event_start'];
         $row['event_end'] = $row['event_end'] == '' ? null : $row['event_end'];
         $row['published'] = $row['published'] == '' ? null : $row['published'];
+        $row['event_location'] = $row['event_location'] == '' ? [] : explode(",", $row['event_location']);
         unset($row['deleted']);
 
         return $row;
@@ -136,7 +137,7 @@ class Posts {
             $data['tags'] ? implode(",", $data['tags']) : '',
             $data['event_start'] ?? '',
             $data['event_end'] ?? '',
-            $data['event_location'],
+            $data['event_location'] ? implode(",", $data['event_location']) : '0,0',
             $data['event_address'],
             $data['event_country'],
             $data['event_city'],
@@ -219,7 +220,7 @@ class Posts {
             $data['tags'] ? implode(",", $data['tags']) : '',
             $data['event_start'] ?? '',
             $data['event_end'] ?? '',
-            $data['event_location'],
+            $data['event_location'] ? implode(",", $data['event_location']) : '0,0',
             $data['event_address'],
             $data['event_country'],
             $data['event_city'],

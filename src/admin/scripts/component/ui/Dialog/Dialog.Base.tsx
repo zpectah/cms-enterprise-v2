@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	Dialog,
 	Stack,
 	DialogActions,
 	DialogContent,
+	DialogContentProps,
 	DialogContentText,
 	DialogTitle,
 } from '@mui/material';
 import { DialogProps } from '@mui/material/Dialog';
 
 import {
-	PrimaryButton,
+	Button,
 	CloseIconButton,
 } from '../Button';
 import getTestDataAttr from '../../../utils/getTestDataAttr';
@@ -27,6 +29,7 @@ export interface DialogBaseProps extends DialogProps {
 	showBodyClose?: boolean;
 	footerAlign?: 'space-between' | 'center' | 'space-evenly';
 	keepMounted?: boolean;
+	dialogContentProps?: DialogContentProps;
 }
 
 const DialogBase: React.FC<DialogBaseProps> = (props) => {
@@ -47,9 +50,11 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 		maxWidth = 'md',
 		fullWidth = true,
 		fullScreen,
+		dialogContentProps,
 		...rest
 	} = props;
 
+	const { t } = useTranslation([ 'common' ]);
 	const [ isOpen, setIsOpen ] = useState<boolean>(open);
 
 	const handleClose = () => {
@@ -60,7 +65,7 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 	const renderCloseIconButton = () => {
 		return (
 			<CloseIconButton
-				aria-label="close"
+				aria-label={t('btn.close')}
 				onClick={onClose}
 				dataId={`${id}_icon-close`}
 				sx={{
@@ -94,7 +99,9 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 						{showHeaderClose && renderCloseIconButton()}
 					</DialogTitle>
 				)}
-				<DialogContent>
+				<DialogContent
+					{...dialogContentProps}
+				>
 					{textContent ? (
 						<DialogContentText id={`${id}_description`}>
 							{textContent}
@@ -106,10 +113,10 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 				</DialogContent>
 				<DialogActions>
 					<Stack direction="row" spacing={2} alignItems={footerAlign}>
-						{showFooterClose && <PrimaryButton
+						{showFooterClose && <Button
 							onClick={handleClose}
 							dataId={`${id}_button-close`}
-						>Close</PrimaryButton>}
+						>{t('btn.close')}</Button>}
 						{actions}
 					</Stack>
 				</DialogActions>
