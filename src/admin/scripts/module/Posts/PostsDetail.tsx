@@ -345,6 +345,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 																required: true,
 																sx: { width: { xs: '100%', md: '250px' } }
 															}}
+															required
 															{...rest}
 														/>
 													);
@@ -375,6 +376,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 																required: true,
 																sx: { width: { xs: '100%', md: '250px' } }
 															}}
+															required
 															{...rest}
 														/>
 													);

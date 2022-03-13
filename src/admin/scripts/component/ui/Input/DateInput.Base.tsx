@@ -7,12 +7,16 @@ import DatePicker, { DatePickerProps } from '@mui/lab/DatePicker';
 import getLocaleObject from '../../../utils/getLocaleObject';
 import Input from './Input';
 
-export interface DateInputBaseProps extends Partial<DatePickerProps> {}
+export interface DateInputBaseProps extends Partial<DatePickerProps> {
+	required?: boolean;
+}
 
 const DateInputBase = (props: DateInputBaseProps) => {
 	const {
 		value,
 		onChange,
+		required,
+		InputProps,
 		...rest
 	} = props;
 
@@ -26,8 +30,9 @@ const DateInputBase = (props: DateInputBaseProps) => {
 			<DatePicker
 				value={value}
 				onChange={onChange}
-				renderInput={(params) => <Input {...params} />}
+				renderInput={(params) => <Input required={required} {...params} />}
 				inputFormat={format}
+				InputProps={InputProps}
 				{...rest}
 			/>
 		</LocalizationProvider>

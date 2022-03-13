@@ -7,12 +7,16 @@ import DateTimePicker, { DateTimePickerProps } from '@mui/lab/DateTimePicker';
 import getLocaleObject from '../../../utils/getLocaleObject';
 import Input from './Input';
 
-export interface DateTimeInputBaseProps extends Partial<DateTimePickerProps> {}
+export interface DateTimeInputBaseProps extends Partial<DateTimePickerProps> {
+	required?: boolean;
+}
 
 const DateTimeInputBase = (props: DateTimeInputBaseProps) => {
 	const {
 		value,
 		onChange,
+		required,
+		InputProps,
 		...rest
 	} = props;
 
@@ -26,8 +30,9 @@ const DateTimeInputBase = (props: DateTimeInputBaseProps) => {
 			<DateTimePicker
 				value={value}
 				onChange={onChange}
-				renderInput={(params) => <Input {...params} />}
+				renderInput={(params) => <Input required={required} {...params} />}
 				inputFormat={format}
+				InputProps={InputProps}
 				{...rest}
 			/>
 		</LocalizationProvider>
