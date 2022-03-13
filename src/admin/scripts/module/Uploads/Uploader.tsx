@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	Divider,
 	Stack,
@@ -24,6 +25,7 @@ const Uploader = (props: UploaderProps) => {
 		modelData,
 	} = props;
 
+	const { t } = useTranslation([ 'components' ]);
 	const [ queue, setQueue ] = useState<combinedUploadsItemProps[]>([]);
 
 	const onItemChange = (data: UploadsItemProps, index: number) => {
@@ -99,13 +101,13 @@ const Uploader = (props: UploaderProps) => {
 					<PrimaryButton
 						onClick={() => { console.log('on submit queue', queue) }}
 					>
-						Submit queue
+						{t('components:Uploader.label.submit_queue')}
 					</PrimaryButton>
 					<Button
 						color="warning"
 						onClick={() => setQueue([])}
 					>
-						Clear queue
+						{t('components:Uploader.label.clear_queue')}
 					</Button>
 				</Stack>
 			)}

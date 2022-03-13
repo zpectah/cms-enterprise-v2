@@ -11,9 +11,10 @@
     "save": "Uložit",
     "save_changes": "Uložit změny",
     "remove": "Odstranit",
-    "reset": "Vymazat",
+    "reset": "Resetovat",
     "close": "Zavřít",
-    "select": "Vybrat"
+    "select": "Vybrat",
+    "clear": "Vyčistit"
   },
   "common": {
     "allRightsReserved": "Všechna práva vyhrazena"

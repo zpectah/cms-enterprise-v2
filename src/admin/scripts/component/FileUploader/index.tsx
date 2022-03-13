@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { styled, Box, BoxProps } from '@mui/material';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
@@ -83,6 +83,8 @@ const FileUploader = (props: FileUploaderProps) => {
 		rounderProps,
 	} = props;
 
+	const inputRef = useRef();
+
 	const { t } = useTranslation([ 'components' ]);
 	const [ processing, setProcessing ] = useState(false);
 	const [ dragOver, setDragOver ] = useState(false);
@@ -117,8 +119,8 @@ const FileUploader = (props: FileUploaderProps) => {
 				if (file_type === 'image') {
 					if (file.size <= UPLOAD_IMAGE_LIMIT) {
 						const fileObject = await getFileBlob(file);
-
 						fileList.push(fileObject);
+
 						return onAdd(fileList);
 					} else {
 						createErrorToast({ title: t('components:FileUploader.messages.image_over_size_limit') });
@@ -141,6 +143,7 @@ const FileUploader = (props: FileUploaderProps) => {
 		type: 'file',
 		name: 'FileUploaderInput',
 		id: `${id}_input`,
+		ref: inputRef,
 		multiple,
 		onChange: async (e) => {
 			setProcessing(true);
@@ -148,6 +151,8 @@ const FileUploader = (props: FileUploaderProps) => {
 			if (files) {
 				setProcessing(false);
 				await addHandler(files);
+				e.target.value = null;
+				e.target.files = null;
 			}
 		},
 	};

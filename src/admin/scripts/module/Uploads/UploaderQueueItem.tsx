@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
 	Stack,
@@ -44,7 +44,8 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 		onChange,
 	} = props;
 
-	const { t } = useTranslation([ 'common', 'form' ]);
+	const { t } = useTranslation([ 'common', 'form', 'components' ]);
+	const [ croppedImage, setCroppedImage ] = useState<Blob | string | null>(null);
 
 	const getSizeColor = () => {
 		let color = 'info';
@@ -92,15 +93,23 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 					>
 						<Chip
 							label={fileUtils.formatBytes(data.file_size)}
-							size="small"
 							color={getSizeColor()}
 							variant="outlined"
 						/>
 						<Chip
 							label={data.file_mime}
-							size="small"
 							variant="outlined"
 						/>
+						{croppedImage && (
+							<Chip
+								label={t('components:UploaderQueueItem.label.image_is_cropped')}
+								color="secondary"
+								variant="filled"
+								onDelete={() => {
+									setCroppedImage(null);
+								}}
+							/>
+						)}
 					</Stack>
 					<Stack
 						direction="row"
@@ -121,7 +130,7 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 			{data.file_type === 'image' ? (
 				<ImageCropper
 					source={data.file_base64}
-					onConfirm={(blob) => { console.log('onConfirm', blob) }}
+					onConfirm={(blob) => setCroppedImage(blob)}
 				/>
 			) : (
 				<Box

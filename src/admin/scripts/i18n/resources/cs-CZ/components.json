@@ -131,6 +131,17 @@
       "image_over_size_limit": "Velikost obrázku překračuje povolený limit"
     }
   },
+  "UploaderQueueItem": {
+    "label": {
+      "image_is_cropped": "Obrázek je oříznutý"
+    }
+  },
+  "Uploader": {
+    "label": {
+      "submit_queue": "Nahrát frontu",
+      "clear_queue": "Vyčistit frontu"
+    }
+  },
   "LocationPicker": {
     "title": "Vyberte lokalitu"
   }
