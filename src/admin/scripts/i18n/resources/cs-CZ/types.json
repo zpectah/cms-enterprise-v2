@@ -36,5 +36,10 @@
   "tertiary": "Terciální",
   "custom": "Vlastní",
   "email": "E-mail",
-  "intern": "Interní"
+  "intern": "Interní",
+  "image": "Obrázek",
+  "audio": "Audio",
+  "video": "Video",
+  "document": "Dokument",
+  "archive": "Archiv"
 }

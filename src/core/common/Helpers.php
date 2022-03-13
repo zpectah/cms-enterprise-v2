@@ -218,7 +218,7 @@ class Helpers {
         return file_put_contents($file, $fileData);
     }
 
-    public function put_custom_image ($width, $height, $key, $imageData, $pathPrefix, $fileName, $quality, $crop = false): array {
+    public function put_custom_image ($width, $height, $key, $imageData, $pathPrefix, $fileName, $quality, $crop = false) {
         $image = ImageResize::createFromString($imageData);
         if ($crop) {
             $image -> crop($width, $height, true, ImageResize::CROPCENTER);
@@ -227,9 +227,8 @@ class Helpers {
         }
         $image -> quality_jpg = $quality;
         $file_path = $pathPrefix . $key . '/';
-        $response[$key] = self::put_file($fileName, $image, $file_path);
 
-        return $response;
+        return self::put_file($fileName, $image, $file_path);
     }
 
     public function upload_file ($file_object, $cropped_file_object, $name, $ext, $type): array {
@@ -237,7 +236,7 @@ class Helpers {
         $file_path = null;
         $file_parts = explode(";base64,", $file_object);
         $file_base64 = base64_decode($file_parts[1]);
-        if ($type !== 'unknown') $file_path = PATHS['UPLOADS'] . $type . '/';
+        if ($type !== 'unknown') $file_path = PATHS['UPLOADS'] . '/' . $type . '/';
         if ($file_path) {
             $response['original'] = self::put_file($name . '.' . $ext, $file_base64, $file_path);
             if ($type == 'image') {

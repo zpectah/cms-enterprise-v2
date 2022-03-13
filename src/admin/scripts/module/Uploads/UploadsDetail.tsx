@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import config from '../../config';
+import { file as fileUtils } from '../../../../../utils/helpers';
 import routes from '../../routes';
 import { USER_LEVEL_KEYS } from '../../constants';
 import useSettings from '../../hooks/useSettings';
@@ -21,18 +22,21 @@ import {
 	SwitchControlled,
 	BlockPreloader,
 	BarPreloader,
-	ControlledFormRow,
+	ControlledFormRow, Chip,
 } from '../../component/ui';
 import getOptionsList from '../../utils/getOptionsList';
 import getLocaleObject from '../../utils/getLocaleObject';
 import transformString from '../../utils/transformString';
 import Uploader from './Uploader';
+import ThumbnailView from './ThumbnailView';
+import InfoMetaBlock from '../../component/InfoMetaBlock';
 
 interface UploadsDetailProps {
 	dataItems: UploadsItemProps[];
 	onSubmit: (method: submitMethodProps, master: UploadsItemProps) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
+	onFinishSubmit?: (count: number) => void;
 }
 
 const UploadsDetail = (props: UploadsDetailProps) => {
@@ -41,6 +45,7 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 		onSubmit,
 		onDelete,
 		loading,
+		onFinishSubmit,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
@@ -92,15 +97,25 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 		[ dataItems, params, languageActive ],
 	);
 
-	const getOptionsType = useCallback(
-		() => getOptionsList(config.options.model.Uploads.type, t),
-		[ detailData ],
-	);
+	const getMetaList = useCallback(() => {
+		const list = {
+			'created': detailData.created ? detailData.created : 'N/A',
+			'file_size': detailData.file_size ? fileUtils.formatBytes(detailData.file_size) : 'N/A',
+			'file_path': `${config.environmental.root}uploads/${detailData.type}/${detailData.file_name}`,
+		};
+		if (detailData.type === 'image') {
+			config.options.model.Uploads.image.format.map((format) => {
+				list[`image_${format.key}`] = `${config.environmental.root}uploads/${detailData.type}/${format.key}/${detailData.file_name}`;
+			});
+		}
+
+		return list;
+	}, [ detailData ]);
 
 	return (
 		<>
 			<PageHeading
-				title={detailData?.id === 'new' ? t('model_new.Uploads') : detailData?.name}
+				title={detailData?.id === 'new' ? t('model_new.Uploads') : detailData?.file_name}
 				returnTo={detailOptions.root}
 				createButtonLabel={t('model_new.Uploads')}
 				createButtonPath={`${detailOptions.root}/detail/new`}
@@ -109,196 +124,134 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 			{detailData ? (
 				<>
 					{detailData.id === 'new' ? (
-						<>
-							<Uploader
-								modelData={detailData}
-							/>
-						</>
+						<Uploader
+							modelData={detailData}
+							onSubmitItem={async (master) => {
+								await submitHandler(master);
+							}}
+							onFinishSubmit={onFinishSubmit}
+						/>
 					) : (
-						<ControlledDetailFormLayout
-							mandatoryInfo
-							dataId="UploadsDetailForm"
-							detailId={detailData.id}
-							defaultValues={detailData}
-							onSubmit={submitHandler}
-							onDelete={() => deleteHandler(detailData.id)}
-							renderSidebar={(form) => {
-								const { token, form: { control } } = form;
+						<>
+							<ThumbnailView
+								name={detailData.name}
+								fileType={detailData.type}
+								fileName={detailData.file_name}
+							/>
+							<ControlledDetailFormLayout
+								dataId="UploadsDetailForm"
+								detailId={detailData.id}
+								defaultValues={detailData}
+								onSubmit={submitHandler}
+								onDelete={() => deleteHandler(detailData.id)}
+								renderSidebar={(form) => {
+									const { token, form: { control } } = form;
 
-								return (
-									<>
-										<Section>
+									return (
+										<>
+											<Section>
+												<ControlledFormRow
+													name="active"
+													control={control}
+													rules={{}}
+													defaultValue={detailData.active}
+													render={({ field }) => {
+														const { ref, value, ...rest } = field;
+
+														return (
+															<SwitchControlled
+																id={`${token}_active`}
+																label={t('form:label.active')}
+																checked={value}
+																inputRef={ref}
+																{...rest}
+															/>
+														);
+													}}
+												/>
+											</Section>
+										</>
+									);
+								}}
+								renderPrimary={(form) => {
+									const { form: { register } } = form;
+
+									return (
+										<>
+											{/* ==================== FORM CONTENT ==================== */}
+											<input type="hidden" {...register('id')} />
+											<input type="hidden" {...register('type')} />
+											<input type="hidden" {...register('name')} />
+											{/* ==================== \ FORM CONTENT ==================== */}
+										</>
+									);
+								}}
+								renderLanguage={(form) => {
+									const {
+										token,
+										form: { control },
+										lang,
+									} = form;
+
+									return (
+										<>
+
 											<ControlledFormRow
-												name="active"
+												name={`lang.${lang}.label`}
 												control={control}
 												rules={{}}
-												defaultValue={detailData.active}
-												render={({ field }) => {
-													const { ref, value, ...rest } = field;
+												defaultValue={detailData.lang[lang].label}
+												render={({ field, fieldState }) => {
+													const { ref, ...rest } = field;
+													const { error } = fieldState;
 
 													return (
-														<SwitchControlled
-															id={`${token}_active`}
-															label={t('form:label.active')}
-															checked={value}
+														<Input
+															label={t('form:label.label')}
+															placeholder={t('form:placeholder.label')}
+															id={`${token}_${lang}_label`}
+															error={!!error}
 															inputRef={ref}
 															{...rest}
 														/>
 													);
 												}}
 											/>
-										</Section>
-									</>
-								);
-							}}
-							renderPrimary={(form) => {
-								const { token, form: {
-									control,
-									register,
-									watch,
-								} } = form;
+											<ControlledFormRow
+												name={`lang.${lang}.description`}
+												control={control}
+												rules={{}}
+												defaultValue={detailData.lang[lang].description}
+												render={({ field, fieldState }) => {
+													const { ref, ...rest } = field;
+													const { error } = fieldState;
 
-								const watchType = watch('type');
+													return (
+														<Textarea
+															label={t('form:label.description')}
+															placeholder={t('form:placeholder.description')}
+															id={`${token}_${lang}_description`}
+															error={!!error}
+															inputRef={ref}
+															rows={5}
+															{...rest}
+														/>
+													);
+												}}
+											/>
 
-								return (
-									<>
-										{/* ==================== FORM CONTENT ==================== */}
-										<div>
-
-											<input type="hidden" {...register('id')} />
-
-											<Section>
-
-												<ControlledFormRow
-													name="type"
-													control={control}
-													rules={{ required: true }}
-													defaultValue={detailData.type}
-													render={({ field, fieldState }) => {
-														const { ref, ...rest } = field;
-														const { error } = fieldState;
-
-														return (
-															<Select
-																label={t('form:label.type')}
-																placeholder={t('form:placeholder.type')}
-																id={`${token}_type`}
-																error={!!error}
-																required
-																inputRef={ref}
-																options={getOptionsType()}
-																style={{ width: '250px' }}
-																{...rest}
-															/>
-														);
-													}}
-												/>
-												<ControlledFormRow
-													name="name"
-													control={control}
-													rules={{ required: true }}
-													defaultValue={detailData.name}
-													render={({ field, fieldState }) => {
-														const { ref, ...rest } = field;
-														const { error } = fieldState;
-
-														return (
-															<Input
-																label={t('form:label.name')}
-																placeholder={t('form:placeholder.name')}
-																id={`${token}_name`}
-																error={!!error}
-																required
-																inputRef={ref}
-																style={{ width: '75%' }}
-																{...rest}
-															/>
-														);
-													}}
-												/>
-
-											</Section>
-
-										</div>
-										{/* ==================== \ FORM CONTENT ==================== */}
-									</>
-								);
-							}}
-							renderLanguage={(form) => {
-								const {
-									token,
-									form: { control },
-									lang,
-								} = form;
-
-								return (
-									<>
-
-										<ControlledFormRow
-											name={`lang.${lang}.label`}
-											control={control}
-											rules={{}}
-											defaultValue={detailData.lang[lang].label}
-											render={({ field, fieldState }) => {
-												const { ref, ...rest } = field;
-												const { error } = fieldState;
-
-												return (
-													<Input
-														label={t('form:label.label')}
-														placeholder={t('form:placeholder.label')}
-														id={`${token}_${lang}_label`}
-														error={!!error}
-														inputRef={ref}
-														{...rest}
-													/>
-												);
-											}}
+										</>
+									);
+								}}
+								renderSecondary={() => (
+									<Section>
+										<InfoMetaBlock
+											list={getMetaList()}
 										/>
-										<ControlledFormRow
-											name={`lang.${lang}.description`}
-											control={control}
-											rules={{}}
-											defaultValue={detailData.lang[lang].description}
-											render={({ field, fieldState }) => {
-												const { ref, ...rest } = field;
-												const { error } = fieldState;
-
-												return (
-													<Textarea
-														label={t('form:label.description')}
-														placeholder={t('form:placeholder.description')}
-														id={`${token}_${lang}_description`}
-														error={!!error}
-														inputRef={ref}
-														rows={5}
-														{...rest}
-													/>
-												);
-											}}
-										/>
-
-									</>
-								);
-							}}
-							renderSecondary={(form) => {
-								const { token, form: {
-									watch,
-								} } = form;
-
-								const watchAll = watch();
-
-								return (
-									<>
-								<pre>
-									<code>
-										{JSON.stringify(watchAll, null, 2)}
-									</code>
-								</pre>
-									</>
-								);
-							}}
-						/>
+									</Section>
+								)}
+							/>
+						</>
 					)}
 				</>
 			) : (

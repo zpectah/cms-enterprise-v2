@@ -92,11 +92,12 @@ class Uploads {
                     $response['lang'][] = $helpers -> update_language_row(
                         $conn,
                         $lang,
-                        'INSERT INTO ' . $table_language_name . ' (id, label) VALUES (?,?)',
-                        'is',
+                        'INSERT INTO ' . $table_language_name . ' (id, label, description) VALUES (?,?,?)',
+                        'iss',
                         [
                             $response['id'],
-                            $data['lang'][$lang]['label']
+                            $data['lang'][$lang]['label'] ?? '',
+                            $data['lang'][$lang]['description'] ?? ''
                         ]
                     );
                 }
@@ -134,10 +135,11 @@ class Uploads {
                 $response['lang'][] = $helpers -> update_language_row(
                     $conn,
                     $lang,
-                    'UPDATE ' . $table_language_name . ' SET label = ? WHERE id = ?',
-                    'si',
+                    'UPDATE ' . $table_language_name . ' SET label = ?, description = ? WHERE id = ?',
+                    'ssi',
                     [
-                        $data['lang'][$lang]['label'],
+                        $data['lang'][$lang]['label'] ?? '',
+                        $data['lang'][$lang]['description'] ?? '',
                         $data['id']
                     ]
                 );

@@ -20,7 +20,8 @@
     "items_updated": "Položky byly úspešně aktualizovány",
     "item_deleted": "Položka byla úspešně smazána",
     "items_deleted": "Položky byly úspešně smazány",
-    "data_updated": "Data byla uložena"
+    "data_updated": "Data byla uložena",
+    "all_files_uploaded": "Všechny soubory byly nahrány"
   },
   "profile": {
     "success_update": "Údaje byly aktualizovány",

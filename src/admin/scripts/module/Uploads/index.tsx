@@ -76,6 +76,9 @@ const UploadsModule = () => {
 						onSubmit={submitHandler}
 						onDelete={deleteHandler}
 						loading={uploads_loading}
+						onFinishSubmit={(count) => {
+							if (count > 1) createSuccessToast({ title: t('messages:model.all_files_uploaded') });
+						}}
 					/>
 				} />
 				<Route index element={

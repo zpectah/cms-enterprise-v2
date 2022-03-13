@@ -18,32 +18,32 @@ import UploaderQueueItem from './UploaderQueueItem';
 type combinedUploadsItemProps = uploadItemTemporaryType & UploadsItemProps;
 export interface UploaderProps {
 	modelData: UploadsItemProps;
+	onSubmitItem: (master: UploadsItemProps) => Promise<unknown>;
+	onFinishSubmit?: (count: number) => void;
 }
 
 const Uploader = (props: UploaderProps) => {
 	const {
 		modelData,
+		onSubmitItem,
+		onFinishSubmit,
 	} = props;
 
 	const { t } = useTranslation([ 'components' ]);
 	const [ queue, setQueue ] = useState<combinedUploadsItemProps[]>([]);
+	const [ duplicityError, setDuplicityError ] = useState(false);
 
-	const onItemChange = (data: combinedUploadsItemProps, index: number) => {
-		console.log('onItemChange', data, queue[index]);
+	const checkDuplicates = (queue: combinedUploadsItemProps[]) => {
+		let duplicity = false;
 
-		const nqf = [
-			...queue,
-		];
-		nqf[index] = {
-			...data,
-		};
 
-		console.log('new queue item data', nqf);
+		console.log('check duplicates ...', queue);
 
-		setQueue(nqf);
+		// TODO: check valid across queue (name duplicates) and check if in DB is duplicity ...
 
+
+		setDuplicityError(duplicity);
 	};
-
 	const getUpdatedQueue = (files: uploadItemTemporaryType[]) => {
 		const tmp = [];
 		const ni = [
@@ -57,10 +57,35 @@ const Uploader = (props: UploaderProps) => {
 				name: file.file_name.split('.').slice(0, -1).join('.'),
 			});
 		});
-
+		checkDuplicates(tmp);
 		return tmp;
 	};
 
+	const resetQueueHandler = () => setQueue([]);
+	const itemChangeHandler = (data: combinedUploadsItemProps, index: number) => {
+		const tmp = [
+			...queue,
+		];
+		tmp[index] = {
+			...data,
+		};
+		checkDuplicates(tmp);
+		setQueue(tmp);
+	};
+
+	const submitHandler = useCallback(() => {
+		const count = queue.length;
+		let counter = 0;
+
+		return queue.map((item) => {
+			counter = counter + 1;
+			onSubmitItem(item);
+			if (count === counter && onFinishSubmit) {
+				onFinishSubmit(count);
+				resetQueueHandler();
+			}
+		});
+	}, [ duplicityError, queue ]);
 	const addHandler = useCallback((files: uploadItemTemporaryType[]) => {
 		const tmp = [
 			...queue,
@@ -92,13 +117,13 @@ const Uploader = (props: UploaderProps) => {
 					multiple
 				/>
 			</div>
-			{queue.map((file, index) => (
+			{queue.reverse().map((file, index) => (
 				<UploaderQueueItem
 					key={file.tmp_id}
 					data={file}
 					onRemove={removeHandler}
-					onChange={(file) => onItemChange(file, index)}
-					onCropImageUpdate={(file, blob) => onItemChange({
+					onChange={(file) => itemChangeHandler(file, index)}
+					onCropImageUpdate={(file, blob) => itemChangeHandler({
 						...file,
 						fileBase64_cropped: blob,
 					}, index)}
@@ -115,13 +140,14 @@ const Uploader = (props: UploaderProps) => {
 					}}
 				>
 					<PrimaryButton
-						onClick={() => { console.log('on submit queue', queue) }}
+						onClick={submitHandler}
+						disabled={duplicityError}
 					>
 						{t('components:Uploader.label.submit_queue')}
 					</PrimaryButton>
 					<Button
 						color="warning"
-						onClick={() => setQueue([])}
+						onClick={resetQueueHandler}
 					>
 						{t('components:Uploader.label.clear_queue')}
 					</Button>

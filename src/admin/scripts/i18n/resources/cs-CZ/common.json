@@ -24,7 +24,14 @@
     "no_selected": "Nevybráno",
     "status": "Status",
     "created": "Vytvořeno",
-    "rating": "Hodnocení"
+    "rating": "Hodnocení",
+    "file_size": "Velikost souboru",
+    "file_path": "Cesta k souboru",
+    "image_thumbnail": "Náhled obrázku",
+    "image_small": "Malý obrázek",
+    "image_medium": "Střední obrázek",
+    "image_large": "Velký obrázek",
+    "image_custom_1": "Custom 1 obrázek"
   },
   "model": {
     "Categories": "Kategorie",
