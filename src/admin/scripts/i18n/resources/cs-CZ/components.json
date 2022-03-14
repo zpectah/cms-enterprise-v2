@@ -133,7 +133,7 @@
   },
   "UploaderQueueItem": {
     "label": {
-      "reset_cropped_image": "Vymazat oříznutý obrázek"
+      "image_is_cropped": "Obrázek je oříznutý"
     }
   },
   "Uploader": {

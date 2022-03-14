@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Controller } from 'react-hook-form';
 import {
 	Stack,
 	Typography,
@@ -61,85 +62,106 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 	const formChangeHandler = (fields) => onChange(fields);
 
 	return (
-		<Card
-			id={data.tmp_id}
-			title={data.file_name}
-			collapsible
-			collapse
-			actionsDivider
-			cardContentProps={{
-				sx: [
-					{
-						'&:last-child': {
-							pb: 0,
-						},
-					},
-				],
-			}}
-			actionsNode={
-				<Stack
-					direction="row"
-					alignItems="center"
-					justifyContent="space-between"
-					sx={{
-						width: '100%',
-					}}
-				>
-					<Stack
-						direction="row"
-						alignItems="center"
-						justifyContent="space-between"
-						spacing={1}
-						sx={{
-							px: 1,
-						}}
-					>
-						<Chip
-							label={fileUtils.formatBytes(data.file_size)}
-							color={getSizeColor()}
-							variant="outlined"
-						/>
-						<Chip
-							label={data.file_mime}
-							variant="outlined"
-						/>
-					</Stack>
-					<Stack
-						direction="row"
-						alignItems="center"
-						justifyContent="space-between"
-						spacing={2}
-					>
-						<Button
-							color="warning"
-							onClick={() => onRemove(data.tmp_id)}
-						>
-							{t('btn.remove')}
-						</Button>
-					</Stack>
-				</Stack>
-			}
-		>
-			<ControlledForm
-				dataId="UploaderQueueItemForm"
-				defaultValues={data}
-				onChange={formChangeHandler}
-				renderMain={(form) => {
-					const { token, form: {
-						control,
-						setValue,
-						watch,
-					} } = form;
-					const watchCroppedImage = watch('fileBase64_cropped');
+		<ControlledForm
+			dataId={`UploaderQueueItemForm_${data.tmp_id}`}
+			defaultValues={data}
+			onChange={formChangeHandler}
+			renderMain={(form) => {
+				const { token, form: {
+					control,
+					setValue,
+					watch,
+				} } = form;
+				const watchCroppedImage = watch('fileBase64_cropped');
 
-					return (
+				return (
+					<Card
+						id={data.tmp_id}
+						title={data.file_name}
+						collapsible
+						collapse
+						actionsDivider
+						cardContentProps={{
+							sx: [
+								{
+									'&:last-child': {
+										pb: 0,
+									},
+								},
+							],
+						}}
+						actionsNode={
+							<Stack
+								direction="row"
+								alignItems="center"
+								justifyContent="space-between"
+								sx={{
+									width: '100%',
+								}}
+							>
+								<Stack
+									direction="row"
+									alignItems="center"
+									justifyContent="space-between"
+									spacing={1}
+									sx={{
+										px: 1,
+									}}
+								>
+									<Chip
+										label={fileUtils.formatBytes(data.file_size)}
+										color={getSizeColor()}
+										variant="outlined"
+									/>
+									<Chip
+										label={data.file_mime}
+										variant="outlined"
+									/>
+									{watchCroppedImage && (
+										<Chip
+											label={t('components:UploaderQueueItem.label.image_is_cropped')}
+											color="info"
+											variant="filled"
+											onDelete={() => {
+												setValue('fileBase64_cropped', null);
+												onCropImageUpdate(watch(), null);
+											}}
+										/>
+									)}
+								</Stack>
+								<Stack
+									direction="row"
+									alignItems="center"
+									justifyContent="space-between"
+									spacing={2}
+								>
+									<Button
+										color="warning"
+										onClick={() => onRemove(data.tmp_id)}
+									>
+										{t('btn.remove')}
+									</Button>
+								</Stack>
+							</Stack>
+						}
+					>
 						<>
 							{data.file_type === 'image' ? (
-								<ImageCropper
-									source={data.fileBase64}
-									onConfirm={(blob) => {
-										setValue('fileBase64_cropped', blob as string);
-										onCropImageUpdate(watch(), blob);
+								<Controller
+									name="fileBase64_cropped"
+									control={control}
+									defaultValue={data.fileBase64_cropped || null}
+									render={({ field }) => {
+										const { onChange } = field;
+
+										return (
+											<ImageCropper
+												source={data.fileBase64}
+												onConfirm={(blob) => {
+													onChange(blob);
+												}}
+											/>
+										);
 									}}
 								/>
 							) : (
@@ -264,24 +286,11 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 									</>
 								)}
 							/>
-							{watchCroppedImage && (
-								<Section>
-									<Chip
-										label={t('components:UploaderQueueItem.label.reset_cropped_image')}
-										color="warning"
-										variant="outlined"
-										onDelete={() => {
-											setValue('fileBase64_cropped', null);
-											onCropImageUpdate(watch(), null);
-										}}
-									/>
-								</Section>
-							)}
 						</>
-					);
-				}}
-			/>
-		</Card>
+					</Card>
+				);
+			}}
+		/>
 	);
 };
 
