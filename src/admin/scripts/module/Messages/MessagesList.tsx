@@ -40,6 +40,7 @@ const MessagesList = (props: MessagesListProps) => {
 			/>
 			{loading && <BarPreloader />}
 			<DataTable
+				model="Messages"
 				id={tableOptions.id}
 				rows={dataItems}
 				columns={{

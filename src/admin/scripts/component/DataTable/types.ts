@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { appModel } from '../../types/app';
+
 export type orderType = 'asc' | 'desc';
 
 export type cellAlignType = 'left' | 'center' | 'right';
@@ -48,10 +50,12 @@ export interface DataTableProps {
 	onDetail: (id: number) => void;
 	onToggle: (ids: number[]) => Promise<unknown>;
 	onDelete: (ids: number[]) => Promise<unknown>;
+	onExport?: (ids: number[]) => Promise<unknown>;
 	searchProps?: string[];
 	rowToggleActive?: boolean;
 	rowDeleteActive?: boolean;
 	loading?: boolean;
+	model: appModel;
 }
 
 export interface TableToolbarProps {
@@ -60,6 +64,7 @@ export interface TableToolbarProps {
 	optionsCategories?: optionsItemProps[];
 	optionsTags?: optionsItemProps[];
 	selected: readonly number[];
-	onToggleSelected: () => void;
-	onDeleteSelected: () => void;
+	onToggleSelected?: () => void;
+	onDeleteSelected?: () => void;
+	onExportSelected?: () => void;
 }

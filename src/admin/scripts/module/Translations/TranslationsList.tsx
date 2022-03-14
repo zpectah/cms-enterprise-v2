@@ -40,6 +40,7 @@ const TranslationsList = (props: TranslationsListProps) => {
 			/>
 			{loading && <BarPreloader />}
 			<DataTable
+				model="Translations"
 				id={tableOptions.id}
 				rows={dataItems}
 				columns={{

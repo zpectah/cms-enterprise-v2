@@ -56,7 +56,7 @@ const RowLabel = styled(FormLabel)`
 	width: 50%;
 `;
 
-const DataTableFilter = (props: DataTableFilterProps) => {
+const TableFilter = (props: DataTableFilterProps) => {
 	const {
 		onFilterChange,
 		optionsType = [],
@@ -292,4 +292,4 @@ const DataTableFilter = (props: DataTableFilterProps) => {
 	);
 };
 
-export default DataTableFilter;
+export default TableFilter;

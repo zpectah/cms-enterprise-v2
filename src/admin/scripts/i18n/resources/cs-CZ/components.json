@@ -144,5 +144,11 @@
   },
   "LocationPicker": {
     "title": "Vyberte lokalitu"
+  },
+  "ExportDialog": {
+    "title": "Exportovat exportované položky",
+    "caption": "Zvolte formát pro export a klikněte natlačítko Exportovat, soubor by se měl otevřít v novém okně. Doba trvání je závislá na počtu exportovaných položek.",
+    "sub": "Počet vybraných položek",
+    "button": "Exportovat"
   }
 }

@@ -4,22 +4,18 @@ import { useTranslation } from 'react-i18next';
 import {
 	styled,
 	Box,
-	Stack,
 	Divider,
 	Table,
 	TableBody,
 	TableCell,
 	TableContainer,
-	TableHead,
 	TablePagination,
 	TableRow,
-	TableSortLabel,
 	Paper,
 	Chip,
 	Typography,
+	CircularProgress,
 } from '@mui/material';
-import { visuallyHidden } from '@mui/utils';
-import CircularProgress from '@mui/material/CircularProgress';
 
 import { array } from '../../../../../utils/helpers';
 import {
@@ -32,20 +28,16 @@ import {
 	useTags,
 } from '../../hooks/model';
 import {
-	Button,
 	Checkbox,
 	Switch,
 	MoreMenu,
-	DropdownMenu,
 	ConfirmDialog,
 } from '../ui';
 import {
 	orderType,
 	columnItemProps,
 	filterProps,
-	TableHeadingProps,
 	DataTableProps,
-	TableToolbarProps,
 } from './types';
 import {
 	getComparator,
@@ -55,7 +47,10 @@ import {
 	getSearchAttrs,
 	filterDefaultValue,
 } from './utils';
-import DataTableFilter from './DataTableFilter';
+import InfoRowCell from './InfoRowCell';
+import TableToolbar from './TableToolbar';
+import TableHeading from './TableHeading';
+import ExportDialog from '../ExportDialog';
 
 const RowItemSmall = styled('small')`
 	opacity: .75;
@@ -65,167 +60,6 @@ const RowItemLink = styled('a')`
 	font-weight: bold;
 	cursor: pointer;
 `;
-const InfoRowCell: React.FC<{ colspan: number }> = (props) => {
-	const {
-		children,
-		colspan,
-	} = props;
-
-	return (
-		<tbody>
-			<tr>
-				<td
-					colSpan={colspan}
-					style={{
-						padding: '1.25rem 1rem',
-						textAlign: 'center',
-						verticalAlign: 'middle',
-						borderBottom: '1px solid rgba(200,200,200,.5)',
-					}}
-				>
-					<Stack
-						direction="row"
-						spacing={2}
-						alignItems="center"
-						justifyContent="center"
-					>
-						{children}
-					</Stack>
-				</td>
-			</tr>
-		</tbody>
-	);
-};
-
-const TableToolbar = (props: TableToolbarProps) => {
-	const { t } = useTranslation(['table']);
-	const {
-		onFilterChange,
-		optionsType = [],
-		optionsCategories = [],
-		optionsTags = [],
-		selected,
-		onToggleSelected,
-		onDeleteSelected,
-	} = props;
-
-	return (
-		<div style={{ padding: '1rem' }}>
-			<Stack
-				spacing={2}
-				direction="row"
-				justifyContent="space-between"
-				alignItems="center"
-				width="100%"
-			>
-				<DataTableFilter
-					optionsType={optionsType}
-					optionsCategories={optionsCategories}
-					optionsTags={optionsTags}
-					onFilterChange={onFilterChange}
-				/>
-				<DropdownMenu
-					id="SelectedDropdownOptions"
-					renderButton={(renderProps) => (
-						<Button
-							variant="outlined"
-							color="secondary"
-							disabled={selected.length === 0}
-							{...renderProps}
-						>
-							{t('table:selected.selected')} {selected.length}
-						</Button>
-					)}
-					options={[
-						{
-							key: 'toggle_selected',
-							label: t('table:selected.toggle'),
-							onClick: () => onToggleSelected(),
-						},
-						{
-							key: 'delete_selected',
-							label: t('table:selected.delete'),
-							onClick: () => onDeleteSelected(),
-						},
-					]}
-				/>
-			</Stack>
-		</div>
-	);
-};
-
-const TableHeading = (props: TableHeadingProps) => {
-	const { t } = useTranslation([ 'table' ]);
-	const {
-		onSelectAllClick,
-		order,
-		orderBy,
-		numSelected,
-		rowCount,
-		onRequestSort,
-		cells,
-	} = props;
-
-	const createSortHandler = (property: keyof any) => (event: React.MouseEvent<unknown>) => {
-		onRequestSort(event, property);
-	};
-
-	const renderCells = () => {
-		const list = [];
-		for (let key in cells) {
-			list.push(
-				<TableCell
-					key={key}
-					align={cells[key][0]}
-					width={cells[key][1]}
-					padding="normal"
-					sortDirection={orderBy === key ? order : false}
-				>
-					<TableSortLabel
-						active={orderBy === key}
-						direction={orderBy === key ? order : 'asc'}
-						onClick={createSortHandler(key)}
-					>
-						{t(`table:label.${key}`)}
-						{orderBy === key ? (
-							<Box component="span" sx={visuallyHidden}>
-								{order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-							</Box>
-						) : null}
-					</TableSortLabel>
-				</TableCell>
-			);
-		}
-
-		return list;
-	};
-
-	return (
-		<TableHead>
-			<TableRow>
-				<TableCell padding="checkbox">
-					<Checkbox
-						color="primary"
-						indeterminate={numSelected > 0 && numSelected < rowCount}
-						checked={rowCount > 0 && numSelected === rowCount}
-						onChange={onSelectAllClick}
-						inputProps={{
-							'aria-label': 'select all',
-						}}
-						size="small"
-					/>
-				</TableCell>
-				{renderCells()}
-				<TableCell
-					align="right"
-					padding="normal"
-				>
-					{t(`table:label.actions`)}
-				</TableCell>
-			</TableRow>
-		</TableHead>
-	);
-}
 
 const DataTable = (props: DataTableProps) => {
 	const {
@@ -237,10 +71,12 @@ const DataTable = (props: DataTableProps) => {
 		onDetail,
 		onToggle,
 		onDelete,
+		onExport,
 		searchProps = [],
 		rowToggleActive = true,
 		rowDeleteActive = true,
 		loading,
+		model,
 	} = props;
 
 	const rowPadding = 'normal';
@@ -257,6 +93,7 @@ const DataTable = (props: DataTableProps) => {
 	const [ filter, setFilter ] = useState<filterProps>(filterDefaultValue);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<number[]>([]);
+	const [ exportOpen, setExportOpen ] = useState<boolean>(false);
 	const [ innerState, setInnerState ] = useState({
 		filterDirty: false,
 		itemsCount: 0,
@@ -336,6 +173,25 @@ const DataTable = (props: DataTableProps) => {
 	const deleteConfirm = (ids: number[]) => {
 		setConfirmData([...ids]);
 		setConfirmOpen(true);
+	};
+	const exportCallback = () => {
+		const master = [ ...confirmData ];
+		if (onExport) {
+			return onExport(master).then((resp) => {
+				setSelected([]);
+			});
+		}
+
+		return new Promise<unknown>(() => {
+			console.warn('Promise was not set!');
+			return false;
+		});
+	};
+	const exportConfirm = (ids: number[]) => {
+		setConfirmData([...ids]);
+		setExportOpen(true);
+		console.log('exportConfirm open');
+		// TODO: trigger then => exportCallback()
 	};
 
 	const getColumns = useCallback((row: any) => {
@@ -533,6 +389,7 @@ const DataTable = (props: DataTableProps) => {
 						selected={selected}
 						onToggleSelected={() => toggleCallback([...selected])}
 						onDeleteSelected={() => deleteConfirm([...selected])}
+						onExportSelected={() => exportConfirm([...selected])}
 						optionsType={getTypesOptions()}
 						optionsCategories={getCategoriesOptions()}
 						optionsTags={getTagsOptions()}
@@ -665,12 +522,19 @@ const DataTable = (props: DataTableProps) => {
 					/>
 				</Paper>
 			</Box>
+			<ExportDialog
+				model={model}
+				open={exportOpen}
+				onClose={() => setExportOpen(false)}
+				exportData={confirmData}
+				onExport={exportCallback}
+			/>
 			<ConfirmDialog
 				context="delete"
 				open={confirmOpen}
 				onClose={() => setConfirmOpen(false)}
 				confirmData={confirmData}
-				onConfirm={() => deleteCallback()}
+				onConfirm={deleteCallback}
 			/>
 		</>
 	);

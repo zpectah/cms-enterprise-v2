@@ -31,7 +31,8 @@
   "selected": {
     "selected": "Vybrané",
     "toggle": "Přepnout",
-    "delete": "Smazat"
+    "delete": "Smazat",
+    "export": "Exportovat"
   },
   "options": {
     "rowsPerPage": "Řádků na stránku"

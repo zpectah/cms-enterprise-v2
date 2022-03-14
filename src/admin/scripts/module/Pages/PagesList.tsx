@@ -40,6 +40,7 @@ const PagesList = (props: PagesListProps) => {
 			/>
 			{loading && <BarPreloader />}
 			<DataTable
+				model="Pages"
 				id={tableOptions.id}
 				rows={dataItems}
 				columns={{

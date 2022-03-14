@@ -40,6 +40,7 @@ const UploadsList = (props: UploadsListProps) => {
 			/>
 			{loading && <BarPreloader />}
 			<DataTable
+				model="Uploads"
 				id={tableOptions.id}
 				rows={dataItems}
 				columns={{

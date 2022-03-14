@@ -40,6 +40,7 @@ const MenuList = (props: MenuListProps) => {
 			/>
 			{loading && <BarPreloader />}
 			<DataTable
+				model="Menu"
 				id={tableOptions.id}
 				rows={dataItems}
 				columns={{

@@ -40,6 +40,7 @@ const TagsList = (props: TagsListProps) => {
 			/>
 			{loading && <BarPreloader />}
 			<DataTable
+				model="Tags"
 				id={tableOptions.id}
 				rows={dataItems}
 				columns={{
