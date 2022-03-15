@@ -50,7 +50,7 @@ export interface DataTableProps {
 	onDetail: (id: number) => void;
 	onToggle: (ids: number[]) => Promise<unknown>;
 	onDelete: (ids: number[]) => Promise<unknown>;
-	onExport?: (ids: number[]) => Promise<unknown>;
+	afterExport?: (response: any) => void;
 	searchProps?: string[];
 	rowToggleActive?: boolean;
 	rowDeleteActive?: boolean;

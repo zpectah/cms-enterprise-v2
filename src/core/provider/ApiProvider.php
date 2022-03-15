@@ -388,7 +388,7 @@ class ApiProvider {
 
 
             /**
-             * System ...
+             * Settings ...
              **/
             case 'get_cms_settings':
                 $response['data'] = $dp -> get_cms_settings();
@@ -407,6 +407,39 @@ class ApiProvider {
                 $response['status'] = 'ok';
                 $response['message'] = $response['data'] ? $msg_success : $msg_noData;
                 break;
+
+
+            /**
+             * System ...
+             **/
+            case 'create_log':
+                $response['data'] = $dp -> create_log($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'get_log_list':
+                $response['data'] = $dp -> get_log_list();
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'install_language':
+                $response['data'] = $dp -> install_language($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'export_data':
+                $response['data'] = $dp -> export_data($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
 
         }
 

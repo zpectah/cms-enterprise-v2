@@ -71,7 +71,8 @@ const DataTable = (props: DataTableProps) => {
 		onDetail,
 		onToggle,
 		onDelete,
-		onExport,
+		// onExport,
+		afterExport,
 		searchProps = [],
 		rowToggleActive = true,
 		rowDeleteActive = true,
@@ -174,24 +175,12 @@ const DataTable = (props: DataTableProps) => {
 		setConfirmData([...ids]);
 		setConfirmOpen(true);
 	};
-	const exportCallback = () => {
-		const master = [ ...confirmData ];
-		if (onExport) {
-			return onExport(master).then((resp) => {
-				setSelected([]);
-			});
-		}
-
-		return new Promise<unknown>(() => {
-			console.warn('Promise was not set!');
-			return false;
-		});
+	const exportCallback = (response: unknown) => {
+		if (afterExport) afterExport(response);
 	};
 	const exportConfirm = (ids: number[]) => {
 		setConfirmData([...ids]);
 		setExportOpen(true);
-		console.log('exportConfirm open');
-		// TODO: trigger then => exportCallback()
 	};
 
 	const getColumns = useCallback((row: any) => {
@@ -526,8 +515,8 @@ const DataTable = (props: DataTableProps) => {
 				model={model}
 				open={exportOpen}
 				onClose={() => setExportOpen(false)}
-				exportData={confirmData}
-				onExport={exportCallback}
+				dataToExport={confirmData}
+				afterExport={exportCallback}
 			/>
 			<ConfirmDialog
 				context="delete"

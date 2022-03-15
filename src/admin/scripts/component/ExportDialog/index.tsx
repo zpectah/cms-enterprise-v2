@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 
 import { appModel } from '../../types/app';
+import useSystem from '../../hooks/useSystem';
 import {
 	Dialog,
 	DialogProps,
@@ -16,8 +17,8 @@ import {
 } from '../ui';
 
 export interface ExportDialogProps extends DialogProps {
-	exportData?: (string | number)[];
-	onExport: () => Promise<unknown>;
+	dataToExport?: (string | number)[];
+	afterExport?: (response: unknown) => void;
 	model: appModel;
 	disabledSql?: boolean;
 	disabledCsv?: boolean;
@@ -26,8 +27,8 @@ export interface ExportDialogProps extends DialogProps {
 
 const ExportDialog = (props: ExportDialogProps) => {
 	const {
-		exportData = [],
-		onExport,
+		dataToExport = [],
+		afterExport,
 		model,
 		open = false,
 		onClose,
@@ -38,6 +39,7 @@ const ExportDialog = (props: ExportDialogProps) => {
 	} = props;
 
 	const { t } = useTranslation([ 'components' ]);
+	const { exportData } = useSystem();
 	const [ isOpen, setIsOpen ] = useState<boolean>(open);
 	const [ format, setFormat ] = useState('json');
 	const [ loading, setLoading ] = useState(false);
@@ -48,9 +50,15 @@ const ExportDialog = (props: ExportDialogProps) => {
 	};
 	const handleExport = () => {
 		setLoading(true);
-		onExport().then(() =>  {
+		return exportData({
+			format,
+			model,
+			ids: dataToExport,
+		}).then((resp) => {
+			console.log('response from export', resp);
 			setLoading(false);
-			handleClose();
+			// handleClose();
+			if (afterExport) afterExport(resp);
 		});
 	};
 
@@ -89,7 +97,7 @@ const ExportDialog = (props: ExportDialogProps) => {
 							my: 2,
 						}}
 					>
-						{t('components:ExportDialog.sub')}: {exportData.length}
+						{t('components:ExportDialog.sub')}: {dataToExport.length}
 					</Typography>
 					<Stack
 						direction="row"

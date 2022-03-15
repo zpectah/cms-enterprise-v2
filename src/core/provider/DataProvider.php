@@ -13,6 +13,7 @@ use core\model\Translations;
 use core\model\Uploads;
 use core\model\Users;
 use core\module\admin\Settings;
+use core\module\admin\System;
 use mysqli;
 
 class DataProvider {
@@ -564,7 +565,7 @@ class DataProvider {
 
 
     /**
-     * System ...
+     * Settings ...
      **/
     public function get_cms_settings (): array {
         $conn = new mysqli(...CFG_DB_CONN);
@@ -588,6 +589,40 @@ class DataProvider {
         $conn = new mysqli(...CFG_DB_CONN);
         $settings = new Settings;
         $response = $settings -> get_cms_languages($conn);
+        $conn -> close();
+
+        return $response;
+    }
+
+
+    /**
+     * System ...
+     **/
+    public function create_log ($attrs) {
+        $system = new System;
+
+        return $system -> create_log($attrs);
+    }
+
+    public function get_log_list () {
+        $system = new System;
+
+        return $system -> get_log_list();
+    }
+
+    public function install_language ($attrs) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $system = new System;
+        $response = $system -> install_language($attrs);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function export_data ($attrs): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $system = new System;
+        $response = $system -> export_data($attrs);
         $conn -> close();
 
         return $response;
