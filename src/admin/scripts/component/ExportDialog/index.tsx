@@ -114,7 +114,7 @@ const ExportDialog = (props: ExportDialogProps) => {
 									children: <>json</>,
 									onClick: () => setFormat('json'),
 									disabled: disabledJson,
-									hidden: !config.project.features.TABLE_EXPORT_JSON,
+									hidden: !config.project.extras.TABLE_EXPORT_JSON,
 								},
 								{
 									key: 'csv',
@@ -122,7 +122,7 @@ const ExportDialog = (props: ExportDialogProps) => {
 									children: <>csv</>,
 									onClick: () => setFormat('csv'),
 									disabled: disabledCsv,
-									hidden: !config.project.features.TABLE_EXPORT_CSV,
+									hidden: !config.project.extras.TABLE_EXPORT_CSV,
 								},
 								{
 									key: 'sql',
@@ -130,7 +130,7 @@ const ExportDialog = (props: ExportDialogProps) => {
 									children: <>sql</>,
 									onClick: () => setFormat('sql'),
 									disabled: disabledSql,
-									hidden: !config.project.features.TABLE_EXPORT_SQL,
+									hidden: !config.project.extras.TABLE_EXPORT_SQL,
 								},
 							]}
 						/>

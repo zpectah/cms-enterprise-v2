@@ -9,7 +9,6 @@ import { USER_LEVEL_KEYS } from '../../constants';
 import useSettings from '../../hooks/useSettings';
 import { TranslationsItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
-import getDetailData from '../../utils/getDetailData';
 import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
@@ -23,9 +22,11 @@ import {
 	BarPreloader,
 	ControlledFormRow,
 } from '../../component/ui';
-import getOptionsList from '../../utils/getOptionsList';
-import getLocaleObject from '../../utils/getLocaleObject';
-import transformString from '../../utils/transformString';
+import {
+	getDetailData,
+	getOptionsList,
+	transformString,
+} from '../../utils';
 
 interface TranslationsDetailProps {
 	dataItems: TranslationsItemProps[];

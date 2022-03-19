@@ -8,7 +8,6 @@ import routes from '../../routes';
 import { USER_LEVEL_KEYS } from '../../constants';
 import { TagsItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
-import getDetailData from '../../utils/getDetailData';
 import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
@@ -21,8 +20,11 @@ import {
 	BarPreloader,
 	ControlledFormRow,
 } from '../../component/ui';
-import getOptionsList from '../../utils/getOptionsList';
-import transformString from '../../utils/transformString';
+import {
+	getDetailData,
+	getOptionsList,
+	transformString,
+} from '../../utils';
 
 interface TagsDetailProps {
 	dataItems: TagsItemProps[];

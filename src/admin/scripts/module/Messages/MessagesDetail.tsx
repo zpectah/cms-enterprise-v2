@@ -8,7 +8,6 @@ import routes from '../../routes';
 import { USER_LEVEL_KEYS } from '../../constants';
 import { MessagesItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
-import getDetailData from '../../utils/getDetailData';
 import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
@@ -23,8 +22,10 @@ import {
 	Textarea,
 	Chip,
 } from '../../component/ui';
-import getOptionsList from '../../utils/getOptionsList';
-import transformString from '../../utils/transformString';
+import {
+	getDetailData,
+	getOptionsList,
+} from '../../utils';
 import InfoMetaBlock from '../../component/InfoMetaBlock';
 
 interface MessagesDetailProps {

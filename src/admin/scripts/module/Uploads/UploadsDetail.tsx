@@ -10,7 +10,6 @@ import { USER_LEVEL_KEYS } from '../../constants';
 import useSettings from '../../hooks/useSettings';
 import { UploadsItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
-import getDetailData from '../../utils/getDetailData';
 import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
@@ -24,9 +23,10 @@ import {
 	BarPreloader,
 	ControlledFormRow, Chip,
 } from '../../component/ui';
-import getOptionsList from '../../utils/getOptionsList';
-import getLocaleObject from '../../utils/getLocaleObject';
-import transformString from '../../utils/transformString';
+import {
+	getDetailData,
+	transformString,
+} from '../../utils';
 import Uploader from './Uploader';
 import ThumbnailView from './ThumbnailView';
 import InfoMetaBlock from '../../component/InfoMetaBlock';

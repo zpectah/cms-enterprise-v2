@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
 import { useComments } from '../../../hooks/model';
+import useProfile from '../../../hooks/useProfile';
 import { CommentsItemProps } from '../../../types/model';
 import {
 	TextPreloader,
 	ConfirmDialog,
-	Dialog,
 } from '../../../component/ui';
 import CommentsList from './CommentsList';
 import CommentsDetail from './CommentsDetail';
+import { getDetailData } from '../../../utils';
 
 export interface CommentsManagerProps {
 	model: 'Posts' | 'Categories';
@@ -30,6 +31,10 @@ const CommentsManager = (props: CommentsManagerProps) => {
 	const [ detailOpen, setDetailOpen ] = useState(false);
 	const [ detailData, setDetailData ] = useState<CommentsItemProps | null>(null);
 	const {
+		profile,
+	} = useProfile();
+	const {
+		comments,
 		commentsWithChildrenAndProps,
 		createComments,
 		updateComments,
@@ -37,36 +42,72 @@ const CommentsManager = (props: CommentsManagerProps) => {
 		deleteComments,
 	} = useComments();
 
+	const userEmail = profile.email;
+
 	const loadComments = async () => {
 		setLoading(true);
 		await commentsWithChildrenAndProps(
 			model,
 			detailId,
 		).then((resp) => {
-			setLoadedComments(resp.data || []);
+			setLoadedComments(resp?.data?.reverse() || []);
 			setLoading(false);
 		});
 	};
 
 	const replyHandler = (id: number) => {
-		console.log('replyHandler', id);
-		// open dialog ... reply
 		setDetailOpen(true);
-		setDetailData(null); // TODO
+		const detail = getDetailData(
+			'Comments',
+			comments,
+			'new',
+		);
+		detail.parent = id;
+		setDetailData(detail);
 	};
 	const updateHandler = (id: number) => {
-		console.log('updateHandler', id);
-		// open dialog ... update
 		setDetailOpen(true);
-		setDetailData(null); // TODO
+		setDetailData(getDetailData(
+			'Comments',
+			comments,
+			id,
+		));
 	};
-	const submitHandler = (data: CommentsItemProps) => {
-		console.log('submitHandler', data);
-		// TODO: submit (create / update)
+	const submitHandler = (master: CommentsItemProps) => {
+		const method = master.id === 'new' ? 'create' : 'update';
+		if (method === 'create') {
+			return createComments(master).then((resp) => {
+				loadComments().then(() => {
+					return resp;
+				});
+			});
+		} else if (method === 'update') {
+			return updateComments(master).then((resp) => {
+				loadComments().then(() => {
+					return resp;
+				});
+			});
+		}
+
+		return new Promise<unknown>(() => { console.warn('no promise') });
 	};
 	const confirmDialogConfirmHandler = () => {
-		console.log('confirm data', confirmContext, confirmData);
-		// TODO: handle by context ...
+		const master = [ ...confirmData ];
+		if (confirmContext === 'delete') {
+			return deleteComments(master).then((resp) => {
+				loadComments().then(() => {
+					return resp;
+				});
+			});
+		} else if (confirmContext === 'report_comment') {
+			return reportComments(master).then((resp) => {
+				loadComments().then(() => {
+					return resp;
+				});
+			});
+		}
+
+		return new Promise<unknown>(() => { console.warn('no promise') });
 	};
 	const deleteHandler = (id: number) => {
 		setConfirmOpen(true);
@@ -102,6 +143,7 @@ const CommentsManager = (props: CommentsManagerProps) => {
 				onUpdate={updateHandler}
 				onDelete={deleteHandler}
 				onReport={reportHandler}
+				userEmail={userEmail}
 			/>
 			{loading && (
 				<Box sx={{ py: 2 }}>
@@ -113,6 +155,9 @@ const CommentsManager = (props: CommentsManagerProps) => {
 				detailData={detailData}
 				onClose={closeDetailHandler}
 				onSubmit={submitHandler}
+				model={model}
+				modelId={detailId}
+				userEmail={userEmail}
 			/>
 			<ConfirmDialog
 				context={confirmContext}

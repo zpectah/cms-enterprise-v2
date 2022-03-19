@@ -11,7 +11,6 @@ import {
 } from '../../constants';
 import { MembersItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
-import getDetailData from '../../utils/getDetailData';
 import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
@@ -26,7 +25,10 @@ import {
 	BarPreloader,
 	ControlledFormRow, TagPicker, DateInput,
 } from '../../component/ui';
-import getOptionsList from '../../utils/getOptionsList';
+import {
+	getDetailData,
+	getOptionsList,
+} from '../../utils';
 
 interface MembersDetailProps {
 	dataItems: MembersItemProps[];

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 
+import config from '../../../config';
 import { CommentsItemProps } from '../../../types/model';
 import CommentsListItem from './CommentsListItem';
 
@@ -10,6 +11,7 @@ export interface CommentsListProps {
 	onUpdate: (id: number) => void;
 	onDelete: (id: number) => void;
 	onReport: (id: number) => void;
+	userEmail: string;
 }
 
 const CommentsList = (props: CommentsListProps) => {
@@ -19,12 +21,13 @@ const CommentsList = (props: CommentsListProps) => {
 		onUpdate,
 		onDelete,
 		onReport,
+		userEmail,
 	} = props;
 
 	return (
 		<Box>
-			{comments.reverse().map((comment) => {
-				const userIsAuthor = false; // TODO: get `email` of user
+			{comments.map((comment) => {
+				const userIsAuthor = comment.email === userEmail || config.project.extras.OVERRIDE_ADMIN_EDIT_COMMENT_GLOBAL;
 
 				return (
 					<CommentsListItem

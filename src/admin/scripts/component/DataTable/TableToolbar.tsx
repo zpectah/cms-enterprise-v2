@@ -34,7 +34,7 @@ const TableToolbar = (props: TableToolbarProps) => {
 		});
 		if (
 			onExportSelected
-			&& config.project.features.TABLE_EXPORT_GLOBAL
+			&& config.project.extras.TABLE_EXPORT_GLOBAL
 		) tmp.push({
 			key: 'export_selected',
 			label: t('table:selected.export'),

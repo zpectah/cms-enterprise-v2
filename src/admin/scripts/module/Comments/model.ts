@@ -10,5 +10,5 @@ export default {
 	assigned_id: null,
 	parent: 0,
 	status: 0,
-	children: [],
+	// children: [],
 } as CommentsItemProps;

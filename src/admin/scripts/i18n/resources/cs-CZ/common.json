@@ -14,7 +14,10 @@
     "reset": "Resetovat",
     "close": "Zavřít",
     "select": "Vybrat",
-    "clear": "Vyčistit"
+    "clear": "Vyčistit",
+    "reply": "Odpovědět",
+    "report": "Nahlásit",
+    "edit": "Upravit"
   },
   "common": {
     "allRightsReserved": "Všechna práva vyhrazena"

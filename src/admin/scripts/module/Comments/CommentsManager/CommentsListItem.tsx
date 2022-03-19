@@ -1,10 +1,12 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	Box,
 	Card,
 	CardActions,
 	CardContent,
 	Typography,
+	Stack,
 } from '@mui/material';
 
 import { CommentsItemProps } from '../../../types/model';
@@ -29,18 +31,22 @@ const CommentsListItem = (props: CommentsListItemProps) => {
 		onReport,
 	} = props;
 
+	const { t } = useTranslation([ 'common' ]);
+
 	return (
 		<Box
 			sx={{
 				mb: 2,
 			}}
+			data-group-id={detail.id}
 		>
 			<Card>
 				<CardContent>
 					<Typography
 						variant="caption"
+						sx={{ opacity: .65 }}
 					>
-						#{detail.id} | {detail.email} | {detail.created}
+						{detail.email} | {detail.created}
 					</Typography>
 					<Typography
 						variant="h5"
@@ -53,27 +59,41 @@ const CommentsListItem = (props: CommentsListItemProps) => {
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button
-						onClick={() => onReply(detail.id as number)}
+					<Stack
+						direction="row"
+						alignItems="center"
+						justifyContent="flex-start"
+						spacing={2}
 					>
-						Reply
-					</Button>
-					<Button
-						onClick={() => onUpdate(detail.id as number)}
-						disabled={!userIsAuthor}
-					>
-						Update
-					</Button>
-					<Button
-						onClick={() => onDelete(detail.id as number)}
-					>
-						Delete
-					</Button>
-					<Button
-						onClick={() => onReport(detail.id as number)}
-					>
-						Report
-					</Button>
+						<Button
+							onClick={() => onReply(detail.id as number)}
+							variant="outlined"
+							size="small"
+						>
+							{t('btn.reply')}
+						</Button>
+						<Button
+							onClick={() => onUpdate(detail.id as number)}
+							disabled={!userIsAuthor}
+							size="small"
+						>
+							{t('btn.edit')}
+						</Button>
+						<Button
+							onClick={() => onDelete(detail.id as number)}
+							color="warning"
+							size="small"
+						>
+							{t('btn.delete')}
+						</Button>
+						<Button
+							onClick={() => onReport(detail.id as number)}
+							color="error"
+							size="small"
+						>
+							{t('btn.report')}
+						</Button>
+					</Stack>
 				</CardActions>
 			</Card>
 			{detail.children.length > 0 && (

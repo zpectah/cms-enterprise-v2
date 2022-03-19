@@ -39,7 +39,6 @@ import UploadsPicker from '../../component/UploadsPicker';
 import {
 	getDetailData,
 	getOptionsList,
-	// getLocaleObject,
 	transformString,
 } from '../../utils';
 
