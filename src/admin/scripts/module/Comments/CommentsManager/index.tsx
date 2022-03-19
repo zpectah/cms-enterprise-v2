@@ -25,6 +25,7 @@ const CommentsManager = (props: CommentsManagerProps) => {
 
 	const [ loadedComments, setLoadedComments ] = useState<CommentsItemProps[]>([]);
 	const [ loading, setLoading ] = useState(false);
+	const [ updating, setUpdating ] = useState(false);
 	const [ confirmOpen, setConfirmOpen ] = useState(false);
 	const [ confirmContext, setConfirmContext ] = useState<'delete' | 'report_comment' | null>(null);
 	const [ confirmData, setConfirmData ] = useState<number[]>([]);
@@ -74,22 +75,29 @@ const CommentsManager = (props: CommentsManagerProps) => {
 		setDetailOpen(true);
 	};
 	const submitHandler = (master: CommentsItemProps) => {
+		setUpdating(true);
 		const method = master.id === 'new' ? 'create' : 'update';
 		if (method === 'create') {
 			return createComments(master).then((resp) => {
 				loadComments().then(() => {
+					setUpdating(false);
 					return resp;
 				});
 			});
 		} else if (method === 'update') {
 			return updateComments(master).then((resp) => {
 				loadComments().then(() => {
+					setUpdating(false);
 					return resp;
 				});
 			});
 		}
 
-		return new Promise<unknown>(() => { console.warn('no promise') });
+		return new Promise<unknown>(() => {
+			console.warn('no promise');
+			setUpdating(false);
+			return null;
+		});
 	};
 	const confirmDialogConfirmHandler = () => {
 		const master = [ ...confirmData ];
@@ -145,7 +153,7 @@ const CommentsManager = (props: CommentsManagerProps) => {
 				onReport={reportHandler}
 				userEmail={userEmail}
 			/>
-			{loading && (
+			{loading || updating && (
 				<Box sx={{ py: 2 }}>
 					<TextPreloader />
 				</Box>

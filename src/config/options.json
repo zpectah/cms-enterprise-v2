@@ -67,7 +67,7 @@
       "type": ["primary", "secondary", "tertiary", "custom"]
     },
     "MenuItems": {
-      "type": ["page", "local", "external"]
+      "type": ["page", "external"]
     },
     "Pages": {
       "type": ["default", "category"],

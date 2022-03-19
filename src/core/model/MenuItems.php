@@ -56,7 +56,7 @@ class MenuItems {
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
                 if ($__menuId) {
-                    if ($__menuId == $row['menu']) $response[] = self::get_updated_row($conn, $row, $languages);
+                    if ($__menuId == $row['menu_id']) $response[] = self::get_updated_row($conn, $row, $languages);
                 } else {
                     $response[] = self::get_updated_row($conn, $row, $languages);
                 }
@@ -81,12 +81,12 @@ class MenuItems {
         $helpers = new Helpers;
 
         // prepare
-        $query = ('INSERT INTO menu_items (name, type, path_page, path_url, menu_id, parent, item_order, active, deleted) VALUES (?,?,?,?,?,?,?,?,?)');
+        $query = ('INSERT INTO menu_items (name, type, page_id, path_url, menu_id, parent, item_order, active, deleted) VALUES (?,?,?,?,?,?,?,?,?)');
         $types = 'ssssisiii';
         $args = [
             $data['name'],
             $data['type'],
-            $data['path_page'],
+            $data['page_id'],
             $data['path_url'],
             $data['menu_id'],
             $data['parent'],
@@ -127,12 +127,12 @@ class MenuItems {
         $helpers = new Helpers;
 
         // prepare
-        $query = ('UPDATE menu_items SET name = ?, type = ?, path_page = ?, path_url = ?, menu_id = ?, parent = ?, item_order = ?, active = ? WHERE id = ?');
+        $query = ('UPDATE menu_items SET name = ?, type = ?, page_id = ?, path_url = ?, menu_id = ?, parent = ?, item_order = ?, active = ? WHERE id = ?');
         $types = 'ssssisiii';
         $args = [
             $data['name'],
             $data['type'],
-            $data['path_page'],
+            $data['page_id'],
             $data['path_url'],
             $data['menu_id'],
             $data['parent'],

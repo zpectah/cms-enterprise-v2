@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { Box, Stack } from '@mui/material';
 
 import { CommentsItemProps } from '../../../types/model';
 import {
@@ -59,28 +60,28 @@ const CommentsDetail = (props: CommentsDetailProps) => {
 					defaultValues={detailData}
 					onSubmit={submitHandler}
 					renderActions={() => (
-						<>
+						<Stack
+							direction="row"
+							spacing={2}
+						>
 							<PrimaryButton
 								type="submit"
 							>
-								{t('btn.submit')}
+								{t(detailData.id === 'new' ? 'btn.create' : 'btn.update')}
 							</PrimaryButton>
 							<Button
 								onClick={onClose}
-								sx={{ ml: 1.5 }}
 							>
 								{t('btn.cancel')}
 							</Button>
-						</>
+						</Stack>
 					)}
 					renderMain={(form) => {
 						const { token, form: { control, register } } = form;
 
 						return (
-							<div
-								style={{
-									paddingTop: '1rem',
-								}}
+							<Box
+								sx={{ pt: 1 }}
 							>
 								<input type="hidden" {...register('id')} />
 								<Section noSpacing>
@@ -130,7 +131,7 @@ const CommentsDetail = (props: CommentsDetailProps) => {
 										}}
 									/>
 								</Section>
-							</div>
+							</Box>
 						);
 					}}
 				/>

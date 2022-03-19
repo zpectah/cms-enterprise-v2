@@ -40,10 +40,13 @@
     "media": "Media",
     "links": "Odkazy",
     "published": "Publikováno",
-    "label": "Značka",
+    "label": "Štítek",
     "sender": "Odesílatel",
     "recipients": "Příjemci",
-    "author": "Autor"
+    "author": "Autor",
+    "page": "Stránka",
+    "path_url": "Url adresa",
+    "order": "Pořadí"
   },
   "placeholder": {
     "name": "Zadejte název",
@@ -83,13 +86,16 @@
     "media": "Vyberte media",
     "links": "Zadejte odkaz",
     "published": "Vyberte datum",
-    "label": "Zadejte značku",
+    "label": "Zadejte štítek",
     "sender": "Vyberte odesílatele",
     "recipients": "Vyberte příjemce",
     "author": "Vyberte autora",
     "attachments": "Vyberte přílohy",
     "img_main": "Hlavní obrázek",
-    "img_thumbnail": "Náhledový obrázek"
+    "img_thumbnail": "Náhledový obrázek",
+    "page": "Vyberte stránku",
+    "path_url": "Zadejte url adresu",
+    "order": "Vyberte pořadí"
   },
   "help": {
     "password": "Heslo by mělo obsahovat velké, malé znaky a číslo",

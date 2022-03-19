@@ -7,11 +7,12 @@ export interface MenuItemsItemLangModel {
 export interface MenuItemsItemModel extends modelItemBase {
 	type: string;
 	name: string;
-	page_id?: number | null;
+	page_id?: number | '';
 	path_url?: string;
 	menu_id: number;
-	parent: number;
+	parent?: number | '';
 	item_order: number;
+	children?: MenuItemsItemModel[];
 	lang: {
 		[k: string]: MenuItemsItemLangModel;
 	};
