@@ -11,6 +11,7 @@ import useSettings from '../../hooks/useSettings';
 import { MenuItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
+import MenuItemsManager from '../MenuItems/MenuItemsManager';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,
@@ -251,34 +252,11 @@ const MenuDetail = (props: MenuDetailProps) => {
 							</>
 						);
 					}}
-					renderAddons={(form) => {
-						const {
-							token,
-							form: {
-								watch,
-							},
-						} = form;
-
-						const watchAll = watch();
-
-						return (
-							<>
-								{detailData.id === 'new' ? (
-									<>
-										<Alert
-											severity="warning"
-										>
-											Musíte nejdříve menu vytvořit, abyste mohli spravovat menu položky
-										</Alert>
-									</>
-								) : (
-									<>
-										menu items manager ...
-									</>
-								)}
-							</>
-						);
-					}}
+					renderAddons={() => (
+						<MenuItemsManager
+							menuId={detailData.id as number}
+						/>
+					)}
 				/>
 			) : (
 				<BlockPreloader />

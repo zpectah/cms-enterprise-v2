@@ -152,5 +152,11 @@
     "caption": "Zvolte formát pro export a klikněte natlačítko Exportovat, soubor by se měl otevřít v novém okně. Doba trvání je závislá na počtu exportovaných položek.",
     "sub": "Počet vybraných položek",
     "button": "Exportovat"
+  },
+  "MenuItemsManager": {
+    "no_menu_created": "Musíte nejdříve menu vytvořit, abyste mohli spravovat menu položky",
+    "btn": {
+      "create_new": "Vytvořit položku"
+    }
   }
 }

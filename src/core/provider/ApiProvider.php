@@ -180,7 +180,35 @@ class ApiProvider {
             /**
              * MenuItems
              **/
+            case 'get_menu_items':
+                $response['data'] = $dp -> get_menuItems($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
 
+            case 'create_menu_items':
+                $response['data'] = $dp -> create_menuItems($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                break;
+
+            case 'update_menu_items':
+                $response['data'] = $dp -> update_menuItems($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'toggle_menu_items':
+                $response['data'] = $dp -> toggle_menuItems($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'delete_menu_items':
+                $response['data'] = $dp -> delete_menuItems($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
 
             /**
              * Messages
@@ -512,6 +540,7 @@ class ApiProvider {
             'with_children' =>         $_GET['with_children'],
             'assigned' =>              $_GET['assigned'],
             'assigned_id' =>           $_GET['assigned_id'],
+            'menu_id' =>               $_GET['menu_id'],
         ];
 
         if (!$is_authorized) {

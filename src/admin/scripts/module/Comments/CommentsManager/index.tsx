@@ -56,22 +56,22 @@ const CommentsManager = (props: CommentsManagerProps) => {
 	};
 
 	const replyHandler = (id: number) => {
-		setDetailOpen(true);
 		const detail = getDetailData(
 			'Comments',
 			comments,
 			'new',
 		);
 		detail.parent = id;
+		setDetailOpen(true);
 		setDetailData(detail);
 	};
 	const updateHandler = (id: number) => {
-		setDetailOpen(true);
 		setDetailData(getDetailData(
 			'Comments',
 			comments,
 			id,
 		));
+		setDetailOpen(true);
 	};
 	const submitHandler = (master: CommentsItemProps) => {
 		const method = master.id === 'new' ? 'create' : 'update';

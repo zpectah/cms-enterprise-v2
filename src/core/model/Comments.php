@@ -40,7 +40,6 @@ class Comments {
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
-                // iterate by params
                 if ($__assigned && $__assigned_id) {
                     if ($__assigned == $row['assigned'] && $__assigned_id == $row['assigned_id']) {
                         $response[] = $row;
@@ -50,7 +49,6 @@ class Comments {
                 }
             }
         }
-
         if ($__with_children) {
             $response_new = [];
             foreach ($response as $item) {

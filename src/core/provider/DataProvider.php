@@ -6,6 +6,7 @@ use core\model\Categories;
 use core\model\Comments;
 use core\model\Members;
 use core\model\Menu;
+use core\model\MenuItems;
 use core\model\Messages;
 use core\model\Pages;
 use core\model\Posts;
@@ -249,7 +250,56 @@ class DataProvider {
     /**
      * MenuItems
      **/
+    public function get_menuItems ($params = []): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $menuItems = new MenuItems;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $menuItems -> get($conn, $params, $languages['language_active']);
+        $conn -> close();
 
+        return $response;
+    }
+
+    public function create_menuItems ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $menuItems = new MenuItems;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $menuItems -> create($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_menuItems ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $menuItems = new MenuItems;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $menuItems -> update($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function toggle_menuItems ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $menuItems = new MenuItems;
+        $response = $menuItems -> toggle($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_menuItems ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $menuItems = new MenuItems;
+        $response = $menuItems -> delete($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * Messages
