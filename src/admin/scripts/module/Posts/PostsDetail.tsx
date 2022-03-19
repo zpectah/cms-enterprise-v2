@@ -11,7 +11,7 @@ import useSettings from '../../hooks/useSettings';
 import useProfile from '../../hooks/useProfile';
 import { PostsItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
-import getDetailData from '../../utils/getDetailData';
+import CommentsManager from '../Comments/CommentsManager';
 import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
@@ -36,9 +36,12 @@ import {
 import LocationPicker from '../../component/LocationPicker';
 import InfoMetaBlock from '../../component/InfoMetaBlock';
 import UploadsPicker from '../../component/UploadsPicker';
-import getOptionsList from '../../utils/getOptionsList';
-import getLocaleObject from '../../utils/getLocaleObject';
-import transformString from '../../utils/transformString';
+import {
+	getDetailData,
+	getOptionsList,
+	// getLocaleObject,
+	transformString,
+} from '../../utils';
 
 interface PostsDetailProps {
 	dataItems: PostsItemProps[];
@@ -770,19 +773,12 @@ const PostsDetail = (props: PostsDetailProps) => {
 							</>
 						);
 					}}
-					renderAddons={(form) => {
-						const {
-							token,
-							form: { watch }
-						} = form;
-
-						return (
-							<>
-								addons ... comments
-
-							</>
-						);
-					}}
+					renderAddons={() => (
+						<CommentsManager
+							model="Posts"
+							detailId={detailData.id as number}
+						/>
+					)}
 				/>
 			) : (
 				<BlockPreloader />

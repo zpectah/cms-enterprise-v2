@@ -3,6 +3,7 @@
 namespace core\provider;
 
 use core\model\Categories;
+use core\model\Comments;
 use core\model\Members;
 use core\model\Menu;
 use core\model\Messages;
@@ -80,7 +81,68 @@ class DataProvider {
     /**
      * Comments
      **/
+    public function get_comments ($params = []): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $comments = new Comments;
+        $response = $comments -> get($conn, $params);
+        $conn -> close();
 
+        return $response;
+    }
+
+    public function create_comments ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $comments = new Comments;
+        $response = $comments -> create($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_comments ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $comments = new Comments;
+        $response = $comments -> update($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function toggle_comments ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $comments = new Comments;
+        $response = $comments -> toggle($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_comments ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $comments = new Comments;
+        $response = $comments -> delete($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function confirm_comments ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $comments = new Comments;
+        $response = $comments -> confirm($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function report_comments ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $comments = new Comments;
+        $response = $comments -> report($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * Members

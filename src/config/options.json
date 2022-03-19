@@ -89,6 +89,9 @@
     },
     "Messages": {
       "type": ["email", "intern", "contact_form"]
+    },
+    "Comments": {
+      "type": ["default", "reply"]
     }
   },
   "common": {

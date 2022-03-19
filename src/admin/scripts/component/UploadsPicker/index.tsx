@@ -82,7 +82,7 @@ const UploadsPicker = (props: UploadsPickerProps) => {
 	} = props;
 
 	const multiple = variant === 'attachments';
-	const labelButton = `${buttonLabel}${required && ' *'}`;
+	const labelButton = `${buttonLabel}${required ? ' *' : ''}`;
 
 	const [ selected, setSelected ] = useState<selectedItemType[]>([]);
 	const [ isOpen, setIsOpen ] = useState<boolean>(false);

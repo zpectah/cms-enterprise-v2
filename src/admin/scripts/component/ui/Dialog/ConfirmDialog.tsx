@@ -8,7 +8,7 @@ import Dialog, { DialogProps } from './Dialog';
 import { PrimaryButton, SecondaryButton } from '../Button';
 
 export interface ConfirmDialogProps extends Partial<DialogProps> {
-	context?: 'default' | 'delete' | 'logout';
+	context?: 'default' | 'delete' | 'logout' | 'report_comment';
 	confirmData?: (string | number)[];
 	onConfirm: () => void;
 }

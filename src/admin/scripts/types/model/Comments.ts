@@ -1,5 +1,13 @@
-import { modelItemBase } from './common';
-
-export interface CommentsItemModel extends modelItemBase {
-	type: string;
+export interface CommentsItemModel {
+	id: number | string;
+	type?: string;
+	email?: string;
+	title: string;
+	content: string;
+	assigned?: string;
+	assigned_id?: number;
+	parent?: number | null;
+	status: number;
+	created?: string;
+	children?: CommentsItemModel[];
 }

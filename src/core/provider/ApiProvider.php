@@ -69,7 +69,47 @@ class ApiProvider {
             /**
              * Comments
              **/
+            case 'get_comments':
+                $response['data'] = $dp -> get_comments($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
 
+            case 'create_comments':
+                $response['data'] = $dp -> create_comments($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                break;
+
+            case 'update_comments':
+                $response['data'] = $dp -> update_comments($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'toggle_comments':
+                $response['data'] = $dp -> toggle_comments($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'delete_comments':
+                $response['data'] = $dp -> delete_comments($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'confirm_comments':
+                $response['data'] = $dp -> confirm_comments($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'report_comments':
+                $response['data'] = $dp -> report_comments($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
 
             /**
              * Members

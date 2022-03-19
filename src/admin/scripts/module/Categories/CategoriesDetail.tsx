@@ -11,6 +11,7 @@ import { CategoriesItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import getDetailData from '../../utils/getDetailData';
 import PageHeading from '../../component/PageHeading';
+import CommentsManager from '../Comments/CommentsManager';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,
@@ -324,18 +325,12 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 							</>
 						);
 					}}
-					renderAddons={(form) => {
-						const {
-							token,
-							form: { control },
-						} = form;
-
-						return (
-							<>
-								addons ... comments
-							</>
-						);
-					}}
+					renderAddons={() => (
+						<CommentsManager
+							model="Categories"
+							detailId={detailData.id as number}
+						/>
+					)}
 				/>
 			) : (
 				<BlockPreloader />
