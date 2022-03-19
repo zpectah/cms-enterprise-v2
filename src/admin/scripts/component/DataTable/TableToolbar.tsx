@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Stack } from '@mui/material';
 
+import config from '../../config';
 import { TableToolbarProps } from './types';
 import { Button, DropdownMenu } from '../ui';
 import TableFilter from './TableFilter';
@@ -31,7 +32,10 @@ const TableToolbar = (props: TableToolbarProps) => {
 			label: t('table:selected.delete'),
 			onClick: () => onDeleteSelected(),
 		});
-		if (onExportSelected) tmp.push({
+		if (
+			onExportSelected
+			&& config.project.features.TABLE_EXPORT_GLOBAL
+		) tmp.push({
 			key: 'export_selected',
 			label: t('table:selected.export'),
 			onClick: () => onExportSelected(),
