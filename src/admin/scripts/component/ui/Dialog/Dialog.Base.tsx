@@ -111,15 +111,17 @@ const DialogBase: React.FC<DialogBaseProps> = (props) => {
 					)}
 					{showBodyClose && renderCloseIconButton()}
 				</DialogContent>
-				<DialogActions>
-					<Stack direction="row" spacing={2} alignItems={footerAlign}>
-						{showFooterClose && <Button
-							onClick={handleClose}
-							dataId={`${id}_button-close`}
-						>{t('btn.close')}</Button>}
-						{actions}
-					</Stack>
-				</DialogActions>
+				{(showFooterClose || actions) && (
+					<DialogActions>
+						<Stack direction="row" spacing={2} alignItems={footerAlign}>
+							{showFooterClose && <Button
+								onClick={handleClose}
+								dataId={`${id}_button-close`}
+							>{t('btn.close')}</Button>}
+							{actions}
+						</Stack>
+					</DialogActions>
+				)}
 			</div>
 		</Dialog>
 	);

@@ -86,7 +86,10 @@
     "label": "Zadejte značku",
     "sender": "Vyberte odesílatele",
     "recipients": "Vyberte příjemce",
-    "author": "Vyberte autora"
+    "author": "Vyberte autora",
+    "attachments": "Vyberte přílohy",
+    "img_main": "Hlavní obrázek",
+    "img_thumbnail": "Náhledový obrázek"
   },
   "help": {
     "password": "Heslo by mělo obsahovat velké, malé znaky a číslo",

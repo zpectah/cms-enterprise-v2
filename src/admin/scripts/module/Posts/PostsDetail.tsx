@@ -35,6 +35,7 @@ import {
 } from '../../component/Picker';
 import LocationPicker from '../../component/LocationPicker';
 import InfoMetaBlock from '../../component/InfoMetaBlock';
+import UploadsPicker from '../../component/UploadsPicker';
 import getOptionsList from '../../utils/getOptionsList';
 import getLocaleObject from '../../utils/getLocaleObject';
 import transformString from '../../utils/transformString';
@@ -206,9 +207,43 @@ const PostsDetail = (props: PostsDetailProps) => {
 								</Section>
 								<Section>
 
-									img_main
+									<ControlledFormRow
+										name="img_main"
+										control={control}
+										rules={{}}
+										defaultValue={detailData.img_main}
+										render={({ field, fieldState }) => {
+											const { onChange } = field;
 
-									img_thumbnail
+											return (
+												<UploadsPicker
+													variant="thumbnail"
+													buttonLabel={t('form:placeholder.img_main')}
+													initialValue={detailData.img_main}
+													onChange={onChange}
+												/>
+											);
+										}}
+									/>
+
+									<ControlledFormRow
+										name="img_thumbnail"
+										control={control}
+										rules={{}}
+										defaultValue={detailData.img_thumbnail}
+										render={({ field, fieldState }) => {
+											const { onChange } = field;
+
+											return (
+												<UploadsPicker
+													variant="thumbnail"
+													buttonLabel={t('form:placeholder.img_thumbnail')}
+													initialValue={detailData.img_thumbnail}
+													onChange={onChange}
+												/>
+											);
+										}}
+									/>
 
 								</Section>
 								<Section>
@@ -517,19 +552,15 @@ const PostsDetail = (props: PostsDetailProps) => {
 												rules={{ required: true }}
 												defaultValue={detailData.media}
 												render={({ field, fieldState }) => {
-													const { ref, ...rest } = field;
-													const { error } = fieldState;
+													const { onChange } = field;
 
 													return (
-														<Input
-															label={t('form:label.media')}
-															placeholder={t('form:placeholder.media')}
-															id={`${token}_media`}
-															error={!!error}
+														<UploadsPicker
+															variant="media"
+															buttonLabel={t('form:placeholder.media')}
+															initialValue={detailData.media}
+															onChange={onChange}
 															required
-															inputRef={ref}
-															style={{ width: '75%' }}
-															{...rest}
 														/>
 													);
 												}}
@@ -715,9 +746,24 @@ const PostsDetail = (props: PostsDetailProps) => {
 								</Section>
 								<Section>
 
-									attachments
+									<ControlledFormRow
+										name="attachments"
+										control={control}
+										rules={{}}
+										defaultValue={detailData.attachments}
+										render={({ field, fieldState }) => {
+											const { onChange } = field;
 
-									<br />
+											return (
+												<UploadsPicker
+													variant="attachments"
+													buttonLabel={t('form:placeholder.attachments')}
+													initialValue={detailData.attachments}
+													onChange={onChange}
+												/>
+											);
+										}}
+									/>
 
 								</Section>
 
