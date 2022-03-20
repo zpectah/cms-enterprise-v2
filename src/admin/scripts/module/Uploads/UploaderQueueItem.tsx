@@ -38,6 +38,7 @@ export interface UploaderQueueItemProps {
 	onRemove: (id: string) => void;
 	onChange?: (item: combinedUploadsItemProps) => void;
 	onCropImageUpdate?: (item: any, blob: Blob | string | null) => void;
+	onDuplicityError: (error: boolean) => void;
 }
 
 const UploaderQueueItem = (props: UploaderQueueItemProps) => {
@@ -46,6 +47,7 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 		onRemove,
 		onChange,
 		onCropImageUpdate,
+		onDuplicityError,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'components' ]);
@@ -76,17 +78,15 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 						watch,
 						setValue,
 					},
-					setExternalError,
 				} = form;
-
+				const watchCroppedImage = watch('fileBase64_cropped');
 				const watchName = watch('name');
-				const duplicates = checkUploadsDuplicates(
+				const duplicatesDb = checkUploadsDuplicates(
 					data.id as number,
 					watchName,
 				);
 
-				useEffect(() => setExternalError(duplicates), [ duplicates ]);
-				const watchCroppedImage = watch('fileBase64_cropped');
+				useEffect(() => onDuplicityError(duplicatesDb), [ duplicatesDb ]);
 
 				return (
 					<Card
@@ -234,7 +234,7 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 									rules={{ required: true }}
 									defaultValue={''}
 									rowProps={{
-										errors: duplicates && [ 'duplicate_name' ]
+										errors: duplicatesDb && [ 'duplicate_name' ]
 									}}
 									render={({ field, fieldState }) => {
 										const { ref, ...rest } = field;
@@ -245,7 +245,7 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 												label={t('form:label.name')}
 												placeholder={t('form:placeholder.name')}
 												id={`${token}_name`}
-												error={!!error || duplicates}
+												error={!!error || duplicatesDb}
 												required
 												inputRef={ref}
 												{...rest}

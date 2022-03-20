@@ -61,11 +61,17 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 		root: `/admin/app/${routes.uploads.path}`,
 	};
 
+	const finishSubmitHandler = (count: number) => {
+		if (onFinishSubmit) onFinishSubmit(count);
+		navigate(detailOptions.root);
+	};
 	const submitHandler = (data: UploadsItemProps) => {
 		const master = _.cloneDeep(data);
 		const method: submitMethodProps = master.id == 'new' ? 'create' : 'update';
 		master.name = transformString(master.name, 'empty-to-dash');
-		onSubmit(method, master).then(() => navigate(detailOptions.root));
+		onSubmit(method, master).then(() => {
+			if (method === 'update') navigate(detailOptions.root);
+		});
 	};
 	const deleteHandler = (id: string | number) => {
 		setConfirmOpen(true);
@@ -129,7 +135,7 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 							onSubmitItem={async (master) => {
 								await submitHandler(master);
 							}}
-							onFinishSubmit={onFinishSubmit}
+							onFinishSubmit={finishSubmitHandler}
 						/>
 					) : (
 						<>

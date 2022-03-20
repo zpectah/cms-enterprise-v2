@@ -13,8 +13,9 @@
     "format": "Hodnota je ve špatném formátu",
     "pattern": "Hodnota neodpovídá požadovanému vzoru",
     "error_global": "Byly nalezeny problémy s validací formuláře, zkontrolujte to prosím.",
-    "duplicate_name": "Byly nalezeny duplicity, použijte jiný název",
-    "duplicate_email": "Byly nalezeny duplicity, použijte jiný e-mail"
+    "duplicate_name": "Stejný název položky již v databázi existuje, použijte jiný",
+    "duplicate_email": "Tento e-mail již v databázi existuje, použijte jiný",
+    "duplicate_queue": "Ve frontě existuje více položek se stejným názvem, opravte to"
   },
   "model": {
     "item_created": "Položka byla úspešně vytvořena",

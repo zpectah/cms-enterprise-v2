@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import {
 	Divider,
 	Stack,
+	Alert,
 } from '@mui/material';
 
 import config from '../../config';
@@ -11,9 +12,11 @@ import { UploadsItemProps } from '../../types/model';
 import {
 	Button,
 	PrimaryButton,
+	BarPreloader,
 } from '../../component/ui';
 import FileUploader from '../../component/FileUploader';
 import UploaderQueueItem from './UploaderQueueItem';
+import { transformString } from '../../utils';
 
 type combinedUploadsItemProps = uploadItemTemporaryType & UploadsItemProps;
 export interface UploaderProps {
@@ -29,20 +32,19 @@ const Uploader = (props: UploaderProps) => {
 		onFinishSubmit,
 	} = props;
 
-	const { t } = useTranslation([ 'components' ]);
+	const { t } = useTranslation([ 'components', 'messages' ]);
 	const [ queue, setQueue ] = useState<combinedUploadsItemProps[]>([]);
 	const [ duplicityError, setDuplicityError ] = useState(false);
+	const [ queueDuplicityError, setQueueDuplicityError ] = useState(false);
+	const [ processing, setProcessing ] = useState(false);
 
-	const checkDuplicates = (queue: combinedUploadsItemProps[]) => {
-		let duplicity = false;
-
-
-		console.log('check duplicates ...', queue);
-
-		// TODO: check valid across queue (name duplicates) and check if in DB is duplicity ...
-
-
-		setDuplicityError(duplicity);
+	const checkQueueDuplicates = (queue: combinedUploadsItemProps[]) => {
+		const names = [];
+		queue.map((item) => {
+			names.push(item.name);
+		});
+		const duplicity = names.some((item, index) => index !== names.indexOf(item));
+		setQueueDuplicityError(duplicity);
 	};
 	const getUpdatedQueue = (files: uploadItemTemporaryType[]) => {
 		const tmp = [];
@@ -57,7 +59,7 @@ const Uploader = (props: UploaderProps) => {
 				name: file.file_name.split('.').slice(0, -1).join('.'),
 			});
 		});
-		checkDuplicates(tmp);
+		checkQueueDuplicates(tmp);
 		return tmp;
 	};
 
@@ -69,23 +71,25 @@ const Uploader = (props: UploaderProps) => {
 		tmp[index] = {
 			...data,
 		};
-		checkDuplicates(tmp);
+		checkQueueDuplicates(tmp);
 		setQueue(tmp);
 	};
 
 	const submitHandler = useCallback(() => {
+		setProcessing(true);
 		const count = queue.length;
 		let counter = 0;
 
 		return queue.map((item) => {
 			counter = counter + 1;
-			onSubmitItem(item);
 			if (count === counter && onFinishSubmit) {
 				onFinishSubmit(count);
 				resetQueueHandler();
+				setProcessing(false);
 			}
+			return onSubmitItem(item);
 		});
-	}, [ duplicityError, queue ]);
+	}, [ queueDuplicityError, queue ]);
 	const addHandler = useCallback((files: uploadItemTemporaryType[]) => {
 		const tmp = [
 			...queue,
@@ -103,6 +107,7 @@ const Uploader = (props: UploaderProps) => {
 
 	return (
 		<>
+			{processing && <BarPreloader />}
 			<div
 				style={{
 					width: '100%',
@@ -127,31 +132,40 @@ const Uploader = (props: UploaderProps) => {
 						...file,
 						fileBase64_cropped: blob,
 					}, index)}
+					onDuplicityError={(error) => setDuplicityError(error)}
 				/>
 			))}
 			{queue.length > 0 && (
-				<Stack
-					direction="row"
-					alignItems="center"
-					justifyContent="center"
-					spacing={2}
-					sx={{
-						mt: 2.5,
-					}}
-				>
-					<PrimaryButton
-						onClick={submitHandler}
-						disabled={duplicityError}
+				<>
+					{queueDuplicityError && (
+						<Alert
+							severity="error"
+							sx={{ mt: 2.5 }}
+						>
+							{t('messages:form.duplicate_queue')}
+						</Alert>
+					)}
+					<Stack
+						direction="row"
+						alignItems="center"
+						justifyContent="center"
+						spacing={2}
+						sx={{ mt: 2.5 }}
 					>
-						{t('components:Uploader.label.submit_queue')}
-					</PrimaryButton>
-					<Button
-						color="warning"
-						onClick={resetQueueHandler}
-					>
-						{t('components:Uploader.label.clear_queue')}
-					</Button>
-				</Stack>
+						<PrimaryButton
+							onClick={submitHandler}
+							disabled={queueDuplicityError || duplicityError}
+						>
+							{t('components:Uploader.label.submit_queue')}
+						</PrimaryButton>
+						<Button
+							color="warning"
+							onClick={resetQueueHandler}
+						>
+							{t('components:Uploader.label.clear_queue')}
+						</Button>
+					</Stack>
+				</>
 			)}
 		</>
 	);
