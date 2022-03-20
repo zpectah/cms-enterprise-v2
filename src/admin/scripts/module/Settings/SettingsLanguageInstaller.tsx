@@ -4,6 +4,7 @@ import { Stack } from '@mui/material';
 
 import config from '../../config';
 import useToasts from '../../hooks/useToasts';
+import useSystem from '../../hooks/useSystem';
 import {
 	Select,
 	SuccessButton,
@@ -34,30 +35,35 @@ const SettingsLanguageInstaller = (props: SettingsLanguageInstallerProps) => {
 	const [ sourceLanguage, setSourceLanguage ] = useState<string>(current);
 	const [ installing, setInstalling ] = useState(false);
 	const { createSuccessToast } = useToasts();
+	const { installLanguage } = useSystem();
 
 	const installHandler = () => {
 		setInstalling(true);
 		const lang = selectedLanguage;
-		const master: installerRequestProps = {
-			current: lang,
+		const master = {
+			lang_source: sourceLanguage,
+			lang_target: lang,
 			installed: [
 				...installed,
 				lang,
 			],
-			active: [
-				...active,
-				lang,
-			],
 		};
-		console.log('installHandler master', master);
-
-		// TODO
-
-		// after install callback
-		createSuccessToast({ title: t('components:SettingsForm.language_installer.success_message') });
-		afterInstall(master);
-		setSelectedLanguage('');
-		setInstalling(false);
+		installLanguage(master).then((resp) => {
+			createSuccessToast({ title: t('components:SettingsForm.language_installer.success_message') });
+			afterInstall({
+				current: lang,
+				installed: [
+					...installed,
+					lang,
+				],
+				active: [
+					...active,
+					lang,
+				],
+			});
+			setSelectedLanguage('');
+			setInstalling(false);
+		});
 	};
 	const getLanguageOptions = useCallback(() => {
 		const list = [];

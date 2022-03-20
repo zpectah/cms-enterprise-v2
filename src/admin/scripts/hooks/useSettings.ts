@@ -1,7 +1,7 @@
 import useSWR, { mutate } from 'swr';
 
 import config from '../config';
-import { get, post } from '../utils/api';
+import { get, post } from '../utils';
 import { settingsProps } from '../types/app';
 
 const useSettings = () => {

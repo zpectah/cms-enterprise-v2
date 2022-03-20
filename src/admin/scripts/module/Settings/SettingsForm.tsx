@@ -132,6 +132,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 							},
 						} = form;
 
+						const watchLanguageInstalled = watch('language_installed');
 						const watchLanguageActive = watch('language_active');
 						const watchLanguageDefault = watch('language_default');
 						const watchCommentsGlobal = watch('comments_global_active');
@@ -1009,7 +1010,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 												divider
 											>
 												<SettingsLanguageList
-													installed={data.language_installed}
+													installed={watchLanguageInstalled}
 													active={data.language_active}
 													current={data.language_default}
 													onChange={(languageObject) => {
@@ -1022,10 +1023,13 @@ const SettingsForm = (props: SettingsFormProps) => {
 												title={t('components:SettingsForm.section.language_install')}
 											>
 												<SettingsLanguageInstaller
-													installed={data.language_installed}
+													installed={watchLanguageInstalled}
 													active={watchLanguageActive}
 													current={watchLanguageDefault}
-													afterInstall={afterLanguageInstallHandler}
+													afterInstall={(master) => {
+														afterLanguageInstallHandler(master);
+														setValue('language_installed', master.installed);
+													}}
 												/>
 											</Section>
 										</>

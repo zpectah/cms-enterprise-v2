@@ -722,20 +722,25 @@ class DataProvider {
         return $system -> get_log_list();
     }
 
-    public function install_language ($attrs) {
+    public function install_language ($data): array {
         $conn = new mysqli(...CFG_DB_CONN);
         $system = new System;
-        $response = $system -> install_language($attrs);
+        $settings = new Settings;
+        $response = $system -> install_language($conn, $data);
+        $update_fields = [
+            'language_installed' => $data['installed'],
+        ];
+        $response['update'] = $settings -> update_cms_settings($conn, $update_fields);
         $conn -> close();
 
         return $response;
     }
 
-    public function export_data ($attrs): array {
-        $conn = new mysqli(...CFG_DB_CONN);
+    public function export_data ($data): array {
+        // $conn = new mysqli(...CFG_DB_CONN);
         $system = new System;
-        $response = $system -> export_data($attrs);
-        $conn -> close();
+        $response = $system -> export_data($data);
+        // $conn -> close();
 
         return $response;
     }
