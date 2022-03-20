@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import { styled, Divider } from '@mui/material';
 
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 const Wrapper = styled('section')`
 	width: 100%;

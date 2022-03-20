@@ -6,7 +6,7 @@ import { Alert, Typography } from '@mui/material';
 import { string } from '../../../../../../utils/helpers';
 import { Section } from '../Section';
 import { FormActions, FormBody } from './detailFormLayoutElements';
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 export interface ControlledFormRenderProps {
 	token: string;

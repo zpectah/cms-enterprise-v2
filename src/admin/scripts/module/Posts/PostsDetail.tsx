@@ -6,14 +6,13 @@ import Rating from '@mui/material/Rating';
 
 import config from '../../config';
 import routes from '../../routes';
-import { USER_LEVEL_KEYS } from '../../constants';
 import useSettings from '../../hooks/useSettings';
 import useProfile from '../../hooks/useProfile';
+import { usePosts } from '../../hooks/model';
 import { PostsItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import CommentsManager from '../Comments/CommentsManager';
 import PageHeading from '../../component/PageHeading';
-import { usePosts } from '../../hooks/model';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,
@@ -137,7 +136,6 @@ const PostsDetail = (props: PostsDetailProps) => {
 
 						return (
 							<>
-
 								<Section>
 									<ControlledFormRow
 										name="active"
@@ -179,7 +177,6 @@ const PostsDetail = (props: PostsDetailProps) => {
 									/>
 								</Section>
 								<Section>
-
 									<ControlledFormRow
 										name="author"
 										control={control}
@@ -207,10 +204,8 @@ const PostsDetail = (props: PostsDetailProps) => {
 											);
 										}}
 									/>
-
 								</Section>
 								<Section>
-
 									<ControlledFormRow
 										name="img_main"
 										control={control}
@@ -229,7 +224,6 @@ const PostsDetail = (props: PostsDetailProps) => {
 											);
 										}}
 									/>
-
 									<ControlledFormRow
 										name="img_thumbnail"
 										control={control}
@@ -248,18 +242,14 @@ const PostsDetail = (props: PostsDetailProps) => {
 											);
 										}}
 									/>
-
 								</Section>
 								<Section>
-
 									<InfoMetaBlock
 										list={{
 											rating: <Rating name="read-only" size="small" value={detailData.rating} readOnly />,
 										}}
 									/>
-
 								</Section>
-
 							</>
 						);
 					}}
@@ -273,7 +263,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 							},
 							setExternalError,
 						} = form;
-
+						const watchType = watch('type');
 						const watchName = watch('name');
 						const duplicates = checkPostsDuplicates(
 							detailData.id as number,
@@ -282,59 +272,192 @@ const PostsDetail = (props: PostsDetailProps) => {
 
 						useEffect(() => setExternalError(duplicates), [ duplicates ]);
 
-						const watchType = watch('type');
-
 						return (
 							<>
-								{/* ==================== FORM CONTENT ==================== */}
-								<div>
+								<input type="hidden" {...register('id')} />
+								<Section divider={watchType === 'event' || watchType === 'media'}>
+									<ControlledFormRow
+										name="type"
+										control={control}
+										rules={{ required: true }}
+										defaultValue={detailData.type}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
 
-									<input type="hidden" {...register('id')} />
+											return (
+												<Select
+													label={t('form:label.type')}
+													placeholder={t('form:placeholder.type')}
+													id={`${token}_type`}
+													error={!!error}
+													required
+													inputRef={ref}
+													options={getOptionsType()}
+													sx={{ width: { xs: '100%', md: '250px' } }}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+									<ControlledFormRow
+										name="name"
+										control={control}
+										rules={{ required: true }}
+										defaultValue={detailData.name}
+										rowProps={{
+											errors: duplicates && [ 'duplicate_name' ]
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
 
-									<Section divider={watchType === 'event' || watchType === 'media'}>
+											return (
+												<Input
+													label={t('form:label.name')}
+													placeholder={t('form:placeholder.name')}
+													id={`${token}_name`}
+													error={!!error || duplicates}
+													required
+													inputRef={ref}
+													sx={{ width: { xs: '100%', md: '75%' } }}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+									<ControlledFormRow
+										name="published"
+										control={control}
+										rules={{}}
+										defaultValue={detailData.published}
+										rowProps={{
+											helpTexts: [ detailData.id === 'new' && t('form:help.published') ],
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
+
+											return (
+												<DateInput
+													label={t('form:label.published')}
+													inputRef={ref}
+													InputProps={{
+														placeholder: t('form:placeholder.published'),
+														id: `${token}_published`,
+														error: !!error,
+														sx: { width: { xs: '100%', md: '250px' } },
+													}}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+								</Section>
+								{watchType === 'event' ? (
+									<Section>
 										<ControlledFormRow
-											name="type"
+											name="event_start"
 											control={control}
 											rules={{ required: true }}
-											defaultValue={detailData.type}
+											defaultValue={detailData.event_start}
+											rowProps={{
+												helpTexts: [
+													t('form:help.common_datetime_format'),
+												],
+											}}
 											render={({ field, fieldState }) => {
 												const { ref, ...rest } = field;
 												const { error } = fieldState;
 
 												return (
-													<Select
-														label={t('form:label.type')}
-														placeholder={t('form:placeholder.type')}
-														id={`${token}_type`}
-														error={!!error}
-														required
+													<DateTimeInput
+														label={t('form:label.event_start')}
 														inputRef={ref}
-														options={getOptionsType()}
-														sx={{ width: { xs: '100%', md: '250px' } }}
+														InputProps={{
+															placeholder: t('form:placeholder.event_start'),
+															id: `${token}_event_start`,
+															error: !!error,
+															required: true,
+															sx: { width: { xs: '100%', md: '250px' } }
+														}}
+														required
 														{...rest}
 													/>
 												);
 											}}
 										/>
 										<ControlledFormRow
-											name="name"
+											name="event_end"
 											control={control}
 											rules={{ required: true }}
-											defaultValue={detailData.name}
+											defaultValue={detailData.event_end}
 											rowProps={{
-												errors: duplicates && [ 'duplicate_name' ]
+												helpTexts: [
+													t('form:help.common_datetime_format'),
+												],
 											}}
 											render={({ field, fieldState }) => {
 												const { ref, ...rest } = field;
 												const { error } = fieldState;
 
 												return (
-													<Input
-														label={t('form:label.name')}
-														placeholder={t('form:placeholder.name')}
-														id={`${token}_name`}
-														error={!!error || duplicates}
+													<DateTimeInput
+														label={t('form:label.event_end')}
+														inputRef={ref}
+														InputProps={{
+															placeholder: t('form:placeholder.event_end'),
+															id: `${token}_event_end`,
+															error: !!error,
+															required: true,
+															sx: { width: { xs: '100%', md: '250px' } }
+														}}
 														required
+														{...rest}
+													/>
+												);
+											}}
+										/>
+										<ControlledFormRow
+											name="event_location"
+											control={control}
+											rules={{}}
+											defaultValue={detailData.event_location}
+											render={({ field, fieldState }) => {
+												const {
+													ref,
+													value,
+													onChange,
+												} = field;
+												const { error } = fieldState;
+
+												return (
+													<LocationPicker
+														placeholder={t('form:placeholder.location')}
+														id={`${token}_event_location`}
+														inputRef={ref}
+														error={!!error}
+														value={value}
+														onSelect={onChange}
+													/>
+												);
+											}}
+										/>
+										<ControlledFormRow
+											name="event_address"
+											control={control}
+											rules={{}}
+											defaultValue={detailData.event_address}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
+
+												return (
+													<Input
+														label={t('form:label.address')}
+														placeholder={t('form:placeholder.address')}
+														id={`${token}_event_address`}
+														error={!!error}
 														inputRef={ref}
 														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
@@ -343,257 +466,110 @@ const PostsDetail = (props: PostsDetailProps) => {
 											}}
 										/>
 										<ControlledFormRow
-											name="published"
+											name="event_city"
 											control={control}
 											rules={{}}
-											defaultValue={detailData.published}
-											rowProps={{
-												helpTexts: [ detailData.id === 'new' && t('form:help.published') ],
-											}}
+											defaultValue={detailData.event_city}
 											render={({ field, fieldState }) => {
 												const { ref, ...rest } = field;
 												const { error } = fieldState;
 
 												return (
-													<DateInput
-														label={t('form:label.published')}
+													<Input
+														label={t('form:label.city')}
+														placeholder={t('form:placeholder.city')}
+														id={`${token}_event_city`}
+														error={!!error}
 														inputRef={ref}
-														InputProps={{
-															placeholder: t('form:placeholder.published'),
-															id: `${token}_published`,
-															error: !!error,
-															sx: { width: { xs: '100%', md: '250px' } },
-														}}
+														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
 												);
 											}}
 										/>
+										<ControlledFormRow
+											name="event_country"
+											control={control}
+											rules={{}}
+											defaultValue={detailData.event_country}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
 
+												return (
+													<Input
+														label={t('form:label.country')}
+														placeholder={t('form:placeholder.country')}
+														id={`${token}_event_country`}
+														error={!!error}
+														inputRef={ref}
+														sx={{ width: { xs: '100%', md: '75%' } }}
+														{...rest}
+													/>
+												);
+											}}
+										/>
+										<ControlledFormRow
+											name="event_zip"
+											control={control}
+											rules={{}}
+											defaultValue={detailData.event_zip}
+											render={({ field, fieldState }) => {
+												const { ref, ...rest } = field;
+												const { error } = fieldState;
+
+												return (
+													<Input
+														label={t('form:label.zip')}
+														placeholder={t('form:placeholder.zip')}
+														id={`${token}_event_zip`}
+														error={!!error}
+														inputRef={ref}
+														sx={{ width: { xs: '100%', md: '200px' } }}
+														{...rest}
+													/>
+												);
+											}}
+										/>
 									</Section>
+								) : (
+									<>
+										<input type="hidden" {...register('event_start', { value: detailData.event_start })} />
+										<input type="hidden" {...register('event_end', { value: detailData.event_end })} />
+										<input type="hidden" {...register('event_location', { value: detailData.event_location })} />
+										<input type="hidden" {...register('event_address', { value: detailData.event_address })} />
+										<input type="hidden" {...register('event_city', { value: detailData.event_city })} />
+										<input type="hidden" {...register('event_country', { value: detailData.event_country })} />
+										<input type="hidden" {...register('event_zip', { value: detailData.event_zip })} />
+									</>
+								)}
+								{watchType === 'media' ? (
+									<Section>
+										<ControlledFormRow
+											name="media"
+											control={control}
+											rules={{ required: true }}
+											defaultValue={detailData.media}
+											render={({ field, fieldState }) => {
+												const { onChange } = field;
 
-									{watchType === 'event' ? (
-										<Section>
-											<ControlledFormRow
-												name="event_start"
-												control={control}
-												rules={{ required: true }}
-												defaultValue={detailData.event_start}
-												rowProps={{
-													helpTexts: [
-														t('form:help.common_datetime_format'),
-													],
-												}}
-												render={({ field, fieldState }) => {
-													const { ref, ...rest } = field;
-													const { error } = fieldState;
-
-													return (
-														<DateTimeInput
-															label={t('form:label.event_start')}
-															inputRef={ref}
-															InputProps={{
-																placeholder: t('form:placeholder.event_start'),
-																id: `${token}_event_start`,
-																error: !!error,
-																required: true,
-																sx: { width: { xs: '100%', md: '250px' } }
-															}}
-															required
-															{...rest}
-														/>
-													);
-												}}
-											/>
-											<ControlledFormRow
-												name="event_end"
-												control={control}
-												rules={{ required: true }}
-												defaultValue={detailData.event_end}
-												rowProps={{
-													helpTexts: [
-														t('form:help.common_datetime_format'),
-													],
-												}}
-												render={({ field, fieldState }) => {
-													const { ref, ...rest } = field;
-													const { error } = fieldState;
-
-													return (
-														<DateTimeInput
-															label={t('form:label.event_end')}
-															inputRef={ref}
-															InputProps={{
-																placeholder: t('form:placeholder.event_end'),
-																id: `${token}_event_end`,
-																error: !!error,
-																required: true,
-																sx: { width: { xs: '100%', md: '250px' } }
-															}}
-															required
-															{...rest}
-														/>
-													);
-												}}
-											/>
-											<ControlledFormRow
-												name="event_location"
-												control={control}
-												rules={{}}
-												defaultValue={detailData.event_location}
-												render={({ field, fieldState }) => {
-													const {
-														ref,
-														value,
-														onChange,
-													} = field;
-													const { error } = fieldState;
-
-													return (
-														<LocationPicker
-															placeholder={t('form:placeholder.location')}
-															id={`${token}_event_location`}
-															inputRef={ref}
-															error={!!error}
-															value={value}
-															onSelect={onChange}
-														/>
-													);
-												}}
-											/>
-											<ControlledFormRow
-												name="event_address"
-												control={control}
-												rules={{}}
-												defaultValue={detailData.event_address}
-												render={({ field, fieldState }) => {
-													const { ref, ...rest } = field;
-													const { error } = fieldState;
-
-													return (
-														<Input
-															label={t('form:label.address')}
-															placeholder={t('form:placeholder.address')}
-															id={`${token}_event_address`}
-															error={!!error}
-															inputRef={ref}
-															sx={{ width: { xs: '100%', md: '75%' } }}
-															{...rest}
-														/>
-													);
-												}}
-											/>
-											<ControlledFormRow
-												name="event_city"
-												control={control}
-												rules={{}}
-												defaultValue={detailData.event_city}
-												render={({ field, fieldState }) => {
-													const { ref, ...rest } = field;
-													const { error } = fieldState;
-
-													return (
-														<Input
-															label={t('form:label.city')}
-															placeholder={t('form:placeholder.city')}
-															id={`${token}_event_city`}
-															error={!!error}
-															inputRef={ref}
-															sx={{ width: { xs: '100%', md: '75%' } }}
-															{...rest}
-														/>
-													);
-												}}
-											/>
-											<ControlledFormRow
-												name="event_country"
-												control={control}
-												rules={{}}
-												defaultValue={detailData.event_country}
-												render={({ field, fieldState }) => {
-													const { ref, ...rest } = field;
-													const { error } = fieldState;
-
-													return (
-														<Input
-															label={t('form:label.country')}
-															placeholder={t('form:placeholder.country')}
-															id={`${token}_event_country`}
-															error={!!error}
-															inputRef={ref}
-															sx={{ width: { xs: '100%', md: '75%' } }}
-															{...rest}
-														/>
-													);
-												}}
-											/>
-											<ControlledFormRow
-												name="event_zip"
-												control={control}
-												rules={{}}
-												defaultValue={detailData.event_zip}
-												render={({ field, fieldState }) => {
-													const { ref, ...rest } = field;
-													const { error } = fieldState;
-
-													return (
-														<Input
-															label={t('form:label.zip')}
-															placeholder={t('form:placeholder.zip')}
-															id={`${token}_event_zip`}
-															error={!!error}
-															inputRef={ref}
-															sx={{ width: { xs: '100%', md: '200px' } }}
-															{...rest}
-														/>
-													);
-												}}
-											/>
-										</Section>
-									) : (
-										<>
-											<input type="hidden" {...register('event_start', { value: detailData.event_start })} />
-											<input type="hidden" {...register('event_end', { value: detailData.event_end })} />
-											<input type="hidden" {...register('event_location', { value: detailData.event_location })} />
-											<input type="hidden" {...register('event_address', { value: detailData.event_address })} />
-											<input type="hidden" {...register('event_city', { value: detailData.event_city })} />
-											<input type="hidden" {...register('event_country', { value: detailData.event_country })} />
-											<input type="hidden" {...register('event_zip', { value: detailData.event_zip })} />
-										</>
-									)}
-
-									{watchType === 'media' ? (
-										<Section>
-
-											<ControlledFormRow
-												name="media"
-												control={control}
-												rules={{ required: true }}
-												defaultValue={detailData.media}
-												render={({ field, fieldState }) => {
-													const { onChange } = field;
-
-													return (
-														<UploadsPicker
-															variant="media"
-															buttonLabel={t('form:placeholder.media')}
-															initialValue={detailData.media}
-															onChange={onChange}
-															required
-														/>
-													);
-												}}
-											/>
-
-										</Section>
-									) : (
-										<>
-											<input type="hidden" {...register('media', { value: detailData.media })} />
-										</>
-									)}
-
-								</div>
-								{/* ==================== \ FORM CONTENT ==================== */}
+												return (
+													<UploadsPicker
+														variant="media"
+														buttonLabel={t('form:placeholder.media')}
+														initialValue={detailData.media}
+														onChange={onChange}
+														required
+													/>
+												);
+											}}
+										/>
+									</Section>
+								) : (
+									<>
+										<input type="hidden" {...register('media', { value: detailData.media })} />
+									</>
+								)}
 							</>
 						);
 					}}
@@ -606,12 +582,10 @@ const PostsDetail = (props: PostsDetailProps) => {
 							},
 							lang,
 						} = form;
-
 						const watchType = watch('type');
 
 						return (
 							<>
-
 								<ControlledFormRow
 									name={`lang.${lang}.title`}
 									control={control}
@@ -680,7 +654,6 @@ const PostsDetail = (props: PostsDetailProps) => {
 										);
 									}}
 								/>
-
 							</>
 						);
 					}}
@@ -692,9 +665,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 
 						return (
 							<>
-
 								<Section divider>
-
 									<ControlledFormRow
 										name="categories"
 										control={control}
@@ -739,10 +710,8 @@ const PostsDetail = (props: PostsDetailProps) => {
 											);
 										}}
 									/>
-
 								</Section>
 								<Section divider>
-
 									<ControlledFormRow
 										name="links"
 										control={control}
@@ -761,10 +730,8 @@ const PostsDetail = (props: PostsDetailProps) => {
 											);
 										}}
 									/>
-
 								</Section>
 								<Section>
-
 									<ControlledFormRow
 										name="attachments"
 										control={control}
@@ -783,9 +750,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 											);
 										}}
 									/>
-
 								</Section>
-
 							</>
 						);
 					}}

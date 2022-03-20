@@ -5,11 +5,10 @@ import { useTranslation } from 'react-i18next';
 
 import config from '../../config';
 import routes from '../../routes';
-import { USER_LEVEL_KEYS } from '../../constants';
+import { useTags } from '../../hooks/model';
 import { TagsItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
-import { useTags } from '../../hooks/model';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,
@@ -104,29 +103,27 @@ const TagsDetail = (props: TagsDetailProps) => {
 						const { token, form: { control } } = form;
 
 						return (
-							<>
-								<Section>
-									<ControlledFormRow
-										name="active"
-										control={control}
-										rules={{}}
-										defaultValue={detailData.active}
-										render={({ field }) => {
-											const { ref, value, ...rest } = field;
+							<Section>
+								<ControlledFormRow
+									name="active"
+									control={control}
+									rules={{}}
+									defaultValue={detailData.active}
+									render={({ field }) => {
+										const { ref, value, ...rest } = field;
 
-											return (
-												<SwitchControlled
-													id={`${token}_active`}
-													label={t('form:label.active')}
-													checked={value}
-													inputRef={ref}
-													{...rest}
-												/>
-											);
-										}}
-									/>
-								</Section>
-							</>
+										return (
+											<SwitchControlled
+												id={`${token}_active`}
+												label={t('form:label.active')}
+												checked={value}
+												inputRef={ref}
+												{...rest}
+											/>
+										);
+									}}
+								/>
+							</Section>
 						);
 					}}
 					renderPrimary={(form) => {
@@ -139,7 +136,6 @@ const TagsDetail = (props: TagsDetailProps) => {
 							},
 							setExternalError,
 						} = form;
-
 						const watchName = watch('name');
 						const duplicates = checkTagsDuplicates(
 							detailData.id as number,
@@ -150,13 +146,9 @@ const TagsDetail = (props: TagsDetailProps) => {
 
 						return (
 							<>
-								{/* ==================== FORM CONTENT ==================== */}
 								<div>
-
 									<input type="hidden" {...register('id')} />
-
 									<Section>
-
 										<ControlledFormRow
 											name="type"
 											control={control}
@@ -207,11 +199,8 @@ const TagsDetail = (props: TagsDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
-
 								</div>
-								{/* ==================== \ FORM CONTENT ==================== */}
 							</>
 						);
 					}}

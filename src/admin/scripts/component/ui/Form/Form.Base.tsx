@@ -2,8 +2,7 @@ import React from 'react';
 import { Alert } from '@mui/material';
 
 import { Section } from '../Section';
-
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 export interface FormBaseProps extends React.HTMLProps<HTMLFormElement>, React.HTMLAttributes<HTMLFormElement> {
 	dataId?: string;

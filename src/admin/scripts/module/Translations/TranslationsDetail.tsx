@@ -5,12 +5,11 @@ import { useTranslation } from 'react-i18next';
 
 import config from '../../config';
 import routes from '../../routes';
-import { USER_LEVEL_KEYS } from '../../constants';
 import useSettings from '../../hooks/useSettings';
+import { useTranslations } from '../../hooks/model';
 import { TranslationsItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
-import { useTranslations } from '../../hooks/model';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,
@@ -119,29 +118,27 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 						const { token, form: { control } } = form;
 
 						return (
-							<>
-								<Section>
-									<ControlledFormRow
-										name="active"
-										control={control}
-										rules={{}}
-										defaultValue={detailData.active}
-										render={({ field }) => {
-											const { ref, value, ...rest } = field;
+							<Section>
+								<ControlledFormRow
+									name="active"
+									control={control}
+									rules={{}}
+									defaultValue={detailData.active}
+									render={({ field }) => {
+										const { ref, value, ...rest } = field;
 
-											return (
-												<SwitchControlled
-													id={`${token}_active`}
-													label={t('form:label.active')}
-													checked={value}
-													inputRef={ref}
-													{...rest}
-												/>
-											);
-										}}
-									/>
-								</Section>
-							</>
+										return (
+											<SwitchControlled
+												id={`${token}_active`}
+												label={t('form:label.active')}
+												checked={value}
+												inputRef={ref}
+												{...rest}
+											/>
+										);
+									}}
+								/>
+							</Section>
 						);
 					}}
 					renderPrimary={(form) => {
@@ -154,7 +151,6 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 							},
 							setExternalError,
 						} = form;
-
 						const watchName = watch('name');
 						const duplicates = checkTranslationsDuplicates(
 							detailData.id as number,
@@ -165,68 +161,59 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 
 						return (
 							<>
-								{/* ==================== FORM CONTENT ==================== */}
-								<div>
+								<input type="hidden" {...register('id')} />
+								<Section>
+									<ControlledFormRow
+										name="type"
+										control={control}
+										rules={{ required: true }}
+										defaultValue={detailData.type}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
 
-									<input type="hidden" {...register('id')} />
+											return (
+												<Select
+													label={t('form:label.type')}
+													placeholder={t('form:placeholder.type')}
+													id={`${token}_type`}
+													error={!!error}
+													required
+													inputRef={ref}
+													options={getOptionsType()}
+													sx={{ width: { xs: '100%', md: '250px' } }}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+									<ControlledFormRow
+										name="name"
+										control={control}
+										rules={{ required: true }}
+										defaultValue={detailData.name}
+										rowProps={{
+											errors: duplicates && [ 'duplicate_name' ]
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
 
-									<Section>
-
-										<ControlledFormRow
-											name="type"
-											control={control}
-											rules={{ required: true }}
-											defaultValue={detailData.type}
-											render={({ field, fieldState }) => {
-												const { ref, ...rest } = field;
-												const { error } = fieldState;
-
-												return (
-													<Select
-														label={t('form:label.type')}
-														placeholder={t('form:placeholder.type')}
-														id={`${token}_type`}
-														error={!!error}
-														required
-														inputRef={ref}
-														options={getOptionsType()}
-														sx={{ width: { xs: '100%', md: '250px' } }}
-														{...rest}
-													/>
-												);
-											}}
-										/>
-										<ControlledFormRow
-											name="name"
-											control={control}
-											rules={{ required: true }}
-											defaultValue={detailData.name}
-											rowProps={{
-												errors: duplicates && [ 'duplicate_name' ]
-											}}
-											render={({ field, fieldState }) => {
-												const { ref, ...rest } = field;
-												const { error } = fieldState;
-
-												return (
-													<Input
-														label={t('form:label.name')}
-														placeholder={t('form:placeholder.name')}
-														id={`${token}_name`}
-														error={!!error || duplicates}
-														required
-														inputRef={ref}
-														sx={{ width: { xs: '100%', md: '75%' } }}
-														{...rest}
-													/>
-												);
-											}}
-										/>
-
-									</Section>
-
-								</div>
-								{/* ==================== \ FORM CONTENT ==================== */}
+											return (
+												<Input
+													label={t('form:label.name')}
+													placeholder={t('form:placeholder.name')}
+													id={`${token}_name`}
+													error={!!error || duplicates}
+													required
+													inputRef={ref}
+													sx={{ width: { xs: '100%', md: '75%' } }}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+								</Section>
 							</>
 						);
 					}}
@@ -239,7 +226,6 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 
 						return (
 							<>
-
 								<ControlledFormRow
 									name={`lang.${lang}.value`}
 									control={control}
@@ -263,24 +249,6 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 										);
 									}}
 								/>
-
-							</>
-						);
-					}}
-					renderSecondary={(form) => {
-						const { token, form: {
-							watch,
-						} } = form;
-
-						const watchAll = watch();
-
-						return (
-							<>
-								<pre>
-									<code>
-										{JSON.stringify(watchAll, null, 2)}
-									</code>
-								</pre>
 							</>
 						);
 					}}

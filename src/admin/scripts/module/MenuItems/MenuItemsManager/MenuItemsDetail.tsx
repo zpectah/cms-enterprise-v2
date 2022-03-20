@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Box, Stack } from '@mui/material';
 
+import config from '../../../config';
 import { MenuItemsItemModel } from '../../../types/model/MenuItems';
 import { useMenuItems } from '../../../hooks/model';
 import {
@@ -10,19 +11,18 @@ import {
 	ControlledForm,
 	ControlledFormRow,
 	Input,
-	BlockPreloader,
 	Section,
 	Select,
 	PrimaryButton,
 	Button,
-	LanguageFieldset, SwitchControlled,
+	LanguageFieldset,
+	SwitchControlled,
 } from '../../../component/ui';
 import {
 	PagesPicker,
 	MenuItemsPicker,
 } from '../../../component/Picker';
 import { getOptionsList, transformString } from '../../../utils';
-import config from '../../../config';
 
 export interface MenuItemsDetailProps {
 	open: boolean;
@@ -62,7 +62,7 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 		<Dialog
 			open={open}
 			onClose={onClose}
-			title={detailData.id === 'new' ? t('components:MenuItemsManager.dialog_title') : detailData.name}
+			title={detailData?.id === 'new' ? t('components:MenuItemsManager.dialog_title') : detailData?.name}
 			showBodyClose
 		>
 			{detailData ? (
@@ -113,7 +113,6 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 							>
 								<input type="hidden" {...register('id')} />
 								<Section divider>
-
 									<ControlledFormRow
 										name="type"
 										control={control}
@@ -138,7 +137,6 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 											);
 										}}
 									/>
-
 									<ControlledFormRow
 										name="name"
 										control={control}
@@ -165,9 +163,7 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 											);
 										}}
 									/>
-
 								</Section>
-
 								<Section>
 									{watchType === 'page' ? (
 										<ControlledFormRow
@@ -222,9 +218,7 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 										/>
 									)}
 								</Section>
-
 								<Section>
-
 									<LanguageFieldset
 										render={(lang) => (
 											<ControlledFormRow
@@ -252,9 +246,7 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 											/>
 										)}
 									/>
-
 								</Section>
-
 								<Section>
 									<ControlledFormRow
 										name="link_custom_key"
@@ -302,7 +294,6 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 											);
 										}}
 									/>
-
 									<ControlledFormRow
 										name="item_order"
 										control={control}
@@ -327,11 +318,8 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 											);
 										}}
 									/>
-
 								</Section>
-
 								<Section noSpacing>
-
 									<ControlledFormRow
 										name="active"
 										control={control}
@@ -351,15 +339,13 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 											);
 										}}
 									/>
-
 								</Section>
-
 							</Box>
 						);
 					}}
 				/>
 			) : (
-				<BlockPreloader />
+				<></>
 			)}
 		</Dialog>
 	);

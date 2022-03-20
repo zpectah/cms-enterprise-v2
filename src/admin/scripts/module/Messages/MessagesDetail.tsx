@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 import config from '../../config';
 import routes from '../../routes';
-import { USER_LEVEL_KEYS } from '../../constants';
 import { MessagesItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
@@ -15,7 +14,6 @@ import {
 	Section,
 	Input,
 	Select,
-	SwitchControlled,
 	BlockPreloader,
 	BarPreloader,
 	ControlledFormRow,
@@ -57,7 +55,6 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 	const submitHandler = (data: MessagesItemProps) => {
 		const master = _.cloneDeep(data);
 		const method: submitMethodProps = master.id == 'new' ? 'create' : 'update';
-		// master.name = transformString(master.name, 'empty-to-dash');
 		onSubmit(method, master).then(() => navigate(detailOptions.root));
 	};
 	const deleteHandler = (id: string | number) => {
@@ -100,40 +97,25 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 					defaultValues={detailData}
 					onSubmit={submitHandler}
 					onDelete={() => deleteHandler(detailData.id)}
-					renderSidebar={(form) => {
-						const { token, form: { control } } = form;
-
-						return (
-							<>
-
-								<InfoMetaBlock
-									list={{
-										'status': <Chip label={String(detailData.status)} size="small" />,
-										'created': detailData.created ? detailData.created : 'N/A',
-									}}
-								/>
-
-							</>
-						);
-					}}
+					renderSidebar={() => (
+						<InfoMetaBlock
+							list={{
+								'status': <Chip label={String(detailData.status)} size="small" />,
+								'created': detailData.created ? detailData.created : 'N/A',
+							}}
+						/>
+					)}
 					renderPrimary={(form) => {
 						const { token, form: {
 							control,
 							register,
-							watch,
 						} } = form;
-
-						const watchType = watch('type');
 
 						return (
 							<>
-								{/* ==================== FORM CONTENT ==================== */}
 								<div>
-
 									<input type="hidden" {...register('id')} />
-
 									<Section>
-
 										<ControlledFormRow
 											name="type"
 											control={control}
@@ -204,11 +186,8 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
-
 									<Section>
-
 										<ControlledFormRow
 											name="title"
 											control={control}
@@ -255,11 +234,8 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
-
 								</div>
-								{/* ==================== \ FORM CONTENT ==================== */}
 							</>
 						);
 					}}

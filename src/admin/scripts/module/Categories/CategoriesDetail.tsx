@@ -5,13 +5,12 @@ import { useTranslation } from 'react-i18next';
 
 import config from '../../config';
 import routes from '../../routes';
-import { USER_LEVEL_KEYS } from '../../constants';
 import useSettings from '../../hooks/useSettings';
+import { useCategories } from '../../hooks/model';
 import { CategoriesItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import CommentsManager from '../Comments/CommentsManager';
-import { useCategories } from '../../hooks/model';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,
@@ -146,7 +145,6 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 									/>
 								</Section>
 								<Section>
-
 									<ControlledFormRow
 										name="img_main"
 										control={control}
@@ -165,7 +163,6 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 											);
 										}}
 									/>
-
 									<ControlledFormRow
 										name="img_thumbnail"
 										control={control}
@@ -184,7 +181,6 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 											);
 										}}
 									/>
-
 								</Section>
 							</>
 						);
@@ -199,7 +195,6 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 							},
 							setExternalError,
 						} = form;
-
 						const watchName = watch('name');
 						const duplicates = checkCategoriesDuplicates(
 							detailData.id as number,
@@ -210,13 +205,9 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 
 						return (
 							<>
-								{/* ==================== FORM CONTENT ==================== */}
 								<div>
-
 									<input type="hidden" {...register('id')} />
-
 									<Section divider>
-
 										<ControlledFormRow
 											name="type"
 											control={control}
@@ -267,10 +258,8 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
 									<Section>
-
 										<ControlledFormRow
 											name="parent"
 											control={control}
@@ -296,11 +285,8 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
-
 								</div>
-								{/* ==================== \ FORM CONTENT ==================== */}
 							</>
 						);
 					}}
@@ -313,7 +299,6 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 
 						return (
 							<>
-
 								<ControlledFormRow
 									name={`lang.${lang}.title`}
 									control={control}
@@ -336,7 +321,6 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 										);
 									}}
 								/>
-
 								<ControlledFormRow
 									name={`lang.${lang}.description`}
 									control={control}
@@ -359,7 +343,6 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 										);
 									}}
 								/>
-
 							</>
 						);
 					}}

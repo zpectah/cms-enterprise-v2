@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 const Wrapper = styled.div`
 	width: 100%;

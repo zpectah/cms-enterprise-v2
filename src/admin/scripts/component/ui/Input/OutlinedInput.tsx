@@ -1,7 +1,7 @@
 import React from 'react';
 import { default as MuiOutlinedInput, OutlinedInputProps as MuiOutlinedInputProps } from '@mui/material/OutlinedInput';
 
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 export interface OutlinedInputProps extends MuiOutlinedInputProps {
 	dataId?: string;

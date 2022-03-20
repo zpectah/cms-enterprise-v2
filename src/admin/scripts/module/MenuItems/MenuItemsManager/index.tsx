@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Box } from '@mui/material';
+import { Alert } from '@mui/material';
 
 import { MenuItemsItemModel } from '../../../types/model/MenuItems';
 import { useMenuItems } from '../../../hooks/model';
@@ -8,7 +8,7 @@ import useSettings from '../../../hooks/useSettings';
 import {
 	ConfirmDialog,
 	AddButton,
-	TextPreloader,
+	BarPreloader,
 } from '../../../component/ui';
 import MenuItemsDetail from './MenuItemsDetail';
 import MenuItemsList from './MenuItemsList';
@@ -128,6 +128,7 @@ const MenuItemsManager = (props: MenuItemsManagerProps) => {
 
 	return (
 		<>
+			{(loading || updating) && <BarPreloader />}
 			{menuId === 'new' ? (
 				<Alert
 					severity="info"
@@ -150,11 +151,6 @@ const MenuItemsManager = (props: MenuItemsManagerProps) => {
 						label={t('components:MenuItemsManager.btn.create_new')}
 						variant="outlined"
 					/>
-					{loading || updating && (
-						<Box sx={{ py: 2 }}>
-							<TextPreloader />
-						</Box>
-					)}
 					<MenuItemsDetail
 						detailData={detailData}
 						open={detailOpen}

@@ -5,12 +5,11 @@ import { useTranslation } from 'react-i18next';
 
 import config from '../../config';
 import routes from '../../routes';
-import { USER_LEVEL_KEYS } from '../../constants';
 import useSettings from '../../hooks/useSettings';
+import { usePages } from '../../hooks/model';
 import { PagesItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
-import { usePages } from '../../hooks/model';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,
@@ -130,29 +129,27 @@ const PagesDetail = (props: PagesDetailProps) => {
 						const { token, form: { control } } = form;
 
 						return (
-							<>
-								<Section>
-									<ControlledFormRow
-										name="active"
-										control={control}
-										rules={{}}
-										defaultValue={detailData.active}
-										render={({ field }) => {
-											const { ref, value, ...rest } = field;
+							<Section>
+								<ControlledFormRow
+									name="active"
+									control={control}
+									rules={{}}
+									defaultValue={detailData.active}
+									render={({ field }) => {
+										const { ref, value, ...rest } = field;
 
-											return (
-												<SwitchControlled
-													id={`${token}_active`}
-													label={t('form:label.active')}
-													checked={value}
-													inputRef={ref}
-													{...rest}
-												/>
-											);
-										}}
-									/>
-								</Section>
-							</>
+										return (
+											<SwitchControlled
+												id={`${token}_active`}
+												label={t('form:label.active')}
+												checked={value}
+												inputRef={ref}
+												{...rest}
+											/>
+										);
+									}}
+								/>
+							</Section>
 						);
 					}}
 					renderPrimary={(form) => {
@@ -165,7 +162,7 @@ const PagesDetail = (props: PagesDetailProps) => {
 							},
 							setExternalError,
 						} = form;
-
+						const watchType = watch('type');
 						const watchName = watch('name');
 						const duplicates = checkPagesDuplicates(
 							detailData.id as number,
@@ -174,102 +171,90 @@ const PagesDetail = (props: PagesDetailProps) => {
 
 						useEffect(() => setExternalError(duplicates), [ duplicates ]);
 
-						const watchType = watch('type');
-
 						return (
 							<>
-								{/* ==================== FORM CONTENT ==================== */}
-								<div>
+								<input type="hidden" {...register('id')} />
+								<Section divider={watchType === 'category'}>
+									<ControlledFormRow
+										name="type"
+										control={control}
+										rules={{ required: true }}
+										defaultValue={detailData.type}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
 
-									<input type="hidden" {...register('id')} />
+											return (
+												<Select
+													label={t('form:label.type')}
+													placeholder={t('form:placeholder.type')}
+													id={`${token}_type`}
+													error={!!error}
+													required
+													inputRef={ref}
+													options={getOptionsType()}
+													sx={{ width: { xs: '100%', md: '250px' } }}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+									<ControlledFormRow
+										name="name"
+										control={control}
+										rules={{ required: true }}
+										defaultValue={detailData.name}
+										rowProps={{
+											errors: duplicates && [ 'duplicate_name' ]
+										}}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
 
-									<Section divider={watchType === 'category'}>
-
+											return (
+												<Input
+													label={t('form:label.name')}
+													placeholder={t('form:placeholder.name')}
+													id={`${token}_name`}
+													error={!!error || duplicates}
+													required
+													inputRef={ref}
+													sx={{ width: { xs: '100%', md: '75%' } }}
+													{...rest}
+												/>
+											);
+										}}
+									/>
+								</Section>
+								{watchType === 'category' ? (
+									<Section>
 										<ControlledFormRow
-											name="type"
+											name="type_id"
 											control={control}
 											rules={{ required: true }}
-											defaultValue={detailData.type}
+											defaultValue={detailData.type_id}
 											render={({ field, fieldState }) => {
-												const { ref, ...rest } = field;
+												const { ref, value, onChange } = field;
 												const { error } = fieldState;
 
 												return (
-													<Select
-														label={t('form:label.type')}
-														placeholder={t('form:placeholder.type')}
-														id={`${token}_type`}
+													<CategoriesPicker
+														value={value}
+														onChange={onChange}
+														label={t('form:label.category')}
+														placeholder={t('form:placeholder.category')}
+														id={`${token}_type_id`}
 														error={!!error}
 														required
-														inputRef={ref}
-														options={getOptionsType()}
-														sx={{ width: { xs: '100%', md: '250px' } }}
-														{...rest}
+														emptyValueOption
 													/>
 												);
 											}}
 										/>
-										<ControlledFormRow
-											name="name"
-											control={control}
-											rules={{ required: true }}
-											defaultValue={detailData.name}
-											rowProps={{
-												errors: duplicates && [ 'duplicate_name' ]
-											}}
-											render={({ field, fieldState }) => {
-												const { ref, ...rest } = field;
-												const { error } = fieldState;
-
-												return (
-													<Input
-														label={t('form:label.name')}
-														placeholder={t('form:placeholder.name')}
-														id={`${token}_name`}
-														error={!!error || duplicates}
-														required
-														inputRef={ref}
-														sx={{ width: { xs: '100%', md: '75%' } }}
-														{...rest}
-													/>
-												);
-											}}
-										/>
-
 									</Section>
-
-									{watchType === 'category' ? (
-										<Section>
-											<ControlledFormRow
-												name="type_id"
-												control={control}
-												rules={{ required: true }}
-												defaultValue={detailData.type_id}
-												render={({ field, fieldState }) => {
-													const { ref, value, onChange } = field;
-													const { error } = fieldState;
-
-													return (
-														<CategoriesPicker
-															value={value}
-															onChange={onChange}
-															label={t('form:label.category')}
-															placeholder={t('form:placeholder.category')}
-															id={`${token}_type_id`}
-															error={!!error}
-															required
-															emptyValueOption
-														/>
-													);
-												}}
-											/>
-										</Section>
-									) : (
-										<input type="hidden" {...register('type_id', { value: detailData.type_id })} />
-									)}
-
-								</div>
-								{/* ==================== \ FORM CONTENT ==================== */}
+								) : (
+									<input type="hidden" {...register('type_id', { value: detailData.type_id })} />
+								)}
 							</>
 						);
 					}}
@@ -282,12 +267,10 @@ const PagesDetail = (props: PagesDetailProps) => {
 							},
 							lang,
 						} = form;
-
 						const watchType = watch('type');
 
 						return (
 							<>
-
 								<ControlledFormRow
 									name={`lang.${lang}.title`}
 									control={control}
@@ -310,7 +293,6 @@ const PagesDetail = (props: PagesDetailProps) => {
 										);
 									}}
 								/>
-
 								<ControlledFormRow
 									name={`lang.${lang}.description`}
 									control={control}
@@ -333,7 +315,6 @@ const PagesDetail = (props: PagesDetailProps) => {
 										);
 									}}
 								/>
-
 								<ControlledFormRow
 									name={`lang.${lang}.content`}
 									control={control}
@@ -357,7 +338,6 @@ const PagesDetail = (props: PagesDetailProps) => {
 										);
 									}}
 								/>
-
 							</>
 						);
 					}}
@@ -368,61 +348,56 @@ const PagesDetail = (props: PagesDetailProps) => {
 						} = form;
 
 						return (
-							<>
-								<Section>
+							<Section>
+								<ControlledFormRow
+									name="meta_robots"
+									control={control}
+									rules={{ required: true }}
+									defaultValue={detailData.meta_robots}
+									render={({ field, fieldState }) => {
+										const { ref, ...rest } = field;
+										const { error } = fieldState;
 
-									<ControlledFormRow
-										name="meta_robots"
-										control={control}
-										rules={{ required: true }}
-										defaultValue={detailData.meta_robots}
-										render={({ field, fieldState }) => {
-											const { ref, ...rest } = field;
-											const { error } = fieldState;
+										return (
+											<Select
+												options={getOptionsIndex()}
+												label={t('form:label.meta_robots')}
+												placeholder={t('form:placeholder.meta_robots')}
+												id={`${token}_meta_robots`}
+												error={!!error}
+												required
+												inputRef={ref}
+												sx={{ width: { xs: '100%', md: '50%' } }}
+												{...rest}
+											/>
+										);
+									}}
+								/>
+								<ControlledFormRow
+									name="page_elements"
+									control={control}
+									rules={{}}
+									defaultValue={detailData.page_elements}
+									render={({ field, fieldState }) => {
+										const { ref, ...rest } = field;
+										const { error } = fieldState;
 
-											return (
-												<Select
-													options={getOptionsIndex()}
-													label={t('form:label.meta_robots')}
-													placeholder={t('form:placeholder.meta_robots')}
-													id={`${token}_meta_robots`}
-													error={!!error}
-													required
-													inputRef={ref}
-													sx={{ width: { xs: '100%', md: '50%' } }}
-													{...rest}
-												/>
-											);
-										}}
-									/>
-									<ControlledFormRow
-										name="page_elements"
-										control={control}
-										rules={{}}
-										defaultValue={detailData.page_elements}
-										render={({ field, fieldState }) => {
-											const { ref, ...rest } = field;
-											const { error } = fieldState;
-
-											return (
-												<Select
-													options={getOptionsElements()}
-													label={t('form:label.page_elements')}
-													placeholder={t('form:placeholder.page_elements')}
-													id={`${token}_page_elements`}
-													error={!!error}
-													inputRef={ref}
-													multiple
-													sx={{ width: { xs: '100%', md: '75%' } }}
-													{...rest}
-												/>
-											);
-										}}
-									/>
-
-								</Section>
-
-							</>
+										return (
+											<Select
+												options={getOptionsElements()}
+												label={t('form:label.page_elements')}
+												placeholder={t('form:placeholder.page_elements')}
+												id={`${token}_page_elements`}
+												error={!!error}
+												inputRef={ref}
+												multiple
+												sx={{ width: { xs: '100%', md: '75%' } }}
+												{...rest}
+											/>
+										);
+									}}
+								/>
+							</Section>
 						);
 					}}
 				/>

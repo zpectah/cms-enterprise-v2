@@ -5,14 +5,11 @@ import { useTranslation } from 'react-i18next';
 
 import config from '../../config';
 import routes from '../../routes';
-import {
-	EMAIL_REGEX,
-	USER_LEVEL_KEYS,
-} from '../../constants';
+import { EMAIL_REGEX } from '../../constants';
+import { useMembers } from '../../hooks/model';
 import { MembersItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
-import { useMembers } from '../../hooks/model';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,
@@ -179,10 +176,10 @@ const MembersDetail = (props: MembersDetailProps) => {
 											);
 										}}
 									/>
-
 								</Section>
 								<Section>
 
+									// TODO
 									img_avatar
 
 								</Section>
@@ -199,7 +196,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 							},
 							setExternalError,
 						} = form;
-
+						const watchType = watch('type');
 						const watchEmail = watch('email');
 						const duplicates = checkMembersDuplicates(
 							detailData.id as number,
@@ -207,18 +204,13 @@ const MembersDetail = (props: MembersDetailProps) => {
 						);
 
 						useEffect(() => setExternalError(duplicates), [ duplicates ]);
-						const watchType = watch('type');
 
 						return (
 							<>
-								{/* ==================== FORM CONTENT ==================== */}
 								<div>
-
 									<input type="hidden" {...register('id')} />
 									<input type="hidden" {...register('img_avatar')} />
-
 									<Section divider>
-
 										<ControlledFormRow
 											name="type"
 											control={control}
@@ -319,11 +311,8 @@ const MembersDetail = (props: MembersDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
-
 									<Section divider>
-
 										<ControlledFormRow
 											name="nickname"
 											control={control}
@@ -393,11 +382,8 @@ const MembersDetail = (props: MembersDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
-
 									<Section divider>
-
 										<ControlledFormRow
 											name="address"
 											control={control}
@@ -490,11 +476,8 @@ const MembersDetail = (props: MembersDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
-
 									<Section divider>
-
 										<ControlledFormRow
 											name="sex"
 											control={control}
@@ -570,11 +553,8 @@ const MembersDetail = (props: MembersDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
-
 									<Section divider>
-
 										<ControlledFormRow
 											name="description"
 											control={control}
@@ -596,11 +576,8 @@ const MembersDetail = (props: MembersDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
-
 									<Section>
-
 										<ControlledFormRow
 											name="phone_alt"
 											control={control}
@@ -639,18 +616,11 @@ const MembersDetail = (props: MembersDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
-
 								</div>
-								{/* ==================== \ FORM CONTENT ==================== */}
 							</>
 						);
 					}}
-					// renderLanguage={(form) => (<> Language part </>)}
-					// renderActions={(form) => (<> Action buttons </>)}
-					// renderAddons={(form) => (<> Addons (not form part) </>)}
-					// renderSecondary={(form) => (<> Secondary </>)}
 				/>
 			) : (
 				<BlockPreloader />

@@ -15,7 +15,7 @@ import {
 	Button,
 	CloseIconButton,
 } from '../Button';
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 export interface DialogBaseProps extends DialogProps {
 	dataId?: string;

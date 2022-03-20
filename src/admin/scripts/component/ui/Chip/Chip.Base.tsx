@@ -1,7 +1,7 @@
 import React from 'react';
 import Chip, { ChipProps } from '@mui/material/Chip';
 
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 export interface ChipBaseProps extends ChipProps {
 	dataId?: string;

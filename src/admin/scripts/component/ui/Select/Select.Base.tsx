@@ -5,7 +5,7 @@ import FormControl, { FormControlProps } from '@mui/material/FormControl';
 import { default as MuiSelect, SelectProps as MuiSelectProps } from '@mui/material/Select';
 
 import { string } from '../../../../../../utils/helpers';
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 export interface OptionsItemProps extends MenuItemProps {
 	key: string | number;

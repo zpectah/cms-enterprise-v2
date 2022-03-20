@@ -2,17 +2,15 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { Alert } from '@mui/material';
 
 import config from '../../config';
 import routes from '../../routes';
-import { USER_LEVEL_KEYS } from '../../constants';
 import useSettings from '../../hooks/useSettings';
+import { useMenu } from '../../hooks/model';
 import { MenuItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import MenuItemsManager from '../MenuItems/MenuItemsManager';
-import { useMenu } from '../../hooks/model';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,

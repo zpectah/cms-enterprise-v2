@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 
 import { CloseIconButton } from '../Button';
 import { Scrollable } from '../Scrollable';
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 const DrawerContainer = styled(Box)`
 	height: 100%;

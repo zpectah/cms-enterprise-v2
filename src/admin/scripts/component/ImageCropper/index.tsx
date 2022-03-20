@@ -11,7 +11,7 @@ import {
 	Toggle,
 	Button,
 } from '../ui';
-import { getCroppedImage } from '../../utils/image';
+import { getCroppedImage } from '../../utils';
 
 export interface ImageCropperProps {
 	source?: Blob;

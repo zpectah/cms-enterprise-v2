@@ -3,7 +3,7 @@ import Button, { ButtonProps } from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import styled from '@emotion/styled';
 
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 const ButtonLabel = styled.span<{ isLoading: boolean }>`
 	flex: none;

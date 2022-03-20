@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import config from '../../config';
 import { file as fileUtils } from '../../../../../utils/helpers';
 import routes from '../../routes';
-import { USER_LEVEL_KEYS } from '../../constants';
 import useSettings from '../../hooks/useSettings';
 import { UploadsItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
@@ -17,11 +16,10 @@ import {
 	Section,
 	Input,
 	Textarea,
-	Select,
 	SwitchControlled,
 	BlockPreloader,
 	BarPreloader,
-	ControlledFormRow, Chip,
+	ControlledFormRow,
 } from '../../component/ui';
 import {
 	getDetailData,
@@ -184,11 +182,9 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 
 									return (
 										<>
-											{/* ==================== FORM CONTENT ==================== */}
 											<input type="hidden" {...register('id')} />
 											<input type="hidden" {...register('type')} />
 											<input type="hidden" {...register('name')} />
-											{/* ==================== \ FORM CONTENT ==================== */}
 										</>
 									);
 								}}
@@ -201,7 +197,6 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 
 									return (
 										<>
-
 											<ControlledFormRow
 												name={`lang.${lang}.label`}
 												control={control}
@@ -245,7 +240,6 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 													);
 												}}
 											/>
-
 										</>
 									);
 								}}

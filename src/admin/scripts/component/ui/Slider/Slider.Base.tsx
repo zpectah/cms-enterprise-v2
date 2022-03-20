@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider, { SliderProps } from '@mui/material/Slider';
 
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 export interface SliderBaseProps extends SliderProps {
 	dataId?: string;

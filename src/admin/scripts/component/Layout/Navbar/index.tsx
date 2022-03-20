@@ -1,8 +1,14 @@
 import React from 'react';
-import { useNavigate, useMatch, useResolvedPath, useLocation } from 'react-router-dom';
+import { useNavigate, useMatch, useResolvedPath } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'react-i18next';
-import { SvgIconProps, MenuList, MenuItem, ListItemText, ListItemIcon } from '@mui/material';
+import {
+	SvgIconProps,
+	MenuList,
+	MenuItem,
+	ListItemText,
+	ListItemIcon,
+} from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GroupIcon from '@mui/icons-material/Group';
@@ -17,6 +23,7 @@ import LanguageIcon from '@mui/icons-material/Language';
 import MessageIcon from '@mui/icons-material/Message';
 
 import routes from '../../../routes';
+import useBreadcrumbs from '../../../hooks/useBreadcrumbs';
 
 interface NavbarProps {
 	onSidebarClose: () => void;
@@ -24,9 +31,10 @@ interface NavbarProps {
 
 const Navbar = (props: NavbarProps) => {
 	const { onSidebarClose } = props;
+
 	const { t } = useTranslation(['pages']);
 	const navigate = useNavigate();
-	// const location = useLocation();
+	const breadcrumbs = useBreadcrumbs();
 
 	const root = '/admin/app';
 	const iconProps: SvgIconProps = {
@@ -123,6 +131,9 @@ const Navbar = (props: NavbarProps) => {
 		navigate(path);
 		if (isMobile) onSidebarClose();
 	};
+	const isItemSelected = (key: string) => {
+		return breadcrumbs.page === key;
+	};
 
 	return (
 		<MenuList
@@ -131,7 +142,6 @@ const Navbar = (props: NavbarProps) => {
 			}}
 		>
 			{navItems.map((item) => {
-				// const parsedPath = location.pathname.split('/');
 				const {
 					key,
 					path,
@@ -140,7 +150,7 @@ const Navbar = (props: NavbarProps) => {
 					label,
 				} = item;
 				const resolved = useResolvedPath(path);
-				const selected = useMatch({ path: resolved.pathname, end: true });
+				const selected = useMatch({ path: resolved.pathname, end: true }) || isItemSelected(key);
 
 				if (active) return (
 					<MenuItem

@@ -196,6 +196,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 								</Section>
 								<Section>
 
+									// TODO
 									img_avatar
 
 								</Section>
@@ -212,7 +213,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 							},
 							setExternalError,
 						} = form;
-
 						const watchEmail = watch('email');
 						const duplicates = checkUsersDuplicates(
 							detailData.id as number,
@@ -223,14 +223,10 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 						return (
 							<>
-								{/* ==================== FORM CONTENT ==================== */}
 								<div>
-
 									<input type="hidden" {...register('id')} />
 									<input type="hidden" {...register('img_avatar')} />
-
 									<Section divider>
-
 										<ControlledFormRow
 											name="type"
 											control={control}
@@ -308,11 +304,8 @@ const UsersDetail = (props: UsersDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
-
 									<Section divider>
-
 										<ControlledFormRow
 											name="nickname"
 											control={control}
@@ -380,11 +373,8 @@ const UsersDetail = (props: UsersDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
-
 									<Section>
-
 										<ControlledFormRow
 											name="description"
 											control={control}
@@ -406,18 +396,11 @@ const UsersDetail = (props: UsersDetailProps) => {
 												);
 											}}
 										/>
-
 									</Section>
-
 								</div>
-								{/* ==================== \ FORM CONTENT ==================== */}
 							</>
 						);
 					}}
-					// renderLanguage={(form) => (<> Language part </>)}
-					// renderActions={(form) => (<> Action buttons </>)}
-					// renderAddons={(form) => (<> Addons (not form part) </>)}
-					// renderSecondary={(form) => (<> Secondary </>)}
 				/>
 			) : (
 				<BlockPreloader />

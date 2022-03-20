@@ -1,7 +1,7 @@
 import React from 'react';
 import { default as MuiButtonGroup } from '@mui/material/ButtonGroup';
 
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 export interface ButtonGroupProps {
 	dataId?: string;

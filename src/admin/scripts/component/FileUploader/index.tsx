@@ -8,7 +8,7 @@ import { file as fileUtils, string as stringUtils } from '../../../../../utils/h
 import { UPLOAD_IMAGE_LIMIT, UPLOAD_FILE_LIMIT } from '../../constants';
 import useToasts from '../../hooks/useToasts';
 import { uploadItemTemporaryType } from '../../types/uploader';
-import { getFileType } from '../../utils/getFileType';
+import { getFileType } from '../../utils';
 import { BarPreloader } from '../ui';
 
 export interface FileUploaderProps {

@@ -24,7 +24,7 @@ import {
 	FormActions,
 	FormAddons,
 } from './detailFormLayoutElements';
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 import { FieldValues } from 'react-hook-form/dist/types/fields';
 
 export interface ControlledDetailFormLayoutRenderProps {

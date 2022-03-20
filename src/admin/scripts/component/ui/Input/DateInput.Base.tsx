@@ -4,7 +4,7 @@ import AdapterLuxon from '@mui/lab/AdapterLuxon';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker, { DatePickerProps } from '@mui/lab/DatePicker';
 
-import getLocaleObject from '../../../utils/getLocaleObject';
+import { getLocaleObject } from '../../../utils';
 import Input from './Input';
 
 export interface DateInputBaseProps extends Partial<DatePickerProps> {

@@ -3,7 +3,7 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import CircularProgress from '@mui/material/CircularProgress';
 import styled from '@emotion/styled';
 
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 export interface IconButtonBaseProps extends IconButtonProps {
 	dataId?: string;

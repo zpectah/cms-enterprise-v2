@@ -4,8 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { Stack } from '@mui/material';
 
 import config from '../../config';
-import { VisitorBlacklistItemProps } from '../../types/model';
+import { EMAIL_REGEX } from '../../constants';
 import { useVisitorBlacklist } from '../../hooks/model';
+import { VisitorBlacklistItemProps } from '../../types/model';
 import {
 	Dialog,
 	ControlledForm,
@@ -18,7 +19,6 @@ import {
 	Button,
 } from '../../component/ui';
 import { getOptionsList } from '../../utils';
-import { EMAIL_REGEX } from '../../constants';
 
 export interface VisitorBlacklistDetailProps {
 	open: boolean;
@@ -89,7 +89,6 @@ const VisitorBlacklistDetail = (props: VisitorBlacklistDetailProps) => {
 							}}
 							renderMain={(form) => {
 								const { token, form: { control, watch }, setExternalError } = form;
-
 								const watchEmail = watch('visitor_email');
 								const watchIp = watch('visitor_ip');
 								const duplicates_email = checkVisitorBlacklistDuplicatesName(
@@ -111,7 +110,6 @@ const VisitorBlacklistDetail = (props: VisitorBlacklistDetailProps) => {
 												paddingTop: '1rem',
 											}}
 										>
-
 											<ControlledFormRow
 												name="type"
 												control={control}
@@ -211,10 +209,8 @@ const VisitorBlacklistDetail = (props: VisitorBlacklistDetailProps) => {
 													);
 												}}
 											/>
-
 										</Section>
 										<Section noSpacing>
-
 											<ControlledFormRow
 												name="description"
 												control={control}
@@ -237,9 +233,7 @@ const VisitorBlacklistDetail = (props: VisitorBlacklistDetailProps) => {
 													);
 												}}
 											/>
-
 										</Section>
-
 									</>
 								);
 							}}

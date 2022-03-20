@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 
-import getTestDataAttr from '../../../utils/getTestDataAttr';
+import { getTestDataAttr } from '../../../utils';
 
 export interface DefaultInputBaseProps {
 	dataId?: string;

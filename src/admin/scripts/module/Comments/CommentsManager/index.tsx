@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
 
 import { useComments } from '../../../hooks/model';
 import useProfile from '../../../hooks/useProfile';
 import { CommentsItemProps } from '../../../types/model';
 import {
-	TextPreloader,
+	BarPreloader,
 	ConfirmDialog,
 } from '../../../component/ui';
 import CommentsList from './CommentsList';
@@ -145,6 +144,7 @@ const CommentsManager = (props: CommentsManagerProps) => {
 
 	return (
 		<>
+			{(loading || updating) && <BarPreloader />}
 			<CommentsList
 				comments={loadedComments}
 				onReply={replyHandler}
@@ -153,11 +153,6 @@ const CommentsManager = (props: CommentsManagerProps) => {
 				onReport={reportHandler}
 				userEmail={userEmail}
 			/>
-			{loading || updating && (
-				<Box sx={{ py: 2 }}>
-					<TextPreloader />
-				</Box>
-			)}
 			<CommentsDetail
 				open={detailOpen}
 				detailData={detailData}
