@@ -103,7 +103,7 @@ const CommentsListItem = (props: CommentsListItemProps) => {
 						pl: 2,
 					}}
 				>
-					{detail.children.reverse().map((child) => (
+					{detail.children.map((child) => (
 						<CommentsListItem
 							key={child.id}
 							detail={child}

@@ -45,7 +45,7 @@ const MenuItemsManager = (props: MenuItemsManagerProps) => {
 	const loadMenuItems = async () => {
 		setLoading(true);
 		await menuItemsWithChildren(menuId as number).then((resp) => {
-			setLoadedItems(resp?.data?.reverse() || []);
+			setLoadedItems(resp?.data || []);
 			setLoading(false);
 		});
 	};

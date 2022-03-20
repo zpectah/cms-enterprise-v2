@@ -51,7 +51,7 @@ const CommentsManager = (props: CommentsManagerProps) => {
 			model,
 			detailId,
 		).then((resp) => {
-			setLoadedComments(resp?.data?.reverse() || []);
+			setLoadedComments(resp?.data || []);
 			setLoading(false);
 		});
 	};

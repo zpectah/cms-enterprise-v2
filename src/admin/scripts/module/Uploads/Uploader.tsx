@@ -122,7 +122,7 @@ const Uploader = (props: UploaderProps) => {
 					multiple
 				/>
 			</div>
-			{queue.reverse().map((file, index) => (
+			{queue.map((file, index) => (
 				<UploaderQueueItem
 					key={file.tmp_id}
 					data={file}

@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	Box,
 	ImageList,
 	ImageListItem,
 	ImageListItemBar,
 	styled,
+	Typography,
+	Alert,
 } from '@mui/material';
-// import { styled } from '@mui/styles';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import ArticleIcon from '@mui/icons-material/Article';
@@ -42,6 +44,8 @@ const StyledImg = styled('img')`
 	max-width: 100%;
 	height: auto;
 	max-height: 200px;
+	margin: 0;
+	border-radius: .35rem;
 `;
 const SelectedItemCorner = styled('div')(({theme}) => (`
 	width: 30px;
@@ -84,6 +88,7 @@ const UploadsPicker = (props: UploadsPickerProps) => {
 	const multiple = variant === 'attachments';
 	const labelButton = `${buttonLabel}${required ? ' *' : ''}`;
 
+	const { t } = useTranslation([ 'common' ]);
 	const [ selected, setSelected ] = useState<selectedItemType[]>([]);
 	const [ isOpen, setIsOpen ] = useState<boolean>(false);
 	const {
@@ -212,6 +217,7 @@ const UploadsPicker = (props: UploadsPickerProps) => {
 					alignItems: 'center',
 					justifyContent: 'center',
 					backgroundColor: 'rgba(200,200,200,.5)',
+					borderRadius: '.35rem',
 				}}
 			>
 				{
@@ -259,6 +265,7 @@ const UploadsPicker = (props: UploadsPickerProps) => {
 					backgroundColor: 'rgba(200,200,200,.5)',
 					position: 'relative',
 					overflow: 'hidden',
+					borderRadius: '.35rem',
 				}}
 			>
 				{
@@ -309,7 +316,20 @@ const UploadsPicker = (props: UploadsPickerProps) => {
 			</Box>
 		);
 
-		return renderDefaultTrigger();
+		if (variant === 'media') {
+			return (
+				<Alert
+					severity="info"
+					sx={{
+						mt: 1,
+					}}
+				>
+					{t('label.no_selected')}
+				</Alert>
+			);
+		} else {
+			return renderDefaultTrigger();
+		}
 	};
 
 	return (
