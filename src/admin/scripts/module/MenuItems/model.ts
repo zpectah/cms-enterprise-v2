@@ -6,6 +6,7 @@ export default {
 	name: '',
 	page_id: '',
 	path_url: '',
+	link_custom_key: '',
 	menu_id: 0,
 	parent: '',
 	item_order: 0,

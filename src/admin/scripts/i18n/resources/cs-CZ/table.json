@@ -5,7 +5,8 @@
     "email": "E-mail",
     "type": "Typ",
     "active": "Aktivní",
-    "actions": "Akce"
+    "actions": "Akce",
+    "ip": "IP Adresa"
   },
   "row": {
     "menu": {

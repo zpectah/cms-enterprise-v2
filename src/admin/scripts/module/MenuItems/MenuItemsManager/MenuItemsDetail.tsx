@@ -41,7 +41,7 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 		onSubmit,
 	} = props;
 
-	const { t } = useTranslation([ 'common', 'form' ]);
+	const { t } = useTranslation([ 'common', 'form', 'components' ]);
 	const { checkMenuItemsDuplicates } = useMenuItems();
 
 	const submitHandler = (data: MenuItemsItemModel) => {
@@ -62,6 +62,8 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 		<Dialog
 			open={open}
 			onClose={onClose}
+			title={detailData.id === 'new' ? t('components:MenuItemsManager.dialog_title') : detailData.name}
+			showBodyClose
 		>
 			{detailData ? (
 				<ControlledForm
@@ -96,7 +98,7 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 							},
 							setExternalError,
 						} = form;
-
+						const watchType = watch('type');
 						const watchName = watch('name');
 						const duplicates = checkMenuItemsDuplicates(
 							detailData.id as number,
@@ -104,14 +106,13 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 						);
 
 						useEffect(() => setExternalError(duplicates), [ duplicates ]);
-						const watchType = watch('type');
 
 						return (
 							<Box
 								sx={{ pt: 1 }}
 							>
 								<input type="hidden" {...register('id')} />
-								<Section noSpacing>
+								<Section divider>
 
 									<ControlledFormRow
 										name="type"
@@ -255,7 +256,28 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 								</Section>
 
 								<Section>
+									<ControlledFormRow
+										name="link_custom_key"
+										control={control}
+										rules={{}}
+										defaultValue={detailData.link_custom_key}
+										render={({ field, fieldState }) => {
+											const { ref, ...rest } = field;
+											const { error } = fieldState;
 
+											return (
+												<Input
+													label={t('form:label.custom_key')}
+													placeholder={t('form:placeholder.custom_key')}
+													id={`${token}_link_custom_key`}
+													error={!!error}
+													inputRef={ref}
+													sx={{ width: { xs: '100%', md: '50%' } }}
+													{...rest}
+												/>
+											);
+										}}
+									/>
 									<ControlledFormRow
 										name="parent"
 										control={control}

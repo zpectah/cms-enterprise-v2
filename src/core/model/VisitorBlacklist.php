@@ -4,20 +4,19 @@ namespace core\model;
 
 use core\common\Helpers;
 
-class Messages {
+class VisitorBlacklist {
 
     private function get_updated_row ($row) {
-        // $row['status'] = $row['status'] == 1;
-        $row['recipients'] = $row['recipients'] == '' ? [] : explode(",", $row['recipients']);
+        unset($row['deleted']);
 
         return $row;
     }
 
-    public function get ($conn, $params): array {
+    public function get ($conn, $params) {
         $response = [];
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM messages WHERE status < ?');
+        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM visitor_blacklist WHERE status < ?');
         $types = 'i';
         $args = [ 3 ];
 
@@ -49,17 +48,15 @@ class Messages {
         $response = [];
 
         // prepare
-        $query = ('INSERT INTO messages (type, sender, recipients, title, content, ip_address, status, deleted) VALUES (?,?,?,?,?,?,?,?)');
-        $types = 'ssssssii';
+        $query = ('INSERT INTO visitor_blacklist (type, visitor_email, visitor_ip, cause, description, status) VALUES (?,?,?,?,?,?)');
+        $types = 'sssssi';
         $args = [
             $data['type'],
-            $data['sender'],
-            $data['recipients'],
-            $data['title'],
-            $data['content'],
-            $data['ip_address'] ?? '',
-            $data['status'],
-            0
+            $data['visitor_email'] ?? '',
+            $data['visitor_ip'] ?? '',
+            $data['cause'],
+            $data['description'] ?? '',
+            1
         ];
 
         // execute
@@ -80,15 +77,14 @@ class Messages {
         $response = [];
 
         // prepare
-        $query = ('UPDATE messages SET type = ?, sender = ?, recipients = ?, title = ?, content = ?, ip_address = ?, status = ? WHERE id = ?');
-        $types = 'ssssssii';
+        $query = ('UPDATE visitor_blacklist SET type = ?, visitor_email = ?, visitor_ip = ?, cause = ?, description = ?, status = ? WHERE id = ?');
+        $types = 'sssssii';
         $args = [
             $data['type'],
-            $data['sender'],
-            $data['recipients'],
-            $data['title'],
-            $data['content'],
-            $data['ip_address'] ?? '',
+            $data['visitor_email'] ?? '',
+            $data['visitor_ip'] ?? '',
+            $data['cause'],
+            $data['description'] ?? '',
             $data['status'],
             $data['id']
         ];
@@ -112,7 +108,7 @@ class Messages {
         $helpers = new Helpers;
 
         foreach ($data as $id) {
-            $response[] = $helpers -> proceed_update_row('UPDATE messages SET status = IF(status=1, 0, 1) WHERE id = ?', $conn, $id);
+            $response[] = $helpers -> proceed_update_row('UPDATE visitor_blacklist SET status = IF(active=2, 1, 2) WHERE id = ?', $conn, $id);
         }
 
         return $response; // list of affected ids
@@ -123,18 +119,7 @@ class Messages {
         $helpers = new Helpers;
 
         foreach ($data as $id) {
-            $response[] = $helpers -> proceed_update_row('UPDATE messages SET status = 3 WHERE id = ?', $conn, $id);
-        }
-
-        return $response; // list of affected ids
-    }
-
-    public function mark_read ($conn, $data): array {
-        $response = [];
-        $helpers = new Helpers;
-
-        foreach ($data as $id) {
-            $response[] = $helpers -> proceed_update_row('UPDATE messages SET status = 2 WHERE id = ?', $conn, $id);
+            $response[] = $helpers -> proceed_update_row('UPDATE visitor_blacklist SET status = 3 WHERE id = ?', $conn, $id);
         }
 
         return $response; // list of affected ids

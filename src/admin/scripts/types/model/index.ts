@@ -10,6 +10,8 @@ import { TranslationsItemLangModel, TranslationsItemModel } from './Translations
 import { UsersItemModel } from './Users';
 import { UploadsItemModel, UploadsItemLangModel } from './Uploads';
 import { MessagesItemModel } from './Messages';
+import { VisitorBlacklistItemModel } from './VisitorBlacklist';
+import { CmsRequestsItemModel } from './CmsRequests';
 
 export type CategoriesItemProps = CategoriesItemModel;
 export type CategoriesItemLangProps = CategoriesItemLangModel;
@@ -30,3 +32,5 @@ export type UsersItemProps = UsersItemModel;
 export type UploadsItemProps = UploadsItemModel;
 export type UploadsItemLangProps = UploadsItemLangModel;
 export type MessagesItemProps = MessagesItemModel;
+export type VisitorBlacklistItemProps = VisitorBlacklistItemModel;
+export type CmsRequestsItemProps = CmsRequestsItemModel;

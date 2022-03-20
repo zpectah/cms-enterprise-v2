@@ -64,7 +64,35 @@ class ApiProvider {
             /**
              * CmsRequests
              **/
+            case 'get_cms_requests':
+                $response['data'] = $dp -> get_cmsRequests($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
 
+            case 'create_cms_requests':
+                $response['data'] = $dp -> create_cmsRequests($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                break;
+
+            case 'update_cms_requests':
+                $response['data'] = $dp -> update_cmsRequests($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'toggle_cms_requests':
+                $response['data'] = $dp -> toggle_cmsRequests($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'delete_cms_requests':
+                $response['data'] = $dp -> delete_cmsRequests($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
 
             /**
              * Comments
@@ -450,6 +478,40 @@ class ApiProvider {
 
             case 'delete_users':
                 $response['data'] = $dp -> delete_users($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+
+            /**
+             * SettingsBlacklist / Visitor Blacklist
+             **/
+            case 'get_visitor_blacklist':
+                $response['data'] = $dp -> get_visitorBlacklist($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
+
+            case 'create_visitor_blacklist':
+                $response['data'] = $dp -> create_visitorBlacklist($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                break;
+
+            case 'update_visitor_blacklist':
+                $response['data'] = $dp -> update_visitorBlacklist($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'toggle_visitor_blacklist':
+                $response['data'] = $dp -> toggle_visitorBlacklist($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'delete_visitor_blacklist':
+                $response['data'] = $dp -> delete_visitorBlacklist($data);
                 $response['status'] = 'ok';
                 $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
                 break;

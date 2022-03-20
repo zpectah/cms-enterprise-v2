@@ -67,13 +67,14 @@ class Comments {
         $response = [];
 
         // prepare
-        $query = ('INSERT INTO comments (type, email, title, content, assigned, assigned_id, parent, status) VALUES (?,?,?,?,?,?,?,?)');
-        $types = 'sssssiii';
+        $query = ('INSERT INTO comments (type, email, title, content, ip_address, assigned, assigned_id, parent, status) VALUES (?,?,?,?,?,?,?,?,?)');
+        $types = 'ssssssiii';
         $args = [
             $data['type'],
             $data['email'],
             $data['title'],
             $data['content'],
+            $data['ip_address'] ?? '',
             $data['assigned'],
             $data['assigned_id'],
             $data['parent'],
@@ -98,11 +99,12 @@ class Comments {
         $response = [];
 
         // prepare
-        $query = ('UPDATE comments SET title = ?, content = ?, status = ? WHERE id = ?');
-        $types = 'ssii';
+        $query = ('UPDATE comments SET title = ?, content = ?, ip_address = ?, status = ? WHERE id = ?');
+        $types = 'sssii';
         $args = [
             $data['title'],
             $data['content'],
+            $data['ip_address'] ?? '',
             $data['status'],
             $data['id']
         ];

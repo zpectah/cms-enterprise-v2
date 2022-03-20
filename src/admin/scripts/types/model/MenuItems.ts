@@ -9,6 +9,7 @@ export interface MenuItemsItemModel extends modelItemBase {
 	name: string;
 	page_id?: number | '';
 	path_url?: string;
+	link_custom_key?: string;
 	menu_id: number;
 	parent?: number | '';
 	item_order: number;

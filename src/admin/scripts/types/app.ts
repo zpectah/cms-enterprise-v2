@@ -1,4 +1,18 @@
-export type appModel = 'Categories' | 'Members' | 'Menu' | 'MenuItems' | 'Pages' | 'Posts' | 'Tags' | 'Translations' | 'Uploads' | 'Users' | 'Comments' | 'Messages';
+export type appModel =
+	| 'Categories'
+	| 'Members'
+	| 'Menu'
+	| 'MenuItems'
+	| 'Pages'
+	| 'Posts'
+	| 'Tags'
+	| 'Translations'
+	| 'Uploads'
+	| 'Users'
+	| 'Comments'
+	| 'Messages'
+	| 'VisitorBlacklist'
+	| 'CrmRequests';
 
 export interface settingsProps {
 	comments_anonymous_active?: boolean;

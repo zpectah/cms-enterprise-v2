@@ -32,7 +32,9 @@
       "language_install": "Instalace nového jazyka",
       "comments": "Komentáře",
       "members": "Members",
-      "social_profiles": "Sociální sítě"
+      "social_profiles": "Sociální sítě",
+      "blacklist": "Blacklist návštěvníků",
+      "blacklist_subtitle": "Blacklist slouží k definování blokovaných IP adres nebo emailů a znemožní těmto záznamům vytvářet komentáře nebo jim jiným způsobem zamezit interakci se systémem."
     },
     "label": {
       "project_name": "Název projektu",
@@ -169,8 +171,16 @@
   },
   "MenuItemsManager": {
     "no_menu_created": "Musíte nejdříve menu vytvořit, abyste mohli spravovat menu položky",
+    "dialog_title": "Nová položka menu",
     "btn": {
       "create_new": "Vytvořit položku"
     }
+  },
+  "VisitorBlacklistList": {
+    "search_placeholder": "Hledat v tabulce",
+    "button_add": "Nový záznam"
+  },
+  "VisitorBlacklistDetail": {
+    "title": "Nový záznam"
   }
 }

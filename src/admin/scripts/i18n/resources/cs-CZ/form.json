@@ -46,7 +46,10 @@
     "author": "Autor",
     "page": "Stránka",
     "path_url": "Url adresa",
-    "order": "Pořadí"
+    "order": "Pořadí",
+    "custom_key": "Vlastní klíč",
+    "ip": "IP Adresa",
+    "cause": "Příčina"
   },
   "placeholder": {
     "name": "Zadejte název",
@@ -95,7 +98,10 @@
     "img_thumbnail": "Náhledový obrázek",
     "page": "Vyberte stránku",
     "path_url": "Zadejte url adresu",
-    "order": "Vyberte pořadí"
+    "order": "Vyberte pořadí",
+    "custom_key": "Zadejte vlastní klíč",
+    "ip": "Zadejte IP adresu",
+    "cause": "Zadejte příčinu"
   },
   "help": {
     "password": "Heslo by mělo obsahovat velké, malé znaky a číslo",

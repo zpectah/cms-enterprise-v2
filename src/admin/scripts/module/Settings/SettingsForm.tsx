@@ -31,6 +31,7 @@ import {
 import LocationPicker from '../../component/LocationPicker';
 import SettingsLanguageList from './SettingsLanguageList';
 import SettingsLanguageInstaller, { installerRequestProps } from './SettingsLanguageInstaller';
+import SettingsBlacklist from './SettingsBlacklist';
 import getOptionsList from '../../utils/getOptionsList';
 
 interface SettingsFormProps {
@@ -1060,15 +1061,14 @@ const SettingsForm = (props: SettingsFormProps) => {
 										index={panels[5].index}
 										panelValue={panelValue}
 									>
-										<>
+										<Section
+											title={t('components:SettingsForm.section.blacklist')}
+											subtitle={t('components:SettingsForm.section.blacklist_subtitle')}
+										>
 
-											<Section>
+											<SettingsBlacklist />
 
-												... blacklist ...
-
-											</Section>
-
-										</>
+										</Section>
 									</TabPanel>
 								</Tabs>
 							</>

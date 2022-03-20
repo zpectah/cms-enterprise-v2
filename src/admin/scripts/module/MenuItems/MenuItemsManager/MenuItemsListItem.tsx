@@ -6,7 +6,7 @@ import {
 	Stack,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 
@@ -85,7 +85,7 @@ const MenuItemsListItem = (props: MenuItemsListItemProps) => {
 							size="small"
 							color="warning"
 						>
-							<DeleteIcon />
+							<DeleteOutlineIcon />
 						</IconButton>
 					</Stack>
 				</Stack>

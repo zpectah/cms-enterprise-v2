@@ -62,7 +62,7 @@ const SectionBase: React.FC<SectionBaseProps> = (props) => {
 			)}
 			{subtitle && (
 				<Typography
-					variant="subtitle1"
+					variant="caption"
 					component="div"
 					sx={{
 						mb: 3,

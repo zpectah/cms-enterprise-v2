@@ -11,6 +11,8 @@ import tagsModel from '../module/Tags/model';
 import translationsModel from '../module/Translations/model';
 import uploadsModel from '../module/Uploads/model';
 import usersModel from '../module/Users/model';
+import visitorBlacklistModel from '../module/VisitorBlacklist/model';
+// TODO: CrmRequests
 import {
 	CategoriesItemProps,
 	CategoriesItemLangProps,
@@ -31,6 +33,8 @@ import {
 	UploadsItemProps,
 	UploadsItemLangProps,
 	UsersItemProps,
+	VisitorBlacklistItemProps,
+	// TODO: CrmRequests
 } from '../types/model';
 
 type languageModelPropTypes =
@@ -101,6 +105,12 @@ export default (
 			case 'Users':
 				modelData = usersModel as UsersItemProps;
 				break;
+
+			case 'VisitorBlacklist':
+				modelData = visitorBlacklistModel as VisitorBlacklistItemProps;
+				break;
+
+			// TODO: CrmRequests
 
 		}
 

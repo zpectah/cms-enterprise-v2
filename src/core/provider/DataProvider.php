@@ -3,6 +3,7 @@
 namespace core\provider;
 
 use core\model\Categories;
+use core\model\CmsRequests;
 use core\model\Comments;
 use core\model\Members;
 use core\model\Menu;
@@ -14,6 +15,7 @@ use core\model\Tags;
 use core\model\Translations;
 use core\model\Uploads;
 use core\model\Users;
+use core\model\VisitorBlacklist;
 use core\module\admin\Settings;
 use core\module\admin\System;
 use mysqli;
@@ -77,7 +79,50 @@ class DataProvider {
     /**
      * CmsRequests
      **/
+    public function get_cmsRequests ($params = []): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $cmsRequests = new CmsRequests;
+        $response = $cmsRequests -> get($conn, $params);
+        $conn -> close();
 
+        return $response;
+    }
+
+    public function create_cmsRequests ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $cmsRequests = new CmsRequests;
+        $response = $cmsRequests -> create($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_cmsRequests ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $cmsRequests = new CmsRequests;
+        $response = $cmsRequests -> update($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function toggle_cmsRequests ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $cmsRequests = new CmsRequests;
+        $response = $cmsRequests -> toggle($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_cmsRequests ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $cmsRequests = new CmsRequests;
+        $response = $cmsRequests -> delete($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * Comments
@@ -670,6 +715,55 @@ class DataProvider {
         $conn = new mysqli(...CFG_DB_CONN);
         $users = new Users;
         $response = $users -> delete($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+
+    /**
+     * SettingsBlacklist / Visitor Blacklist
+     **/
+    public function get_visitorBlacklist ($params = []): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $visitorBlacklist = new VisitorBlacklist;
+        $response = $visitorBlacklist -> get($conn, $params);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function create_visitorBlacklist ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $visitorBlacklist = new VisitorBlacklist;
+        $response = $visitorBlacklist -> create($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_visitorBlacklist ($data) {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $visitorBlacklist = new VisitorBlacklist;
+        $response = $visitorBlacklist -> update($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function toggle_visitorBlacklist ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $visitorBlacklist = new VisitorBlacklist;
+        $response = $visitorBlacklist -> toggle($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_visitorBlacklist ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $visitorBlacklist = new VisitorBlacklist;
+        $response = $visitorBlacklist -> delete($conn, $data);
         $conn -> close();
 
         return $response;

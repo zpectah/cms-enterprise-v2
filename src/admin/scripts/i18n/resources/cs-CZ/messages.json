@@ -15,7 +15,9 @@
     "error_global": "Byly nalezeny problémy s validací formuláře, zkontrolujte to prosím.",
     "duplicate_name": "Stejný název položky již v databázi existuje, použijte jiný",
     "duplicate_email": "Tento e-mail již v databázi existuje, použijte jiný",
-    "duplicate_queue": "Ve frontě existuje více položek se stejným názvem, opravte to"
+    "duplicate_queue": "Ve frontě existuje více položek se stejným názvem, opravte to",
+    "visitor_email": "V databázi již záznam s tímto emailem existuje",
+    "visitor_ip": "V databázi již záznam s touto IP adresou existuje"
   },
   "model": {
     "item_created": "Položka byla úspešně vytvořena",

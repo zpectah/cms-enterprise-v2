@@ -5,6 +5,7 @@ export interface MessagesItemModel {
 	recipients?: string[];
 	title: string;
 	content?: string;
-	created: string;
+	ip_address?: string;
 	status: number;
+	created?: string;
 }

@@ -4,6 +4,7 @@ export interface CommentsItemModel {
 	email?: string;
 	title: string;
 	content: string;
+	ip_address?: string;
 	assigned?: string;
 	assigned_id?: number;
 	parent?: number | null;
