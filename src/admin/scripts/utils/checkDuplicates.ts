@@ -9,8 +9,9 @@ export default (
 	let is_duplicates = false;
 	items?.map((item) => {
 		if (
-			(item[key] == value || item[key] == transformString(value, 'empty-to-dash')) &&
-			item.id !== itemId
+			value !== ''
+			&& (item[key] == value || item[key] == transformString(value, 'empty-to-dash'))
+			&& item.id !== itemId
 		) is_duplicates = true;
 	});
 
