@@ -6,7 +6,8 @@ import ApartmentIcon from '@mui/icons-material/Apartment';
 import WebIcon from '@mui/icons-material/Web';
 import LanguageIcon from '@mui/icons-material/Language';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
-import EngineeringIcon from '@mui/icons-material/Engineering';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 
 import config from '../../config';
 import { EMAIL_REGEX } from '../../constants';
@@ -81,17 +82,19 @@ const SettingsForm = (props: SettingsFormProps) => {
 			index: 4,
 			key: 'maintenance',
 			label: t('components:SettingsForm.panel.maintenance'),
-			icon: <EngineeringIcon fontSize="small" />,
+			icon: <CleaningServicesIcon fontSize="small" />,
+		},
+		{
+			index: 5,
+			key: 'blacklist',
+			label: t('components:SettingsForm.panel.blacklist'),
+			icon: <ListAltIcon fontSize="small" />,
 		},
 	];
 	const panelChangeHandler = (e, value: number) => navigate(`/admin/app/${routes.settings.path}/${panels[value].key}`);
-
 	const submitHandler = (data: any) => {
 		const master = _.cloneDeep(data);
-		console.log('submitHandler', master);
-		onSubmit(master).then((resp) => {
-			console.info('After submit', master, resp);
-		});
+		return onSubmit(master);
 	};
 	const afterLanguageInstallHandler = (lang: installerRequestProps) => {
 		if (afterLanguageInstall) afterLanguageInstall(lang);
@@ -124,7 +127,6 @@ const SettingsForm = (props: SettingsFormProps) => {
 							token,
 							form: {
 								control,
-								formState,
 								setValue,
 								watch,
 							},
@@ -639,6 +641,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 											</Section>
 											<Section
 												title={t('components:SettingsForm.section.emails')}
+												divider
 											>
 
 												<ControlledFormRow
@@ -692,6 +695,154 @@ const SettingsForm = (props: SettingsFormProps) => {
 													}}
 												/>
 
+											</Section>
+											<Section
+												title={t('components:SettingsForm.section.social_profiles')}
+											>
+												<ControlledFormRow
+													name="social_url_facebook"
+													control={control}
+													rules={{}}
+													defaultValue={data.social_url_facebook}
+													rowProps={{
+														label: t('components:SettingsForm.label.facebook'),
+														id: `${token}_social_url_facebook`,
+													}}
+													render={({ field, fieldState }) => {
+														const { ref, ...rest } = field;
+														const { error } = fieldState;
+
+														return (
+															<Input
+																placeholder={t('components:SettingsForm.placeholder.facebook')}
+																id={`${token}_social_url_facebook`}
+																error={!!error}
+																inputRef={ref}
+																{...rest}
+															/>
+														);
+													}}
+												/>
+												<ControlledFormRow
+													name="social_url_twitter"
+													control={control}
+													rules={{}}
+													defaultValue={data.social_url_twitter}
+													rowProps={{
+														label: t('components:SettingsForm.label.twitter'),
+														id: `${token}_social_url_twitter`,
+													}}
+													render={({ field, fieldState }) => {
+														const { ref, ...rest } = field;
+														const { error } = fieldState;
+
+														return (
+															<Input
+																placeholder={t('components:SettingsForm.placeholder.twitter')}
+																id={`${token}_social_url_twitter`}
+																error={!!error}
+																inputRef={ref}
+																{...rest}
+															/>
+														);
+													}}
+												/>
+												<ControlledFormRow
+													name="social_url_linkedin"
+													control={control}
+													rules={{}}
+													defaultValue={data.social_url_linkedin}
+													rowProps={{
+														label: t('components:SettingsForm.label.linkedin'),
+														id: `${token}_social_url_linkedin`,
+													}}
+													render={({ field, fieldState }) => {
+														const { ref, ...rest } = field;
+														const { error } = fieldState;
+
+														return (
+															<Input
+																placeholder={t('components:SettingsForm.placeholder.linkedin')}
+																id={`${token}_social_url_linkedin`}
+																error={!!error}
+																inputRef={ref}
+																{...rest}
+															/>
+														);
+													}}
+												/>
+												<ControlledFormRow
+													name="social_url_youtube"
+													control={control}
+													rules={{}}
+													defaultValue={data.social_url_youtube}
+													rowProps={{
+														label: t('components:SettingsForm.label.youtube'),
+														id: `${token}_social_url_youtube`,
+													}}
+													render={({ field, fieldState }) => {
+														const { ref, ...rest } = field;
+														const { error } = fieldState;
+
+														return (
+															<Input
+																placeholder={t('components:SettingsForm.placeholder.youtube')}
+																id={`${token}_social_url_youtube`}
+																error={!!error}
+																inputRef={ref}
+																{...rest}
+															/>
+														);
+													}}
+												/>
+												<ControlledFormRow
+													name="social_url_twitch"
+													control={control}
+													rules={{}}
+													defaultValue={data.social_url_twitch}
+													rowProps={{
+														label: t('components:SettingsForm.label.twitch'),
+														id: `${token}_social_url_twitch`,
+													}}
+													render={({ field, fieldState }) => {
+														const { ref, ...rest } = field;
+														const { error } = fieldState;
+
+														return (
+															<Input
+																placeholder={t('components:SettingsForm.placeholder.twitch')}
+																id={`${token}_social_url_twitch`}
+																error={!!error}
+																inputRef={ref}
+																{...rest}
+															/>
+														);
+													}}
+												/>
+												<ControlledFormRow
+													name="social_url_github"
+													control={control}
+													rules={{}}
+													defaultValue={data.social_url_facebook}
+													rowProps={{
+														label: t('components:SettingsForm.label.github'),
+														id: `${token}_social_url_github`,
+													}}
+													render={({ field, fieldState }) => {
+														const { ref, ...rest } = field;
+														const { error } = fieldState;
+
+														return (
+															<Input
+																placeholder={t('components:SettingsForm.placeholder.github')}
+																id={`${token}_social_url_github`}
+																error={!!error}
+																inputRef={ref}
+																{...rest}
+															/>
+														);
+													}}
+												/>
 											</Section>
 										</>
 									</TabPanel>
@@ -887,7 +1038,29 @@ const SettingsForm = (props: SettingsFormProps) => {
 
 											<Section>
 
-												... maintenance content ... Dynamic triggers ...
+
+												nejdříve zkontrolovat,zda-li je vůbec co procházet ...
+												<br />
+												projít smazané položky a definitivně je vymazat z databáze ... když budou existovat sub položky svázané ... (menu items, comments)
+
+												<br />
+												<br />
+
+												smazat natrvalo obrázky ... uvolnění místa
+
+											</Section>
+
+										</>
+									</TabPanel>
+									<TabPanel
+										index={panels[5].index}
+										panelValue={panelValue}
+									>
+										<>
+
+											<Section>
+
+												... blacklist ...
 
 											</Section>
 
@@ -897,27 +1070,16 @@ const SettingsForm = (props: SettingsFormProps) => {
 							</>
 						);
 					}}
-					renderActions={(form) => {
-						const {
-							// token,
-							form: {
-								formState: {
-									// isDirty,
-									isValid,
-								}
-							},
-						} = form;
-
-						return (
-							<>
-								<PrimaryButton
-									disabled={!isValid}
-								>
-									{t('btn.save_changes')}
-								</PrimaryButton>
-							</>
-						);
-					}}
+					renderActions={({ form: { formState: { isValid } } }) => (
+						<>
+							<PrimaryButton
+								type="submit"
+								disabled={!isValid}
+							>
+								{t('btn.save_changes')}
+							</PrimaryButton>
+						</>
+					)}
 				/>
 			) : (
 				<BlockPreloader />

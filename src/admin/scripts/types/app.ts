@@ -31,5 +31,11 @@ export interface settingsProps {
 	web_meta_title?: string;
 	web_mode_debug?: boolean;
 	web_mode_maintenance?: boolean;
+	social_url_facebook?: string;
+	social_url_twitter?: string;
+	social_url_linkedin?: string;
+	social_url_youtube?: string;
+	social_url_twitch?: string;
+	social_url_github?: string;
 }
 

@@ -19,7 +19,8 @@
       "web": "Web",
       "content": "Obsah",
       "languages": "Jazyky",
-      "maintenance": "Údržba"
+      "maintenance": "Údržba",
+      "blacklist": "Blacklist"
     },
     "section": {
       "project": "Projekt",
@@ -30,7 +31,8 @@
       "language_list": "Správa jazyků",
       "language_install": "Instalace nového jazyka",
       "comments": "Komentáře",
-      "members": "Members"
+      "members": "Members",
+      "social_profiles": "Sociální sítě"
     },
     "label": {
       "project_name": "Název projektu",
@@ -62,7 +64,13 @@
       "members_login_active": "Aktivní přihlášení",
       "members_lostPassword_active": "Obnova ztraceného hesla",
       "members_profile_active": "Stránka s profilem",
-      "members_register_active": "Registrace uživatele"
+      "members_register_active": "Registrace uživatele",
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube",
+      "twitch": "Twitch",
+      "github": "GitHub"
     },
     "placeholder": {
       "project_name": "Zadejte název projektu",
@@ -83,7 +91,13 @@
       "web_meta_keywords": "Zadejte nové klíčové slovo",
       "web_meta_robots": "Vyberte možnost indexace",
       "form_email_recipients": "Zadejte nový e-mail",
-      "form_email_sender": "Zadejte e-mail"
+      "form_email_sender": "Zadejte e-mail",
+      "facebook": "Zadejte Facebook url",
+      "twitter": "Zadejte Twitter url",
+      "linkedin": "Zadejte LinkedIn url",
+      "youtube": "Zadejte YouTube url",
+      "twitch": "Zadejte Twitch url",
+      "github": "Zadejte GitHub url"
     },
     "help": {
       "project_description": "Popis je používaný jen pro interní potřeby",
