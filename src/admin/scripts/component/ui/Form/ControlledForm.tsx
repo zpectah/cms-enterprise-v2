@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, UseFormReturn, UseFormProps } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Alert, Typography } from '@mui/material';
@@ -11,6 +11,8 @@ import getTestDataAttr from '../../../utils/getTestDataAttr';
 export interface ControlledFormRenderProps {
 	token: string;
 	form: UseFormReturn;
+	setExternalError: (error: boolean) => void;
+	externalError: boolean;
 }
 export interface ControlledFormProps extends UseFormProps {
 	dataId?: string;
@@ -43,6 +45,7 @@ const ControlledForm = (props: ControlledFormProps) => {
 		...rest
 	} = props;
 
+	const [ externalError, setExternalError ] = useState(false);
 
 	const uid = dataId ? dataId : string.getToken(3, '');
 	const form: ControlledFormRenderProps = {
@@ -51,6 +54,8 @@ const ControlledForm = (props: ControlledFormProps) => {
 			mode,
 			...rest,
 		}),
+		setExternalError: (error: boolean) => setExternalError(error),
+		externalError,
 	};
 
 	const errorHandler = (fields: any) => {
@@ -65,9 +70,7 @@ const ControlledForm = (props: ControlledFormProps) => {
 			noValidate
 			autoComplete="off"
 			name={dataId}
-			style={{
-				width: '100%',
-			}}
+			style={{ width: '100%' }}
 			onSubmit={form.form.handleSubmit(onSubmit,  errorHandler)}
 			onChange={changeHandler}
 			{...formProps}

@@ -11,6 +11,7 @@ import { CategoriesItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import CommentsManager from '../Comments/CommentsManager';
+import { useCategories } from '../../hooks/model';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,
@@ -29,6 +30,7 @@ import {
 	getOptionsList,
 	transformString,
 } from '../../utils';
+import UploadsPicker from '../../component/UploadsPicker';
 
 interface CategoriesDetailProps {
 	dataItems: CategoriesItemProps[];
@@ -52,6 +54,7 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
 	const { settings } = useSettings();
+	const { checkCategoriesDuplicates } = useCategories();
 	const languageActive = settings?.language_active;
 
 	const detailOptions = {
@@ -144,22 +147,66 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 								</Section>
 								<Section>
 
-									img_main
+									<ControlledFormRow
+										name="img_main"
+										control={control}
+										rules={{}}
+										defaultValue={detailData.img_main}
+										render={({ field, fieldState }) => {
+											const { onChange } = field;
 
-									img_thumbnail
+											return (
+												<UploadsPicker
+													variant="thumbnail"
+													buttonLabel={t('form:placeholder.img_main')}
+													initialValue={detailData.img_main}
+													onChange={onChange}
+												/>
+											);
+										}}
+									/>
+
+									<ControlledFormRow
+										name="img_thumbnail"
+										control={control}
+										rules={{}}
+										defaultValue={detailData.img_thumbnail}
+										render={({ field, fieldState }) => {
+											const { onChange } = field;
+
+											return (
+												<UploadsPicker
+													variant="thumbnail"
+													buttonLabel={t('form:placeholder.img_thumbnail')}
+													initialValue={detailData.img_thumbnail}
+													onChange={onChange}
+												/>
+											);
+										}}
+									/>
 
 								</Section>
 							</>
 						);
 					}}
 					renderPrimary={(form) => {
-						const { token, form: {
-							control,
-							register,
-							watch,
-						} } = form;
+						const {
+							token,
+							form: {
+								control,
+								register,
+								watch,
+							},
+							setExternalError,
+						} = form;
 
-						const watchType = watch('type');
+						const watchName = watch('name');
+						const duplicates = checkCategoriesDuplicates(
+							detailData.id as number,
+							watchName,
+						);
+
+						useEffect(() => setExternalError(duplicates), [ duplicates ]);
 
 						return (
 							<>
@@ -199,6 +246,9 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 											control={control}
 											rules={{ required: true }}
 											defaultValue={detailData.name}
+											rowProps={{
+												errors: duplicates && [ 'duplicate_name' ]
+											}}
 											render={({ field, fieldState }) => {
 												const { ref, ...rest } = field;
 												const { error } = fieldState;
@@ -208,7 +258,7 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 														label={t('form:label.name')}
 														placeholder={t('form:placeholder.name')}
 														id={`${token}_name`}
-														error={!!error}
+														error={!!error || duplicates}
 														required
 														inputRef={ref}
 														sx={{ width: { xs: '100%', md: '75%' } }}
@@ -310,19 +360,6 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 									}}
 								/>
 
-							</>
-						);
-					}}
-					renderSecondary={(form) => {
-						const { token, form: {
-							watch,
-						} } = form;
-
-						const watchAll = watch();
-
-						return (
-							<>
-								... secondary
 							</>
 						);
 					}}

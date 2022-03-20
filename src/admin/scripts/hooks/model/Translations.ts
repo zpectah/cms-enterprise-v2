@@ -1,7 +1,7 @@
 import useSWR, { mutate } from 'swr';
 
 import config from '../../config';
-import { get, post } from '../../utils/api';
+import { get, post, checkDuplicates } from '../../utils';
 import { TranslationsItemProps } from '../../types/model';
 
 const useTranslations = () => {
@@ -16,6 +16,7 @@ const useTranslations = () => {
 		updateTranslations: (data: TranslationsItemProps) => post(`${config.project.api.base_path}/update_translations`, data),
 		toggleTranslations: (data: number[]) => post(`${config.project.api.base_path}/toggle_translations`, data),
 		deleteTranslations: (data: number[]) => post(`${config.project.api.base_path}/delete_translations`, data),
+		checkTranslationsDuplicates: (id: number, value: string) => checkDuplicates(data?.data, id, 'name', value),
 	};
 };
 

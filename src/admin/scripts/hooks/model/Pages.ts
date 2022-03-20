@@ -1,7 +1,7 @@
 import useSWR, { mutate } from 'swr';
 
 import config from '../../config';
-import { get, post } from '../../utils/api';
+import { get, post, checkDuplicates } from '../../utils';
 import { PagesItemProps } from '../../types/model';
 
 const usePages = () => {
@@ -16,6 +16,7 @@ const usePages = () => {
 		updatePages: (data: PagesItemProps) => post(`${config.project.api.base_path}/update_pages`, data),
 		togglePages: (data: number[]) => post(`${config.project.api.base_path}/toggle_pages`, data),
 		deletePages: (data: number[]) => post(`${config.project.api.base_path}/delete_pages`, data),
+		checkPagesDuplicates: (id: number, value: string) => checkDuplicates(data?.data, id, 'name', value),
 	};
 };
 

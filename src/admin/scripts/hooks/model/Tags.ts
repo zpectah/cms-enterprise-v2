@@ -1,7 +1,7 @@
 import useSWR, { mutate } from 'swr';
 
 import config from '../../config';
-import { get, post } from '../../utils/api';
+import { get, post, checkDuplicates } from '../../utils';
 import { TagsItemProps } from '../../types/model';
 
 const useTags = () => {
@@ -16,6 +16,7 @@ const useTags = () => {
 		updateTags: (data: TagsItemProps) => post(`${config.project.api.base_path}/update_tags`, data),
 		toggleTags: (data: number[]) => post(`${config.project.api.base_path}/toggle_tags`, data),
 		deleteTags: (data: number[]) => post(`${config.project.api.base_path}/delete_tags`, data),
+		checkTagsDuplicates: (id: number, value: string) => checkDuplicates(data?.data, id, 'name', value),
 	};
 };
 

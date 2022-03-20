@@ -1,7 +1,7 @@
 import useSWR, { mutate } from 'swr';
 
 import config from '../../config';
-import { get, post } from '../../utils/api';
+import { get, post, checkDuplicates } from '../../utils';
 import { MembersItemProps } from '../../types/model';
 
 const useMembers = () => {
@@ -16,6 +16,7 @@ const useMembers = () => {
 		updateMembers: (data: MembersItemProps) => post(`${config.project.api.base_path}/update_members`, data),
 		toggleMembers: (data: number[]) => post(`${config.project.api.base_path}/toggle_members`, data),
 		deleteMembers: (data: number[]) => post(`${config.project.api.base_path}/delete_members`, data),
+		checkMembersDuplicates: (id: number, value: string) => checkDuplicates(data?.data, id, 'email', value),
 	};
 };
 

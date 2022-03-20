@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Stack } from '@mui/material';
 import { useForm, UseFormReturn, UseFormProps } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -30,6 +30,8 @@ import { FieldValues } from 'react-hook-form/dist/types/fields';
 export interface ControlledDetailFormLayoutRenderProps {
 	token: string;
 	form: UseFormReturn;
+	setExternalError: (error: boolean) => void;
+	externalError: boolean;
 }
 export interface ControlledDetailFormLayoutLanguageRenderProps extends ControlledDetailFormLayoutRenderProps {
 	lang: string;
@@ -75,6 +77,8 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 		...rest
 	} = props;
 
+	const [ externalError, setExternalError ] = useState(false);
+
 	const token = dataId ? dataId : string.getToken(3, '');
 	const form: ControlledDetailFormLayoutRenderProps = {
 		token,
@@ -82,6 +86,8 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 			mode,
 			...rest,
 		}),
+		setExternalError: (error: boolean) => setExternalError(error),
+		externalError,
 	};
 
 	const errorHandler = (fields: any) => {
@@ -99,9 +105,7 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 				noValidate
 				autoComplete="off"
 				name={dataId}
-				style={{
-					width: '100%',
-				}}
+				style={{ width: '100%' }}
 				onSubmit={form.form.handleSubmit(onSubmit,  errorHandler)}
 				{...formProps}
 			>
@@ -173,7 +177,7 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 								<>
 									<PrimaryButton
 										type="submit"
-										disabled={!form.form.formState.isValid}
+										disabled={!form.form.formState.isValid || externalError}
 									>
 										{detailId === 'new' ? t('btn.create') : t('btn.update')}
 									</PrimaryButton>

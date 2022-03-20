@@ -9,6 +9,7 @@ import { USER_LEVEL_KEYS } from '../../constants';
 import { TagsItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
+import { useTags } from '../../hooks/model';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,
@@ -47,6 +48,7 @@ const TagsDetail = (props: TagsDetailProps) => {
 	const [ detailData, setDetailData ] = useState<TagsItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
+	const { checkTagsDuplicates } = useTags();
 
 	const detailOptions = {
 		root: `/admin/app/${routes.tags.path}`,
@@ -128,13 +130,23 @@ const TagsDetail = (props: TagsDetailProps) => {
 						);
 					}}
 					renderPrimary={(form) => {
-						const { token, form: {
-							control,
-							register,
-							watch,
-						} } = form;
+						const {
+							token,
+							form: {
+								control,
+								register,
+								watch,
+							},
+							setExternalError,
+						} = form;
 
-						const watchType = watch('type');
+						const watchName = watch('name');
+						const duplicates = checkTagsDuplicates(
+							detailData.id as number,
+							watchName,
+						);
+
+						useEffect(() => setExternalError(duplicates), [ duplicates ]);
 
 						return (
 							<>
@@ -174,6 +186,9 @@ const TagsDetail = (props: TagsDetailProps) => {
 											control={control}
 											rules={{ required: true }}
 											defaultValue={detailData.name}
+											rowProps={{
+												errors: duplicates && [ 'duplicate_name' ]
+											}}
 											render={({ field, fieldState }) => {
 												const { ref, ...rest } = field;
 												const { error } = fieldState;
@@ -183,7 +198,7 @@ const TagsDetail = (props: TagsDetailProps) => {
 														label={t('form:label.name')}
 														placeholder={t('form:placeholder.name')}
 														id={`${token}_name`}
-														error={!!error}
+														error={!!error || duplicates}
 														required
 														inputRef={ref}
 														sx={{ width: { xs: '100%', md: '75%' } }}

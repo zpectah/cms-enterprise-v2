@@ -12,12 +12,12 @@ import { MenuItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import MenuItemsManager from '../MenuItems/MenuItemsManager';
+import { useMenu } from '../../hooks/model';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,
 	Section,
 	Input,
-	Textarea,
 	Select,
 	SwitchControlled,
 	BlockPreloader,
@@ -52,6 +52,7 @@ const MenuDetail = (props: MenuDetailProps) => {
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
 	const { settings } = useSettings();
+	const { checkMenuDuplicates } = useMenu();
 	const languageActive = settings?.language_active;
 
 	const detailOptions = {
@@ -145,13 +146,23 @@ const MenuDetail = (props: MenuDetailProps) => {
 						);
 					}}
 					renderPrimary={(form) => {
-						const { token, form: {
-							control,
-							register,
-							watch,
-						} } = form;
+						const {
+							token,
+							form: {
+								control,
+								register,
+								watch,
+							},
+							setExternalError,
+						} = form;
 
-						const watchType = watch('type');
+						const watchName = watch('name');
+						const duplicates = checkMenuDuplicates(
+							detailData.id as number,
+							watchName,
+						);
+
+						useEffect(() => setExternalError(duplicates), [ duplicates ]);
 
 						return (
 							<>
@@ -191,6 +202,9 @@ const MenuDetail = (props: MenuDetailProps) => {
 											control={control}
 											rules={{ required: true }}
 											defaultValue={detailData.name}
+											rowProps={{
+												errors: duplicates && [ 'duplicate_name' ]
+											}}
 											render={({ field, fieldState }) => {
 												const { ref, ...rest } = field;
 												const { error } = fieldState;
@@ -200,7 +214,7 @@ const MenuDetail = (props: MenuDetailProps) => {
 														label={t('form:label.name')}
 														placeholder={t('form:placeholder.name')}
 														id={`${token}_name`}
-														error={!!error}
+														error={!!error || duplicates}
 														required
 														inputRef={ref}
 														sx={{ width: { xs: '100%', md: '75%' } }}

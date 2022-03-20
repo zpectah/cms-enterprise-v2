@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Box, Stack } from '@mui/material';
 
 import { MenuItemsItemModel } from '../../../types/model/MenuItems';
+import { useMenuItems } from '../../../hooks/model';
 import {
 	Dialog,
 	ControlledForm,
@@ -41,6 +42,7 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form' ]);
+	const { checkMenuItemsDuplicates } = useMenuItems();
 
 	const submitHandler = (data: MenuItemsItemModel) => {
 		const master = _.cloneDeep(data);
@@ -92,8 +94,16 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 								register,
 								watch,
 							},
+							setExternalError,
 						} = form;
 
+						const watchName = watch('name');
+						const duplicates = checkMenuItemsDuplicates(
+							detailData.id as number,
+							watchName,
+						);
+
+						useEffect(() => setExternalError(duplicates), [ duplicates ]);
 						const watchType = watch('type');
 
 						return (
@@ -133,6 +143,9 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 										control={control}
 										rules={{ required: true }}
 										defaultValue={detailData.name}
+										rowProps={{
+											errors: duplicates && [ 'duplicate_name' ]
+										}}
 										render={({ field, fieldState }) => {
 											const { ref, ...rest } = field;
 											const { error } = fieldState;
@@ -142,7 +155,7 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 													label={t('form:label.name')}
 													placeholder={t('form:placeholder.name')}
 													id={`${token}_name`}
-													error={!!error}
+													error={!!error || duplicates}
 													required
 													inputRef={ref}
 													sx={{ width: { xs: '100%', md: '75%' } }}

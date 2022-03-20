@@ -13,6 +13,7 @@ import { PostsItemProps } from '../../types/model';
 import { submitMethodProps } from '../../types/common';
 import CommentsManager from '../Comments/CommentsManager';
 import PageHeading from '../../component/PageHeading';
+import { usePosts } from '../../hooks/model';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,
@@ -65,6 +66,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
 	const { settings } = useSettings();
 	const { profile } = useProfile();
+	const { checkPostsDuplicates } = usePosts();
 	const languageActive = settings?.language_active;
 
 	const detailOptions = {
@@ -262,11 +264,23 @@ const PostsDetail = (props: PostsDetailProps) => {
 						);
 					}}
 					renderPrimary={(form) => {
-						const { token, form: {
-							control,
-							register,
-							watch,
-						} } = form;
+						const {
+							token,
+							form: {
+								control,
+								register,
+								watch,
+							},
+							setExternalError,
+						} = form;
+
+						const watchName = watch('name');
+						const duplicates = checkPostsDuplicates(
+							detailData.id as number,
+							watchName,
+						);
+
+						useEffect(() => setExternalError(duplicates), [ duplicates ]);
 
 						const watchType = watch('type');
 
@@ -307,6 +321,9 @@ const PostsDetail = (props: PostsDetailProps) => {
 											control={control}
 											rules={{ required: true }}
 											defaultValue={detailData.name}
+											rowProps={{
+												errors: duplicates && [ 'duplicate_name' ]
+											}}
 											render={({ field, fieldState }) => {
 												const { ref, ...rest } = field;
 												const { error } = fieldState;
@@ -316,7 +333,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 														label={t('form:label.name')}
 														placeholder={t('form:placeholder.name')}
 														id={`${token}_name`}
-														error={!!error}
+														error={!!error || duplicates}
 														required
 														inputRef={ref}
 														sx={{ width: { xs: '100%', md: '75%' } }}

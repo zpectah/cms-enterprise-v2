@@ -6,3 +6,4 @@ export { default as getOptionsList } from './getOptionsList';
 export { default as getTestDataAttr } from './getTestDataAttr';
 export { getCroppedImage } from './image';
 export { default as transformString } from './transformString';
+export { default as checkDuplicates } from './checkDuplicates';

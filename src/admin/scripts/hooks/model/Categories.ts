@@ -1,7 +1,7 @@
 import useSWR, { mutate } from 'swr';
 
 import config from '../../config';
-import { get, post } from '../../utils/api';
+import { get, post, checkDuplicates } from '../../utils';
 import { CategoriesItemProps } from '../../types/model';
 
 const useCategories = () => {
@@ -16,6 +16,7 @@ const useCategories = () => {
 		updateCategories: (data: CategoriesItemProps) => post(`${config.project.api.base_path}/update_categories`, data),
 		toggleCategories: (data: number[]) => post(`${config.project.api.base_path}/toggle_categories`, data),
 		deleteCategories: (data: number[]) => post(`${config.project.api.base_path}/delete_categories`, data),
+		checkCategoriesDuplicates: (id: number, value: string) => checkDuplicates(data?.data, id, 'name', value),
 	};
 };
 

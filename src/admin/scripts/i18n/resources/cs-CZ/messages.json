@@ -12,7 +12,9 @@
     "required": "Pole je povinné",
     "format": "Hodnota je ve špatném formátu",
     "pattern": "Hodnota neodpovídá požadovanému vzoru",
-    "error_global": "Byly nalezeny problémy s validací formuláře, zkontrolujte to prosím."
+    "error_global": "Byly nalezeny problémy s validací formuláře, zkontrolujte to prosím.",
+    "duplicate_name": "Byly nalezeny duplicity, použijte jiný název",
+    "duplicate_email": "Byly nalezeny duplicity, použijte jiný e-mail"
   },
   "model": {
     "item_created": "Položka byla úspešně vytvořena",

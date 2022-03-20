@@ -1,7 +1,7 @@
 import useSWR, { mutate } from 'swr';
 
 import config from '../../config';
-import { get, post } from '../../utils';
+import { get, post, checkDuplicates } from '../../utils';
 import { MenuItemsItemProps } from '../../types/model';
 
 const useMenuItems = () => {
@@ -17,6 +17,7 @@ const useMenuItems = () => {
 		toggleMenuItems: (data: number[]) => post(`${config.project.api.base_path}/toggle_menu_items`, data),
 		deleteMenuItems: (data: number[]) => post(`${config.project.api.base_path}/delete_menu_items`, data),
 		menuItemsWithChildren: (menuId: number) => get(`${config.project.api.base_path}/get_menu_items?with_children=true&menu_id=${menuId}`),
+		checkMenuItemsDuplicates: (id: number, value: string) => checkDuplicates(data?.data, id, 'name', value),
 	};
 };
 

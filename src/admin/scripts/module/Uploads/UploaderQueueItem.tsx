@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Controller } from 'react-hook-form';
 import {
@@ -17,6 +17,7 @@ import { file as fileUtils } from '../../../../../utils/helpers';
 import { UPLOAD_IMAGE_LIMIT, UPLOAD_FILE_LIMIT } from '../../constants';
 import { uploadItemTemporaryType } from '../../types/uploader';
 import { UploadsItemProps } from '../../types/model';
+import { useUploads } from '../../hooks/model';
 import {
 	Card,
 	Button,
@@ -48,6 +49,7 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'components' ]);
+	const { checkUploadsDuplicates } = useUploads();
 
 	const getSizeColor = () => {
 		let color = 'info';
@@ -67,11 +69,23 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 			defaultValues={data}
 			onChange={formChangeHandler}
 			renderMain={(form) => {
-				const { token, form: {
-					control,
-					setValue,
-					watch,
-				} } = form;
+				const {
+					token,
+					form: {
+						control,
+						watch,
+						setValue,
+					},
+					setExternalError,
+				} = form;
+
+				const watchName = watch('name');
+				const duplicates = checkUploadsDuplicates(
+					data.id as number,
+					watchName,
+				);
+
+				useEffect(() => setExternalError(duplicates), [ duplicates ]);
 				const watchCroppedImage = watch('fileBase64_cropped');
 
 				return (
@@ -219,6 +233,9 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 									control={control}
 									rules={{ required: true }}
 									defaultValue={''}
+									rowProps={{
+										errors: duplicates && [ 'duplicate_name' ]
+									}}
 									render={({ field, fieldState }) => {
 										const { ref, ...rest } = field;
 										const { error } = fieldState;
@@ -228,7 +245,7 @@ const UploaderQueueItem = (props: UploaderQueueItemProps) => {
 												label={t('form:label.name')}
 												placeholder={t('form:placeholder.name')}
 												id={`${token}_name`}
-												error={!!error}
+												error={!!error || duplicates}
 												required
 												inputRef={ref}
 												{...rest}
