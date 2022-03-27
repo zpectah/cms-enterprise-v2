@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,10 +7,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import { Alert } from '@mui/material';
 
-import { Button } from '../../component/ui';
+import useSystem from '../../hooks/useSystem';
+import {
+	Button,
+	ConfirmDialog,
+	TextPreloader,
+} from '../../component/ui';
 
 export interface SettingsMaintenancePanelProps {
-	afterTrigger: () => void;
+	afterTrigger: (action: 'delete_items' | 'delete_files') => void;
 }
 
 const SettingsMaintenancePanel = (props: SettingsMaintenancePanelProps) => {
@@ -19,7 +24,66 @@ const SettingsMaintenancePanel = (props: SettingsMaintenancePanelProps) => {
 	} = props;
 
 	const { t } = useTranslation([ 'components' ]);
+	const [ action, setAction ] = useState<'delete_items' | 'delete_files' | null>(null);
+	const [ confirmOpen, setConfirmOpen ] = useState(false);
+	const [ itemsProcess, setItemsProcess ] = useState(false);
+	const [ filesProcess, setFilesProcess ] = useState(false);
+	const [ itemsResult, setItemsResult ] = useState(null);
+	const [ filesResult, setFilesResult ] = useState(null);
+	const {
+		deletePermanentItems,
+		deletePermanentFiles,
+	} = useSystem();
 
+	const confirmHandler = () => {
+		const reset = () => {
+			setConfirmOpen(false);
+			setAction(null);
+			if (action) afterTrigger(action);
+		};
+		if (action) {
+			switch (action) {
+
+				case 'delete_items':
+					setItemsProcess(true);
+					return deletePermanentItems({}).then((resp) => {
+
+
+						console.log('resp ... deletePermanentItems', resp);
+
+
+						setItemsProcess(false);
+						setItemsResult('.... deletePermanentItems : result');
+						reset();
+					});
+
+				case 'delete_files':
+					setFilesProcess(true);
+					return deletePermanentFiles({}).then((resp) => {
+
+
+						console.log('resp ... deletePermanentFiles', resp);
+
+
+						setFilesProcess(false);
+						setFilesResult('.... deletePermanentFiles : result');
+						reset();
+					});
+
+
+			}
+
+		}
+	};
+	const openConfirmHandler = (action: 'delete_items' | 'delete_files') => {
+		setAction(action);
+		setConfirmOpen(true);
+	};
+	const closeConfirmHandler = () => {
+		setConfirmOpen(false);
+		setAction(null);
+	};
+	
 	return (
 		<>
 			<div>
@@ -33,50 +97,65 @@ const SettingsMaintenancePanel = (props: SettingsMaintenancePanelProps) => {
 				</Alert>
 				<TableContainer>
 					<Table>
+						<colgroup>
+							<col style={{ width: '30%' }} />
+							<col style={{ width: 'auto' }} />
+							<col style={{ width: '150px', textAlign: 'right' }} />
+						</colgroup>
 						<TableBody>
-
 							<TableRow>
 								<TableCell
 									component="th"
 									scope="row"
 								>
-									Definitivně smazat všechny smazané položky
+									{t('components:SettingsForm.maintenance_panel.action.delete_items.label')}
+								</TableCell>
+								<TableCell>
+									{itemsProcess && <TextPreloader />}
+									{itemsResult && itemsResult}
 								</TableCell>
 								<TableCell>
 									<Button
 										variant="outlined"
+										onClick={() => openConfirmHandler('delete_items')}
+										loading={itemsProcess}
+										disabled={!!itemsResult}
 									>
-										Zahájit
+										{t('components:SettingsForm.maintenance_panel.action.delete_items.trigger')}
 									</Button>
 								</TableCell>
-								<TableCell>
-									... processing, ... result
-								</TableCell>
 							</TableRow>
-
 							<TableRow>
 								<TableCell
 									component="th"
 									scope="row"
 								>
-									Definitivně smazat všechny smazané soubory
+									{t('components:SettingsForm.maintenance_panel.action.delete_files.label')}
+								</TableCell>
+								<TableCell>
+									{filesProcess && <TextPreloader />}
+									{filesResult && filesResult}
 								</TableCell>
 								<TableCell>
 									<Button
 										variant="outlined"
+										onClick={() => openConfirmHandler('delete_files')}
+										loading={filesProcess}
+										disabled={!!filesResult}
 									>
-										Zahájit
+										{t('components:SettingsForm.maintenance_panel.action.delete_files.trigger')}
 									</Button>
 								</TableCell>
-								<TableCell>
-									... processing, ... result
-								</TableCell>
 							</TableRow>
-
 						</TableBody>
 					</Table>
 				</TableContainer>
 			</div>
+			<ConfirmDialog
+				open={confirmOpen}
+				onClose={closeConfirmHandler}
+				onConfirm={confirmHandler}
+			/>
 		</>
 	);
 };

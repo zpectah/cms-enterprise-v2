@@ -1009,7 +1009,6 @@ const SettingsForm = (props: SettingsFormProps) => {
 										<>
 											<Section
 												title={t('components:SettingsForm.section.language_list')}
-												divider
 											>
 												<SettingsLanguageList
 													installed={watchLanguageInstalled}
@@ -1045,7 +1044,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 											subtitle={t('components:SettingsForm.section.maintenance_subtitle')}
 											children={
 												<SettingsMaintenancePanel
-													afterTrigger={() => { console.log('triggered after event') }}
+													afterTrigger={(action) => { console.log('triggered after event', action) }}
 												/>
 											}
 										/>

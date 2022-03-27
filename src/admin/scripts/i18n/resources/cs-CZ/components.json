@@ -125,7 +125,17 @@
       "success_message": "Jazyk byl úspěšně nainstalován"
     },
     "maintenance_panel": {
-      "alert_message": "Tyto akce jsou nevratné, pokud jste přesvědčení, že toto chcete provést, ubezpečte se, jaký to bude mít celkový dopad."
+      "alert_message": "Tyto akce jsou nevratné, pokud jste přesvědčení, že toto chcete provést, ubezpečte se, jaký to bude mít celkový dopad.",
+      "action": {
+        "delete_items": {
+          "label": "Definitivně smazat všechny smazané položky",
+          "trigger": "Zahájit"
+        },
+        "delete_files": {
+          "label": "Definitivně smazat všechny smazané soubory",
+          "trigger": "Zahájit"
+        }
+      }
     }
   },
   "ProfileForm": {

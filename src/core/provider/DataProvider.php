@@ -839,5 +839,23 @@ class DataProvider {
         return $response;
     }
 
+    public function delete_permanent_items ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $system = new System;
+        $response = $system -> delete_permanent_items($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_permanent_files ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $system = new System;
+        $response = $system -> delete_permanent_files($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
 
 }

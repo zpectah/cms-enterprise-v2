@@ -570,6 +570,19 @@ class ApiProvider {
                 $response['message'] = 'Success'; // TODO
                 break;
 
+            case 'delete_permanent_items':
+                $response['data'] = $dp -> delete_permanent_items($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'delete_permanent_files':
+                $response['data'] = $dp -> delete_permanent_files($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
 
         }
 

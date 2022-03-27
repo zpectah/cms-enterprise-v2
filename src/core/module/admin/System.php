@@ -4,16 +4,17 @@ namespace core\module\admin;
 
 class System {
 
+    // TODO
     public function create_log ($attrs): array {
 
         return [];
     }
 
+    // TODO
     public function get_log_list (): array {
 
         return [];
     }
-
 
     private function create_language_tables ($conn, $tablePrefix, $lang_default, $lang_new) {
         $response = null;
@@ -83,10 +84,22 @@ class System {
         return [];
     }
 
-
+    // TODO
     public function export_data ($attrs): array {
 
         return [ $attrs ];
+    }
+
+    // TODO
+    public function delete_permanent_items ($conn, $data): array {
+
+        return [ $data ];
+    }
+
+    // TODO
+    public function delete_permanent_files ($conn, $data): array {
+
+        return [ $data ];
     }
 
 }
