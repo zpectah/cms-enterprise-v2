@@ -47,7 +47,7 @@ const CreateNewPasswordForm = () => {
 
 	useEffect(() => {
 		console.log('params', params);
-	}, [params]);
+	}, [ params ]);
 
 	return (
 		<>

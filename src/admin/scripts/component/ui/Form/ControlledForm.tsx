@@ -109,7 +109,7 @@ const ControlledForm = (props: ControlledFormProps) => {
 			{renderActions && (
 				<FormActions
 					style={{
-						paddingTop: disableActionsOffset ? 0 : 'inherit',
+						paddingTop: disableActionsOffset ? 0 : '2.5rem',
 					}}
 				>
 					{renderActions(form)}

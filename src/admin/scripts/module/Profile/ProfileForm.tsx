@@ -82,12 +82,13 @@ const ProfileForm = (props: ProfileFormProps) => {
 				}}
 				onSubmit={submitHandler}
 				renderActions={(form) => {
-					const { token, form: { control } } = form;
+					const { form: { formState: { isValid } } } = form;
 
 					return (
 						<>
 							<PrimaryButton
 								type="submit"
+								disabled={!isValid}
 							>
 								{t('components:ProfileForm.submit')}
 							</PrimaryButton>

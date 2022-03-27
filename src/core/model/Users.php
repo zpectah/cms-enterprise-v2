@@ -69,19 +69,19 @@ class Users {
 
         // prepare
         $query = ('INSERT INTO users (
-                email, 
-                type, 
-                password, 
-                nickname, 
-                name_first, 
-                name_last, 
-                item_level, 
-                item_group, 
-                img_avatar, 
-                description, 
-                active, 
-                deleted
-                   ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)');
+            email, 
+            type, 
+            password, 
+            nickname, 
+            name_first, 
+            name_last, 
+            item_level, 
+            item_group, 
+            img_avatar, 
+            description, 
+            active, 
+            deleted
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)');
         $types = 'ssssssisssii';
         $args = [
             $data['email'],

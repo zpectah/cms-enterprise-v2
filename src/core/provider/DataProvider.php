@@ -823,7 +823,7 @@ class DataProvider {
     public function get_user_profile ($data): array {
         $conn = new mysqli(...CFG_DB_CONN);
         $profile = new Profile;
-        $response = $profile -> user_login($conn, $data);
+        $response = $profile -> get_user_profile($conn, $data);
         $conn -> close();
 
         return $response;
@@ -886,7 +886,7 @@ class DataProvider {
     public function get_member_profile ($data): array {
         $conn = new mysqli(...CFG_DB_CONN);
         $member = new Member;
-        $response = $member -> member_login($conn, $data);
+        $response = $member -> get_member_profile($conn, $data);
         $conn -> close();
 
         return $response;

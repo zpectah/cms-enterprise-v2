@@ -1,31 +1,19 @@
 import useSWR, { mutate } from 'swr';
 
 import config from '../config';
+import EntityService from '../service/Entity.service';
 import { get, post } from '../utils';
 import { profileProps } from '../types/profile';
 
 const useProfile = () => {
 	const { data, error } = useSWR(`${config.project.api.base_path}/get_user_profile`, get);
-	const data_loading = !(!(!data && data == null) && !error);
+	const entity = new EntityService(data?.data);
 
 	return {
-		// profile: data as unknown | profileProps,
-		profile: {
-			id: 1,
-			type: 'default',
-			email: 'demo@demo.demo',
-			name_first: 'Demo',
-			name_last: 'Demo',
-			nickname: 'demo',
-			password: '',
-			item_group: 'company',
-			description: '',
-			img_avatar: '',
-			item_level: 7,
-			active: true,
-		},
-		profile_loading: data_loading,
+		profile: data?.data as profileProps,
+		profile_loading: !data && !error,
 		profile_error: error,
+		available_actions: entity.availableActions(),
 		reloadProfile: () => mutate(`${config.project.api.base_path}/get_user_profile`),
 		updateProfile: (data: profileProps) => post(`${config.project.api.base_path}/update_user_profile`, data),
 		userLogin: (data: { email: string; password: string }) => post(`${config.project.api.base_path}/user_login`, data),

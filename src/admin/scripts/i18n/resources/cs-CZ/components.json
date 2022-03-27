@@ -205,9 +205,18 @@
     "title": "Přihlášení do systému",
     "btn": {
       "submit": "Přihlásit se",
-      "lost_password": "Ztracené heslo"
+      "lost_password": "Ztracené heslo",
+      "return_app": "Vrátit se zpět do aplikace"
     },
-    "message": {}
+    "message": {
+      "unknown": "Neznámá chyba",
+      "user_not_found": "Uživatel nebyl nalezen",
+      "user_password_not_match": "Heslo se neshoduje s tímto e-mailem",
+      "user_not_active": "Tento uživatel není aktivní",
+      "user_is_deleted": "Tento uživatel byl smazaný",
+      "user_login_success": "Údaje jsou v pořádku, nyní budete přesměrováni na úvodní stránku",
+      "already_loggedIn": "Jste již v pořádku přihlášen, není potřeba se přihlašovat znovu"
+    }
   },
   "LostPasswordForm": {},
   "CreateNewPasswordForm": {}

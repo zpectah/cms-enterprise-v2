@@ -1,14 +1,28 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
+
+import useProfile from '../hooks/useProfile';
+import { PagePreloader } from './ui';
 
 export default ({ children }: { children: JSX.Element }) => {
-	let auth = true; // get user state ...
-	let location = ''; // current location
+	const {
+		profile,
+		profile_loading,
+		profile_error,
+	} = useProfile();
+	const location = useLocation();
 
-	console.log('Require Auth');
+	let auth = profile?.id && !profile_loading;
+	let loc = location.pathname;
 
-	if (!auth) {
-		return (<Navigate to="/admin/login" state={{ from: location }} />);
+	if (profile_loading && !profile_error) {
+		return (
+			<PagePreloader />
+		);
+	} else if (!auth) {
+		return (
+			<Navigate to="/admin/login#unauthorizedAccess" state={{ from: loc }} />
+		);
 	}
 
 	return children;

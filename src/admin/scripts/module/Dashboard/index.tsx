@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/material';
 
 import PageHeading from '../../component/PageHeading';
@@ -12,9 +13,21 @@ import {
 import useToasts from '../../hooks/useToasts';
 
 const DashboardModule = () => {
-	const { t } = useTranslation(['pages']);
+	const { t } = useTranslation([ 'pages', 'messages' ]);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
-	const { createToast } = useToasts();
+	const { createToast, createSuccessToast } = useToasts();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (window.location.hash) {
+			if (window.location.hash === '#loginSuccess') {
+				createSuccessToast({
+					title: t('messages:profile.user_login_success'),
+				});
+				navigate(`/admin/app`);
+			}
+		}
+	}, [ window.location.hash ]);
 
 	return (
 		<>

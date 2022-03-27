@@ -561,8 +561,7 @@ class ApiProvider {
             case 'user_login':
                 $response['data'] = $dp -> user_login($data);
                 $response['status'] = 'ok';
-                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
-                $response['message'] = 'Success'; // TODO
+                $response['message'] = $response['data']['message'];
                 break;
 
             case 'user_logout':
@@ -613,8 +612,7 @@ class ApiProvider {
             case 'member_login':
                 $response['data'] = $dp -> member_login($data);
                 $response['status'] = 'ok';
-                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
-                $response['message'] = 'Success'; // TODO
+                $response['message'] = $response['data']['message'];
                 break;
 
             case 'member_logout':

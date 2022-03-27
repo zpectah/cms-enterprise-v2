@@ -8,15 +8,8 @@ import config from '../../config';
 import useProfile from '../../hooks/useProfile';
 import LoginForm from './LoginForm';
 
-interface LoginModuleProps {}
-
-const LoginModule = (props: LoginModuleProps) => {
-	const {} = props;
-
-	const {
-		profile,
-		userLogin,
-	} = useProfile();
+const LoginModule = () => {
+	const { userLogin } = useProfile();
 
 	const submitHandler = (master) => {
 		return userLogin(master).then((resp) => resp);

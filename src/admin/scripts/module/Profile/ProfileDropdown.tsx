@@ -66,7 +66,7 @@ const ProfileDropdown = () => {
 	const logoutHandlerConfirm = () => {
 		userLogout().then((resp) => {
 			navigate('/admin/login');
-			createSuccessToast({ title: 'Successfully log out' });
+			createSuccessToast({ title: t('messages:profile.user_logout_success') });
 		});
 	};
 
