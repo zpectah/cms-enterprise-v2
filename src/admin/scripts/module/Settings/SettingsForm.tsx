@@ -1042,11 +1042,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 										<Section
 											title={t('components:SettingsForm.section.maintenance')}
 											subtitle={t('components:SettingsForm.section.maintenance_subtitle')}
-											children={
-												<SettingsMaintenancePanel
-													afterTrigger={(action) => { console.log('triggered after event', action) }}
-												/>
-											}
+											children={<SettingsMaintenancePanel />}
 										/>
 									</TabPanel>
 									<TabPanel
@@ -1056,9 +1052,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 										<Section
 											title={t('components:SettingsForm.section.blacklist')}
 											subtitle={t('components:SettingsForm.section.blacklist_subtitle')}
-											children={
-												<SettingsBlacklist />
-											}
+											children={<SettingsBlacklist />}
 										/>
 									</TabPanel>
 								</Tabs>

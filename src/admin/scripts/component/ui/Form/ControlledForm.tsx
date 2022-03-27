@@ -25,6 +25,7 @@ export interface ControlledFormProps extends UseFormProps {
 	onChange?: (fields: any) => void;
 	mandatoryInfo?: boolean;
 	onTrigger?: (name: string | string[] | readonly string[]) => Promise<{ name: string | string[] | readonly string[] }>;
+	disableActionsOffset?: boolean;
 }
 
 const ControlledForm = (props: ControlledFormProps) => {
@@ -42,6 +43,7 @@ const ControlledForm = (props: ControlledFormProps) => {
 		mode = 'all',
 		mandatoryInfo,
 		onTrigger,
+		disableActionsOffset,
 		...rest
 	} = props;
 
@@ -91,7 +93,12 @@ const ControlledForm = (props: ControlledFormProps) => {
 				&& !form.form.formState.isSubmitSuccessful
 				&& errorMessage
 			) && (
-				<Section noSpacing>
+				<Section
+					noSpacing
+					style={{
+						paddingBottom: disableActionsOffset ? '2rem' : 'inherit',
+					}}
+				>
 					<Alert
 						severity="error"
 					>
@@ -100,7 +107,11 @@ const ControlledForm = (props: ControlledFormProps) => {
 				</Section>
 			)}
 			{renderActions && (
-				<FormActions>
+				<FormActions
+					style={{
+						paddingTop: disableActionsOffset ? 0 : 'inherit',
+					}}
+				>
 					{renderActions(form)}
 				</FormActions>
 			)}

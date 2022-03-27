@@ -15,7 +15,7 @@ import {
 } from '../../component/ui';
 
 export interface SettingsMaintenancePanelProps {
-	afterTrigger: (action: 'delete_items' | 'delete_files') => void;
+	afterTrigger?: (action: 'delete_items' | 'delete_files') => void;
 }
 
 const SettingsMaintenancePanel = (props: SettingsMaintenancePanelProps) => {
@@ -39,7 +39,7 @@ const SettingsMaintenancePanel = (props: SettingsMaintenancePanelProps) => {
 		const reset = () => {
 			setConfirmOpen(false);
 			setAction(null);
-			if (action) afterTrigger(action);
+			if (action && afterTrigger) afterTrigger(action);
 		};
 		if (action) {
 			switch (action) {
