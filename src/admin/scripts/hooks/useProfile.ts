@@ -1,7 +1,7 @@
 import useSWR, { mutate } from 'swr';
 
 import config from '../config';
-import { get, post } from '../utils/api';
+import { get, post } from '../utils';
 import { profileProps } from '../types/profile';
 
 const useProfile = () => {

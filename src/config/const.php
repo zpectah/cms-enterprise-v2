@@ -98,3 +98,9 @@ const MESSAGES = [
         'NO_UPDATED' => 'no_data_updated',
     ],
 ];
+const SESSION_USER_NAME_PREFIX = 'cms_enterprise_user';
+const SESSION_USER_TOKEN_PREFIX = 'cms_enterprise_user_token';
+const SESSION_MEMBER_NAME_PREFIX = 'cms_enterprise_member';
+const SESSION_MEMBER_TOKEN_PREFIX = 'cms_enterprise_member_token';
+const URL_USER_LOST_PASSWORD_TOKEN = CFG_ENV['root'] . 'admin/lost-password/token/';
+const URL_MEMBER_LOST_PASSWORD_TOKEN = CFG_ENV['root'] . 'lost-password/token/';

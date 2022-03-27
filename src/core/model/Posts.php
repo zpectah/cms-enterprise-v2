@@ -3,6 +3,7 @@
 namespace core\model;
 
 use core\common\Helpers;
+use core\module\admin\Settings;
 
 class Posts {
 
@@ -286,6 +287,36 @@ class Posts {
         }
 
         return $response;
+    }
+
+    public function search ($conn, $data, $languages): array {
+        $results = [];
+        $string = strtolower($data['search']);
+        $settings = new Settings;
+        if ($data['lang']) {
+            $lng = $data['lang'];
+        } else {
+            $lng = $settings['language_default'];
+        }
+        $posts = $this -> get($conn, [], $languages);
+        $today = strtotime(date('Y-m-d H:i:s'));
+        foreach ($posts as $item) {
+            if (
+                preg_match( "/{$string}/i", strtolower($item['name']))
+                || preg_match( "/{$string}/i", strtolower($item['lang'][$lng]['title']))
+                || preg_match( "/{$string}/i", strtolower($item['lang'][$lng]['description']))
+                || preg_match( "/{$string}/i", strtolower($item['lang'][$lng]['content']))
+                && $item['active']
+            ) {
+                $published = strtotime($item['published']);
+                if ($today >= $published) {
+                    $item['model'] = 'posts';
+                    $results[] = $item;
+                }
+            }
+        }
+
+        return $results;
     }
 
     public function delete_all_permanent ($conn, $languages): array {

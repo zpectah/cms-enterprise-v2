@@ -3,6 +3,7 @@
 namespace core\model;
 
 use core\common\Helpers;
+use core\module\admin\Settings;
 
 class Pages {
 
@@ -170,6 +171,33 @@ class Pages {
         }
 
         return $response;
+    }
+
+    public function search ($conn, $data, $languages): array {
+        $results = [];
+        $string = strtolower($data['search']);
+        $settings = new Settings;
+        if ($data['lang']) {
+            $lng = $data['lang'];
+        } else {
+            $lng = $settings['language_default'];
+        }
+        $pages = $this -> get($conn, [], $languages);
+        // $today = strtotime(date('Y-m-d H:i:s'));
+        foreach ($pages as $item) {
+            if (
+                preg_match( "/{$string}/i", strtolower($item['name']))
+                || preg_match( "/{$string}/i", strtolower($item['lang'][$lng]['title']))
+                || preg_match( "/{$string}/i", strtolower($item['lang'][$lng]['description']))
+                || preg_match( "/{$string}/i", strtolower($item['lang'][$lng]['content']))
+                && $item['active']
+            ) {
+                $item['model'] = 'pages';
+                $results[] = $item;
+            }
+        }
+
+        return $results;
     }
 
     public function delete_all_permanent ($conn, $languages): array {

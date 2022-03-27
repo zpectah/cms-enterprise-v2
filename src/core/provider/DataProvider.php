@@ -16,8 +16,10 @@ use core\model\Translations;
 use core\model\Uploads;
 use core\model\Users;
 use core\model\VisitorBlacklist;
+use core\module\admin\Profile;
 use core\module\admin\Settings;
 use core\module\admin\System;
+use core\module\web\Member;
 use mysqli;
 
 class DataProvider {
@@ -417,6 +419,17 @@ class DataProvider {
         return $response;
     }
 
+    public function search_pages ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $pages = new Pages;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $pages -> search($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
     public function create_pages ($data) {
         $conn = new mysqli(...CFG_DB_CONN);
         $pages = new Pages;
@@ -471,6 +484,17 @@ class DataProvider {
         return $response;
     }
 
+    public function search_posts ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $posts = new Posts;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $posts -> search($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
     public function create_posts ($data) {
         $conn = new mysqli(...CFG_DB_CONN);
         $posts = new Posts;
@@ -510,11 +534,6 @@ class DataProvider {
 
         return $response;
     }
-
-    /**
-     * PostsOptions
-     **/
-
 
     /**
      * Tags
@@ -720,7 +739,6 @@ class DataProvider {
         return $response;
     }
 
-
     /**
      * SettingsBlacklist / Visitor Blacklist
      **/
@@ -769,7 +787,6 @@ class DataProvider {
         return $response;
     }
 
-
     /**
      * Settings ...
      **/
@@ -800,6 +817,131 @@ class DataProvider {
         return $response;
     }
 
+    /**
+     * Profile
+     **/
+    public function get_user_profile ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $profile = new Profile;
+        $response = $profile -> user_login($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_user_profile ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $profile = new Profile;
+        $response = $profile -> user_update_profile($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function user_login ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $profile = new Profile;
+        $response = $profile -> user_login($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function user_logout (): array {
+        $profile = new Profile;
+
+        return $profile -> user_logout();
+    }
+
+    public function user_lost_password ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $profile = new Profile;
+        $response = $profile -> user_lost_password($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function user_lost_password_reset ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $profile = new Profile;
+        $response = $profile -> user_lost_password_reset($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function user_create_new_password ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $profile = new Profile;
+        $response = $profile -> user_create_new_password($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    /**
+     * Member profile
+     **/
+    public function get_member_profile ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $member = new Member;
+        $response = $member -> member_login($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function update_member_profile ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $member = new Member;
+        $response = $member -> member_update_profile($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function member_login ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $member = new Member;
+        $response = $member -> member_login($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function member_logout (): array {
+        $member = new Member;
+
+        return $member -> member_logout();
+    }
+
+    public function member_lost_password ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $member = new Member;
+        $response = $member -> member_lost_password($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function member_lost_password_reset ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $member = new Member;
+        $response = $member -> member_lost_password_reset($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function member_create_new_password ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $member = new Member;
+        $response = $member -> member_create_new_password($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * System ...

@@ -200,5 +200,15 @@
   },
   "CommentsManager": {
     "alert_reported": "Tento komentář je již nahlášený"
-  }
+  },
+  "LoginForm": {
+    "title": "Přihlášení do systému",
+    "btn": {
+      "submit": "Přihlásit se",
+      "lost_password": "Ztracené heslo"
+    },
+    "message": {}
+  },
+  "LostPasswordForm": {},
+  "CreateNewPasswordForm": {}
 }

@@ -19,10 +19,7 @@ const LoginModule = (props: LoginModuleProps) => {
 	} = useProfile();
 
 	const submitHandler = (master) => {
-		return userLogin(master).then((resp) => {
-
-			return resp;
-		});
+		return userLogin(master).then((resp) => resp);
 	};
 
 	return (
@@ -37,15 +34,6 @@ const LoginModule = (props: LoginModuleProps) => {
 				},
 			}}
 		>
-			<Typography
-				variant="h2"
-				sx={{
-					pb: 3.5,
-					textAlign: 'center',
-				}}
-			>
-				Login to system
-			</Typography>
 			<LoginForm
 				onSubmit={submitHandler}
 			/>

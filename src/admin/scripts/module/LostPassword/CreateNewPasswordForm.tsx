@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 
 import routes from '../../routes';
+import useProfile from '../../hooks/useProfile';
 import {
 	ControlledForm,
 	ControlledFormRow,
@@ -23,18 +24,22 @@ interface newPasswordFormProps {
 	token: string;
 	password: string;
 }
-interface CreateNewPasswordFormProps {}
 
-const CreateNewPasswordForm = (props: CreateNewPasswordFormProps) => {
-	const {} = props;
-	const params = useParams();
-
+const CreateNewPasswordForm = () => {
 	const { t } = useTranslation([ 'form', 'components' ]);
+	const params = useParams();
+	const [ submitting, setSubmitting ] = useState(false);
 	const navigate = useNavigate();
+	const { userCreateNewPassword } = useProfile();
 
 	const submitHandler = (data: newPasswordFormProps) => {
+		setSubmitting(true);
 		const master = _.cloneDeep(data);
 		console.log('submitHandler', master);
+		return userCreateNewPassword(master).then((resp) => {
+			console.log('userCreateNewPassword', resp);
+			setSubmitting(false);
+		});
 	};
 	const loginLinkHandler = () => {
 		navigate(`/admin/login`);
@@ -47,7 +52,7 @@ const CreateNewPasswordForm = (props: CreateNewPasswordFormProps) => {
 	return (
 		<>
 			<Typography
-				variant="h2"
+				variant="h3"
 				sx={{
 					pb: 3.5,
 					textAlign: 'center',
@@ -76,6 +81,7 @@ const CreateNewPasswordForm = (props: CreateNewPasswordFormProps) => {
 								<PrimaryButton
 									type="submit"
 									disabled={!isValid}
+									loading={submitting}
 								>
 									Send request
 								</PrimaryButton>
@@ -111,6 +117,10 @@ const CreateNewPasswordForm = (props: CreateNewPasswordFormProps) => {
 												error={!!error}
 												required
 												inputRef={ref}
+												size="medium"
+												formControlProps={{
+													size: 'medium',
+												}}
 												{...rest}
 											/>
 										);

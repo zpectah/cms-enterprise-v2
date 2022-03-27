@@ -286,6 +286,12 @@ class ApiProvider {
                 $response['message'] = $response['data'] ? $msg_success : $msg_noData;
                 break;
 
+            case 'search_pages':
+                $response['data'] = $dp -> search_pages($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
+
             case 'create_pages':
                 $response['data'] = $dp -> create_pages($data);
                 $response['status'] = 'ok';
@@ -319,6 +325,12 @@ class ApiProvider {
                 $response['message'] = $response['data'] ? $msg_success : $msg_noData;
                 break;
 
+            case 'search_posts':
+                $response['data'] = $dp -> search_posts($params);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                break;
+
             case 'create_posts':
                 $response['data'] = $dp -> create_posts($data);
                 $response['status'] = 'ok';
@@ -342,11 +354,6 @@ class ApiProvider {
                 $response['status'] = 'ok';
                 $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
                 break;
-
-            /**
-             * PostsOptions
-             **/
-
 
             /**
              * Tags
@@ -381,7 +388,6 @@ class ApiProvider {
                 $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
                 break;
 
-
             /**
              * Translations
              **/
@@ -414,7 +420,6 @@ class ApiProvider {
                 $response['status'] = 'ok';
                 $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
                 break;
-
 
             /**
              * Uploads
@@ -482,7 +487,6 @@ class ApiProvider {
                 $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
                 break;
 
-
             /**
              * SettingsBlacklist / Visitor Blacklist
              **/
@@ -516,7 +520,6 @@ class ApiProvider {
                 $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
                 break;
 
-
             /**
              * Settings ...
              **/
@@ -538,6 +541,109 @@ class ApiProvider {
                 $response['message'] = $response['data'] ? $msg_success : $msg_noData;
                 break;
 
+            /**
+             * Profile
+             **/
+            case 'get_user_profile':
+                $response['data'] = $dp -> get_user_profile($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'update_user_profile':
+                $response['data'] = $dp -> update_user_profile($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'user_login':
+                $response['data'] = $dp -> user_login($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'user_logout':
+                $response['data'] = $dp -> user_logout();
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'user_lost_password':
+                $response['data'] = $dp -> user_lost_password($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'user_lost_password_reset':
+                $response['data'] = $dp -> user_lost_password_reset($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'user_create_new_password':
+                $response['data'] = $dp -> user_create_new_password($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            /**
+             * Member profile
+             **/
+            case 'get_member_profile':
+                $response['data'] = $dp -> get_member_profile($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'update_member_profile':
+                $response['data'] = $dp -> update_member_profile($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'member_login':
+                $response['data'] = $dp -> member_login($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'member_logout':
+                $response['data'] = $dp -> member_logout();
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'member_lost_password':
+                $response['data'] = $dp -> member_lost_password($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'member_lost_password_reset':
+                $response['data'] = $dp -> member_lost_password_reset($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
+
+            case 'member_create_new_password':
+                $response['data'] = $dp -> member_create_new_password($data);
+                $response['status'] = 'ok';
+                // $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                $response['message'] = 'Success'; // TODO
+                break;
 
             /**
              * System ...

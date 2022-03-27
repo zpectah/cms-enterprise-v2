@@ -17,11 +17,7 @@ const PasswordInput = (props: PasswordInputProps & OutlinedInputProps) => {
 	const {
 		label,
 		required,
-		formControlProps = {
-			variant: 'outlined',
-			fullWidth: true,
-			size: 'small',
-		},
+		formControlProps,
 		inputLabelProps,
 		onChange,
 		value,
@@ -32,6 +28,9 @@ const PasswordInput = (props: PasswordInputProps & OutlinedInputProps) => {
 
 	return (
 		<FormControl
+			variant="outlined"
+			fullWidth
+			size="small"
 			{...formControlProps}
 		>
 			{label && (

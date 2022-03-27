@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +11,7 @@ import {
 
 import { EMAIL_REGEX } from '../../constants';
 import routes from '../../routes';
+import useProfile from '../../hooks/useProfile';
 import {
 	ControlledForm,
 	ControlledFormRow,
@@ -23,17 +24,21 @@ import {
 interface lostPasswordFormProps {
 	email: string;
 }
-interface LostPasswordFormProps {}
 
-const LostPasswordForm = (props: LostPasswordFormProps) => {
-	const {} = props;
-
+const LostPasswordForm = () => {
 	const { t } = useTranslation([ 'form', 'components' ]);
+	const [ submitting, setSubmitting ] = useState(false);
 	const navigate = useNavigate();
+	const { userLostPassword } = useProfile();
 
 	const submitHandler = (data: lostPasswordFormProps) => {
+		setSubmitting(true);
 		const master = _.cloneDeep(data);
 		console.log('submitHandler', master);
+		return userLostPassword(master).then((resp) => {
+			console.log('userLostPassword', resp);
+			setSubmitting(false);
+		});
 	};
 	const loginLinkHandler = () => {
 		navigate(`/admin/login`);
@@ -42,7 +47,7 @@ const LostPasswordForm = (props: LostPasswordFormProps) => {
 	return (
 		<>
 			<Typography
-				variant="h2"
+				variant="h3"
 				sx={{
 					pb: 3.5,
 					textAlign: 'center',
@@ -70,6 +75,7 @@ const LostPasswordForm = (props: LostPasswordFormProps) => {
 								<PrimaryButton
 									type="submit"
 									disabled={!isValid}
+									loading={submitting}
 								>
 									Send request
 								</PrimaryButton>
@@ -106,6 +112,7 @@ const LostPasswordForm = (props: LostPasswordFormProps) => {
 												error={!!error}
 												required
 												inputRef={ref}
+												size="medium"
 												{...rest}
 											/>
 										);
