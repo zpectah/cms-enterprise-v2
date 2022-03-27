@@ -52,6 +52,7 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 	const [ detailData, setDetailData ] = useState<UploadsItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
+	const [ submitting, setSubmitting ] = useState(false);
 	const { settings } = useSettings();
 	const languageActive = settings?.language_active;
 
@@ -64,10 +65,12 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 		navigate(detailOptions.root);
 	};
 	const submitHandler = (data: UploadsItemProps) => {
+		setSubmitting(true);
 		const master = _.cloneDeep(data);
 		const method: submitMethodProps = master.id == 'new' ? 'create' : 'update';
 		master.name = transformString(master.name, 'empty-to-dash');
 		onSubmit(method, master).then(() => {
+			setSubmitting(false);
 			if (method === 'update') navigate(detailOptions.root);
 		});
 	};
@@ -147,6 +150,7 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 								detailId={detailData.id}
 								defaultValues={detailData}
 								onSubmit={submitHandler}
+								submitting={submitting}
 								onDelete={() => deleteHandler(detailData.id)}
 								renderSidebar={(form) => {
 									const { token, form: { control } } = form;

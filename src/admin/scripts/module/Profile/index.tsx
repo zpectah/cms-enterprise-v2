@@ -15,6 +15,7 @@ const ProfileModule = () => {
 		profile_error,
 		reloadProfile,
 		updateProfile,
+		available_actions,
 	} = useProfile();
 	const {
 		createSuccessToast,
@@ -43,6 +44,8 @@ const ProfileModule = () => {
 				data={profile}
 				onSubmit={submitHandler}
 				loading={profile_loading}
+				viewable={available_actions.profile.view}
+				editable={available_actions.profile.update}
 			/>
 		</>
 	);

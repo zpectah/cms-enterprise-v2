@@ -52,6 +52,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 	const [ detailData, setDetailData ] = useState<UsersItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
+	const [ submitting, setSubmitting ] = useState(false);
 	const { checkUsersDuplicates } = useUsers();
 
 	const detailOptions = {
@@ -59,9 +60,13 @@ const UsersDetail = (props: UsersDetailProps) => {
 	};
 
 	const submitHandler = (data: UsersItemProps) => {
+		setSubmitting(true);
 		const master = _.cloneDeep(data);
 		const method: submitMethodProps = master.id == 'new' ? 'create' : 'update';
-		onSubmit(method, master).then(() => navigate(detailOptions.root));
+		onSubmit(method, master).then(() => {
+			setSubmitting(false);
+			navigate(detailOptions.root);
+		});
 	};
 	const deleteHandler = (id: string | number) => {
 		setConfirmOpen(true);
@@ -119,6 +124,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}
+					submitting={submitting}
 					onDelete={() => deleteHandler(detailData.id)}
 					renderSidebar={(form) => {
 						const { token, form: { control } } = form;

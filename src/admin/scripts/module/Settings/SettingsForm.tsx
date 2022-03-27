@@ -54,6 +54,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 	const params = useParams();
 	const navigate = useNavigate();
 	const [ panelValue, setPanelValue ] = useState<number>(0);
+	const [ submitting, setSubmitting ] = useState(false);
 
 	const panels = [
 		{
@@ -95,8 +96,11 @@ const SettingsForm = (props: SettingsFormProps) => {
 	];
 	const panelChangeHandler = (e, value: number) => navigate(`/admin/app/${routes.settings.path}/${panels[value].key}`);
 	const submitHandler = (data: any) => {
+		setSubmitting(true);
 		const master = _.cloneDeep(data);
-		return onSubmit(master);
+		return onSubmit(master).then(() => {
+			setSubmitting(false);
+		});
 	};
 	const afterLanguageInstallHandler = (lang: installerRequestProps) => {
 		if (afterLanguageInstall) afterLanguageInstall(lang);
@@ -1064,6 +1068,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 							<PrimaryButton
 								type="submit"
 								disabled={!isValid}
+								loading={submitting}
 							>
 								{t('btn.save_changes')}
 							</PrimaryButton>

@@ -47,15 +47,20 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 	const [ detailData, setDetailData ] = useState<MessagesItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
+	const [ submitting, setSubmitting ] = useState(false);
 
 	const detailOptions = {
 		root: `/admin/app/${routes.messages.path}`,
 	};
 
 	const submitHandler = (data: MessagesItemProps) => {
+		setSubmitting(true);
 		const master = _.cloneDeep(data);
 		const method: submitMethodProps = master.id == 'new' ? 'create' : 'update';
-		onSubmit(method, master).then(() => navigate(detailOptions.root));
+		onSubmit(method, master).then(() => {
+			setSubmitting(false);
+			navigate(detailOptions.root);
+		});
 	};
 	const deleteHandler = (id: string | number) => {
 		setConfirmOpen(true);
@@ -96,6 +101,7 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}
+					submitting={submitting}
 					onDelete={() => deleteHandler(detailData.id)}
 					renderSidebar={() => (
 						<InfoMetaBlock

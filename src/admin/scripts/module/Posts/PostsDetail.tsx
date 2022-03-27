@@ -63,6 +63,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 	const [ detailData, setDetailData ] = useState<PostsItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
+	const [ submitting, setSubmitting ] = useState(false);
 	const { settings } = useSettings();
 	const { profile } = useProfile();
 	const { checkPostsDuplicates } = usePosts();
@@ -73,10 +74,14 @@ const PostsDetail = (props: PostsDetailProps) => {
 	};
 
 	const submitHandler = (data: PostsItemProps) => {
+		setSubmitting(true);
 		const master = _.cloneDeep(data);
 		const method: submitMethodProps = master.id == 'new' ? 'create' : 'update';
 		master.name = transformString(master.name, 'empty-to-dash');
-		onSubmit(method, master).then(() => navigate(detailOptions.root));
+		onSubmit(method, master).then(() => {
+			setSubmitting(false);
+			navigate(detailOptions.root);
+		});
 	};
 	const deleteHandler = (id: string | number) => {
 		setConfirmOpen(true);
@@ -130,6 +135,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}
+					submitting={submitting}
 					onDelete={() => deleteHandler(detailData.id)}
 					renderSidebar={(form) => {
 						const { token, form: { control } } = form;
@@ -194,7 +200,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 													placeholder={t('form:placeholder.author')}
 													id={`${token}_author`}
 													error={!!error}
-													currentUserId={detailData.id === 'new' ? profile?.id : detailData.author}
+													currentUserId={detailData.id === 'new' ? profile?.id as number : detailData.author as number}
 													inputSx={{
 														width: {
 															md: '100%',

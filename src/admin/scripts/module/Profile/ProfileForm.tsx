@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -21,6 +21,8 @@ interface ProfileFormProps {
 	data: profileProps;
 	onSubmit: (master: profileProps) => Promise<unknown>;
 	loading: boolean;
+	viewable: boolean;
+	editable: boolean;
 }
 
 const ProfileForm = (props: ProfileFormProps) => {
@@ -28,15 +30,18 @@ const ProfileForm = (props: ProfileFormProps) => {
 		data,
 		onSubmit,
 		loading,
+		viewable,
+		editable,
 	} = props;
 
 	const { t } = useTranslation([ 'form', 'components' ]);
+	const [ submitting, setSubmitting ] = useState(false);
 
 	const submitHandler = (data: profileProps) => {
+		setSubmitting(true);
 		const master = _.cloneDeep(data);
-		console.log('submitHandler', master);
-		onSubmit(master).then((resp) => {
-			console.info('After submit', master, resp);
+		onSubmit(master).then(() => {
+			setSubmitting(false);
 		});
 	};
 
@@ -71,14 +76,12 @@ const ProfileForm = (props: ProfileFormProps) => {
 			</Section>
 			<ControlledForm
 				mandatoryInfo
+				viewable={viewable}
+				editable={editable}
 				dataId="ProfileForm"
 				defaultValues={{
-					email: data.email,
+					...data,
 					password: '',
-					nickname: data.nickname,
-					name_first: data.name_first,
-					name_last: data.name_last,
-					description: data.description,
 				}}
 				onSubmit={submitHandler}
 				renderActions={(form) => {
@@ -89,6 +92,7 @@ const ProfileForm = (props: ProfileFormProps) => {
 							<PrimaryButton
 								type="submit"
 								disabled={!isValid}
+								loading={submitting}
 							>
 								{t('components:ProfileForm.submit')}
 							</PrimaryButton>

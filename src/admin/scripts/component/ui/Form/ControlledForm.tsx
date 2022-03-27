@@ -26,6 +26,8 @@ export interface ControlledFormProps extends UseFormProps {
 	mandatoryInfo?: boolean;
 	onTrigger?: (name: string | string[] | readonly string[]) => Promise<{ name: string | string[] | readonly string[] }>;
 	disableActionsOffset?: boolean;
+	viewable?: boolean;
+	editable?: boolean;
 }
 
 const ControlledForm = (props: ControlledFormProps) => {
@@ -44,6 +46,8 @@ const ControlledForm = (props: ControlledFormProps) => {
 		mandatoryInfo,
 		onTrigger,
 		disableActionsOffset,
+		viewable = true,
+		editable = true,
 		...rest
 	} = props;
 
@@ -68,54 +72,64 @@ const ControlledForm = (props: ControlledFormProps) => {
 	};
 
 	return (
-		<form
-			noValidate
-			autoComplete="off"
-			name={dataId}
-			style={{ width: '100%' }}
-			onSubmit={form.form.handleSubmit(onSubmit,  errorHandler)}
-			onChange={changeHandler}
-			{...formProps}
-			{...getTestDataAttr(dataId)}
-		>
-			<>
-				{renderMain(form)}
-			</>
-			{mandatoryInfo && (
-				<FormBody>
-					<Typography variant="caption">
-						{t('form:mandatoryInfo')}
-					</Typography>
-				</FormBody>
-			)}
-			{(form.form.formState.errors
-				&& form.form.formState.isSubmitted
-				&& !form.form.formState.isSubmitSuccessful
-				&& errorMessage
-			) && (
-				<Section
-					noSpacing
-					style={{
-						paddingBottom: disableActionsOffset ? '2rem' : 'inherit',
-					}}
+		<>
+			{viewable ? (
+				<form
+					noValidate
+					autoComplete="off"
+					name={dataId}
+					style={{ width: '100%' }}
+					onSubmit={form.form.handleSubmit(onSubmit,  errorHandler)}
+					onChange={changeHandler}
+					{...formProps}
+					{...getTestDataAttr(dataId)}
 				>
-					<Alert
-						severity="error"
-					>
-						{errorMessage}
-					</Alert>
-				</Section>
-			)}
-			{renderActions && (
-				<FormActions
-					style={{
-						paddingTop: disableActionsOffset ? 0 : '2.5rem',
-					}}
+					<>
+						{renderMain(form)}
+					</>
+					{mandatoryInfo && (
+						<FormBody>
+							<Typography variant="caption">
+								{t('form:mandatoryInfo')}
+							</Typography>
+						</FormBody>
+					)}
+					{(form.form.formState.errors
+						&& form.form.formState.isSubmitted
+						&& !form.form.formState.isSubmitSuccessful
+						&& errorMessage
+					) && (
+						<Section
+							noSpacing
+							style={{
+								paddingBottom: disableActionsOffset ? '2rem' : 'inherit',
+							}}
+						>
+							<Alert
+								severity="error"
+							>
+								{errorMessage}
+							</Alert>
+						</Section>
+					)}
+					{renderActions && (
+						<FormActions
+							style={{
+								paddingTop: disableActionsOffset ? 0 : '2.5rem',
+							}}
+						>
+							{renderActions(form)}
+						</FormActions>
+					)}
+				</form>
+			) : (
+				<Alert
+					severity="error"
 				>
-					{renderActions(form)}
-				</FormActions>
+					{t('messages:form.not_allowed_to_view')}
+				</Alert>
 			)}
-		</form>
+		</>
 	);
 };
 

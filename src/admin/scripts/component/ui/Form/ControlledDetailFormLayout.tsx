@@ -53,6 +53,9 @@ export interface ControlledDetailFormLayoutProps<TFieldValues extends FieldValue
 	onError?: (fields: any) => void;
 	detailId: string | number;
 	mandatoryInfo?: boolean;
+	viewable?: boolean;
+	editable?: boolean;
+	submitting?: boolean;
 }
 
 const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
@@ -74,6 +77,9 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 		detailId,
 		mode = 'all',
 		mandatoryInfo,
+		viewable = true,
+		editable = true,
+		submitting,
 		...rest
 	} = props;
 
@@ -101,99 +107,111 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 		<FormOuter
 			{...getTestDataAttr(dataId)}
 		>
-			<form
-				noValidate
-				autoComplete="off"
-				name={dataId}
-				style={{ width: '100%' }}
-				onSubmit={form.form.handleSubmit(onSubmit,  errorHandler)}
-				{...formProps}
-			>
-				<FormInner>
-					<FormBody>
-						<FormContent>
-							{renderPrimary && (
-								<Section noSpacing>
-									{renderPrimary(form)}
-								</Section>
-							)}
-							{renderLanguage && (
-								<Section noSpacing>
-									<LanguageFieldset
-										render={(
-											lang,
-											languageList,
-											changeLanguage,
-										) => renderLanguage({
-											lang,
-											languageList,
-											changeLanguage,
-											...form,
-										})}
-									/>
-									{!!renderSecondary && (
-										<Divider
-											sx={{
-												marginBottom: '2rem',
-											}}
-										/>
+			{viewable ? (
+				<>
+					<form
+						noValidate
+						autoComplete="off"
+						name={dataId}
+						style={{ width: '100%' }}
+						onSubmit={form.form.handleSubmit(onSubmit,  errorHandler)}
+						{...formProps}
+					>
+						<FormInner>
+							<FormBody>
+								<FormContent>
+									{renderPrimary && (
+										<Section noSpacing>
+											{renderPrimary(form)}
+										</Section>
 									)}
-								</Section>
+									{renderLanguage && (
+										<Section noSpacing>
+											<LanguageFieldset
+												render={(
+													lang,
+													languageList,
+													changeLanguage,
+												) => renderLanguage({
+													lang,
+													languageList,
+													changeLanguage,
+													...form,
+												})}
+											/>
+											{!!renderSecondary && (
+												<Divider
+													sx={{
+														marginBottom: '2rem',
+													}}
+												/>
+											)}
+										</Section>
+									)}
+									{renderSecondary && (
+										<Section noSpacing>
+											{renderSecondary(form)}
+										</Section>
+									)}
+								</FormContent>
+								<FormSidebar children={renderSidebar(form)} />
+							</FormBody>
+							{mandatoryInfo && (
+								<FormBody>
+									<Typography variant="caption">
+										{t('form:mandatoryInfo')}
+									</Typography>
+								</FormBody>
 							)}
-							{renderSecondary && (
+							{(form.form.formState.errors
+								&& form.form.formState.isSubmitted
+								&& !form.form.formState.isSubmitSuccessful
+								&& errorMessage
+							) && (
 								<Section noSpacing>
-									{renderSecondary(form)}
-								</Section>
-							)}
-						</FormContent>
-						<FormSidebar children={renderSidebar(form)} />
-					</FormBody>
-					{mandatoryInfo && (
-						<FormBody>
-							<Typography variant="caption">
-								{t('form:mandatoryInfo')}
-							</Typography>
-						</FormBody>
-					)}
-					{(form.form.formState.errors
-						&& form.form.formState.isSubmitted
-						&& !form.form.formState.isSubmitSuccessful
-						&& errorMessage
-					) && (
-						<Section noSpacing>
-							<Alert
-								severity="error"
-							>
-								{errorMessage}
-							</Alert>
-						</Section>
-					)}
-					<FormActions children={
-						<Stack
-							direction="row"
-							spacing={2}
-						>
-							{renderActions ? renderActions(form) : (
-								<>
-									<PrimaryButton
-										type="submit"
-										disabled={!form.form.formState.isValid || externalError}
+									<Alert
+										severity="error"
 									>
-										{detailId === 'new' ? t('btn.create') : t('btn.update')}
-									</PrimaryButton>
-									{detailId !== 'new' && (
-										<DeleteButton
-											onClick={deleteHandler}
-										/>
-									)}
-								</>
+										{errorMessage}
+									</Alert>
+								</Section>
 							)}
-						</Stack>
-					} />
-				</FormInner>
-			</form>
-			{renderAddons && (
-				<FormAddons children={renderAddons(form)} />
+							<FormActions children={
+								<Stack
+									direction="row"
+									spacing={2}
+								>
+									{renderActions ? renderActions(form) : (
+										<>
+											<PrimaryButton
+												type="submit"
+												disabled={!form.form.formState.isValid || externalError}
+												loading={submitting}
+											>
+												{detailId === 'new' ? t('btn.create') : t('btn.update')}
+											</PrimaryButton>
+											{detailId !== 'new' && (
+												<DeleteButton
+													onClick={deleteHandler}
+													disabled={submitting}
+												/>
+											)}
+										</>
+									)}
+								</Stack>
+							} />
+						</FormInner>
+					</form>
+					{renderAddons && (
+						<FormAddons children={renderAddons(form)} />
+					)}
+				</>
+			) : (
+				<Alert
+					severity="error"
+				>
+					{t('messages:form.not_allowed_to_view')}
+				</Alert>
 			)}
 		</FormOuter>
 	);

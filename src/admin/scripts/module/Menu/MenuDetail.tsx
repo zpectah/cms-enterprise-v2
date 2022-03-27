@@ -49,6 +49,7 @@ const MenuDetail = (props: MenuDetailProps) => {
 	const [ detailData, setDetailData ] = useState<MenuItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
+	const [ submitting, setSubmitting ] = useState(false);
 	const { settings } = useSettings();
 	const { checkMenuDuplicates } = useMenu();
 	const languageActive = settings?.language_active;
@@ -58,10 +59,14 @@ const MenuDetail = (props: MenuDetailProps) => {
 	};
 
 	const submitHandler = (data: MenuItemProps) => {
+		setSubmitting(true);
 		const master = _.cloneDeep(data);
 		const method: submitMethodProps = master.id == 'new' ? 'create' : 'update';
 		master.name = transformString(master.name, 'empty-to-dash');
-		onSubmit(method, master).then(() => navigate(detailOptions.root));
+		onSubmit(method, master).then(() => {
+			setSubmitting(false);
+			navigate(detailOptions.root);
+		});
 	};
 	const deleteHandler = (id: string | number) => {
 		setConfirmOpen(true);
@@ -113,6 +118,7 @@ const MenuDetail = (props: MenuDetailProps) => {
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}
+					submitting={submitting}
 					onDelete={() => deleteHandler(detailData.id)}
 					renderSidebar={(form) => {
 						const { token, form: { control } } = form;

@@ -47,6 +47,7 @@ const TagsDetail = (props: TagsDetailProps) => {
 	const [ detailData, setDetailData ] = useState<TagsItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
+	const [ submitting, setSubmitting ] = useState(false);
 	const { checkTagsDuplicates } = useTags();
 
 	const detailOptions = {
@@ -54,10 +55,14 @@ const TagsDetail = (props: TagsDetailProps) => {
 	};
 
 	const submitHandler = (data: TagsItemProps) => {
+		setSubmitting(true);
 		const master = _.cloneDeep(data);
 		const method: submitMethodProps = master.id == 'new' ? 'create' : 'update';
 		master.name = transformString(master.name, 'empty-to-dash');
-		onSubmit(method, master).then(() => navigate(detailOptions.root));
+		onSubmit(method, master).then(() => {
+			setSubmitting(false);
+			navigate(detailOptions.root);
+		});
 	};
 	const deleteHandler = (id: string | number) => {
 		setConfirmOpen(true);
@@ -98,6 +103,7 @@ const TagsDetail = (props: TagsDetailProps) => {
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}
+					submitting={submitting}
 					onDelete={() => deleteHandler(detailData.id)}
 					renderSidebar={(form) => {
 						const { token, form: { control } } = form;

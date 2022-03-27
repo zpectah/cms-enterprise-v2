@@ -17,7 +17,8 @@
     "duplicate_email": "Tento e-mail již v databázi existuje, použijte jiný",
     "duplicate_queue": "Ve frontě existuje více položek se stejným názvem, opravte to",
     "visitor_email": "V databázi již záznam s tímto emailem existuje",
-    "visitor_ip": "V databázi již záznam s touto IP adresou existuje"
+    "visitor_ip": "V databázi již záznam s touto IP adresou existuje",
+    "not_allowed_to_view": "Nemáte dostatečná oprávnění vidět tento formulář"
   },
   "model": {
     "item_created": "Položka byla úspešně vytvořena",
