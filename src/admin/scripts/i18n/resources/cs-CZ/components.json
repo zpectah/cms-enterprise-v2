@@ -34,7 +34,9 @@
       "members": "Members",
       "social_profiles": "Sociální sítě",
       "blacklist": "Blacklist návštěvníků",
-      "blacklist_subtitle": "Blacklist slouží k definování blokovaných IP adres nebo emailů a znemožní těmto záznamům vytvářet komentáře nebo jim jiným způsobem zamezit interakci se systémem."
+      "blacklist_subtitle": "Blacklist slouží k definování blokovaných IP adres nebo emailů a znemožní těmto záznamům vytvářet komentáře nebo jim jiným způsobem zamezit interakci se systémem.",
+      "maintenance": "Údržba",
+      "maintenance_subtitle": "Pokud potřebujete uvolnít místo na serverovém uložišti, nebo z jiných důvodů definitivně smazat všechny položky nebo soubory."
     },
     "label": {
       "project_name": "Název projektu",
@@ -121,6 +123,9 @@
       "source_language_label": "Zdroj",
       "btn_install": "Instalovat",
       "success_message": "Jazyk byl úspěšně nainstalován"
+    },
+    "maintenance_panel": {
+      "alert_message": "Tyto akce jsou nevratné, pokud jste přesvědčení, že toto chcete provést, ubezpečte se, jaký to bude mít celkový dopad."
     }
   },
   "ProfileForm": {
@@ -182,5 +187,8 @@
   },
   "VisitorBlacklistDetail": {
     "title": "Nový záznam"
+  },
+  "CommentsManager": {
+    "alert_reported": "Tento komentář je již nahlášený"
   }
 }

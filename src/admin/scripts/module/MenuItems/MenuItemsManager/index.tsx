@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@mui/material';
 
@@ -35,6 +35,7 @@ const MenuItemsManager = (props: MenuItemsManagerProps) => {
 	const languageActive = settings?.language_active;
 	const {
 		menuItems,
+		reloadMenuItems,
 		createMenuItems,
 		updateMenuItems,
 		toggleMenuItems,
@@ -104,15 +105,17 @@ const MenuItemsManager = (props: MenuItemsManagerProps) => {
 		setConfirmData([]);
 	};
 	const openDetailHandler = (id: number | 'new') => {
-		setDetailData(getDetailData(
-			'MenuItems',
-			menuItems,
-			id,
-			languageActive,
-			{
-				label: '',
-			}
-		));
+		reloadMenuItems().then((resp) => {
+			setDetailData(getDetailData(
+				'MenuItems',
+				resp?.data,
+				id,
+				languageActive,
+				{
+					label: '',
+				}
+			));
+		});
 		setDetailOpen(true);
 	};
 	const closeDetailHandler = () => {

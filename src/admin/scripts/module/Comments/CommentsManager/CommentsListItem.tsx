@@ -7,6 +7,7 @@ import {
 	CardContent,
 	Typography,
 	Stack,
+	Alert,
 } from '@mui/material';
 
 import { CommentsItemProps } from '../../../types/model';
@@ -31,7 +32,7 @@ const CommentsListItem = (props: CommentsListItemProps) => {
 		onReport,
 	} = props;
 
-	const { t } = useTranslation([ 'common' ]);
+	const { t } = useTranslation([ 'common', 'components' ]);
 
 	return (
 		<Box
@@ -54,9 +55,23 @@ const CommentsListItem = (props: CommentsListItemProps) => {
 					>
 						{detail.title}
 					</Typography>
-					<Typography>
+					<Typography
+						sx={{
+							opacity: detail.status === 3 ? .5 : 1,
+						}}
+					>
 						{detail.content}
 					</Typography>
+					{detail.status === 3 && (
+						<Alert
+							severity="warning"
+							sx={{
+								mt: 2,
+							}}
+						>
+							{t('components:CommentsManager.alert_reported')}
+						</Alert>
+					)}
 				</CardContent>
 				<CardActions>
 					<Stack
@@ -67,14 +82,14 @@ const CommentsListItem = (props: CommentsListItemProps) => {
 					>
 						<Button
 							onClick={() => onReply(detail.id as number)}
-							variant="outlined"
 							size="small"
+							disabled={detail.status === 3}
 						>
 							{t('btn.reply')}
 						</Button>
 						<Button
 							onClick={() => onUpdate(detail.id as number)}
-							disabled={!userIsAuthor}
+							disabled={!userIsAuthor || detail.status === 3}
 							size="small"
 						>
 							{t('btn.edit')}
@@ -90,6 +105,7 @@ const CommentsListItem = (props: CommentsListItemProps) => {
 							onClick={() => onReport(detail.id as number)}
 							color="error"
 							size="small"
+							disabled={detail.status === 3}
 						>
 							{t('btn.report')}
 						</Button>

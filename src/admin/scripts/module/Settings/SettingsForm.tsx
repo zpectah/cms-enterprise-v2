@@ -32,6 +32,7 @@ import LocationPicker from '../../component/LocationPicker';
 import SettingsLanguageList from './SettingsLanguageList';
 import SettingsLanguageInstaller, { installerRequestProps } from './SettingsLanguageInstaller';
 import SettingsBlacklist from './SettingsBlacklist';
+import SettingsMaintenancePanel from './SettingsMaintenancePanel';
 import getOptionsList from '../../utils/getOptionsList';
 
 interface SettingsFormProps {
@@ -1039,23 +1040,15 @@ const SettingsForm = (props: SettingsFormProps) => {
 										index={panels[4].index}
 										panelValue={panelValue}
 									>
-										<>
-
-											<Section>
-
-
-												nejdříve zkontrolovat,zda-li je vůbec co procházet ...
-												<br />
-												projít smazané položky a definitivně je vymazat z databáze ... když budou existovat sub položky svázané ... (menu items, comments)
-
-												<br />
-												<br />
-
-												smazat natrvalo obrázky ... uvolnění místa
-
-											</Section>
-
-										</>
+										<Section
+											title={t('components:SettingsForm.section.maintenance')}
+											subtitle={t('components:SettingsForm.section.maintenance_subtitle')}
+											children={
+												<SettingsMaintenancePanel
+													afterTrigger={() => { console.log('triggered after event') }}
+												/>
+											}
+										/>
 									</TabPanel>
 									<TabPanel
 										index={panels[5].index}
@@ -1064,11 +1057,10 @@ const SettingsForm = (props: SettingsFormProps) => {
 										<Section
 											title={t('components:SettingsForm.section.blacklist')}
 											subtitle={t('components:SettingsForm.section.blacklist_subtitle')}
-										>
-
-											<SettingsBlacklist />
-
-										</Section>
+											children={
+												<SettingsBlacklist />
+											}
+										/>
 									</TabPanel>
 								</Tabs>
 							</>

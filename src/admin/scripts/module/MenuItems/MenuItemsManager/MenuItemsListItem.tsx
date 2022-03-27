@@ -7,11 +7,13 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import ToggleOffIcon from '@mui/icons-material/ToggleOff';
-import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 
 import { MenuItemsItemModel } from '../../../types/model/MenuItems';
-import { IconButton, Chip } from '../../../component/ui';
+import {
+	IconButton,
+	Chip,
+	Switch,
+} from '../../../component/ui';
 
 export interface MenuItemsListItemProps {
 	detail: MenuItemsItemModel;
@@ -49,6 +51,11 @@ const MenuItemsListItem = (props: MenuItemsListItemProps) => {
 						direction="row"
 						spacing={2}
 					>
+						<Chip
+							label={detail.item_order}
+							size="small"
+							variant="outlined"
+						/>
 						<Typography
 							variant="h5"
 							onClick={editHandler}
@@ -59,26 +66,25 @@ const MenuItemsListItem = (props: MenuItemsListItemProps) => {
 						>
 							{detail.name}
 						</Typography>
-						<Chip
-							label={detail.item_order}
-							size="small"
-						/>
 					</Stack>
 					<Stack
 						direction="row"
 						spacing={2}
+						alignItems="center"
 					>
+						<Switch
+							checked={detail.active}
+							onClick={toggleHandler}
+							size="small"
+							sx={{
+								mr: 2,
+							}}
+						/>
 						<IconButton
 							onClick={editHandler}
 							size="small"
 						>
 							<EditIcon />
-						</IconButton>
-						<IconButton
-							onClick={toggleHandler}
-							size="small"
-						>
-							{detail.active ? <ToggleOnIcon /> : <ToggleOffIcon />}
 						</IconButton>
 						<IconButton
 							onClick={deleteHandler}

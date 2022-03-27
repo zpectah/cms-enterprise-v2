@@ -101,7 +101,10 @@ const SettingsLanguageList = (props: SettingsLanguageListProps) => {
 						<TableRow
 							key={lang}
 						>
-							<TableCell>
+							<TableCell
+								component="th"
+								scope="row"
+							>
 								<Typography variant="subtitle1">
 									{config.locales[lang].label}
 								</Typography>
