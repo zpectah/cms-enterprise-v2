@@ -140,4 +140,12 @@ class Messages {
         return $response; // list of affected ids
     }
 
+    public function delete_all_permanent ($conn): array {
+        $response = [];
+        $helpers = new Helpers;
+        $response['db'] = $helpers -> proceed_delete_all('DELETE from messages WHERE status = ?', $conn, 3);
+
+        return $response;
+    }
+
 }

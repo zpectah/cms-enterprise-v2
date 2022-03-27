@@ -207,5 +207,12 @@ class Users {
         return $response;
     }
 
+    public function delete_all_permanent ($conn): array {
+        $response = [];
+        $helpers = new Helpers;
+        $response['db'] = $helpers -> proceed_delete_all('DELETE from users WHERE deleted = ?', $conn, 1);
+
+        return $response;
+    }
 
 }

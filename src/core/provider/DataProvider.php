@@ -839,19 +839,23 @@ class DataProvider {
         return $response;
     }
 
-    public function delete_permanent_items ($data): array {
+    public function delete_permanent_items (): array {
         $conn = new mysqli(...CFG_DB_CONN);
         $system = new System;
-        $response = $system -> delete_permanent_items($conn, $data);
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $system -> delete_permanent_items($conn, $languages['language_installed']);
         $conn -> close();
 
         return $response;
     }
 
-    public function delete_permanent_files ($data): array {
+    public function delete_permanent_uploads (): array {
         $conn = new mysqli(...CFG_DB_CONN);
         $system = new System;
-        $response = $system -> delete_permanent_files($conn, $data);
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $system -> delete_permanent_uploads($conn, $languages['language_installed']);
         $conn -> close();
 
         return $response;

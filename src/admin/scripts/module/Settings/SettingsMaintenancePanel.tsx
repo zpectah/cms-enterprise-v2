@@ -32,7 +32,7 @@ const SettingsMaintenancePanel = (props: SettingsMaintenancePanelProps) => {
 	const [ filesResult, setFilesResult ] = useState(null);
 	const {
 		deletePermanentItems,
-		deletePermanentFiles,
+		deletePermanentUploads,
 	} = useSystem();
 
 	const confirmHandler = () => {
@@ -46,30 +46,31 @@ const SettingsMaintenancePanel = (props: SettingsMaintenancePanelProps) => {
 
 				case 'delete_items':
 					setItemsProcess(true);
-					return deletePermanentItems({}).then((resp) => {
-
-
-						console.log('resp ... deletePermanentItems', resp);
-
-
+					return deletePermanentItems().then((resp) => {
+						let result = `Categories: ${resp.data?.categories?.db};\n`;
+						result += `Comments: ${resp.data?.comments?.db};\n`;
+						result += `Members: ${resp.data?.members?.db};\n`;
+						result += `Menu: ${resp.data?.menu?.db};\n`;
+						result += `Menu Items: ${resp.data?.menuItems?.db};\n`;
+						result += `Messages: ${resp.data?.messages?.db};\n`;
+						result += `Pages: ${resp.data?.pages?.db};\n`;
+						result += `Posts: ${resp.data?.posts?.db};\n`;
+						result += `Tags: ${resp.data?.tags?.db};\n`;
+						result += `Translations: ${resp.data?.translations?.db};\n`;
+						result += `Users: ${resp.data?.users?.db}'\n`;
+						result += `Visitor Blacklist: ${resp.data?.visitorBlacklist?.db}'\n`;
 						setItemsProcess(false);
-						setItemsResult('.... deletePermanentItems : result');
+						setItemsResult(result);
 						reset();
 					});
 
 				case 'delete_files':
 					setFilesProcess(true);
-					return deletePermanentFiles({}).then((resp) => {
-
-
-						console.log('resp ... deletePermanentFiles', resp);
-
-
+					return deletePermanentUploads().then((resp) => {
 						setFilesProcess(false);
-						setFilesResult('.... deletePermanentFiles : result');
+						setFilesResult(`Deleted rows in database: ${resp.data?.db}, files: ${resp.data?.files?.length || 0}`);
 						reset();
 					});
-
 
 			}
 

@@ -2,6 +2,20 @@
 
 namespace core\module\admin;
 
+use core\model\Categories;
+use core\model\Comments;
+use core\model\Members;
+use core\model\Menu;
+use core\model\MenuItems;
+use core\model\Messages;
+use core\model\Pages;
+use core\model\Posts;
+use core\model\Tags;
+use core\model\Translations;
+use core\model\Uploads;
+use core\model\Users;
+use core\model\VisitorBlacklist;
+
 class System {
 
     // TODO
@@ -90,16 +104,40 @@ class System {
         return [ $attrs ];
     }
 
-    // TODO
-    public function delete_permanent_items ($conn, $data): array {
+    public function delete_permanent_items ($conn, $language): array {
+        $response = [];
+        $categories = new Categories;
+        $comments = new Comments;
+        $members = new Members;
+        $menu = new Menu;
+        $menuItems = new MenuItems;
+        $messages = new Messages;
+        $pages = new Pages;
+        $posts = new Posts;
+        $tags = new Tags;
+        $translations = new Translations;
+        $users = new Users;
+        $visitorBlacklist = new VisitorBlacklist;
+        $response['categories'] = $categories -> delete_all_permanent($conn, $language);
+        $response['comments'] = $comments -> delete_all_permanent($conn);
+        $response['members'] = $members -> delete_all_permanent($conn);
+        $response['menu'] = $menu -> delete_all_permanent($conn, $language);
+        $response['menuItems'] = $menuItems -> delete_all_permanent($conn, $language);
+        $response['messages'] = $messages -> delete_all_permanent($conn);
+        $response['pages'] = $pages -> delete_all_permanent($conn, $language);
+        $response['posts'] = $posts -> delete_all_permanent($conn, $language);
+        $response['tags'] = $tags -> delete_all_permanent($conn);
+        $response['translations'] = $translations -> delete_all_permanent($conn, $language);
+        $response['users'] = $users -> delete_all_permanent($conn);
+        $response['visitorBlacklist'] = $visitorBlacklist -> delete_all_permanent($conn);
 
-        return [ $data ];
+        return $response;
     }
 
-    // TODO
-    public function delete_permanent_files ($conn, $data): array {
+    public function delete_permanent_uploads ($conn, $language): array {
+        $uploads = new Uploads;
 
-        return [ $data ];
+        return $uploads -> delete_all_permanent($conn, $language);
     }
 
 }

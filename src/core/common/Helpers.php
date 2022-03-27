@@ -164,6 +164,21 @@ class Helpers {
         return $r;
     }
 
+    public function proceed_delete_all ($query, $conn, $state): int {
+        // prepare
+        $types = 'i';
+        $args = [ $state ];
+
+        // execute
+        $stmt = $conn -> prepare($query);
+        $stmt -> bind_param($types, ...$args);
+        $stmt -> execute();
+        $response = $stmt -> affected_rows;
+        $stmt -> close();
+
+        return $response;
+    }
+
     public function password_hash ($password): string {
         return password_hash($password, PASS_CRYPT, PASS_CRYPT_OPTIONS);
     }
@@ -259,6 +274,19 @@ class Helpers {
                     );
                 }
             }
+        }
+
+        return $response;
+    }
+
+    public function delete_file ($name, $type): array {
+        $response = [];
+        $file_path = PATHS['UPLOADS'] . '/' . $type . '/';
+        // Delete original
+        $response['original'] = unlink($file_path . $name);
+        // Delete rest of cropped images
+        foreach (UPLOADS['IMAGE']['FORMATS'] as $v) {
+            $response[$v['key']] = unlink($file_path . $v['key'] . '/' . $name);
         }
 
         return $response;

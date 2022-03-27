@@ -36,7 +36,7 @@
       "blacklist": "Blacklist návštěvníků",
       "blacklist_subtitle": "Blacklist slouží k definování blokovaných IP adres nebo emailů a znemožní těmto záznamům vytvářet komentáře nebo jim jiným způsobem zamezit interakci se systémem.",
       "maintenance": "Údržba",
-      "maintenance_subtitle": "Pokud potřebujete uvolnít místo na serverovém uložišti, nebo z jiných důvodů definitivně smazat všechny položky nebo soubory."
+      "maintenance_subtitle": "Pokud potřebujete uvolnít místo na serverovém uložišti, nebo z jiných důvodů definitivně smazat všechny smazané položky nebo soubory."
     },
     "label": {
       "project_name": "Název projektu",

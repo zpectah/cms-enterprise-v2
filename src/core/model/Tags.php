@@ -121,4 +121,12 @@ class Tags {
         return $response; // list of affected ids
     }
 
+    public function delete_all_permanent ($conn): array {
+        $response = [];
+        $helpers = new Helpers;
+        $response['db'] = $helpers -> proceed_delete_all('DELETE from tags WHERE deleted = ?', $conn, 1);
+
+        return $response;
+    }
+
 }

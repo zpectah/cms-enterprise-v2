@@ -172,4 +172,45 @@ class Pages {
         return $response;
     }
 
+    public function delete_all_permanent ($conn, $languages): array {
+        $response = [];
+        $ids = [];
+        $helpers = new Helpers;
+
+        // prepare
+        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM pages WHERE deleted = ?');
+        $types = 'i';
+        $args = [ 1 ];
+
+        // execute
+        $stmt = $conn -> prepare($query);
+        $stmt -> bind_param($types, ...$args);
+        $stmt -> execute();
+        $result = $stmt -> get_result();
+        $stmt -> close();
+
+        if ($result -> num_rows > 0) {
+            while($row = $result -> fetch_assoc()) {
+                $ids[] = $row['id'];
+            }
+        }
+
+        $response['db'] = $helpers -> proceed_delete_all('DELETE from pages WHERE deleted = ?', $conn, 1);
+
+        foreach ($ids as $id) {
+            foreach ($languages as $lang) {
+                $table_language_name = 'pages__' . strtolower(preg_replace('/-/m','_', $lang));
+                $response['lang'][] = $helpers -> update_language_row(
+                    $conn,
+                    $lang,
+                    'DELETE from ' . $table_language_name . ' WHERE id = ?',
+                    'i',
+                    [ $id ]
+                );
+            }
+        }
+
+        return $response;
+    }
+
 }

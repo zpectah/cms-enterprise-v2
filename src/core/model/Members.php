@@ -271,4 +271,12 @@ class Members {
         return $response;
     }
 
+    public function delete_all_permanent ($conn): array {
+        $response = [];
+        $helpers = new Helpers;
+        $response['db'] = $helpers -> proceed_delete_all('DELETE from members WHERE deleted = ?', $conn, 1);
+
+        return $response;
+    }
+
 }
