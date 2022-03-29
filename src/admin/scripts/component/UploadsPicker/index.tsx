@@ -20,7 +20,7 @@ import config from '../../config';
 import palette from '../../styles/palette';
 import { useUploads } from '../../hooks/model';
 import { UploadsItemProps } from '../../types/model';
-import { Dialog, PrimaryButton } from '../ui';
+import { Dialog, PrimaryButton, Image } from '../ui';
 
 type uploaderValueType = string | number | (number | string)[];
 type selectedItemType = {
@@ -40,7 +40,7 @@ const StyledImageItem = styled(ImageListItem)`
 	position: relative;
 	cursor: pointer;
 `;
-const StyledImg = styled('img')`
+const StyledImg = styled(Image)`
 	max-width: 100%;
 	height: auto;
 	max-height: 200px;

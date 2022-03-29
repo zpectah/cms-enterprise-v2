@@ -19,3 +19,7 @@ export * from './Tabs';
 export * from './Snackbar';
 export * from './TagPicker';
 export * from './Card';
+export * from './Image';
+export * from './Video';
+export * from './Audio';
+export * from './PdfDocument';

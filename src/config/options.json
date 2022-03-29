@@ -8,10 +8,10 @@
     "Uploads": {
       "type": ["image", "audio", "video", "document", "archive", "unknown"],
       "audio": {
-        "extension": ["mp3", "aac"]
+        "extension": ["mp3", "aac", "flac"]
       },
       "video": {
-        "extension": ["mpeg", "mp4"]
+        "extension": ["mp4"]
       },
       "document": {
         "extension": ["doc", "docs", "xls", "xlsx", "ppt", "pptx", "pps", "ppsx", "pages", "numbers", "pdf"]

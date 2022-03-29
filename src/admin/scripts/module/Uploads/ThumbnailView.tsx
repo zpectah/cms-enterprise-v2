@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	styled,
 	Box,
 	BoxProps,
 } from '@mui/material';
-import AudiotrackIcon from '@mui/icons-material/Audiotrack';
-import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+// import AudiotrackIcon from '@mui/icons-material/Audiotrack';
+// import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import ArticleIcon from '@mui/icons-material/Article';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+
+import {
+	Image,
+	Audio,
+	Video,
+	PdfDocument,
+} from '../../component/ui';
 
 export interface ThumbnailViewProps {
 	name: string;
@@ -17,7 +24,7 @@ export interface ThumbnailViewProps {
 	boxProps?: BoxProps;
 }
 
-const StyledWrapper = styled(Box)`
+const Wrapper = styled(Box)`
 	width: 100%;
 	height: auto;
 	min-height: 200px;
@@ -29,11 +36,6 @@ const StyledWrapper = styled(Box)`
 	background-color: rgba(150,150,150,.125);
 	border-radius: .5rem;
 `;
-const Image = styled('img')`
-	max-width: 100%;
-	height: auto;
-	max-height: 40vh;
-`;
 
 const ThumbnailView = (props: ThumbnailViewProps) => {
 	const {
@@ -44,10 +46,11 @@ const ThumbnailView = (props: ThumbnailViewProps) => {
 	} = props;
 
 	const imageSourcePath = `/uploads/${fileType}/large/${fileName}`;
-	// const fileSourcePath = `/uploads/${fileType}/${fileName}`;
+	const fileSourcePath = `/uploads/${fileType}/${fileName}`;
+	const extension = fileName.split('.').pop().toLowerCase()
 
 	return (
-		<StyledWrapper
+		<Wrapper
 			sx={{
 				p: {
 					xs: 2,
@@ -64,16 +67,33 @@ const ThumbnailView = (props: ThumbnailViewProps) => {
 						<Image
 							src={imageSourcePath}
 							alt={name}
+							style={{
+								maxHeight: '40vh',
+							}}
 						/>
 					),
 					'audio': (
-						<AudiotrackIcon fontSize="large" />
+						<Audio
+							src={fileSourcePath}
+							controls
+						/>
 					),
 					'video': (
-						<OndemandVideoIcon fontSize="large" />
+						<Video
+							src={fileSourcePath}
+							controls
+						/>
 					),
 					'document': (
-						<ArticleIcon fontSize="large" />
+						<>
+							{extension === 'pdf' ? (
+								<PdfDocument
+									src={fileSourcePath}
+								/>
+							) : (
+								<ArticleIcon fontSize="large" />
+							)}
+						</>
 					),
 					'archive': (
 						<AttachFileIcon fontSize="large" />
@@ -83,7 +103,7 @@ const ThumbnailView = (props: ThumbnailViewProps) => {
 					),
 				}[ fileType ]
 			}
-		</StyledWrapper>
+		</Wrapper>
 	);
 };
 
