@@ -93,9 +93,9 @@ class Pages {
                     'isss',
                     [
                         $response['id'],
-                        $data['lang'][$lang]['title'],
-                        $data['lang'][$lang]['description'],
-                        $data['lang'][$lang]['content'],
+                        $data['lang'][$lang]['title'] ?? '',
+                        $data['lang'][$lang]['description'] ?? '',
+                        $data['lang'][$lang]['content'] ?? '',
                     ]
                 );
             }

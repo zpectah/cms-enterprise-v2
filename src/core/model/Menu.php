@@ -88,7 +88,7 @@ class Menu {
                     'is',
                     [
                         $response['id'],
-                        $data['lang'][$lang]['label']
+                        $data['lang'][$lang]['label'] ?? ''
                     ]
                 );
             }

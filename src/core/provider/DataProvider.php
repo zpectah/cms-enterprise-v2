@@ -43,7 +43,7 @@ class DataProvider {
         $categories = new Categories;
         $settings = new Settings;
         $languages = $settings -> get_cms_languages($conn);
-        $response = $categories -> create($conn, $data, $languages['language_active']);
+        $response = $categories -> create($conn, $data, $languages['language_installed']);
         $conn -> close();
 
         return $response;
@@ -259,7 +259,7 @@ class DataProvider {
         $menu = new Menu;
         $settings = new Settings;
         $languages = $settings -> get_cms_languages($conn);
-        $response = $menu -> create($conn, $data, $languages['language_active']);
+        $response = $menu -> create($conn, $data, $languages['language_installed']);
         $conn -> close();
 
         return $response;
@@ -313,7 +313,7 @@ class DataProvider {
         $menuItems = new MenuItems;
         $settings = new Settings;
         $languages = $settings -> get_cms_languages($conn);
-        $response = $menuItems -> create($conn, $data, $languages['language_active']);
+        $response = $menuItems -> create($conn, $data, $languages['language_installed']);
         $conn -> close();
 
         return $response;
@@ -435,7 +435,7 @@ class DataProvider {
         $pages = new Pages;
         $settings = new Settings;
         $languages = $settings -> get_cms_languages($conn);
-        $response = $pages -> create($conn, $data, $languages['language_active']);
+        $response = $pages -> create($conn, $data, $languages['language_installed']);
         $conn -> close();
 
         return $response;
@@ -500,7 +500,7 @@ class DataProvider {
         $posts = new Posts;
         $settings = new Settings;
         $languages = $settings -> get_cms_languages($conn);
-        $response = $posts -> create($conn, $data, $languages['language_active']);
+        $response = $posts -> create($conn, $data, $languages['language_installed']);
         $conn -> close();
 
         return $response;
@@ -602,7 +602,7 @@ class DataProvider {
         $translations = new Translations;
         $settings = new Settings;
         $languages = $settings -> get_cms_languages($conn);
-        $response = $translations -> create($conn, $data, $languages['language_active']);
+        $response = $translations -> create($conn, $data, $languages['language_installed']);
         $conn -> close();
 
         return $response;
@@ -656,7 +656,7 @@ class DataProvider {
         $uploads = new Uploads;
         $settings = new Settings;
         $languages = $settings -> get_cms_languages($conn);
-        $response = $uploads -> create($conn, $data, $languages['language_active']);
+        $response = $uploads -> create($conn, $data, $languages['language_installed']);
         $conn -> close();
 
         return $response;

@@ -86,7 +86,7 @@ class Translations {
                     'is',
                     [
                         $response['id'],
-                        $data['lang'][$lang]['value']
+                        $data['lang'][$lang]['value'] ?? ''
                     ]
                 );
             }

@@ -91,8 +91,8 @@ class Categories {
                     'iss',
                     [
                         $response['id'],
-                        $data['lang'][$lang]['title'],
-                        $data['lang'][$lang]['description']
+                        $data['lang'][$lang]['title'] ?? '',
+                        $data['lang'][$lang]['description'] ?? ''
                     ]
                 );
             }
