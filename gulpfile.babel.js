@@ -47,12 +47,14 @@ const source = {
 		`${PATH_SRC}**/*.ts`,
 		`${PATH_SRC}**/*.tsx`,
 		`${PATH_SRC}**/*.json`,
+		`${PATH_SRC}**/*.css`,
 	],
 	VueApp_index: `${PATH_SRC}web/scripts/index.js`,
 	VueApp_watch: [
 		`${PATH_SRC}web/scripts/**/*.js`,
 		`${PATH_SRC}web/scripts/**/*.jsx`,
 		`${PATH_SRC}web/scripts/**/*.vue`,
+		`${PATH_SRC}web/scripts/**/*.css`,
 	],
 	Styles: `${PATH_SRC}web/styles/index.scss`,
 	Styles_watch: [

@@ -17,8 +17,8 @@ export interface LanguageFieldsetProps {
 }
 
 const StyledFieldset = styled('fieldset')`
-	margin-bottom: 1rem;
-	padding: 2rem 0 0 0;
+	margin: 0 0 1rem 0;
+	padding: 0;
 	border: 0;
 	border-top: 1px dotted rgba(175,175,175,.35);
 `;
@@ -66,9 +66,11 @@ const LanguageFieldset = (props: LanguageFieldsetProps) => {
 	}, [ settings ]);
 
 	return (
-		<StyledFieldset>
-			<StyledLegend>
-				{languageList.length > 0 ? (
+		<StyledFieldset
+			style={{ paddingTop: languageList.length > 1 ? '1rem' : '2rem' }}
+		>
+			{languageList.length > 1 && (
+				<StyledLegend>
 					<DropdownMenu
 						id="LanguageFieldsetMenu"
 						options={getLanguageOptions()}
@@ -80,10 +82,8 @@ const LanguageFieldset = (props: LanguageFieldsetProps) => {
 							/>
 						)}
 					/>
-				) : (
-					<TextPreloader />
-				)}
-			</StyledLegend>
+				</StyledLegend>
+			)}
 			<section>
 				{languageList.map((lng) => (
 					<StyledSection

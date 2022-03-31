@@ -27,6 +27,7 @@ import {
 	TagPicker,
 	DateInput,
 	DateTimeInput,
+	Wysiswyg,
 } from '../../component/ui';
 import {
 	CategoriesPicker,
@@ -643,20 +644,35 @@ const PostsDetail = (props: PostsDetailProps) => {
 									rules={{ required: watchType === 'article' || watchType === 'blog' }}
 									defaultValue={detailData.lang[lang].content}
 									render={({ field, fieldState }) => {
-										const { ref, ...rest } = field;
+										const { ref, value, onChange, ...rest } = field;
 										const { error } = fieldState;
 
 										return (
-											<Textarea
-												label={t('form:label.content')}
-												placeholder={t('form:placeholder.content')}
-												id={`${token}_${lang}_content`}
-												error={!!error}
-												inputRef={ref}
-												rows={10}
-												required={watchType === 'article' || watchType === 'blog'}
-												{...rest}
-											/>
+											<>
+												<Wysiswyg
+													value={value}
+													onChange={onChange}
+													placeholder={t('form:placeholder.content')}
+													error={!!error}
+													required={watchType !== 'category'}
+													id={`${token}_${lang}_content`}
+													inputRef={ref}
+												/>
+												{/*
+												<Textarea
+													label={t('form:label.content')}
+													placeholder={t('form:placeholder.content')}
+													id={`${token}_${lang}_content`}
+													error={!!error}
+													inputRef={ref}
+													rows={10}
+													required={watchType === 'article' || watchType === 'blog'}
+													value={value}
+													onChange={onChange}
+													{...rest}
+												/>
+												*/}
+											</>
 										);
 									}}
 								/>
