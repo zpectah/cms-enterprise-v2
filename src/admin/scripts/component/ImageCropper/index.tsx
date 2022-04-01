@@ -17,6 +17,8 @@ export interface ImageCropperProps {
 	source?: Blob;
 	onConfirm?: (blob: Blob | string) => void;
 	minImgSize?: number;
+	maxImgSize?: number;
+	avatarAspect?: boolean;
 }
 
 const ImageCropper = (props: ImageCropperProps) => {
@@ -24,6 +26,8 @@ const ImageCropper = (props: ImageCropperProps) => {
 		source,
 		onConfirm,
 		minImgSize = 150,
+		maxImgSize,
+		avatarAspect,
 	} = props;
 
 	const { t } = useTranslation([ 'common' ]);
@@ -85,7 +89,7 @@ const ImageCropper = (props: ImageCropperProps) => {
 		});
 	};
 	const imageLoadHandler = (image: HTMLImageElement) => {
-		const aspect = (image.width / image.height);
+		const aspect = avatarAspect ? 1/1 : (image.width / image.height);
 		setCrop({
 			...crop,
 			// Uncomment in case of set auto crop
@@ -142,31 +146,35 @@ const ImageCropper = (props: ImageCropperProps) => {
 						onComplete={completeHandler}
 						minWidth={minImgSize}
 						minHeight={minImgSize}
+						maxWidth={maxImgSize}
+						maxHeight={maxImgSize}
 					/>
 				) : (
 					<TextPreloader />
 				)}
 			</Box>
-			<Box
-				sx={{
-					pt: 2,
-				}}
-			>
-				<Stack
-					direction="row"
-					spacing={2}
-					alignItems="center"
-					justifyContent="center"
+			{!avatarAspect && (
+				<Box
+					sx={{
+						pt: 2,
+					}}
 				>
+					<Stack
+						direction="row"
+						spacing={2}
+						alignItems="center"
+						justifyContent="center"
+					>
 
-					<Toggle
-						items={aspectOptions}
-						value={crop.aspect}
-						size="small"
-					/>
+						<Toggle
+							items={aspectOptions}
+							value={crop.aspect}
+							size="small"
+						/>
 
-				</Stack>
-			</Box>
+					</Stack>
+				</Box>
+			)}
 			<Box
 				sx={{
 					pt: 2,

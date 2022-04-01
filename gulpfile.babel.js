@@ -86,7 +86,7 @@ const TaskDef = {
 		cb();
 	},
 	Assets: function (path, env, cb) {
-		src(source.Assets).pipe(dest(path));
+		src(source.Assets).pipe(dest(`${path}assets/`));
 		cb();
 	},
 	Core: function (path, env, cb) {

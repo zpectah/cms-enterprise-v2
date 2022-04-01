@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { Box, Stack } from '@mui/material';
 
 import {
 	ControlledForm,
@@ -16,6 +17,7 @@ import {
 import ThemeToggle from '../../component/ThemeToggle';
 import LanguageToggle from '../../component/LanguageToggle';
 import { profileProps } from '../../types/profile';
+import AvatarPicker from '../../component/AvatarPicker';
 
 interface ProfileFormProps {
 	data: profileProps;
@@ -48,32 +50,6 @@ const ProfileForm = (props: ProfileFormProps) => {
 	return (
 		<>
 			{loading && <BarPreloader />}
-			<Section>
-
-				<FormRow
-					emptyLabel
-				>
-
-					<div>avatar & email ...</div>
-
-				</FormRow>
-
-			</Section>
-			<Section divider>
-
-				<FormRow
-					label={t('components:ProfileForm.label.language')}
-				>
-					<LanguageToggle />
-				</FormRow>
-
-				<FormRow
-					label={t('components:ProfileForm.label.theme')}
-				>
-					<ThemeToggle />
-				</FormRow>
-
-			</Section>
 			<ControlledForm
 				mandatoryInfo
 				viewable={viewable}
@@ -100,10 +76,55 @@ const ProfileForm = (props: ProfileFormProps) => {
 					);
 				}}
 				renderMain={(form) => {
-					const { token, form: { control } } = form;
+					const { token, form: { control, getValues, setValue } } = form;
 
 					return (
 						<>
+							<Section>
+
+								<FormRow
+									emptyLabel
+								>
+
+									<Stack
+										direction="row"
+										alignItems="center"
+										justifyContent="flex-start"
+										spacing={2}
+									>
+
+										<AvatarPicker
+											src={getValues('img_avatar')}
+											onChange={(blob) => {
+												console.log('on change', blob);
+												setValue('img_avatar', blob);
+											}}
+										/>
+
+										<div>
+											avatar & email ...
+										</div>
+
+									</Stack>
+
+								</FormRow>
+
+							</Section>
+							<Section divider>
+
+								<FormRow
+									label={t('components:ProfileForm.label.language')}
+								>
+									<LanguageToggle />
+								</FormRow>
+
+								<FormRow
+									label={t('components:ProfileForm.label.theme')}
+								>
+									<ThemeToggle />
+								</FormRow>
+
+							</Section>
 							<Section>
 
 								<ControlledFormRow
