@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { EditorState, ContentState, convertFromHTML } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg'; // https://blog.logrocket.com/building-rich-text-editors-in-react-using-draft-js-and-react-draft-wysiwyg/
 import { convertToHTML } from 'draft-convert';
-// import createInlineToolbarPlugin, { Separator }  from 'draft-js-inline-toolbar-plugin';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
+import CodeOffIcon from '@mui/icons-material/CodeOff';
+import CodeIcon from '@mui/icons-material/Code';
 
 import './wysiwyg.css';
 import toolbar from './toolbar';
 import { Textarea } from '../Input';
+import { Button } from '../Button';
 
 export interface WysiswygProps {
 	value: string;
@@ -31,7 +33,8 @@ const Wysiswyg = (props: WysiswygProps) => {
 		inputRef,
 	} = props;
 
-	const [editorState, setEditorState] = useState(
+	const [ viewSource, setViewSource ] = useState(false);
+	const [ editorState, setEditorState ] = useState(
 		value
 			? EditorState.createWithContent(
 				ContentState.createFromBlockArray(convertFromHTML(value)),
@@ -48,33 +51,69 @@ const Wysiswyg = (props: WysiswygProps) => {
 	};
 
 	return (
-		<Box>
-			<>
-				<Editor
-					editorState={editorState}
-					defaultEditorState={editorState}
-					onEditorStateChange={handleEditorChange}
-					wrapperClassName="wysiwyg--wrapper"
-					editorClassName="wysiwyg--editor"
-					toolbarClassName="wysiwyg--toolbar"
-					placeholder={placeholder}
-					id={id}
-					required={required}
-					toolbar={toolbar}
-					ref={inputRef}
-					blockRendererFn={(block) => {
-						console.log('fn', block);
-
-						return block;
+		<Box
+			sx={{
+				border: '1px solid rgba(0, 0, 0, 0.23)',
+				borderRadius: '4px',
+			}}
+		>
+			{viewSource ? (
+				<>
+					<Textarea
+						value={value}
+						onChange={(e) => onChange(e.target.value)}
+						placeholder={placeholder}
+						id={id}
+						required={viewSource && required}
+						inputRef={inputRef}
+						error={error}
+						rows={8}
+						sx={{
+							'& .MuiOutlinedInput-notchedOutline': {
+								borderTop: 0,
+								borderLeft: 0,
+								borderRight: 0,
+								borderRadius: 0,
+							},
+						}}
+					/>
+				</>
+			) : (
+				<>
+					<Editor
+						editorState={editorState}
+						defaultEditorState={editorState}
+						onEditorStateChange={handleEditorChange}
+						wrapperClassName="wysiwyg--wrapper"
+						editorClassName="wysiwyg--editor"
+						toolbarClassName="wysiwyg--toolbar"
+						placeholder={placeholder}
+						id={id}
+						required={required}
+						toolbar={toolbar}
+					/>
+				</>
+			)}
+			<Stack
+				direction="row"
+				sx={{
+					p: '.25rem',
+				}}
+			>
+				<Button
+					onClick={() => setViewSource(!viewSource)}
+					size="small"
+					sx={{
+						minWidth: '40px',
 					}}
-				/>
-			</>
-			<>
-				<Textarea
-					value={value}
-					onChange={(e) => onChange(e.target.value)}
-				/>
-			</>
+				>
+					{viewSource ? (
+						<CodeOffIcon fontSize="small" />
+					) : (
+						<CodeIcon fontSize="small" />
+					)}
+				</Button>
+			</Stack>
 		</Box>
 	);
 };

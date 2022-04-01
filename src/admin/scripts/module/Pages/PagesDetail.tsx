@@ -332,31 +332,15 @@ const PagesDetail = (props: PagesDetailProps) => {
 										const { error } = fieldState;
 
 										return (
-											<>
-												<Wysiswyg
-													value={value}
-													onChange={onChange}
-													placeholder={t('form:placeholder.content')}
-													error={!!error}
-													required={watchType !== 'category'}
-													id={`${token}_${lang}_content`}
-													inputRef={ref}
-												/>
-												{/*
-												<Textarea
-													label={t('form:label.content')}
-													placeholder={t('form:placeholder.content')}
-													id={`${token}_${lang}_content`}
-													error={!!error}
-													inputRef={ref}
-													rows={10}
-													required={watchType !== 'category'}
-													value={value}
-													onChange={onChange}
-													{...rest}
-												/>
-												*/}
-											</>
+											<Wysiswyg
+												value={value}
+												onChange={onChange}
+												placeholder={t('form:placeholder.content')}
+												error={!!error}
+												required={watchType !== 'category'}
+												id={`${token}_${lang}_content`}
+												inputRef={ref}
+											/>
 										);
 									}}
 								/>
