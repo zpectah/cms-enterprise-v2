@@ -27,6 +27,8 @@ import {
 	getDetailData,
 	getOptionsList,
 } from '../../utils';
+import { Stack } from '@mui/material';
+import AvatarPicker from '../../component/AvatarPicker';
 
 interface MembersDetailProps {
 	dataItems: MembersItemProps[];
@@ -121,6 +123,33 @@ const MembersDetail = (props: MembersDetailProps) => {
 							<>
 								<Section>
 									<ControlledFormRow
+										name="img_avatar"
+										control={control}
+										rules={{}}
+										defaultValue={detailData.img_avatar}
+										render={({ field, fieldState }) => {
+											const { ref, value, onChange } = field;
+											// const { error } = fieldState;
+
+											return (
+												<Stack
+													alignItems="center"
+													justifyContent="center"
+													sx={{
+														width: '100%',
+													}}
+												>
+													<AvatarPicker
+														src={value}
+														onChange={onChange}
+													/>
+												</Stack>
+											);
+										}}
+									/>
+								</Section>
+								<Section>
+									<ControlledFormRow
 										name="active"
 										control={control}
 										rules={{}}
@@ -182,12 +211,6 @@ const MembersDetail = (props: MembersDetailProps) => {
 											);
 										}}
 									/>
-								</Section>
-								<Section>
-
-									// TODO
-									img_avatar
-
 								</Section>
 							</>
 						);

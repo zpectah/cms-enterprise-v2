@@ -1,21 +1,67 @@
 import React, { useEffect, useState } from 'react';
-import { styled, Box, Stack } from '@mui/material';
+import { styled, Box, Stack, SxProps, useTheme } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import EditIcon from '@mui/icons-material/Edit';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 import palette from '../../styles/palette';
 import {
 	IconButton,
-	Dialog, Button,
+	Dialog,
+	Button,
+	Image,
 } from '../ui';
 import FileUploader from '../FileUploader';
 import ImageCropper from '../ImageCropper';
 import { uploadItemTemporaryType } from '../../types/uploader';
 
+const StyledImageWrapper = styled(Box)`
+	width: 150px;
+	height: 150px;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 100%;
+	background-color: rgba(0,0,0,.05);
+`;
+
+export interface ImageWrapperProps {
+	children: React.ReactNode;
+	selected?: boolean;
+	sx?: SxProps;
+	onClick?: () => void;
+}
 export interface AvatarPickerProps {
 	src?: Blob | null;
 	onChange?: (blob: string) => void;
 }
+
+const ImageWrapper = (props: ImageWrapperProps) => {
+	const {
+		children,
+		selected,
+		sx,
+		onClick,
+	} = props;
+	const theme = useTheme();
+
+	return (
+		<StyledImageWrapper
+			sx={{
+				borderWidth: '3px',
+				borderStyle: 'solid',
+				borderColor: selected ? theme.palette.text['500'] : 'transparent',
+				...sx,
+			}}
+			onClick={onClick}
+		>
+			{children}
+		</StyledImageWrapper>
+	);
+};
 
 const AvatarPicker = (props: AvatarPickerProps) => {
 	const {
@@ -23,35 +69,34 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 		onChange,
 	} = props;
 
-	const temporarySource: Blob | null = src;
+	const temporarySource: Blob | string = src;
+	const staticAvatarList = [
+		'/assets/avatar/default.png'
+	];
 
 	const [ source, setSource ] = useState<Blob | string | null>(src);
-	const [ sourceTmp, setSourceTmp ] = useState<Blob | string | null>(null);
-	const [ context, setContext ] = useState(src ? 'update' : 'new');
+	const [ sourceTmp, setSourceTmp ] = useState<Blob | string | null>(src);
 	const [ dialogOpen, setDialogOpen ] = useState(false);
 	const [ cropperSource, setCropperSource ] = useState<Blob | null>(null);
 
+	const dialogOpenHandler = () => {
+		setDialogOpen(true);
+	};
+	const dialogCloseHandler = () => {
+		setDialogOpen(false);
+	};
+	const selectHandler = (image: Blob | string) => {
+		setSourceTmp(image);
+	};
 	const confirmHandler = () => {
 		setSource(sourceTmp as Blob);
 		onChange(sourceTmp as string);
-		setDialogOpen(false);
+		dialogCloseHandler();
 	};
 
 	return (
 		<>
-			<Box
-				sx={{
-					width: '150px',
-					height: '150px',
-					borderRadius: '150px',
-					position: 'relative',
-					overflow: 'hidden',
-					backgroundColor: 'rgba(0,0,0,.05)',
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
-				}}
-			>
+			<ImageWrapper>
 				<Stack
 					spacing={2}
 					alignItems="center"
@@ -64,15 +109,15 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 				>
 					{source ? (
 						<IconButton
-							onClick={() => {
-								setDialogOpen(true);
-							}}
+							onClick={dialogOpenHandler}
 							size="medium"
 							sx={{
-								backgroundColor: palette.light,
+								backgroundColor: (theme) => theme.palette.background.default,
+								color: (theme) => theme.palette.text.primary,
 								opacity: 0,
 								'&:hover': {
-									backgroundColor: palette.light,
+									backgroundColor: (theme) => theme.palette.background.default,
+									color: (theme) => theme.palette.text.primary,
 								},
 								'.avatar-img-cover:hover &': {
 									opacity: 1,
@@ -85,9 +130,7 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 						</IconButton>
 					) : (
 						<IconButton
-							onClick={() => {
-								setDialogOpen(true);
-							}}
+							onClick={dialogOpenHandler}
 						>
 							<AddPhotoAlternateIcon
 								fontSize="medium"
@@ -96,7 +139,7 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 					)}
 				</Stack>
 				{source && (
-					<img
+					<Image
 						src={source as string}
 						alt="img"
 						style={{
@@ -109,22 +152,15 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 						}}
 					/>
 				)}
-			</Box>
-
+			</ImageWrapper>
 			<Dialog
 				open={dialogOpen}
-				onClose={() => setDialogOpen(false)}
+				onClose={dialogCloseHandler}
 				title="Select your avatar image"
 				showBodyClose
 				showFooterClose
 				actions={
 					<>
-						<Button
-							onClick={confirmHandler}
-							disabled={!sourceTmp}
-						>
-							Confirm
-						</Button>
 						<Button
 							onClick={() => {
 								setCropperSource(null);
@@ -133,96 +169,113 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 						>
 							Cancel
 						</Button>
+						<Button
+							onClick={confirmHandler}
+						>
+							Update
+						</Button>
 					</>
 				}
 			>
-				<div>
-
-					<Stack
-						direction="row"
-						spacing={2}
-						alignItems="flex-start"
-						justifyContent="flex-start"
-						sx={{
-							mb: 2,
-						}}
-					>
-
-						{(source || sourceTmp) && (
-							<div
-								style={{
-									width: '100px',
-									height: '100px',
-								}}
-							>
-								<img
-									src={source as string || sourceTmp as string}
-									alt="img"
-									style={{
-										maxWidth: '100%',
-										height: 'auto',
-									}}
-								/>
-							</div>
-						)}
-
-					</Stack>
-					<Stack
-						direction="row"
-						spacing={2}
-						alignItems="flex-start"
-						justifyContent="flex-start"
-						sx={{
-							mb: 2,
-						}}
-					>
-
-						{temporarySource && (
-							<div
-								style={{
-									width: '100px',
-									height: '100px',
-								}}
-								onClick={() => {
-
-									setSource(temporarySource);
-
-								}}
-							>
-								<img
-									src={String(temporarySource)}
-									alt="default"
-									style={{
-										maxWidth: '100%',
-										height: 'auto',
-									}}
-								/>
-							</div>
-						)}
-
-						<div
-							style={{
-								width: '100px',
-								height: '100px',
-							}}
-							onClick={() => {
-
-								setSource('/assets/avatar/default.png');
-
+				<>
+					<div>
+						<Stack
+							direction="row"
+							spacing={2}
+							alignItems="flex-start"
+							justifyContent="flex-start"
+							sx={{
+								mb: 3,
 							}}
 						>
-							<img
-								src="/assets/avatar/default.png"
-								alt="default"
-								style={{
-									maxWidth: '100%',
-									height: 'auto',
+							<ImageWrapper
+								sx={{
+									backgroundColor: 'rgba(0,0,0,.05)',
 								}}
-							/>
-						</div>
-
-					</Stack>
-
+							>
+								{sourceTmp ? (
+									<Image
+										src={sourceTmp as string}
+										alt="img"
+										style={{
+											maxWidth: '100%',
+											height: 'auto',
+										}}
+									/>
+								) : (
+									<QuestionMarkIcon />
+								)}
+							</ImageWrapper>
+						</Stack>
+						<Stack
+							direction="row"
+							spacing={2}
+							alignItems="flex-start"
+							justifyContent="flex-start"
+							sx={{
+								mb: 2,
+							}}
+						>
+							{temporarySource && (
+								<ImageWrapper
+									sx={{
+										width: '100px',
+										height: '100px',
+										borderRadius: '4px',
+										cursor: 'pointer',
+									}}
+									selected={temporarySource === sourceTmp}
+									onClick={() => selectHandler(temporarySource)}
+								>
+									<Image
+										src={String(temporarySource)}
+										alt="default"
+										style={{
+											maxWidth: '100%',
+											height: 'auto',
+										}}
+									/>
+								</ImageWrapper>
+							)}
+							{staticAvatarList.map((item, index) => {
+								if (item !== String(temporarySource)) return (
+									<ImageWrapper
+										key={item}
+										sx={{
+											width: '100px',
+											height: '100px',
+											borderRadius: '4px',
+											cursor: 'pointer',
+										}}
+										selected={item === sourceTmp}
+										onClick={() => selectHandler(item)}
+									>
+										<Image
+											src={item}
+											alt={`default_${index}`}
+											style={{
+												maxWidth: '100%',
+												height: 'auto',
+											}}
+										/>
+									</ImageWrapper>
+								);
+							})}
+							{sourceTmp && (
+								<ImageWrapper
+									sx={{
+										width: '100px',
+										height: '100px',
+										borderRadius: '4px',
+										cursor: 'pointer',
+									}}
+									onClick={() => selectHandler('')}
+								>
+									<RemoveCircleOutlineIcon />
+								</ImageWrapper>
+							)}
+						</Stack>
+					</div>
 					{cropperSource ? (
 						<div>
 							<ImageCropper
@@ -250,12 +303,8 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 							/>
 						</div>
 					)}
-
-
-
-				</div>
+				</>
 			</Dialog>
-
 		</>
 	);
 };

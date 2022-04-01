@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { Stack } from '@mui/material';
 
 import config from '../../config';
 import routes from '../../routes';
@@ -30,6 +31,7 @@ import {
 	getDetailData,
 	getOptionsList,
 } from '../../utils';
+import AvatarPicker from '../../component/AvatarPicker';
 
 interface UsersDetailProps {
 	dataItems: UsersItemProps[];
@@ -133,6 +135,33 @@ const UsersDetail = (props: UsersDetailProps) => {
 							<>
 								<Section>
 									<ControlledFormRow
+										name="img_avatar"
+										control={control}
+										rules={{}}
+										defaultValue={detailData.img_avatar}
+										render={({ field, fieldState }) => {
+											const { ref, value, onChange } = field;
+											// const { error } = fieldState;
+
+											return (
+												<Stack
+													alignItems="center"
+													justifyContent="center"
+													sx={{
+														width: '100%',
+													}}
+												>
+													<AvatarPicker
+														src={value}
+														onChange={onChange}
+													/>
+												</Stack>
+											);
+										}}
+									/>
+								</Section>
+								<Section>
+									<ControlledFormRow
 										name="active"
 										control={control}
 										rules={{}}
@@ -199,12 +228,6 @@ const UsersDetail = (props: UsersDetailProps) => {
 											);
 										}}
 									/>
-								</Section>
-								<Section>
-
-									// TODO
-									img_avatar
-
 								</Section>
 							</>
 						);

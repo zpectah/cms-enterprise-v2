@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 
 import {
 	ControlledForm,
@@ -100,11 +100,19 @@ const ProfileForm = (props: ProfileFormProps) => {
 										<Stack
 											spacing={2}
 										>
-											<Stack>
-												<div>name</div>
-												<div>email</div>
+											<Stack
+												spacing={1}
+											>
+												<Typography
+													variant="h3"
+												>
+													{data.name_first} {data.name_last}
+												</Typography>
+												<Typography>
+													{data.email}
+												</Typography>
+												<div></div>
 											</Stack>
-											<div> chips ... </div>
 										</Stack>
 									</Stack>
 								</FormRow>
