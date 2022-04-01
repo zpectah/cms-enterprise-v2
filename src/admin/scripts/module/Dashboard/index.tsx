@@ -11,12 +11,14 @@ import {
 	SecondaryButton,
 } from '../../component/ui';
 import useToasts from '../../hooks/useToasts';
+import useProfile from '../../hooks/useProfile';
 
 const DashboardModule = () => {
 	const { t } = useTranslation([ 'pages', 'messages' ]);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const { createToast, createSuccessToast } = useToasts();
 	const navigate = useNavigate();
+	const { available_actions } = useProfile();
 
 	useEffect(() => {
 		if (window.location.hash) {
@@ -34,7 +36,15 @@ const DashboardModule = () => {
 			<PageHeading
 				title={t(`pages:dashboard.page_title`)}
 			/>
-			<div>DashboardModule</div>
+			<div>
+				DashboardModule
+				<br />
+				<pre>
+					<code>
+						{JSON.stringify(available_actions, null, 2)}
+					</code>
+				</pre>
+			</div>
 			<Stack direction="row" spacing={2}>
 				<Button onClick={() => setConfirmOpen(true)}>{t('btn.open')}</Button>
 				<PrimaryButton>Primary</PrimaryButton>

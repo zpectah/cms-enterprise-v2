@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { styled, Box, Stack, SxProps, useTheme } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import EditIcon from '@mui/icons-material/Edit';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
-import palette from '../../styles/palette';
 import {
 	IconButton,
 	Dialog,
@@ -46,6 +46,7 @@ const ImageWrapper = (props: ImageWrapperProps) => {
 		sx,
 		onClick,
 	} = props;
+
 	const theme = useTheme();
 
 	return (
@@ -74,6 +75,7 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 		'/assets/avatar/default.png'
 	];
 
+	const { t } = useTranslation([ 'common', 'components' ]);
 	const [ source, setSource ] = useState<Blob | string | null>(src);
 	const [ sourceTmp, setSourceTmp ] = useState<Blob | string | null>(src);
 	const [ dialogOpen, setDialogOpen ] = useState(false);
@@ -156,7 +158,7 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 			<Dialog
 				open={dialogOpen}
 				onClose={dialogCloseHandler}
-				title="Select your avatar image"
+				title={t('components:AvatarPicker.dialog.title')}
 				showBodyClose
 				showFooterClose
 				actions={
@@ -167,12 +169,12 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 							}}
 							disabled={!cropperSource}
 						>
-							Cancel
+							{t('btn.cancel')}
 						</Button>
 						<Button
 							onClick={confirmHandler}
 						>
-							Update
+							{t('btn.update')}
 						</Button>
 					</>
 				}
@@ -281,8 +283,6 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 							<ImageCropper
 								source={cropperSource}
 								onConfirm={(blob) => {
-									console.log('confirmed avatar image', blob);
-
 									setSourceTmp(blob);
 									setCropperSource(null);
 								}}

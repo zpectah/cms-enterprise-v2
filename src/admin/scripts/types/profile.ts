@@ -1,6 +1,8 @@
 import { UsersItemProps } from './model';
 
-export interface profileProps extends UsersItemProps {}
+export interface profileProps extends UsersItemProps {
+	entity_actions: profileEntityActionsProps;
+}
 
 type entityModelType = {
 	view: boolean,
@@ -10,11 +12,11 @@ type entityModelType = {
 }
 
 export interface profileEntityActionsProps {
+	profile_role: string | null,
 	profile: {
 		active: boolean,
 		view: boolean,
 		update: boolean,
-		level_name?: string | null,
 	},
 	settings: {
 		view: boolean,
@@ -27,7 +29,7 @@ export interface profileEntityActionsProps {
 		update: boolean,
 		delete: boolean,
 		create: boolean,
-		create_admin: boolean,
+		admin: boolean,
 	},
 	Pages: entityModelType,
 	Posts: entityModelType,

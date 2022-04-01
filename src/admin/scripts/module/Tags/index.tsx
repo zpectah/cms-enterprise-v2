@@ -7,6 +7,7 @@ import { useTags } from '../../hooks/model';
 import useToasts from '../../hooks/useToasts';
 import TagsList from './TagsList';
 import TagsDetail from './TagsDetail';
+import useProfile from '../../hooks/useProfile';
 
 const TagsModule = () => {
 	const { t } = useTranslation([ 'messages' ]);
@@ -25,6 +26,7 @@ const TagsModule = () => {
 		createSuccessToast,
 		createErrorToast,
 	} = useToasts();
+	const { available_actions } = useProfile();
 
 	const submitHandler = (method: 'create' | 'update', master: TagsItemProps) => {
 		switch (method) {
@@ -68,25 +70,31 @@ const TagsModule = () => {
 
 	return (
 		<>
-			<Routes>
-				<Route path="detail/:id" element={
-					<TagsDetail
-						key={params['*']}
-						dataItems={tags}
-						onSubmit={submitHandler}
-						onDelete={deleteHandler}
-						loading={tags_loading}
-					/>
-				} />
-				<Route index element={
-					<TagsList
-						dataItems={tags}
-						onToggle={toggleHandler}
-						onDelete={deleteHandler}
-						loading={tags_loading}
-					/>
-				} />
-			</Routes>
+			{available_actions.Tags.view ? (
+				<Routes>
+					<Route path="detail/:id" element={
+						<TagsDetail
+							key={params['*']}
+							dataItems={tags}
+							onSubmit={submitHandler}
+							onDelete={deleteHandler}
+							loading={tags_loading}
+						/>
+					} />
+					<Route index element={
+						<TagsList
+							dataItems={tags}
+							onToggle={toggleHandler}
+							onDelete={deleteHandler}
+							loading={tags_loading}
+						/>
+					} />
+				</Routes>
+			) : (
+				<>
+					{t('messages:profile.user_missing_permission')}
+				</>
+			)}
 		</>
 	);
 };

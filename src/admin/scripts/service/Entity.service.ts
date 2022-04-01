@@ -1,4 +1,3 @@
-import config from '../config';
 import { USER_LEVEL_NAMES } from '../constants';
 import { profileProps, profileEntityActionsProps } from '../types/profile';
 
@@ -11,11 +10,11 @@ class EntityService {
 
 	availableActions () {
 		let entityActions = {
+			profile_role: '',
 			profile: {
 				active: false,
 				view: false,
 				update: false,
-				level_name: null,
 			},
 			settings: {
 				view: false,
@@ -28,7 +27,7 @@ class EntityService {
 				update: false,
 				delete: false,
 				create: false,
-				create_admin: false,
+				admin: false,
 			},
 			Pages: {
 				view: false,
@@ -91,222 +90,12 @@ class EntityService {
 				create: false,
 			},
 		};
-
-		if (this.entity?.id && this.entity?.item_level) {
-			switch (this.entity?.item_level) {
-
-				case 3: // Redactor
-					entityActions = {
-						...entityActions,
-						profile: {
-							active: true,
-							view: true,
-							update: true,
-							level_name: USER_LEVEL_NAMES[this.entity.item_level],
-						},
-						Posts: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Translations: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Categories: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Uploads: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Tags: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						}
-					}
-					break;
-
-				case 5: // Manager
-					entityActions = {
-						...entityActions,
-						profile: {
-							active: true,
-							view: true,
-							update: true,
-							level_name: USER_LEVEL_NAMES[this.entity.item_level],
-						},
-						Posts: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Translations: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Categories: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Uploads: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Tags: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						settings: {
-							view: true,
-							update: true,
-							maintenance: false,
-							blacklist: false,
-						},
-						Users: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-							create_admin: false,
-						},
-						Pages: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Menu: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						MenuItems: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Members: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Messages: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-					}
-					break;
-
-				case 7: // Admin
-					entityActions = {
-						profile: {
-							active: true,
-							view: true,
-							update: true,
-							level_name: USER_LEVEL_NAMES[this.entity.item_level],
-						},
-						settings: {
-							view: true,
-							update: true,
-							maintenance: true,
-							blacklist: true,
-						},
-						Users: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-							create_admin: true,
-						},
-						Pages: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Posts: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Translations: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Categories: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Tags: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Uploads: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Menu: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						MenuItems: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Members: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-						Messages: {
-							view: true,
-							update: true,
-							delete: true,
-							create: true,
-						},
-					}
-					break;
-
-			}
+		if (this.entity?.id) {
+			entityActions = {
+				...entityActions,
+				...this.entity?.entity_actions,
+				profile_role: USER_LEVEL_NAMES[this.entity.item_level],
+			};
 		}
 
 		return entityActions as profileEntityActionsProps;

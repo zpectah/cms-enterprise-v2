@@ -7,6 +7,7 @@ import { useMembers } from '../../hooks/model';
 import useToasts from '../../hooks/useToasts';
 import MembersList from './MembersList';
 import MembersDetail from './MembersDetail';
+import useProfile from '../../hooks/useProfile';
 
 const UsersModule = () => {
 	const { t } = useTranslation([ 'messages' ]);
@@ -25,6 +26,7 @@ const UsersModule = () => {
 		createSuccessToast,
 		createErrorToast,
 	} = useToasts();
+	const { available_actions } = useProfile();
 
 	const submitHandler = (method: 'create' | 'update', master: UsersItemProps) => {
 		switch (method) {
@@ -68,25 +70,31 @@ const UsersModule = () => {
 
 	return (
 		<>
-			<Routes>
-				<Route path="detail/:id" element={
-					<MembersDetail
-						key={params['*']}
-						dataItems={members}
-						onSubmit={submitHandler}
-						onDelete={deleteHandler}
-						loading={members_loading}
-					/>
-				} />
-				<Route index element={
-					<MembersList
-						dataItems={members}
-						onToggle={toggleHandler}
-						onDelete={deleteHandler}
-						loading={members_loading}
-					/>
-				} />
-			</Routes>
+			{available_actions.Members.view ? (
+				<Routes>
+					<Route path="detail/:id" element={
+						<MembersDetail
+							key={params['*']}
+							dataItems={members}
+							onSubmit={submitHandler}
+							onDelete={deleteHandler}
+							loading={members_loading}
+						/>
+					} />
+					<Route index element={
+						<MembersList
+							dataItems={members}
+							onToggle={toggleHandler}
+							onDelete={deleteHandler}
+							loading={members_loading}
+						/>
+					} />
+				</Routes>
+			) : (
+				<>
+					{t('messages:profile.user_missing_permission')}
+				</>
+			)}
 		</>
 	);
 };

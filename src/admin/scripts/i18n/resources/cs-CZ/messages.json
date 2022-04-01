@@ -34,6 +34,7 @@
     "error_data": "Vyskytl se nějaký problém s načítáním profilu, načtěte stránku znovu prosím, nebo kontaktujte svého administrátora",
     "unauthorized_access": "Neautorizovaný přístup",
     "user_login_success": "Přihlášení bylo úspešné",
-    "user_logout_success": "Odhlášení bylo úspešné"
+    "user_logout_success": "Odhlášení bylo úspešné",
+    "user_missing_permission": "Chybí dostatečná oprávěnní pro zobrazení této stránky"
   }
 }

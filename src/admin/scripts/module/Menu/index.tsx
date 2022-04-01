@@ -7,6 +7,7 @@ import { useMenu } from '../../hooks/model';
 import useToasts from '../../hooks/useToasts';
 import MenuList from './MenuList';
 import MenuDetail from './MenuDetail';
+import useProfile from '../../hooks/useProfile';
 
 const TranslationsModule = () => {
 	const { t } = useTranslation([ 'messages' ]);
@@ -25,6 +26,7 @@ const TranslationsModule = () => {
 		createSuccessToast,
 		createErrorToast,
 	} = useToasts();
+	const { available_actions } = useProfile();
 
 	const submitHandler = (method: 'create' | 'update', master: MenuItemProps) => {
 		switch (method) {
@@ -68,25 +70,31 @@ const TranslationsModule = () => {
 
 	return (
 		<>
-			<Routes>
-				<Route path="detail/:id" element={
-					<MenuDetail
-						key={params['*']}
-						dataItems={menu}
-						onSubmit={submitHandler}
-						onDelete={deleteHandler}
-						loading={menu_loading}
-					/>
-				} />
-				<Route index element={
-					<MenuList
-						dataItems={menu}
-						onToggle={toggleHandler}
-						onDelete={deleteHandler}
-						loading={menu_loading}
-					/>
-				} />
-			</Routes>
+			{available_actions.Menu.view ? (
+				<Routes>
+					<Route path="detail/:id" element={
+						<MenuDetail
+							key={params['*']}
+							dataItems={menu}
+							onSubmit={submitHandler}
+							onDelete={deleteHandler}
+							loading={menu_loading}
+						/>
+					} />
+					<Route index element={
+						<MenuList
+							dataItems={menu}
+							onToggle={toggleHandler}
+							onDelete={deleteHandler}
+							loading={menu_loading}
+						/>
+					} />
+				</Routes>
+			) : (
+				<>
+					{t('messages:profile.user_missing_permission')}
+				</>
+			)}
 		</>
 	);
 };

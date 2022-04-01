@@ -7,6 +7,7 @@ import { usePages } from '../../hooks/model';
 import useToasts from '../../hooks/useToasts';
 import PagesList from './PagesList';
 import PagesDetail from './PagesDetail';
+import useProfile from '../../hooks/useProfile';
 
 const PagesModule = () => {
 	const { t } = useTranslation([ 'messages' ]);
@@ -25,6 +26,7 @@ const PagesModule = () => {
 		createSuccessToast,
 		createErrorToast,
 	} = useToasts();
+	const { available_actions } = useProfile();
 
 	const submitHandler = (method: 'create' | 'update', master: CategoriesItemProps) => {
 		switch (method) {
@@ -68,25 +70,31 @@ const PagesModule = () => {
 
 	return (
 		<>
-			<Routes>
-				<Route path="detail/:id" element={
-					<PagesDetail
-						key={params['*']}
-						dataItems={pages}
-						onSubmit={submitHandler}
-						onDelete={deleteHandler}
-						loading={pages_loading}
-					/>
-				} />
-				<Route index element={
-					<PagesList
-						dataItems={pages}
-						onToggle={toggleHandler}
-						onDelete={deleteHandler}
-						loading={pages_loading}
-					/>
-				} />
-			</Routes>
+			{available_actions.Pages.view ? (
+				<Routes>
+					<Route path="detail/:id" element={
+						<PagesDetail
+							key={params['*']}
+							dataItems={pages}
+							onSubmit={submitHandler}
+							onDelete={deleteHandler}
+							loading={pages_loading}
+						/>
+					} />
+					<Route index element={
+						<PagesList
+							dataItems={pages}
+							onToggle={toggleHandler}
+							onDelete={deleteHandler}
+							loading={pages_loading}
+						/>
+					} />
+				</Routes>
+			) : (
+				<>
+					{t('messages:profile.user_missing_permission')}
+				</>
+			)}
 		</>
 	);
 };

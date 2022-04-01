@@ -10,12 +10,124 @@ use core\service\EmailService;
 
 class Profile {
 
+    private function get_entity_actions ($level): array {
+        $actions = [
+            'profile' => [
+                'active' => true,
+                'view' => true,
+                'update' => true,
+            ],
+        ];
+        $md = [
+            'view' => true,
+            'update' => true,
+            'delete' => true,
+            'create' => true,
+        ];
+
+        switch ($level) {
+
+            case 3: // Redactor
+                $actions['Posts'] = [
+                    'view' => true,
+                    'update' => true,
+                    'delete' => false,
+                    'create' => true,
+                ];
+                $actions['Translations'] = [
+                    'view' => true,
+                    'update' => true,
+                    'delete' => false,
+                    'create' => true,
+                ];
+                $actions['Categories'] = [
+                    'view' => true,
+                    'update' => true,
+                    'delete' => false,
+                    'create' => true,
+                ];
+                $actions['Uploads'] = [
+                    'view' => true,
+                    'update' => true,
+                    'delete' => false,
+                    'create' => true,
+                ];
+                $actions['Tags'] = [
+                    'view' => true,
+                    'update' => true,
+                    'delete' => false,
+                    'create' => true,
+                ];
+                break;
+
+            case 5: // Manager
+                $actions['settings'] = [
+                    'view' => true,
+                    'update' => true,
+                    'maintenance' => false,
+                    'blacklist' => false,
+                ];
+                $actions['Posts'] = $md;
+                $actions['Translations'] = $md;
+                $actions['Categories'] = $md;
+                $actions['Uploads'] = $md;
+                $actions['Tags'] = $md;
+                $actions['Users'] = [
+                    'view' => true,
+                    'update' => true,
+                    'delete' => true,
+                    'create' => true,
+                    'admin' => false,
+                ];
+                $actions['Pages'] = $md;
+                $actions['Menu'] = $md;
+                $actions['MenuItems'] = $md;
+                $actions['Members'] = $md;
+                $actions['Messages'] = $md;
+
+                break;
+
+            case 7: // Admin
+                $actions['settings'] = [
+                    'view' => true,
+                    'update' => true,
+                    'maintenance' => true,
+                    'blacklist' => true,
+                ];
+                $actions['Posts'] = $md;
+                $actions['Translations'] = $md;
+                $actions['Categories'] = $md;
+                $actions['Uploads'] = $md;
+                $actions['Tags'] = $md;
+                $actions['Users'] = [
+                    'view' => true,
+                    'update' => true,
+                    'delete' => true,
+                    'create' => true,
+                    'admin' => true,
+                ];
+                $actions['Pages'] = $md;
+                $actions['Menu'] = $md;
+                $actions['MenuItems'] = $md;
+                $actions['Members'] = $md;
+                $actions['Messages'] = $md;
+
+                break;
+
+        }
+
+        return $actions;
+    }
+
     public function get_user_profile ($conn): array {
         $response = [];
         $as = new AuthService;
         $email = $as -> get_user_session();
         $users = new Users;
-        if ($email) $response = $users -> get($conn, ['email' => $email]);
+        if ($email) {
+            $response = $users -> get($conn, ['email' => $email]);
+            $response['entity_actions'] = self::get_entity_actions($response['item_level']);
+        }
 
         return $response;
     }

@@ -7,6 +7,7 @@ import { usePosts } from '../../hooks/model';
 import useToasts from '../../hooks/useToasts';
 import PostsList from './PostsList';
 import PostsDetail from './PostsDetail';
+import useProfile from '../../hooks/useProfile';
 
 const PostsModule = () => {
 	const { t } = useTranslation([ 'messages' ]);
@@ -25,6 +26,7 @@ const PostsModule = () => {
 		createSuccessToast,
 		createErrorToast,
 	} = useToasts();
+	const { available_actions } = useProfile();
 
 	const submitHandler = (method: 'create' | 'update', master: PostsItemProps) => {
 		switch (method) {
@@ -68,25 +70,31 @@ const PostsModule = () => {
 
 	return (
 		<>
-			<Routes>
-				<Route path="detail/:id" element={
-					<PostsDetail
-						key={params['*']}
-						dataItems={posts}
-						onSubmit={submitHandler}
-						onDelete={deleteHandler}
-						loading={posts_loading}
-					/>
-				} />
-				<Route index element={
-					<PostsList
-						dataItems={posts}
-						onToggle={toggleHandler}
-						onDelete={deleteHandler}
-						loading={posts_loading}
-					/>
-				} />
-			</Routes>
+			{available_actions.Posts.view ? (
+				<Routes>
+					<Route path="detail/:id" element={
+						<PostsDetail
+							key={params['*']}
+							dataItems={posts}
+							onSubmit={submitHandler}
+							onDelete={deleteHandler}
+							loading={posts_loading}
+						/>
+					} />
+					<Route index element={
+						<PostsList
+							dataItems={posts}
+							onToggle={toggleHandler}
+							onDelete={deleteHandler}
+							loading={posts_loading}
+						/>
+					} />
+				</Routes>
+			) : (
+				<>
+					{t('messages:profile.user_missing_permission')}
+				</>
+			)}
 		</>
 	);
 };

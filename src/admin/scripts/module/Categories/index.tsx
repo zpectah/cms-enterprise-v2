@@ -7,6 +7,7 @@ import { useCategories } from '../../hooks/model';
 import useToasts from '../../hooks/useToasts';
 import CategoriesList from './CategoriesList';
 import CategoriesDetail from './CategoriesDetail';
+import useProfile from '../../hooks/useProfile';
 
 const CategoriesModule = () => {
 	const { t } = useTranslation([ 'messages' ]);
@@ -25,6 +26,7 @@ const CategoriesModule = () => {
 		createSuccessToast,
 		createErrorToast,
 	} = useToasts();
+	const { available_actions } = useProfile();
 
 	const submitHandler = (method: 'create' | 'update', master: CategoriesItemProps) => {
 		switch (method) {
@@ -68,25 +70,31 @@ const CategoriesModule = () => {
 
 	return (
 		<>
-			<Routes>
-				<Route path="detail/:id" element={
-					<CategoriesDetail
-						key={params['*']}
-						dataItems={categories}
-						onSubmit={submitHandler}
-						onDelete={deleteHandler}
-						loading={categories_loading}
-					/>
-				} />
-				<Route index element={
-					<CategoriesList
-						dataItems={categories}
-						onToggle={toggleHandler}
-						onDelete={deleteHandler}
-						loading={categories_loading}
-					/>
-				} />
-			</Routes>
+			{available_actions.Categories.view ? (
+				<Routes>
+					<Route path="detail/:id" element={
+						<CategoriesDetail
+							key={params['*']}
+							dataItems={categories}
+							onSubmit={submitHandler}
+							onDelete={deleteHandler}
+							loading={categories_loading}
+						/>
+					} />
+					<Route index element={
+						<CategoriesList
+							dataItems={categories}
+							onToggle={toggleHandler}
+							onDelete={deleteHandler}
+							loading={categories_loading}
+						/>
+					} />
+				</Routes>
+			) : (
+				<>
+					{t('messages:profile.user_missing_permission')}
+				</>
+			)}
 		</>
 	);
 };

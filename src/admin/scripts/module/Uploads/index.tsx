@@ -7,6 +7,7 @@ import { useUploads } from '../../hooks/model';
 import useToasts from '../../hooks/useToasts';
 import UploadsList from './UploadsList';
 import UploadsDetail from './UploadsDetail';
+import useProfile from '../../hooks/useProfile';
 
 const UploadsModule = () => {
 	const { t } = useTranslation([ 'messages' ]);
@@ -25,6 +26,7 @@ const UploadsModule = () => {
 		createSuccessToast,
 		createErrorToast,
 	} = useToasts();
+	const { available_actions } = useProfile();
 
 	const submitHandler = (method: 'create' | 'update', master: UploadsItemProps) => {
 		switch (method) {
@@ -68,28 +70,34 @@ const UploadsModule = () => {
 
 	return (
 		<>
-			<Routes>
-				<Route path="detail/:id" element={
-					<UploadsDetail
-						key={params['*']}
-						dataItems={uploads}
-						onSubmit={submitHandler}
-						onDelete={deleteHandler}
-						loading={uploads_loading}
-						onFinishSubmit={(count) => {
-							if (count > 1) createSuccessToast({ title: t('messages:model.all_files_uploaded') });
-						}}
-					/>
-				} />
-				<Route index element={
-					<UploadsList
-						dataItems={uploads}
-						onToggle={toggleHandler}
-						onDelete={deleteHandler}
-						loading={uploads_loading}
-					/>
-				} />
-			</Routes>
+			{available_actions.Uploads.view ? (
+				<Routes>
+					<Route path="detail/:id" element={
+						<UploadsDetail
+							key={params['*']}
+							dataItems={uploads}
+							onSubmit={submitHandler}
+							onDelete={deleteHandler}
+							loading={uploads_loading}
+							onFinishSubmit={(count) => {
+								if (count > 1) createSuccessToast({ title: t('messages:model.all_files_uploaded') });
+							}}
+						/>
+					} />
+					<Route index element={
+						<UploadsList
+							dataItems={uploads}
+							onToggle={toggleHandler}
+							onDelete={deleteHandler}
+							loading={uploads_loading}
+						/>
+					} />
+				</Routes>
+			) : (
+				<>
+					{t('messages:profile.user_missing_permission')}
+				</>
+			)}
 		</>
 	);
 };

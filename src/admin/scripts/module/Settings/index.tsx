@@ -6,6 +6,7 @@ import useToasts from '../../hooks/useToasts';
 import useSettings from '../../hooks/useSettings';
 import PageHeading from '../../component/PageHeading';
 import SettingsForm from './SettingsForm';
+import useProfile from '../../hooks/useProfile';
 
 const SettingsModule = () => {
 	const { t } = useTranslation([ 'pages', 'messages' ]);
@@ -20,6 +21,7 @@ const SettingsModule = () => {
 		createSuccessToast,
 		createErrorToast,
 	} = useToasts();
+	const { available_actions } = useProfile();
 
 	const submitHandler = (master: settingsProps) => {
 		return updateSettings(master).then((resp) => {
@@ -39,15 +41,23 @@ const SettingsModule = () => {
 
 	return (
 		<>
-			<PageHeading
-				title={t(`pages:settings.page_title`)}
-			/>
-			<SettingsForm
-				data={settings}
-				onSubmit={submitHandler}
-				loading={settings_loading}
-				afterLanguageInstall={afterLanguageInstallHandler}
-			/>
+			{available_actions.settings.view ? (
+				<>
+					<PageHeading
+						title={t(`pages:settings.page_title`)}
+					/>
+					<SettingsForm
+						data={settings}
+						onSubmit={submitHandler}
+						loading={settings_loading}
+						afterLanguageInstall={afterLanguageInstallHandler}
+					/>
+				</>
+			) : (
+				<>
+					{t('messages:profile.user_missing_permission')}
+				</>
+			)}
 		</>
 	);
 };

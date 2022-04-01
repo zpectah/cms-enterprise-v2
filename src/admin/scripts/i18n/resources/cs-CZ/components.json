@@ -219,5 +219,10 @@
     }
   },
   "LostPasswordForm": {},
-  "CreateNewPasswordForm": {}
+  "CreateNewPasswordForm": {},
+  "AvatarPicker": {
+    "dialog": {
+      "title": "Vyberte svůj avatar"
+    }
+  }
 }

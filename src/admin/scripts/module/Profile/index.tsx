@@ -37,16 +37,24 @@ const ProfileModule = () => {
 
 	return (
 		<>
-			<PageHeading
-				title={t(`pages:profile.page_title`)}
-			/>
-			<ProfileForm
-				data={profile}
-				onSubmit={submitHandler}
-				loading={profile_loading}
-				viewable={available_actions.profile.view}
-				editable={available_actions.profile.update}
-			/>
+			{available_actions.profile.view ? (
+				<>
+					<PageHeading
+						title={t(`pages:profile.page_title`)}
+					/>
+					<ProfileForm
+						data={profile}
+						onSubmit={submitHandler}
+						loading={profile_loading}
+						editable={available_actions.profile.update}
+						viewable
+					/>
+				</>
+			) : (
+				<>
+					{t('messages:profile.user_missing_permission')}
+				</>
+			)}
 		</>
 	);
 };
