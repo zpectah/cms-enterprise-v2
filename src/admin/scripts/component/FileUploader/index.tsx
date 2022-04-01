@@ -4,6 +4,7 @@ import { styled, Box, BoxProps } from '@mui/material';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 
+import config from '../../config';
 import { file as fileUtils, string as stringUtils } from '../../../../../utils/helpers';
 import { UPLOAD_IMAGE_LIMIT, UPLOAD_FILE_LIMIT } from '../../constants';
 import useToasts from '../../hooks/useToasts';
@@ -19,6 +20,7 @@ export interface FileUploaderProps {
 	disableDragAndDrop?: boolean;
 	compact?: boolean;
 	rounderProps?: BoxProps;
+	imageOnly?: boolean;
 }
 
 const StyledLabelWrapper = styled('label')`
@@ -81,6 +83,7 @@ const FileUploader = (props: FileUploaderProps) => {
 		disableDragAndDrop,
 		compact,
 		rounderProps,
+		imageOnly,
 	} = props;
 
 	const inputRef = useRef();
@@ -125,6 +128,8 @@ const FileUploader = (props: FileUploaderProps) => {
 					} else {
 						createErrorToast({ title: t('components:FileUploader.messages.image_over_size_limit') });
 					}
+				} else if (imageOnly) {
+					createErrorToast({ title: t('components:FileUploader.messages.file_not_supported') });
 				} else if (file.size <= UPLOAD_FILE_LIMIT) {
 					const fileObject = await getFileBlob(file);
 
@@ -138,12 +143,25 @@ const FileUploader = (props: FileUploaderProps) => {
 			}
 		});
 	};
+	const getAcceptList = () => {
+		let list = config.options.model.Uploads.image.extension.join();
+		if (!imageOnly) {
+			list += `,${config.options.model.Uploads.audio.extension.join()}`;
+			list += `,${config.options.model.Uploads.video.extension.join()}`;
+			list += `,${config.options.model.Uploads.document.extension.join()}`;
+			list += `,${config.options.model.Uploads.archive.extension.join()}`;
+		}
+
+		return list;
+	};
 
 	const inputProps = {
 		type: 'file',
 		name: 'FileUploaderInput',
 		id: `${id}_input`,
 		ref: inputRef,
+		// TODO : for images ...
+		accept: getAcceptList(),
 		multiple,
 		onChange: async (e) => {
 			setProcessing(true);

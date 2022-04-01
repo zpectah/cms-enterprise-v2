@@ -25,7 +25,7 @@ const ImageCropper = (props: ImageCropperProps) => {
 	const {
 		source,
 		onConfirm,
-		minImgSize = 150,
+		minImgSize = 250,
 		maxImgSize,
 		avatarAspect,
 	} = props;
@@ -92,9 +92,6 @@ const ImageCropper = (props: ImageCropperProps) => {
 		const aspect = avatarAspect ? 1/1 : (image.width / image.height);
 		setCrop({
 			...crop,
-			// Uncomment in case of set auto crop
-			// width: image.width,
-			// height: image.height,
 			aspect: aspect,
 		});
 		setOriginalAspect(aspect);
@@ -107,7 +104,7 @@ const ImageCropper = (props: ImageCropperProps) => {
 	};
 	const completeHandler = (crop: Crop) => {
 		setProcessing(true);
-
+		console.log('crop', crop.width, crop.height, crop.x, crop.y);
 		return getCroppedImage(
 			source,
 			{
@@ -116,7 +113,7 @@ const ImageCropper = (props: ImageCropperProps) => {
 				x: crop.x,
 				y: crop.y,
 			},
-			0
+			0,
 		).then((resp) => {
 			setCroppedImage(resp);
 			setProcessing(false);

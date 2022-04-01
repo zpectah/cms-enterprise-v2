@@ -81,18 +81,15 @@ const ProfileForm = (props: ProfileFormProps) => {
 					return (
 						<>
 							<Section>
-
 								<FormRow
 									emptyLabel
 								>
-
 									<Stack
 										direction="row"
 										alignItems="center"
 										justifyContent="flex-start"
 										spacing={2}
 									>
-
 										<AvatarPicker
 											src={getValues('img_avatar')}
 											onChange={(blob) => {
@@ -100,15 +97,17 @@ const ProfileForm = (props: ProfileFormProps) => {
 												setValue('img_avatar', blob);
 											}}
 										/>
-
-										<div>
-											avatar & email ...
-										</div>
-
+										<Stack
+											spacing={2}
+										>
+											<Stack>
+												<div>name</div>
+												<div>email</div>
+											</Stack>
+											<div> chips ... </div>
+										</Stack>
 									</Stack>
-
 								</FormRow>
-
 							</Section>
 							<Section divider>
 

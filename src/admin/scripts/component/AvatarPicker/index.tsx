@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { styled, Box, Stack } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import EditIcon from '@mui/icons-material/Edit';
 
+import palette from '../../styles/palette';
 import {
 	IconButton,
 	Dialog, Button,
@@ -20,6 +22,8 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 		src,
 		onChange,
 	} = props;
+
+	const temporarySource: Blob | null = src;
 
 	const [ source, setSource ] = useState<Blob | string | null>(src);
 	const [ sourceTmp, setSourceTmp ] = useState<Blob | string | null>(null);
@@ -48,56 +52,176 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 					justifyContent: 'center',
 				}}
 			>
-				{source ? (
-					<>
-						<img
-							src={source as string}
-							alt="img"
-							style={{
-								maxWidth: '100%',
-								height: 'auto',
-							}}
-						/>
-					</>
-				) : (
-					<Stack
-						spacing={2}
-					>
-
+				<Stack
+					spacing={2}
+					alignItems="center"
+					justifyContent="center"
+					sx={{
+						width: '100%',
+						height: '100%',
+					}}
+					className="avatar-img-cover"
+				>
+					{source ? (
 						<IconButton
 							onClick={() => {
-								console.log('open dialog ...');
 								setDialogOpen(true);
 							}}
 							size="medium"
+							sx={{
+								backgroundColor: palette.light,
+								opacity: 0,
+								'&:hover': {
+									backgroundColor: palette.light,
+								},
+								'.avatar-img-cover:hover &': {
+									opacity: 1,
+								},
+							}}
+						>
+							<EditIcon
+								fontSize="medium"
+							/>
+						</IconButton>
+					) : (
+						<IconButton
+							onClick={() => {
+								setDialogOpen(true);
+							}}
 						>
 							<AddPhotoAlternateIcon
 								fontSize="medium"
 							/>
 						</IconButton>
-
-					</Stack>
+					)}
+				</Stack>
+				{source && (
+					<img
+						src={source as string}
+						alt="img"
+						style={{
+							maxWidth: '100%',
+							height: 'auto',
+							position: 'absolute',
+							top: 0,
+							left: 0,
+							zIndex: -1,
+						}}
+					/>
 				)}
 			</Box>
 
 			<Dialog
 				open={dialogOpen}
 				onClose={() => setDialogOpen(false)}
+				title="Select your avatar image"
+				showBodyClose
+				showFooterClose
+				actions={
+					<>
+						<Button
+							onClick={confirmHandler}
+							disabled={!sourceTmp}
+						>
+							Confirm
+						</Button>
+						<Button
+							onClick={() => {
+								setCropperSource(null);
+							}}
+							disabled={!cropperSource}
+						>
+							Cancel
+						</Button>
+					</>
+				}
 			>
 				<div>
 
-					{sourceTmp && (
-						<>
+					<Stack
+						direction="row"
+						spacing={2}
+						alignItems="flex-start"
+						justifyContent="flex-start"
+						sx={{
+							mb: 2,
+						}}
+					>
+
+						{(source || sourceTmp) && (
+							<div
+								style={{
+									width: '100px',
+									height: '100px',
+								}}
+							>
+								<img
+									src={source as string || sourceTmp as string}
+									alt="img"
+									style={{
+										maxWidth: '100%',
+										height: 'auto',
+									}}
+								/>
+							</div>
+						)}
+
+					</Stack>
+					<Stack
+						direction="row"
+						spacing={2}
+						alignItems="flex-start"
+						justifyContent="flex-start"
+						sx={{
+							mb: 2,
+						}}
+					>
+
+						{temporarySource && (
+							<div
+								style={{
+									width: '100px',
+									height: '100px',
+								}}
+								onClick={() => {
+
+									setSource(temporarySource);
+
+								}}
+							>
+								<img
+									src={String(temporarySource)}
+									alt="default"
+									style={{
+										maxWidth: '100%',
+										height: 'auto',
+									}}
+								/>
+							</div>
+						)}
+
+						<div
+							style={{
+								width: '100px',
+								height: '100px',
+							}}
+							onClick={() => {
+
+								setSource('/assets/avatar/default.png');
+
+							}}
+						>
 							<img
-								src={sourceTmp as string}
-								alt="img"
+								src="/assets/avatar/default.png"
+								alt="default"
 								style={{
 									maxWidth: '100%',
 									height: 'auto',
 								}}
 							/>
-						</>
-					)}
+						</div>
+
+					</Stack>
 
 					{cropperSource ? (
 						<div>
@@ -109,42 +233,25 @@ const AvatarPicker = (props: AvatarPickerProps) => {
 									setSourceTmp(blob);
 									setCropperSource(null);
 								}}
-								minImgSize={100}
-								maxImgSize={300}
+								minImgSize={250}
+								maxImgSize={750}
 								avatarAspect
 							/>
-							<Button
-								onClick={() => {
-									setCropperSource(null);
-								}}
-							>
-								Dismiss
-							</Button>
 						</div>
 					) : (
 						<div>
 							<FileUploader
 								id="AvatarFileUploader"
 								onAdd={(files: uploadItemTemporaryType[]) => {
-									console.log('file', files[0]);
 									setCropperSource(files[0].fileBase64);
 								}}
 								compact
+								imageOnly
 							/>
 						</div>
 					)}
 
-					dialog
-					<br />
-					{context}
-					<br />
 
-					<Button
-						onClick={confirmHandler}
-						disabled={!sourceTmp}
-					>
-						Confirm
-					</Button>
 
 				</div>
 			</Dialog>
