@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -94,14 +94,8 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 	useEffect(() => setDetailData(getDetailData('Users', dataItems, params.id)), [ dataItems, params ]);
 
-	const options_type = useMemo(
-		() => getOptionsList(config.options.model.Users.type, t),
-		[ detailData ],
-	);
-	const options_group = useMemo(
-		() => getOptionsList(config.options.model.Users.group, t),
-		[ detailData ],
-	);
+	const options_type = useMemo(() => getOptionsList(config.options.model.Users.type, t), [ detailData ]);
+	const options_group = useMemo(() => getOptionsList(config.options.model.Users.group, t), [ detailData ]);
 	const options_level = useMemo(() => {
 		let options = [];
 		config.options.model.Users.level.map((type) => {
@@ -343,7 +337,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 														error={!!error}
 														required={detailData.id === 'new'}
 														inputRef={ref}
-														sx={{ width: { xs: '100%', md: '75%' } }}
+														sx={{ width: { xs: '100%', md: '75%', lg: '50%' } }}
 														{...rest}
 													/>
 												);

@@ -13,7 +13,9 @@ import {
 	PrimaryButton,
 	FormRow,
 	BarPreloader,
+	Chip,
 } from '../../component/ui';
+import { USER_LEVEL_NAMES } from '../../constants';
 import ThemeToggle from '../../component/ThemeToggle';
 import LanguageToggle from '../../component/LanguageToggle';
 import { profileProps } from '../../types/profile';
@@ -36,7 +38,7 @@ const ProfileForm = (props: ProfileFormProps) => {
 		editable,
 	} = props;
 
-	const { t } = useTranslation([ 'form', 'components' ]);
+	const { t } = useTranslation([ 'form', 'components', 'types' ]);
 	const [ submitting, setSubmitting ] = useState(false);
 
 	const submitHandler = (data: profileProps) => {
@@ -103,15 +105,36 @@ const ProfileForm = (props: ProfileFormProps) => {
 											<Stack
 												spacing={1}
 											>
-												<Typography
-													variant="h3"
-												>
-													{data.name_first} {data.name_last}
+												<Typography variant="h3">
+													{(data.name_first && data.name_last) ? (
+														<>
+															{data.name_first} {data.name_last}
+														</>
+													) : (
+														<>
+															{data.nickname}
+														</>
+													)}
 												</Typography>
 												<Typography>
 													{data.email}
 												</Typography>
-												<div></div>
+												<Stack
+													direction="row"
+													spacing={1}
+												>
+													<Chip
+														label={t(`types:${USER_LEVEL_NAMES[data.item_level]}`)}
+														color="primary"
+														variant="outlined"
+														size="small"
+													/>
+													<Chip
+														label={t(`types:${data.item_group}`)}
+														variant="outlined"
+														size="small"
+													/>
+												</Stack>
 											</Stack>
 										</Stack>
 									</Stack>
@@ -153,7 +176,7 @@ const ProfileForm = (props: ProfileFormProps) => {
 												id={`${token}_password`}
 												error={!!error}
 												inputRef={ref}
-												sx={{ width: { xs: '100%', md: '75%' } }}
+												sx={{ width: { xs: '100%', md: '75%', lg: '50%' } }}
 												{...rest}
 											/>
 										);

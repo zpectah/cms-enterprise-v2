@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -103,10 +103,7 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 		[ dataItems, params, languageActive ],
 	);
 
-	const getOptionsType = useCallback(
-		() => getOptionsList(config.options.model.Categories.type, t),
-		[ detailData ],
-	);
+	const options_type = useMemo(() => getOptionsList(config.options.model.Categories.type, t), [ detailData ]);
 
 	return (
 		<>
@@ -238,7 +235,7 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 														error={!!error}
 														required
 														inputRef={ref}
-														options={getOptionsType()}
+														options={options_type}
 														sx={{ width: { xs: '100%', md: '250px' } }}
 														{...rest}
 													/>

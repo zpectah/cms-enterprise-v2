@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -106,15 +106,15 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 		[ dataItems, params, languageActive ],
 	);
 
-	const getMetaList = useCallback(() => {
+	const list_meta = useMemo(() => {
 		const list = {
-			'created': detailData.created ? detailData.created : 'N/A',
-			'file_size': detailData.file_size ? fileUtils.formatBytes(detailData.file_size) : 'N/A',
-			'file_path': `${config.environmental.root}uploads/${detailData.type}/${detailData.file_name}`,
+			'created': detailData?.created ? detailData?.created : 'N/A',
+			'file_size': detailData?.file_size ? fileUtils.formatBytes(detailData?.file_size) : 'N/A',
+			'file_path': `${config.environmental.root}uploads/${detailData?.type}/${detailData?.file_name}`,
 		};
-		if (detailData.type === 'image') {
+		if (detailData?.type === 'image') {
 			config.options.model.Uploads.image.format.map((format) => {
-				list[`image_${format.key}`] = `${config.environmental.root}uploads/${detailData.type}/${format.key}/${detailData.file_name}`;
+				list[`image_${format.key}`] = `${config.environmental.root}uploads/${detailData?.type}/${format.key}/${detailData?.file_name}`;
 			});
 		}
 
@@ -257,7 +257,7 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 								renderSecondary={() => (
 									<Section>
 										<InfoMetaBlock
-											list={getMetaList()}
+											list={list_meta}
 										/>
 									</Section>
 								)}

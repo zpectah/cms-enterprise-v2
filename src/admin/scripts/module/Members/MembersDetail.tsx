@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -87,18 +87,9 @@ const MembersDetail = (props: MembersDetailProps) => {
 
 	useEffect(() => setDetailData(getDetailData('Members', dataItems, params.id)), [ dataItems, params ]);
 
-	const getOptionsType = useCallback(
-		() => getOptionsList(config.options.model.Members.type, t),
-		[ detailData ],
-	);
-	const getOptionsGroup = useCallback(
-		() => getOptionsList(config.options.model.Members.group, t),
-		[ detailData ],
-	);
-	const getOptionsSex = useCallback(
-		() => getOptionsList(config.options.model.Members.sex, t),
-		[ detailData ],
-	);
+	const options_type = useMemo(() => getOptionsList(config.options.model.Members.type, t), [ detailData ]);
+	const options_group = useMemo(() => getOptionsList(config.options.model.Members.group, t), [ detailData ]);
+	const options_sex = useMemo(() => getOptionsList(config.options.model.Members.sex, t), [ detailData ]);
 
 	return (
 		<>
@@ -212,7 +203,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 													id={`${token}_item_group`}
 													error={!!error}
 													inputRef={ref}
-													options={getOptionsGroup()}
+													options={options_group}
 													{...rest}
 												/>
 											);
@@ -264,7 +255,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														error={!!error}
 														required
 														inputRef={ref}
-														options={getOptionsType()}
+														options={options_type}
 														sx={{ width: { xs: '100%', md: '250px' } }}
 														{...rest}
 													/>
@@ -318,7 +309,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														error={!!error}
 														required={(detailData.id === 'new' && watchType === 'customer')}
 														inputRef={ref}
-														sx={{ width: { xs: '100%', md: '75%' } }}
+														sx={{ width: { xs: '100%', md: '75%', lg: '50%' } }}
 														{...rest}
 													/>
 												);
@@ -530,7 +521,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 														id={`${token}_sex`}
 														error={!!error}
 														inputRef={ref}
-														options={getOptionsSex()}
+														options={options_sex}
 														sx={{ width: { xs: '100%', md: '200px' } }}
 														{...rest}
 													/>

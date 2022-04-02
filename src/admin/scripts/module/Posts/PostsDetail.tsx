@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -137,10 +137,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 		if (detailData) setDetailData(detailData);
 	}, [ dataItems, params, languageActive, window.location ]);
 
-	const options_type = useMemo(
-		() => getOptionsList(config.options.model.Posts.type, t),
-		[ detailData ],
-	);
+	const options_type = useMemo(() => getOptionsList(config.options.model.Posts.type, t), [ detailData ]);
 	const authorChangeDisabled = useMemo(() => {
 		return profile?.item_level < USER_LEVEL_KEYS['manager'];
 	}, [ profile ]);

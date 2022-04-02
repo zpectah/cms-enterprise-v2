@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -103,18 +103,9 @@ const PagesDetail = (props: PagesDetailProps) => {
 		[ dataItems, params, languageActive ],
 	);
 
-	const getOptionsType = useCallback(
-		() => getOptionsList(config.options.model.Pages.type, t),
-		[ detailData ],
-	);
-	const getOptionsElements = useCallback(
-		() => getOptionsList(config.options.model.Pages.elements, t),
-		[ detailData ],
-	);
-	const getOptionsIndex = useCallback(
-		() => getOptionsList(config.options.common.meta_robots, t),
-		[ detailData ],
-	);
+	const options_type = useMemo(() => getOptionsList(config.options.model.Pages.type, t), [ detailData ]);
+	const options_elements = useMemo(() => getOptionsList(config.options.model.Pages.elements, t), [ detailData ]);
+	const options_index = useMemo(() => getOptionsList(config.options.common.meta_robots, t), [ detailData ]);
 
 	return (
 		<>
@@ -206,7 +197,7 @@ const PagesDetail = (props: PagesDetailProps) => {
 													error={!!error}
 													required
 													inputRef={ref}
-													options={getOptionsType()}
+													options={options_type}
 													sx={{ width: { xs: '100%', md: '250px' } }}
 													{...rest}
 												/>
@@ -373,7 +364,7 @@ const PagesDetail = (props: PagesDetailProps) => {
 
 										return (
 											<Select
-												options={getOptionsIndex()}
+												options={options_index}
 												label={t('form:label.meta_robots')}
 												placeholder={t('form:placeholder.meta_robots')}
 												id={`${token}_meta_robots`}
@@ -397,7 +388,7 @@ const PagesDetail = (props: PagesDetailProps) => {
 
 										return (
 											<Select
-												options={getOptionsElements()}
+												options={options_elements}
 												label={t('form:label.page_elements')}
 												placeholder={t('form:placeholder.page_elements')}
 												id={`${token}_page_elements`}

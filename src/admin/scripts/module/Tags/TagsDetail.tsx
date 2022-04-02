@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -84,10 +84,7 @@ const TagsDetail = (props: TagsDetailProps) => {
 
 	useEffect(() => setDetailData(getDetailData('Tags', dataItems, params.id)), [ dataItems, params ]);
 
-	const getOptionsType = useCallback(
-		() => getOptionsList(config.options.model.Users.type, t),
-		[ detailData ],
-	);
+	const options_type = useMemo(() => getOptionsList(config.options.model.Users.type, t), [ detailData ]);
 
 	return (
 		<>
@@ -179,7 +176,7 @@ const TagsDetail = (props: TagsDetailProps) => {
 														error={!!error}
 														required
 														inputRef={ref}
-														options={getOptionsType()}
+														options={options_type}
 														sx={{ width: { xs: '100%', md: '250px' } }}
 														{...rest}
 													/>
