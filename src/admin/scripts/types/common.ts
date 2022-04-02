@@ -18,3 +18,19 @@ export interface toastItemProps {
 	timeout?: number;
 	onRemove?: (id: string) => void;
 }
+
+export type utilsDateObjectProps = {
+	year: number,
+	month: string,
+	day: string,
+	hour: string,
+	minute: string,
+	second: string,
+	monthNo: number,
+	dayNo: number,
+	hourNo: number,
+	minuteNo: number,
+	secondNo: number,
+	dayOfTheWeek: number,
+	dayOfTheYear: number,
+};

@@ -61,5 +61,30 @@
     "Uploads": "Nový soubor",
     "Users": "Nový uživatel",
     "Messages": "Nová zpráva"
+  },
+  "calendar": {
+    "day": {
+      "0": "Neděle",
+      "1": "Pondělí",
+      "2": "Úterý",
+      "3": "Středa",
+      "4": "Čtvrtek",
+      "5": "Pátek",
+      "6": "Sobota"
+    },
+    "month": {
+      "01": "Ledna",
+      "02": "Února",
+      "03": "Března",
+      "04": "Dubna",
+      "05": "Května",
+      "06": "Června",
+      "07": "Července",
+      "08": "Srpna",
+      "09": "Září",
+      "10": "Října",
+      "11": "Listopadu",
+      "12": "Prosince"
+    }
   }
 }

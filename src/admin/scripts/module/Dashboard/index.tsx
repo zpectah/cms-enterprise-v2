@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Stack } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 
 import PageHeading from '../../component/PageHeading';
-import {
-	ConfirmDialog,
-	Button,
-	PrimaryButton,
-	SecondaryButton,
-} from '../../component/ui';
 import useToasts from '../../hooks/useToasts';
-import useProfile from '../../hooks/useProfile';
+// import useProfile from '../../hooks/useProfile';
+// import TileBase from './tiles/TileBase';
+import WelcomeTile from './tiles/WelcomeTile';
 
 const DashboardModule = () => {
 	const { t } = useTranslation([ 'pages', 'messages' ]);
-	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
-	const { createToast, createSuccessToast } = useToasts();
+	const { createSuccessToast } = useToasts();
 	const navigate = useNavigate();
-	const { available_actions } = useProfile();
+	// const { available_actions } = useProfile();
 
 	useEffect(() => {
 		if (window.location.hash) {
@@ -36,34 +31,25 @@ const DashboardModule = () => {
 			<PageHeading
 				title={t(`pages:dashboard.page_title`)}
 			/>
-			<div>
-				DashboardModule
-				<br />
-				<pre>
-					<code>
-						{JSON.stringify(available_actions, null, 2)}
-					</code>
-				</pre>
-			</div>
-			<Stack direction="row" spacing={2}>
-				<Button onClick={() => setConfirmOpen(true)}>{t('btn.open')}</Button>
-				<PrimaryButton>Primary</PrimaryButton>
-				<SecondaryButton
-					onClick={() => {
-						createToast({
-							title: 'Created toast item ...',
-						});
-					}}
-				>Create toast</SecondaryButton>
-			</Stack>
-			<ConfirmDialog
-				confirmData={[]}
-				onConfirm={() => { console.log('trigger the confirm event') }}
-				onClose={() => {
-					setConfirmOpen(false);
+			<Box
+				sx={{
+					width: '100%',
 				}}
-				open={confirmOpen}
-			/>
+			>
+				<Grid
+					container
+					spacing={2}
+				>
+
+					<WelcomeTile
+						grid={{
+							xs: 12,
+							sm: 8,
+						}}
+					/>
+
+				</Grid>
+			</Box>
 		</>
 	);
 };

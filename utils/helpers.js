@@ -197,6 +197,11 @@ export const date = {
             hour: number.getTwoDecimal(D.getHours()),
             minute: number.getTwoDecimal(D.getMinutes()),
             second: number.getTwoDecimal(D.getSeconds()),
+            monthNo: D.getMonth() + 1,
+            dayNo: D.getDate(),
+            hourNo: D.getHours(),
+            minuteNo: D.getMinutes(),
+            secondNo: D.getSeconds(),
             dayOfTheWeek: D.getDay(),
             dayOfTheYear: getDayOfTheYear(),
         };

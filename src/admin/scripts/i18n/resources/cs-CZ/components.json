@@ -249,5 +249,9 @@
     "dialog": {
       "title": "Vyberte svůj avatar"
     }
+  },
+  "WelcomeTile": {
+    "title": "Vítejte v administraci",
+    "today_is": "Dnes je"
   }
 }
