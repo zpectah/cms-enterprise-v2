@@ -119,6 +119,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 					template: false,
 				};
 			}
+			navigate(`${detailOptions.root}/detail/new`);
 		} else {
 			detailData = getDetailData(
 				'Posts',
