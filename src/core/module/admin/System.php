@@ -30,10 +30,17 @@ class System {
         return [];
     }
 
-    private function create_language_tables ($conn, $tablePrefix, $lang_default, $lang_new) {
+    // TODO
+    public function export_data ($attrs): array {
+
+        return [ $attrs ];
+    }
+
+
+    private function create_language_tables ($conn, $tablePrefix, $lang_source, $lang_target) {
         $response = null;
-        $table_language_name_source = $tablePrefix . '__' . strtolower(preg_replace('/-/m','_', $lang_default));
-        $table_language_name_target = $tablePrefix . '__' . strtolower(preg_replace('/-/m','_', $lang_new));
+        $table_language_name_source = $tablePrefix . '__' . strtolower(preg_replace('/-/m','_', $lang_source));
+        $table_language_name_target = $tablePrefix . '__' . strtolower(preg_replace('/-/m','_', $lang_target));
 
         // prepare
         $query = ("CREATE TABLE $table_language_name_target LIKE $table_language_name_source");
@@ -51,10 +58,10 @@ class System {
         return $response;
     }
 
-    private function copy_language_tables ($conn, $tablePrefix, $lang_default, $lang_new) {
+    private function copy_language_tables ($conn, $tablePrefix, $lang_source, $lang_target) {
         $response = null;
-        $table_language_name_source = $tablePrefix . '__' . strtolower(preg_replace('/-/m','_', $lang_default));
-        $table_language_name_target = $tablePrefix . '__' . strtolower(preg_replace('/-/m','_', $lang_new));
+        $table_language_name_source = $tablePrefix . '__' . strtolower(preg_replace('/-/m','_', $lang_source));
+        $table_language_name_target = $tablePrefix . '__' . strtolower(preg_replace('/-/m','_', $lang_target));
 
         // prepare
         $query = ("INSERT $table_language_name_target SELECT * FROM $table_language_name_source");
@@ -67,6 +74,72 @@ class System {
             $stmt -> execute();
             $response = $stmt -> affected_rows;
             $stmt -> close();
+        }
+
+        return $response;
+    }
+
+    private function create_empty_language_tables ($conn, $tablePrefix, $lang_target) {
+        $response = null;
+        $table_language_name_target = $tablePrefix . '__' . strtolower(preg_replace('/-/m','_', $lang_target));
+
+        // prepare
+        $query = null;
+        switch ($tablePrefix) {
+
+            case 'categories':
+                $query = ("CREATE TABLE $table_language_name_target (
+                  `id` int(11) NOT NULL,
+                  `title` text NOT NULL,
+                  `description` text NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+                break;
+
+            case 'menu_items':
+            case 'menu':
+                $query = ("CREATE TABLE $table_language_name_target (
+                  `id` int(11) NOT NULL,
+                  `label` text NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+                break;
+
+            case 'pages':
+            case 'posts':
+                $query = ("CREATE TABLE $table_language_name_target (
+                  `id` int(11) NOT NULL,
+                  `title` text NOT NULL,
+                  `description` text NOT NULL,
+                  `content` longtext NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+                break;
+
+            case 'translations':
+                $query = ("CREATE TABLE $table_language_name_target (
+                  `id` int(11) NOT NULL,
+                  `value` text NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+                break;
+
+            case 'uploads':
+                $query = ("CREATE TABLE $table_language_name_target (
+                  `id` int(11) NOT NULL,
+                  `label` text NOT NULL,
+                  `description` text NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+                break;
+
+        }
+
+        // execute
+        if ($query) {
+            if ($conn -> connect_error) {
+                $response = $conn -> connect_error;
+            } else {
+                $stmt = $conn -> prepare($query);
+                $stmt -> execute();
+                $response = $stmt -> affected_rows;
+                $stmt -> close();
+            }
         }
 
         return $response;
@@ -89,19 +162,17 @@ class System {
         $lang_source = $data['lang_source'];
         $lang_target = $data['lang_target'];
         $executed = [];
-        foreach ($tables as $item) {
-            $executed[] = self::create_language_tables($conn, $item, $lang_source, $lang_target);
-            $executed[] = self::copy_language_tables($conn, $item, $lang_source, $lang_target);
+        foreach ($tables as $table) {
+            if ($lang_source !== 'empty') {
+                $executed[] = self::create_language_tables($conn, $table, $lang_source, $lang_target);
+                $executed[] = self::copy_language_tables($conn, $table, $lang_source, $lang_target);
+            } else {
+                $executed[] = self::create_empty_language_tables ($conn, $table, $lang_target);
+            }
         }
         $response['status'] = count($tables) == (count($executed)/2) ? 'done' : 'error';
 
         return [];
-    }
-
-    // TODO
-    public function export_data ($attrs): array {
-
-        return [ $attrs ];
     }
 
     public function delete_permanent_items ($conn, $language): array {

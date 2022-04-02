@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Stack } from '@mui/material';
 
@@ -30,7 +30,7 @@ const SettingsLanguageInstaller = (props: SettingsLanguageInstallerProps) => {
 		afterInstall,
 	} = props;
 
-	const { t } = useTranslation([ 'components' ]);
+	const { t } = useTranslation([ 'components', 'types' ]);
 	const [ selectedLanguage, setSelectedLanguage ] = useState<string>('');
 	const [ sourceLanguage, setSourceLanguage ] = useState<string>(current);
 	const [ installing, setInstalling ] = useState(false);
@@ -65,7 +65,7 @@ const SettingsLanguageInstaller = (props: SettingsLanguageInstallerProps) => {
 			setInstalling(false);
 		});
 	};
-	const getLanguageOptions = useCallback(() => {
+	const options_language = useMemo(() => {
 		const list = [];
 		for (const key in config.locales) {
 			const langObject = config.locales[key];
@@ -79,20 +79,29 @@ const SettingsLanguageInstaller = (props: SettingsLanguageInstallerProps) => {
 
 		return list;
 	}, [ config ]);
-	const getLanguageSource = useCallback(() => {
+	const options_sources = useMemo(() => {
 		const list = [];
-		installed.map((lang) => {
-			const langObject = config.locales[lang];
+		if (installed.length === 0) {
 			list.push({
-				key: langObject.int,
-				value: langObject.int,
-				label: langObject.label_int,
-				disabled: !active.includes(langObject.int),
+				key: 'empty',
+				value: 'empty',
+				label: t('types:empty'),
+				disabled: false,
 			});
-		});
+		} else {
+			installed.map((lang) => {
+				const langObject = config.locales[lang];
+				list.push({
+					key: langObject.int,
+					value: langObject.int,
+					label: langObject.label_int,
+					disabled: !active.includes(langObject.int),
+				});
+			});
+		}
 
 		return list;
-	}, [ config, active ]);
+	}, [ config, active, installed ]);
 
 	useEffect(() => {
 		if (current) setSourceLanguage(current);
@@ -108,7 +117,7 @@ const SettingsLanguageInstaller = (props: SettingsLanguageInstallerProps) => {
 			>
 				<div>
 					<Select
-						options={getLanguageOptions()}
+						options={options_language}
 						value={selectedLanguage}
 						onChange={(e) => setSelectedLanguage(e.target.value as string)}
 						label={t('components:SettingsForm.language_installer.new_language_label')}
@@ -119,7 +128,7 @@ const SettingsLanguageInstaller = (props: SettingsLanguageInstallerProps) => {
 				</div>
 				<div>
 					<Select
-						options={getLanguageSource()}
+						options={options_sources}
 						value={sourceLanguage}
 						onChange={(e) => setSourceLanguage(e.target.value as string)}
 						label={t('components:SettingsForm.language_installer.source_language_label')}

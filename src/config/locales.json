@@ -11,6 +11,18 @@
     },
     "direction": "ltr"
   },
+  "en": {
+    "key": "en",
+    "int": "en",
+    "label": "English",
+    "label_int": "English",
+    "format": {
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
+    },
+    "direction": "ltr"
+  },
   "en-US": {
     "key": "en",
     "int": "en-US",
@@ -71,6 +83,18 @@
     },
     "direction": "ltr"
   },
+  "de": {
+    "key": "de",
+    "int": "de",
+    "label": "German",
+    "label_int": "German",
+    "format": {
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
+    },
+    "direction": "ltr"
+  },
   "de-DE": {
     "key": "de",
     "int": "de-DE",
@@ -100,6 +124,18 @@
     "int": "de-CH",
     "label": "German",
     "label_int": "German (Switzerland)",
+    "format": {
+      "date": "yyyy-MM-dd",
+      "time": "HH:mm:ss",
+      "datetime": "yyyy-MM-dd HH:mm:ss"
+    },
+    "direction": "ltr"
+  },
+  "fr": {
+    "key": "fr",
+    "int": "fr",
+    "label": "French",
+    "label_int": "French",
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
