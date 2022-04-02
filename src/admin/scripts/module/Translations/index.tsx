@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Alert } from '@mui/material';
 
 import { TranslationsItemProps } from '../../types/model';
 import { useTranslations } from '../../hooks/model';
@@ -79,6 +80,7 @@ const TranslationsModule = () => {
 							onSubmit={submitHandler}
 							onDelete={deleteHandler}
 							loading={translations_loading}
+							actions={available_actions.Translations}
 						/>
 					} />
 					<Route index element={
@@ -87,13 +89,17 @@ const TranslationsModule = () => {
 							onToggle={toggleHandler}
 							onDelete={deleteHandler}
 							loading={translations_loading}
+							actions={available_actions.Translations}
 						/>
 					} />
 				</Routes>
 			) : (
-				<>
+				<Alert
+					severity="warning"
+					sx={{ width: '100%' }}
+				>
 					{t('messages:profile.user_missing_permission')}
-				</>
+				</Alert>
 			)}
 		</>
 	);

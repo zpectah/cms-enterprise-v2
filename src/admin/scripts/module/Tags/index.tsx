@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Alert } from '@mui/material';
 
 import { TagsItemProps } from '../../types/model';
 import { useTags } from '../../hooks/model';
@@ -79,6 +80,7 @@ const TagsModule = () => {
 							onSubmit={submitHandler}
 							onDelete={deleteHandler}
 							loading={tags_loading}
+							actions={available_actions.Tags}
 						/>
 					} />
 					<Route index element={
@@ -87,13 +89,17 @@ const TagsModule = () => {
 							onToggle={toggleHandler}
 							onDelete={deleteHandler}
 							loading={tags_loading}
+							actions={available_actions.Tags}
 						/>
 					} />
 				</Routes>
 			) : (
-				<>
+				<Alert
+					severity="warning"
+					sx={{ width: '100%' }}
+				>
 					{t('messages:profile.user_missing_permission')}
-				</>
+				</Alert>
 			)}
 		</>
 	);

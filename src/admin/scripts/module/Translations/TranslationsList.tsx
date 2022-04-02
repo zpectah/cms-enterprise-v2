@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import routes from '../../routes';
 import { TranslationsItemProps } from '../../types/model';
+import { entityActionsType } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import DataTable from '../../component/DataTable';
 import { BarPreloader } from '../../component/ui';
@@ -13,6 +14,7 @@ interface TranslationsListProps {
 	onToggle: (master: number[]) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
+	actions: entityActionsType;
 }
 
 const TranslationsList = (props: TranslationsListProps) => {
@@ -21,6 +23,7 @@ const TranslationsList = (props: TranslationsListProps) => {
 		onToggle,
 		onDelete,
 		loading,
+		actions,
 	} = props;
 
 	const tableOptions = {
@@ -57,6 +60,7 @@ const TranslationsList = (props: TranslationsListProps) => {
 				onToggle={onToggle}
 				onDelete={onDelete}
 				loading={loading}
+				actions={actions}
 			/>
 		</>
 	);

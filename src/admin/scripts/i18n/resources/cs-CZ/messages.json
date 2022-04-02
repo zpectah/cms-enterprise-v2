@@ -35,6 +35,9 @@
     "unauthorized_access": "Neautorizovaný přístup",
     "user_login_success": "Přihlášení bylo úspešné",
     "user_logout_success": "Odhlášení bylo úspešné",
-    "user_missing_permission": "Chybí dostatečná oprávěnní pro zobrazení této stránky"
+    "user_missing_permission": "Chybí dostatečná oprávěnní pro zobrazení této stránky",
+    "user_noPermission_update": "Nemáte dostatečná oprávnění k úpravě této položky",
+    "user_noPermission_create": "Nemáte dostatečná oprávnění k vytvoření této položky",
+    "user_noPermission_delete": "Nemáte dostatečná oprávnění ke smazání této položky"
   }
 }

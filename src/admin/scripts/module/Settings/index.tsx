@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Alert } from '@mui/material';
 
 import { settingsProps } from '../../types/app';
 import useToasts from '../../hooks/useToasts';
@@ -51,12 +52,16 @@ const SettingsModule = () => {
 						onSubmit={submitHandler}
 						loading={settings_loading}
 						afterLanguageInstall={afterLanguageInstallHandler}
+						actions={available_actions.settings}
 					/>
 				</>
 			) : (
-				<>
+				<Alert
+					severity="warning"
+					sx={{ width: '100%' }}
+				>
 					{t('messages:profile.user_missing_permission')}
-				</>
+				</Alert>
 			)}
 		</>
 	);

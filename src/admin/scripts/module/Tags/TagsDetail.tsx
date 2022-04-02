@@ -7,7 +7,7 @@ import config from '../../config';
 import routes from '../../routes';
 import { useTags } from '../../hooks/model';
 import { TagsItemProps } from '../../types/model';
-import { submitMethodProps } from '../../types/common';
+import { submitMethodProps, entityActionsType } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
@@ -31,6 +31,7 @@ interface TagsDetailProps {
 	onSubmit: (method: submitMethodProps, master: TagsItemProps) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
+	actions: entityActionsType;
 }
 
 const TagsDetail = (props: TagsDetailProps) => {
@@ -39,6 +40,7 @@ const TagsDetail = (props: TagsDetailProps) => {
 		onSubmit,
 		onDelete,
 		loading,
+		actions,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
@@ -100,6 +102,11 @@ const TagsDetail = (props: TagsDetailProps) => {
 				<ControlledDetailFormLayout
 					mandatoryInfo
 					dataId="TagsDetailForm"
+					actions={{
+						update: actions.update,
+						create: actions.create,
+						delete: actions.delete,
+					}}
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}

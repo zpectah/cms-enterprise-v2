@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Alert } from '@mui/material';
 
 import { PostsItemProps } from '../../types/model';
 import { usePosts } from '../../hooks/model';
@@ -79,6 +80,7 @@ const PostsModule = () => {
 							onSubmit={submitHandler}
 							onDelete={deleteHandler}
 							loading={posts_loading}
+							actions={available_actions.Posts}
 						/>
 					} />
 					<Route index element={
@@ -87,13 +89,17 @@ const PostsModule = () => {
 							onToggle={toggleHandler}
 							onDelete={deleteHandler}
 							loading={posts_loading}
+							actions={available_actions.Posts}
 						/>
 					} />
 				</Routes>
 			) : (
-				<>
+				<Alert
+					severity="warning"
+					sx={{ width: '100%' }}
+				>
 					{t('messages:profile.user_missing_permission')}
-				</>
+				</Alert>
 			)}
 		</>
 	);

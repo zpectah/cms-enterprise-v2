@@ -1,16 +1,17 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Rating from '@mui/material/Rating';
 
 import config from '../../config';
+import { USER_LEVEL_KEYS } from '../../constants';
 import routes from '../../routes';
 import useSettings from '../../hooks/useSettings';
 import useProfile from '../../hooks/useProfile';
 import { usePosts } from '../../hooks/model';
 import { PostsItemProps } from '../../types/model';
-import { submitMethodProps } from '../../types/common';
+import { submitMethodProps, entityActionsType } from '../../types/common';
 import CommentsManager from '../Comments/CommentsManager';
 import PageHeading from '../../component/PageHeading';
 import {
@@ -48,6 +49,7 @@ interface PostsDetailProps {
 	onSubmit: (method: submitMethodProps, master: PostsItemProps) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
+	actions: entityActionsType;
 }
 
 const PostsDetail = (props: PostsDetailProps) => {
@@ -56,6 +58,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 		onSubmit,
 		onDelete,
 		loading,
+		actions,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
@@ -115,10 +118,13 @@ const PostsDetail = (props: PostsDetailProps) => {
 		[ dataItems, params, languageActive ],
 	);
 
-	const getOptionsType = useCallback(
+	const options_type = useMemo(
 		() => getOptionsList(config.options.model.Posts.type, t),
 		[ detailData ],
 	);
+	const authorChangeDisabled = useMemo(() => {
+		return profile?.item_level < USER_LEVEL_KEYS['manager'];
+	}, [ profile ]);
 
 	return (
 		<>
@@ -133,6 +139,11 @@ const PostsDetail = (props: PostsDetailProps) => {
 				<ControlledDetailFormLayout
 					mandatoryInfo
 					dataId="PostsDetailForm"
+					actions={{
+						update: actions.update,
+						create: actions.create,
+						delete: actions.delete,
+					}}
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}
@@ -202,6 +213,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 													id={`${token}_author`}
 													error={!!error}
 													currentUserId={detailData.id === 'new' ? profile?.id as number : detailData.author as number}
+													disabled={authorChangeDisabled}
 													inputSx={{
 														width: {
 															md: '100%',
@@ -300,7 +312,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 													error={!!error}
 													required
 													inputRef={ref}
-													options={getOptionsType()}
+													options={options_type}
 													sx={{ width: { xs: '100%', md: '250px' } }}
 													{...rest}
 												/>

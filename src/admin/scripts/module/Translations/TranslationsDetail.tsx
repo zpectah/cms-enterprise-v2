@@ -8,7 +8,7 @@ import routes from '../../routes';
 import useSettings from '../../hooks/useSettings';
 import { useTranslations } from '../../hooks/model';
 import { TranslationsItemProps } from '../../types/model';
-import { submitMethodProps } from '../../types/common';
+import { submitMethodProps, entityActionsType } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
@@ -33,6 +33,7 @@ interface TranslationsDetailProps {
 	onSubmit: (method: submitMethodProps, master: TranslationsItemProps) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
+	actions: entityActionsType;
 }
 
 const TranslationsDetail = (props: TranslationsDetailProps) => {
@@ -41,6 +42,7 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 		onSubmit,
 		onDelete,
 		loading,
+		actions,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
@@ -115,6 +117,11 @@ const TranslationsDetail = (props: TranslationsDetailProps) => {
 				<ControlledDetailFormLayout
 					mandatoryInfo
 					dataId="TranslationsDetailForm"
+					actions={{
+						update: actions.update,
+						create: actions.create,
+						delete: actions.delete,
+					}}
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}

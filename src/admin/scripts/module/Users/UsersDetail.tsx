@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -11,9 +11,10 @@ import {
 	USER_LEVEL_KEYS,
 } from '../../constants';
 import { UsersItemProps } from '../../types/model';
-import { submitMethodProps } from '../../types/common';
+import { submitMethodProps, entityActionsType } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import { useUsers } from '../../hooks/model';
+import useProfile from '../../hooks/useProfile';
 import {
 	ConfirmDialog,
 	ControlledDetailFormLayout,
@@ -38,6 +39,8 @@ interface UsersDetailProps {
 	onSubmit: (method: submitMethodProps, master: UsersItemProps) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
+	actions: entityActionsType;
+	role: string;
 }
 
 const UsersDetail = (props: UsersDetailProps) => {
@@ -46,6 +49,8 @@ const UsersDetail = (props: UsersDetailProps) => {
 		onSubmit,
 		onDelete,
 		loading,
+		actions,
+		role,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
@@ -56,6 +61,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
 	const [ submitting, setSubmitting ] = useState(false);
 	const { checkUsersDuplicates } = useUsers();
+	const { compareUserForUpdate, compareUserForDelete } = useProfile();
 
 	const detailOptions = {
 		root: `/admin/app/${routes.users.path}`,
@@ -88,27 +94,33 @@ const UsersDetail = (props: UsersDetailProps) => {
 
 	useEffect(() => setDetailData(getDetailData('Users', dataItems, params.id)), [ dataItems, params ]);
 
-	const getOptionsType = useCallback(
+	const options_type = useMemo(
 		() => getOptionsList(config.options.model.Users.type, t),
 		[ detailData ],
 	);
-	const getOptionsGroup = useCallback(
+	const options_group = useMemo(
 		() => getOptionsList(config.options.model.Users.group, t),
 		[ detailData ],
 	);
-	const getOptionsLevel = useCallback(() => {
+	const options_level = useMemo(() => {
 		let options = [];
 		config.options.model.Users.level.map((type) => {
+			let disabled = true;
+			if (USER_LEVEL_KEYS[type] < USER_LEVEL_KEYS['admin']) {
+				disabled = false;
+			} else if (type === role) {
+				disabled = !actions.admin;
+			}
 			options.push({
 				key: type,
 				label: t(`types:${type}`),
 				value: USER_LEVEL_KEYS[type],
-				disabled: 7 < USER_LEVEL_KEYS[type],
+				disabled,
 			});
 		});
 
 		return options;
-	}, [ detailData ]);
+	}, [ detailData, actions ]);
 
 	return (
 		<>
@@ -123,6 +135,11 @@ const UsersDetail = (props: UsersDetailProps) => {
 				<ControlledDetailFormLayout
 					mandatoryInfo
 					dataId="UsersDetailForm"
+					actions={{
+						update: compareUserForUpdate(detailData),
+						create: actions.create,
+						delete: compareUserForDelete(detailData),
+					}}
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}
@@ -139,9 +156,8 @@ const UsersDetail = (props: UsersDetailProps) => {
 										control={control}
 										rules={{}}
 										defaultValue={detailData.img_avatar}
-										render={({ field, fieldState }) => {
-											const { ref, value, onChange } = field;
-											// const { error } = fieldState;
+										render={({ field }) => {
+											const { value, onChange } = field;
 
 											return (
 												<Stack
@@ -199,7 +215,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 													error={!!error}
 													required
 													inputRef={ref}
-													options={getOptionsLevel()}
+													options={options_level}
 													{...rest}
 												/>
 											);
@@ -222,7 +238,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 													error={!!error}
 													required
 													inputRef={ref}
-													options={getOptionsGroup()}
+													options={options_group}
 													{...rest}
 												/>
 											);
@@ -273,7 +289,7 @@ const UsersDetail = (props: UsersDetailProps) => {
 														error={!!error}
 														required
 														inputRef={ref}
-														options={getOptionsType()}
+														options={options_type}
 														sx={{ width: { xs: '100%', md: '250px' } }}
 														{...rest}
 													/>

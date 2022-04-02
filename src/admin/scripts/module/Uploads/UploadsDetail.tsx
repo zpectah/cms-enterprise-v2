@@ -8,7 +8,7 @@ import { file as fileUtils } from '../../../../../utils/helpers';
 import routes from '../../routes';
 import useSettings from '../../hooks/useSettings';
 import { UploadsItemProps } from '../../types/model';
-import { submitMethodProps } from '../../types/common';
+import { submitMethodProps, entityActionsType } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
@@ -35,6 +35,7 @@ interface UploadsDetailProps {
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
 	onFinishSubmit?: (count: number) => void;
+	actions: entityActionsType;
 }
 
 const UploadsDetail = (props: UploadsDetailProps) => {
@@ -44,6 +45,7 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 		onDelete,
 		loading,
 		onFinishSubmit,
+		actions,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
@@ -147,6 +149,11 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 							/>
 							<ControlledDetailFormLayout
 								dataId="UploadsDetailForm"
+								actions={{
+									update: actions.update,
+									create: actions.create,
+									delete: actions.delete,
+								}}
 								detailId={detailData.id}
 								defaultValues={detailData}
 								onSubmit={submitHandler}

@@ -64,6 +64,7 @@ class Profile {
                 $actions['settings'] = [
                     'view' => true,
                     'update' => true,
+                    'language' => true,
                     'maintenance' => false,
                     'blacklist' => false,
                 ];
@@ -75,7 +76,7 @@ class Profile {
                 $actions['Users'] = [
                     'view' => true,
                     'update' => true,
-                    'delete' => true,
+                    'delete' => false,
                     'create' => true,
                     'admin' => false,
                 ];
@@ -91,6 +92,7 @@ class Profile {
                 $actions['settings'] = [
                     'view' => true,
                     'update' => true,
+                    'language' => true,
                     'maintenance' => true,
                     'blacklist' => true,
                 ];

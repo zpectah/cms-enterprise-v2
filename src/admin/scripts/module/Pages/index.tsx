@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Alert } from '@mui/material';
 
 import { CategoriesItemProps } from '../../types/model';
 import { usePages } from '../../hooks/model';
@@ -79,6 +80,7 @@ const PagesModule = () => {
 							onSubmit={submitHandler}
 							onDelete={deleteHandler}
 							loading={pages_loading}
+							actions={available_actions.Pages}
 						/>
 					} />
 					<Route index element={
@@ -87,13 +89,17 @@ const PagesModule = () => {
 							onToggle={toggleHandler}
 							onDelete={deleteHandler}
 							loading={pages_loading}
+							actions={available_actions.Pages}
 						/>
 					} />
 				</Routes>
 			) : (
-				<>
+				<Alert
+					severity="warning"
+					sx={{ width: '100%' }}
+				>
 					{t('messages:profile.user_missing_permission')}
-				</>
+				</Alert>
 			)}
 		</>
 	);

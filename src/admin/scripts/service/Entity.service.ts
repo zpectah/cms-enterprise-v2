@@ -9,8 +9,14 @@ class EntityService {
 	}
 
 	availableActions () {
-		let entityActions = {
-			profile_role: '',
+		const entityModelBase = {
+			view: false,
+			update: false,
+			delete: false,
+			create: false,
+		};
+		let entityActions: profileEntityActionsProps = {
+			profile_role: 'undefined',
 			profile: {
 				active: false,
 				view: false,
@@ -19,75 +25,43 @@ class EntityService {
 			settings: {
 				view: false,
 				update: false,
+				language: false,
 				maintenance: false,
 				blacklist: false,
 			},
 			Users: {
-				view: false,
-				update: false,
-				delete: false,
-				create: false,
+				...entityModelBase,
 				admin: false,
 			},
 			Pages: {
-				view: false,
-				update: false,
-				delete: false,
-				create: false,
+				...entityModelBase
 			},
 			Posts: {
-				view: false,
-				update: false,
-				delete: false,
-				create: false,
+				...entityModelBase
 			},
 			Translations: {
-				view: false,
-				update: false,
-				delete: false,
-				create: false,
+				...entityModelBase
 			},
 			Categories: {
-				view: false,
-				update: false,
-				delete: false,
-				create: false,
+				...entityModelBase
 			},
 			Tags: {
-				view: false,
-				update: false,
-				delete: false,
-				create: false,
+				...entityModelBase
 			},
 			Uploads: {
-				view: false,
-				update: false,
-				delete: false,
-				create: false,
+				...entityModelBase
 			},
 			Menu: {
-				view: false,
-				update: false,
-				delete: false,
-				create: false,
+				...entityModelBase
 			},
 			MenuItems: {
-				view: false,
-				update: false,
-				delete: false,
-				create: false,
+				...entityModelBase
 			},
 			Members: {
-				view: false,
-				update: false,
-				delete: false,
-				create: false,
+				...entityModelBase
 			},
 			Messages: {
-				view: false,
-				update: false,
-				delete: false,
-				create: false,
+				...entityModelBase
 			},
 		};
 		if (this.entity?.id) {
@@ -98,7 +72,7 @@ class EntityService {
 			};
 		}
 
-		return entityActions as profileEntityActionsProps;
+		return entityActions;
 	}
 
 }

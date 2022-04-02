@@ -8,7 +8,7 @@ import routes from '../../routes';
 import useSettings from '../../hooks/useSettings';
 import { useCategories } from '../../hooks/model';
 import { CategoriesItemProps } from '../../types/model';
-import { submitMethodProps } from '../../types/common';
+import { submitMethodProps, entityActionsType } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import CommentsManager from '../Comments/CommentsManager';
 import {
@@ -36,6 +36,7 @@ interface CategoriesDetailProps {
 	onSubmit: (method: submitMethodProps, master: CategoriesItemProps) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
+	actions: entityActionsType;
 }
 
 const CategoriesDetail = (props: CategoriesDetailProps) => {
@@ -44,6 +45,7 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 		onSubmit,
 		onDelete,
 		loading,
+		actions,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
@@ -119,6 +121,11 @@ const CategoriesDetail = (props: CategoriesDetailProps) => {
 				<ControlledDetailFormLayout
 					mandatoryInfo
 					dataId="CategoriesDetailForm"
+					actions={{
+						update: actions.update,
+						create: actions.create,
+						delete: actions.delete,
+					}}
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}

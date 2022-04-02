@@ -8,7 +8,7 @@ import routes from '../../routes';
 import useSettings from '../../hooks/useSettings';
 import { useMenu } from '../../hooks/model';
 import { MenuItemProps } from '../../types/model';
-import { submitMethodProps } from '../../types/common';
+import { submitMethodProps, entityActionsType } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import MenuItemsManager from '../MenuItems/MenuItemsManager';
 import {
@@ -33,6 +33,7 @@ interface MenuDetailProps {
 	onSubmit: (method: submitMethodProps, master: MenuItemProps) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
+	actions: entityActionsType;
 }
 
 const MenuDetail = (props: MenuDetailProps) => {
@@ -41,6 +42,7 @@ const MenuDetail = (props: MenuDetailProps) => {
 		onSubmit,
 		onDelete,
 		loading,
+		actions,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
@@ -115,6 +117,11 @@ const MenuDetail = (props: MenuDetailProps) => {
 				<ControlledDetailFormLayout
 					mandatoryInfo
 					dataId="MenuDetailForm"
+					actions={{
+						update: actions.update,
+						create: actions.create,
+						delete: actions.delete,
+					}}
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}

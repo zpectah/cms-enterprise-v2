@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
 import { useUsers } from '../../hooks/model';
 import PickerBase, { DefaultPickerBaseProps } from './Picker.Base';
@@ -21,7 +21,7 @@ const UsersPicker = (props: UsersPickerProps) => {
 		users_loading,
 	} = useUsers();
 
-	const getOptionsList = useCallback(() => {
+	const options_list = useMemo(() => {
 		const list = [];
 		if (users && users.length > 0) {
 			users.map((item) => {
@@ -42,7 +42,7 @@ const UsersPicker = (props: UsersPickerProps) => {
 		<>
 			<PickerBase
 				loading={users_loading}
-				options={getOptionsList()}
+				options={options_list}
 				placeholder={placeholder}
 				value={tmpValue}
 				{...rest}

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import config from '../../config';
 import routes from '../../routes';
 import { MessagesItemProps } from '../../types/model';
-import { submitMethodProps } from '../../types/common';
+import { submitMethodProps, entityActionsType } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
@@ -31,6 +31,7 @@ interface MessagesDetailProps {
 	onSubmit: (method: submitMethodProps, master: MessagesItemProps) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
+	actions: entityActionsType;
 }
 
 const MessagesDetail = (props: MessagesDetailProps) => {
@@ -39,6 +40,7 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 		onSubmit,
 		onDelete,
 		loading,
+		actions,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
@@ -98,6 +100,11 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 				<ControlledDetailFormLayout
 					mandatoryInfo
 					dataId="MessagesDetailForm"
+					actions={{
+						update: actions.update,
+						create: actions.create,
+						delete: actions.delete,
+					}}
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}

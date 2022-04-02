@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import routes from '../../routes';
 import { UsersItemProps } from '../../types/model';
+import { entityActionsType } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import DataTable from '../../component/DataTable';
 import { BarPreloader } from '../../component/ui';
@@ -13,6 +14,8 @@ interface UsersListProps {
 	onToggle: (master: number[]) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
+	actions: entityActionsType;
+	role: string;
 }
 
 const UsersList = (props: UsersListProps) => {
@@ -21,6 +24,8 @@ const UsersList = (props: UsersListProps) => {
 		onToggle,
 		onDelete,
 		loading,
+		actions,
+		role,
 	} = props;
 
 	const tableOptions = {
@@ -59,6 +64,7 @@ const UsersList = (props: UsersListProps) => {
 				onToggle={onToggle}
 				onDelete={onDelete}
 				loading={loading}
+				actions={actions}
 			/>
 		</>
 	);

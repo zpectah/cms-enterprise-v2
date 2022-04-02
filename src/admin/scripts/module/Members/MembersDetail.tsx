@@ -8,7 +8,7 @@ import routes from '../../routes';
 import { EMAIL_REGEX } from '../../constants';
 import { useMembers } from '../../hooks/model';
 import { MembersItemProps } from '../../types/model';
-import { submitMethodProps } from '../../types/common';
+import { submitMethodProps, entityActionsType } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
@@ -35,6 +35,7 @@ interface MembersDetailProps {
 	onSubmit: (method: submitMethodProps, master: MembersItemProps) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
+	actions: entityActionsType;
 }
 
 const MembersDetail = (props: MembersDetailProps) => {
@@ -43,6 +44,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 		onSubmit,
 		onDelete,
 		loading,
+		actions,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
@@ -111,6 +113,11 @@ const MembersDetail = (props: MembersDetailProps) => {
 				<ControlledDetailFormLayout
 					mandatoryInfo
 					dataId="MembersDetailForm"
+					actions={{
+						update: actions.update,
+						create: actions.create,
+						delete: actions.delete,
+					}}
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}

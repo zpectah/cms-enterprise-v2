@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, { useCallback, useEffect, useState, useRef, useMemo } from 'react';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import {
@@ -23,6 +23,7 @@ import {
 	FORM_INPUT_MIN_LENGTH,
 	LANGUAGE_OPTION_DEFAULT,
 } from '../../constants';
+import useProfile from '../../hooks/useProfile';
 import {
 	useCategories,
 	useTags,
@@ -80,12 +81,16 @@ const DataTable = (props: DataTableProps) => {
 		model,
 	} = props;
 
-	const rowPadding = 'normal';
-
 	const tableElement = useRef();
 	const { t } = useTranslation([ 'table', 'types' ]);
 	const { categories } = useCategories();
 	const { tags } = useTags();
+	const {
+		profile,
+		available_actions,
+		compareUserForUpdate,
+		compareUserForDelete,
+	} = useProfile();
 	const [ order, setOrder ] = useState<orderType>(defaultOrder);
 	const [ orderBy, setOrderBy ] = useState<keyof string | number | any>(defaultOrderBy);
 	const [ selected, setSelected ] = useState<readonly number[]>([]);
@@ -103,6 +108,9 @@ const DataTable = (props: DataTableProps) => {
 		rowsCount: 0,
 		columnsCount: 0,
 	});
+
+	const rowPadding = 'normal';
+	const actions = available_actions[model];
 
 	const getColumnsCount = () => {
 		const root: any = tableElement.current;
@@ -155,25 +163,27 @@ const DataTable = (props: DataTableProps) => {
 	const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
 	const detailCallback = (id: number) => {
-		onDetail(id);
+		if (actions.update) onDetail(id);
 	};
 	const toggleCallback = (ids: number[]) => {
 		const master = [ ...ids ];
-		onToggle(master).then((resp) => {
+		if (actions.update) onToggle(master).then((resp) => {
 			setSelected([]);
 		});
 	};
 	const deleteCallback = () => {
 		const master = [ ...confirmData ];
-		onDelete(master).then((resp) => {
+		if (actions.delete) onDelete(master).then((resp) => {
 			setConfirmOpen(false);
 			setConfirmData([]);
 			setSelected([]);
 		});
 	};
 	const deleteConfirm = (ids: number[]) => {
-		setConfirmData([...ids]);
-		setConfirmOpen(true);
+		if (actions.delete) {
+			setConfirmData([...ids]);
+			setConfirmOpen(true);
+		}
 	};
 	const exportCallback = (response: unknown) => {
 		if (afterExport) afterExport(response);
@@ -183,8 +193,17 @@ const DataTable = (props: DataTableProps) => {
 		setExportOpen(true);
 	};
 
+	const userCanUpdate = useMemo(() => {
+		return actions.update;
+	}, [ profile, available_actions ]);
+	const userCanDelete = useMemo(() => {
+		return actions.delete;
+	}, [ profile, available_actions ]);
+
 	const getColumns = useCallback((row: any) => {
 		const cols: columnItemProps[] = [];
+		let canUpdate = userCanUpdate;
+		if (model === 'Users') canUpdate = compareUserForUpdate(row);
 
 		if (columns.id) cols.push({
 			id: 'id',
@@ -206,7 +225,9 @@ const DataTable = (props: DataTableProps) => {
 			scope: true,
 			children: (
 				<RowItemLink
-					onClick={() => detailCallback(row.id)}
+					onClick={() => {
+						if (canUpdate) detailCallback(row.id);
+					}}
 				>
 					{row.email}
 				</RowItemLink>
@@ -220,7 +241,9 @@ const DataTable = (props: DataTableProps) => {
 			scope: true,
 			children: (
 				<RowItemLink
-					onClick={() => detailCallback(row.id)}
+					onClick={() => {
+						if (canUpdate) detailCallback(row.id);
+					}}
 				>
 					{row.name}
 				</RowItemLink>
@@ -249,6 +272,7 @@ const DataTable = (props: DataTableProps) => {
 				<Switch
 					checked={row.active}
 					onChange={() => toggleCallback([row.id])}
+					disabled={!canUpdate}
 				/>
 			),
 		});
@@ -295,7 +319,8 @@ const DataTable = (props: DataTableProps) => {
 		// Paginating and orders
 		return items.slice().sort(getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 	}, [ rows, filter, order, orderBy, page, rowsPerPage ]);
-	const getTypesOptions = useCallback(() => {
+
+	const options_types = useMemo(() => {
 		const tmp = getTypesFromData(rows);
 		const options = [
 			{
@@ -315,7 +340,7 @@ const DataTable = (props: DataTableProps) => {
 
 		return options;
 	}, [ rows ]);
-	const getCategoriesOptions = useCallback(() => {
+	const options_categories = useMemo(() => {
 		const tmp = getCategoriesFromData(rows);
 		const options = [];
 		if (tmp.length > 0 && categories) {
@@ -332,7 +357,7 @@ const DataTable = (props: DataTableProps) => {
 
 		return options;
 	}, [ rows, categories ]);
-	const getTagsOptions = useCallback(() => {
+	const options_tags = useMemo(() => {
 		const tmp = getTagsFromData(rows);
 		const options = [];
 		if (tmp.length > 0 && tags) {
@@ -379,9 +404,11 @@ const DataTable = (props: DataTableProps) => {
 						onToggleSelected={() => toggleCallback([...selected])}
 						onDeleteSelected={() => deleteConfirm([...selected])}
 						onExportSelected={() => exportConfirm([...selected])}
-						optionsType={getTypesOptions()}
-						optionsCategories={getCategoriesOptions()}
-						optionsTags={getTagsOptions()}
+						optionsType={options_types}
+						optionsCategories={options_categories}
+						optionsTags={options_tags}
+						actions={actions}
+						model={model}
 					/>
 					<Divider />
 					<TableContainer>
@@ -429,6 +456,42 @@ const DataTable = (props: DataTableProps) => {
 								{getRows().map((row, index) => {
 										const isItemSelected = isSelected(row.id);
 										const labelId = `${id}_checkbox_${index}`;
+										let canUpdate = userCanUpdate;
+										let canDelete = userCanDelete;
+										if (model === 'Users') {
+											canUpdate = compareUserForUpdate(row);
+											canDelete = compareUserForDelete(row);
+										}
+										const getActionsOptions = () => {
+											const options = [];
+											if (canUpdate) {
+												options.push({
+													key: 'detail',
+													label: t('table:row.menu.detail'),
+													onClick: () => detailCallback(row.id),
+													hidden: !canUpdate,
+												});
+												options.push({
+													key: 'toggle',
+													label: t('table:row.menu.toggle'),
+													onClick: () => toggleCallback([row.id]),
+													disabled: !rowToggleActive,
+													hidden: !canUpdate,
+												});
+											}
+											if (canDelete) {
+												options.push({
+													key: 'delete',
+													label: t('table:row.menu.delete'),
+													onClick: () => deleteConfirm([row.id]),
+													disabled: !rowDeleteActive,
+													hidden: !canDelete,
+												});
+											}
+
+											return options;
+										};
+										const actionsOptions = getActionsOptions();
 
 										return (
 											<TableRow
@@ -471,25 +534,8 @@ const DataTable = (props: DataTableProps) => {
 												>
 													<MoreMenu
 														id={`${id}_rowMore_${row.id}`}
-														options={[
-															{
-																key: 'detail',
-																label: t('table:row.menu.detail'),
-																onClick: () => detailCallback(row.id),
-															},
-															{
-																key: 'toggle',
-																label: t('table:row.menu.toggle'),
-																onClick: () => toggleCallback([row.id]),
-																disabled: !rowToggleActive,
-															},
-															{
-																key: 'delete',
-																label: t('table:row.menu.delete'),
-																onClick: () => deleteConfirm([row.id]),
-																disabled: !rowDeleteActive,
-															},
-														]}
+														options={actionsOptions}
+														disabled={actionsOptions.length === 0}
 													/>
 												</TableCell>
 											</TableRow>

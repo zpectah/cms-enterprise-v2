@@ -8,7 +8,7 @@ import routes from '../../routes';
 import useSettings from '../../hooks/useSettings';
 import { usePages } from '../../hooks/model';
 import { PagesItemProps } from '../../types/model';
-import { submitMethodProps } from '../../types/common';
+import { submitMethodProps, entityActionsType } from '../../types/common';
 import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
@@ -35,6 +35,7 @@ interface PagesDetailProps {
 	onSubmit: (method: submitMethodProps, master: PagesItemProps) => Promise<unknown>;
 	onDelete: (master: number[]) => Promise<unknown>;
 	loading: boolean;
+	actions: entityActionsType;
 }
 
 const PagesDetail = (props: PagesDetailProps) => {
@@ -43,6 +44,7 @@ const PagesDetail = (props: PagesDetailProps) => {
 		onSubmit,
 		onDelete,
 		loading,
+		actions,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
@@ -127,6 +129,11 @@ const PagesDetail = (props: PagesDetailProps) => {
 				<ControlledDetailFormLayout
 					mandatoryInfo
 					dataId="PagesDetailForm"
+					actions={{
+						update: actions.update,
+						create: actions.create,
+						delete: actions.delete,
+					}}
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}

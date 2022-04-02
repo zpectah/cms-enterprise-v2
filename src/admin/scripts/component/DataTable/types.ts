@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { appModel } from '../../types/app';
+import { entityActionsType } from '../../types/common';
 
 export type orderType = 'asc' | 'desc';
 
@@ -56,6 +57,7 @@ export interface DataTableProps {
 	rowDeleteActive?: boolean;
 	loading?: boolean;
 	model: appModel;
+	actions: entityActionsType;
 }
 
 export interface TableToolbarProps {
@@ -67,4 +69,6 @@ export interface TableToolbarProps {
 	onToggleSelected?: () => void;
 	onDeleteSelected?: () => void;
 	onExportSelected?: () => void;
+	actions: entityActionsType;
+	model: appModel;
 }

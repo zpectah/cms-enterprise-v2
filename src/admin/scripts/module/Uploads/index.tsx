@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Alert } from '@mui/material';
 
 import { UploadsItemProps } from '../../types/model';
 import { useUploads } from '../../hooks/model';
@@ -82,6 +83,7 @@ const UploadsModule = () => {
 							onFinishSubmit={(count) => {
 								if (count > 1) createSuccessToast({ title: t('messages:model.all_files_uploaded') });
 							}}
+							actions={available_actions.Uploads}
 						/>
 					} />
 					<Route index element={
@@ -90,13 +92,17 @@ const UploadsModule = () => {
 							onToggle={toggleHandler}
 							onDelete={deleteHandler}
 							loading={uploads_loading}
+							actions={available_actions.Uploads}
 						/>
 					} />
 				</Routes>
 			) : (
-				<>
+				<Alert
+					severity="warning"
+					sx={{ width: '100%' }}
+				>
 					{t('messages:profile.user_missing_permission')}
-				</>
+				</Alert>
 			)}
 		</>
 	);

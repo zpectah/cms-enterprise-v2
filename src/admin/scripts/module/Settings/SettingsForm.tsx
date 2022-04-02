@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -40,6 +40,13 @@ interface SettingsFormProps {
 	onSubmit: (master: settingsProps) => Promise<unknown>;
 	loading: boolean;
 	afterLanguageInstall: (lang: installerRequestProps) => void;
+	actions: {
+		view: boolean,
+		update: boolean,
+		language: boolean,
+		maintenance: boolean,
+		blacklist: boolean,
+	};
 }
 
 const SettingsForm = (props: SettingsFormProps) => {
@@ -48,6 +55,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 		onSubmit,
 		loading,
 		afterLanguageInstall,
+		actions,
 	} = props;
 
 	const { t } = useTranslation([ 'common', 'components' ]);
@@ -62,36 +70,42 @@ const SettingsForm = (props: SettingsFormProps) => {
 			key: 'global',
 			label: t('components:SettingsForm.panel.global'),
 			icon: <ApartmentIcon fontSize="small" />,
+			hidden: !actions.view,
 		},
 		{
 			index: 1,
 			key: 'web',
 			label: t('components:SettingsForm.panel.web'),
 			icon: <WebIcon fontSize="small" />,
+			hidden: !actions.view,
 		},
 		{
 			index: 2,
 			key: 'content',
 			label: t('components:SettingsForm.panel.content'),
 			icon: <ContentPasteIcon fontSize="small" />,
+			hidden: !actions.view,
 		},
 		{
 			index: 3,
 			key: 'languages',
 			label: t('components:SettingsForm.panel.languages'),
 			icon: <LanguageIcon fontSize="small" />,
+			hidden: !(actions.view && actions.language),
 		},
 		{
 			index: 4,
 			key: 'maintenance',
 			label: t('components:SettingsForm.panel.maintenance'),
 			icon: <CleaningServicesIcon fontSize="small" />,
+			hidden: !(actions.view && actions.maintenance),
 		},
 		{
 			index: 5,
 			key: 'blacklist',
 			label: t('components:SettingsForm.panel.blacklist'),
 			icon: <ListAltIcon fontSize="small" />,
+			hidden: !(actions.view && actions.blacklist),
 		},
 	];
 	const panelChangeHandler = (e, value: number) => navigate(`/admin/app/${routes.settings.path}/${panels[value].key}`);
@@ -109,14 +123,20 @@ const SettingsForm = (props: SettingsFormProps) => {
 	useEffect(() => {
 		if (params['*']) {
 			panels.map((panel) => {
-				if (params['*'] === panel.key) setPanelValue(panel.index);
+				if (params['*'] === panel.key) {
+					if (panel.hidden) {
+						navigate(`/admin/app/${routes.settings.path}/${panels[0].key}`);
+					} else {
+						setPanelValue(panel.index);
+					}
+				}
 			});
 		} else {
 			navigate(`/admin/app/${routes.settings.path}/${panels[0].key}`);
 		}
 	}, [ params ]);
 
-	const getIndexOptions = useCallback(() => getOptionsList(config.options.common.meta_robots, t), []);
+	const options_index = useMemo(() => getOptionsList(config.options.common.meta_robots, t), []);
 
 	return (
 		<>
@@ -144,12 +164,12 @@ const SettingsForm = (props: SettingsFormProps) => {
 						const watchCommentsGlobal = watch('comments_global_active');
 
 						return (
-							<>
-								<Tabs
-									items={panels}
-									activeValue={panelValue}
-									onChange={panelChangeHandler}
-								>
+							<Tabs
+								items={panels}
+								activeValue={panelValue}
+								onChange={panelChangeHandler}
+							>
+								{!panels[0].hidden && (
 									<TabPanel
 										index={panels[0].index}
 										panelValue={panelValue}
@@ -486,6 +506,8 @@ const SettingsForm = (props: SettingsFormProps) => {
 											</Section>
 										</>
 									</TabPanel>
+								)}
+								{!panels[1].hidden && (
 									<TabPanel
 										index={panels[1].index}
 										panelValue={panelValue}
@@ -582,7 +604,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 
 														return (
 															<Select
-																options={getIndexOptions()}
+																options={options_index}
 																placeholder={t('components:SettingsForm.placeholder.web_meta_robots')}
 																id={`${token}_web_meta_robots`}
 																error={!!error}
@@ -853,6 +875,8 @@ const SettingsForm = (props: SettingsFormProps) => {
 											</Section>
 										</>
 									</TabPanel>
+								)}
+								{!panels[2].hidden && (
 									<TabPanel
 										index={panels[2].index}
 										panelValue={panelValue}
@@ -1006,6 +1030,8 @@ const SettingsForm = (props: SettingsFormProps) => {
 											</Section>
 										</>
 									</TabPanel>
+								)}
+								{!panels[3].hidden && (
 									<TabPanel
 										index={panels[3].index}
 										panelValue={panelValue}
@@ -1039,6 +1065,8 @@ const SettingsForm = (props: SettingsFormProps) => {
 											</Section>
 										</>
 									</TabPanel>
+								)}
+								{!panels[4].hidden && (
 									<TabPanel
 										index={panels[4].index}
 										panelValue={panelValue}
@@ -1049,6 +1077,8 @@ const SettingsForm = (props: SettingsFormProps) => {
 											children={<SettingsMaintenancePanel />}
 										/>
 									</TabPanel>
+								)}
+								{!panels[5].hidden && (
 									<TabPanel
 										index={panels[5].index}
 										panelValue={panelValue}
@@ -1059,19 +1089,21 @@ const SettingsForm = (props: SettingsFormProps) => {
 											children={<SettingsBlacklist />}
 										/>
 									</TabPanel>
-								</Tabs>
-							</>
+								)}
+							</Tabs>
 						);
 					}}
 					renderActions={({ form: { formState: { isValid } } }) => (
 						<>
-							<PrimaryButton
-								type="submit"
-								disabled={!isValid}
-								loading={submitting}
-							>
-								{t('btn.save_changes')}
-							</PrimaryButton>
+							{actions.view && (
+								<PrimaryButton
+									type="submit"
+									disabled={!isValid || !actions.update}
+									loading={submitting}
+								>
+									{t('btn.save_changes')}
+								</PrimaryButton>
+							)}
 						</>
 					)}
 				/>

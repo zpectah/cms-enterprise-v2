@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Alert } from '@mui/material';
 
 import { UsersItemProps } from '../../types/model';
 import { useMembers } from '../../hooks/model';
@@ -79,6 +80,7 @@ const UsersModule = () => {
 							onSubmit={submitHandler}
 							onDelete={deleteHandler}
 							loading={members_loading}
+							actions={available_actions.Members}
 						/>
 					} />
 					<Route index element={
@@ -87,13 +89,17 @@ const UsersModule = () => {
 							onToggle={toggleHandler}
 							onDelete={deleteHandler}
 							loading={members_loading}
+							actions={available_actions.Members}
 						/>
 					} />
 				</Routes>
 			) : (
-				<>
+				<Alert
+					severity="warning"
+					sx={{ width: '100%' }}
+				>
 					{t('messages:profile.user_missing_permission')}
-				</>
+				</Alert>
 			)}
 		</>
 	);

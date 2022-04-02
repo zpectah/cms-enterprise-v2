@@ -1,18 +1,8 @@
 import { UsersItemProps } from './model';
-
-export interface profileProps extends UsersItemProps {
-	entity_actions: profileEntityActionsProps;
-}
-
-type entityModelType = {
-	view: boolean,
-	update: boolean,
-	delete: boolean,
-	create: boolean,
-}
+import { entityActionsType, entityRoleType } from './common';
 
 export interface profileEntityActionsProps {
-	profile_role: string | null,
+	profile_role: entityRoleType,
 	profile: {
 		active: boolean,
 		view: boolean,
@@ -21,24 +11,23 @@ export interface profileEntityActionsProps {
 	settings: {
 		view: boolean,
 		update: boolean,
+		language: boolean,
 		maintenance: boolean,
 		blacklist: boolean,
 	},
-	Users: {
-		view: boolean,
-		update: boolean,
-		delete: boolean,
-		create: boolean,
-		admin: boolean,
-	},
-	Pages: entityModelType,
-	Posts: entityModelType,
-	Translations: entityModelType,
-	Categories: entityModelType,
-	Tags: entityModelType,
-	Uploads: entityModelType,
-	Menu: entityModelType,
-	MenuItems: entityModelType,
-	Members: entityModelType,
-	Messages: entityModelType,
+	Users: entityActionsType,
+	Pages: entityActionsType,
+	Posts: entityActionsType,
+	Translations: entityActionsType,
+	Categories: entityActionsType,
+	Tags: entityActionsType,
+	Uploads: entityActionsType,
+	Menu: entityActionsType,
+	MenuItems: entityActionsType,
+	Members: entityActionsType,
+	Messages: entityActionsType,
+}
+
+export interface profileProps extends UsersItemProps {
+	entity_actions: profileEntityActionsProps;
 }

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Stack } from '@mui/material';
 
@@ -18,23 +18,38 @@ const TableToolbar = (props: TableToolbarProps) => {
 		onToggleSelected,
 		onDeleteSelected,
 		onExportSelected,
+		actions,
+		model,
 	} = props;
 
-	const getMenuOptions = useCallback(() => {
+	const options_menu = useMemo(() => {
 		const tmp = [];
-		if (onToggleSelected) tmp.push({
-			key: 'toggle_selected',
-			label: t('table:selected.toggle'),
-			onClick: () => onToggleSelected(),
-		});
-		if (onDeleteSelected) tmp.push({
-			key: 'delete_selected',
-			label: t('table:selected.delete'),
-			onClick: () => onDeleteSelected(),
-		});
+		if (onToggleSelected && actions.update) {
+			if (model === 'Users') {
+				if (actions.delete) tmp.push({
+					key: 'toggle_selected',
+					label: t('table:selected.toggle'),
+					onClick: () => onToggleSelected(),
+				});
+			} else {
+				tmp.push({
+					key: 'toggle_selected',
+					label: t('table:selected.toggle'),
+					onClick: () => onToggleSelected(),
+				});
+			}
+		}
+		if (onDeleteSelected && actions.delete) {
+			tmp.push({
+				key: 'delete_selected',
+				label: t('table:selected.delete'),
+				onClick: () => onDeleteSelected(),
+			});
+		}
 		if (
 			onExportSelected
 			&& config.project.extras.TABLE_EXPORT_GLOBAL
+			&& actions.view
 		) tmp.push({
 			key: 'export_selected',
 			label: t('table:selected.export'),
@@ -75,7 +90,7 @@ const TableToolbar = (props: TableToolbarProps) => {
 							{t('table:selected.selected')} {selected.length}
 						</Button>
 					)}
-					options={getMenuOptions()}
+					options={options_menu}
 				/>
 			</Stack>
 		</div>

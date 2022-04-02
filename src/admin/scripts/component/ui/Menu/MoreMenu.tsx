@@ -18,6 +18,7 @@ export interface MoreMenuProps {
 	width?: string;
 	iconButtonProps?: IconButtonProps;
 	boxProps?: BoxProps;
+	disabled?: boolean;
 }
 
 const MoreMenu = (props: MoreMenuProps) => {
@@ -33,6 +34,7 @@ const MoreMenu = (props: MoreMenuProps) => {
 		boxProps = {
 			component: 'div',
 		},
+		disabled,
 	} = props;
 
 	const [ anchorEl, setAnchorEl ] = useState<null | HTMLElement>(null);
@@ -60,6 +62,7 @@ const MoreMenu = (props: MoreMenuProps) => {
 				aria-expanded={open ? 'true' : undefined}
 				aria-haspopup="true"
 				onClick={openHandler}
+				disabled={disabled}
 				{...iconButtonProps}
 			>
 				<MoreVertIcon fontSize="small" />

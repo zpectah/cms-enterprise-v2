@@ -10,6 +10,7 @@ export interface TabsProps extends MuiTabsProps {
 		key: string,
 		label: string,
 		icon?: string | React.ReactElement<any, string | React.JSXElementConstructor<any>>,
+		hidden?: boolean,
 	}[];
 	activeValue: number;
 }
@@ -44,36 +45,38 @@ const Tabs = (props: TabsProps) => {
 					aria-label="basic tabs example"
 					{...rest}
 				>
-					{items.map((item) => (
-						<Tab
-							key={item.key}
-							label={
-								<span
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										alignItems: 'center',
-									}}
-								>
-									{item.icon && item.icon}
+					{items.map((item) => {
+						if (!item.hidden) return (
+							<Tab
+								key={item.key}
+								label={
 									<span
 										style={{
-											marginLeft: item.icon ? '.5rem' : 0,
+											display: 'flex',
+											flexDirection: 'row',
+											alignItems: 'center',
 										}}
 									>
+									{item.icon && item.icon}
+										<span
+											style={{
+												marginLeft: item.icon ? '.5rem' : 0,
+											}}
+										>
 										{item.label}
 									</span>
 								</span>
-							}
-							// icon={item.icon}
-							// iconPosition="start"
-							style={{
-								maxHeight: '2rem',
-								textTransform: 'initial',
-							}}
-							{...a11yProps(item.index)}
-						/>
-					))}
+								}
+								// icon={item.icon}
+								// iconPosition="start"
+								style={{
+									maxHeight: '2rem',
+									textTransform: 'initial',
+								}}
+								{...a11yProps(item.index)}
+							/>
+						);
+					})}
 				</MuiTabs>
 			</Box>
 			<Box>
