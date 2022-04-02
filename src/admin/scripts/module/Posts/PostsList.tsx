@@ -58,6 +58,7 @@ const PostsList = (props: PostsListProps) => {
 					'lang.[lang].description',
 				]}
 				onDetail={(id) => navigate(`${tableOptions.root}/detail/${id}`)}
+				onReplicate={(id) => navigate(`${tableOptions.root}/detail/new?replica=${id}`)}
 				onToggle={onToggle}
 				onDelete={onDelete}
 				loading={loading}

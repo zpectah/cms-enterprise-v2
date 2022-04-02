@@ -70,6 +70,7 @@ const DataTable = (props: DataTableProps) => {
 		defaultOrder = DATA_TABLE.sortDefault as orderType,
 		defaultOrderBy = 'id',
 		onDetail,
+		onReplicate,
 		onToggle,
 		onDelete,
 		// onExport,
@@ -111,6 +112,7 @@ const DataTable = (props: DataTableProps) => {
 
 	const rowPadding = 'normal';
 	const actions = available_actions[model];
+	const replicateOptions = !!onReplicate;
 
 	const getColumnsCount = () => {
 		const root: any = tableElement.current;
@@ -162,6 +164,9 @@ const DataTable = (props: DataTableProps) => {
 	};
 	const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
+	const replicateCallback = (id: number) => {
+		if (replicateOptions && actions.create) onReplicate(id);
+	};
 	const detailCallback = (id: number) => {
 		if (actions.update) onDetail(id);
 	};
@@ -319,6 +324,43 @@ const DataTable = (props: DataTableProps) => {
 		// Paginating and orders
 		return items.slice().sort(getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 	}, [ rows, filter, order, orderBy, page, rowsPerPage ]);
+	const getActionsOptions = useCallback((row: any, canUpdate: boolean, canDelete: boolean) => {
+		const options = [];
+		if (canUpdate) {
+			options.push({
+				key: 'detail',
+				label: t('table:row.menu.detail'),
+				onClick: () => detailCallback(row.id),
+				hidden: !canUpdate,
+			});
+			options.push({
+				key: 'toggle',
+				label: t('table:row.menu.toggle'),
+				onClick: () => toggleCallback([row.id]),
+				disabled: !rowToggleActive,
+				hidden: !canUpdate,
+			});
+		}
+		if (canDelete) {
+			options.push({
+				key: 'delete',
+				label: t('table:row.menu.delete'),
+				onClick: () => deleteConfirm([row.id]),
+				disabled: !rowDeleteActive,
+				hidden: !canDelete,
+			});
+		}
+		if (replicateOptions && actions.create) {
+			options.push({
+				key: 'replicate',
+				label: t('table:row.menu.replicate'),
+				onClick: () => replicateCallback(row.id),
+				disabled: !row.template,
+			});
+		}
+
+		return options;
+	}, [ actions, replicateOptions ]);
 
 	const options_types = useMemo(() => {
 		const tmp = getTypesFromData(rows);
@@ -462,36 +504,7 @@ const DataTable = (props: DataTableProps) => {
 											canUpdate = compareUserForUpdate(row);
 											canDelete = compareUserForDelete(row);
 										}
-										const getActionsOptions = () => {
-											const options = [];
-											if (canUpdate) {
-												options.push({
-													key: 'detail',
-													label: t('table:row.menu.detail'),
-													onClick: () => detailCallback(row.id),
-													hidden: !canUpdate,
-												});
-												options.push({
-													key: 'toggle',
-													label: t('table:row.menu.toggle'),
-													onClick: () => toggleCallback([row.id]),
-													disabled: !rowToggleActive,
-													hidden: !canUpdate,
-												});
-											}
-											if (canDelete) {
-												options.push({
-													key: 'delete',
-													label: t('table:row.menu.delete'),
-													onClick: () => deleteConfirm([row.id]),
-													disabled: !rowDeleteActive,
-													hidden: !canDelete,
-												});
-											}
-
-											return options;
-										};
-										const actionsOptions = getActionsOptions();
+										const actionsOptions = getActionsOptions(row, canUpdate, canDelete);
 
 										return (
 											<TableRow

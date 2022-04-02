@@ -12,7 +12,8 @@
     "menu": {
       "detail": "Zobrazit detail",
       "toggle": "Přepnout",
-      "delete": "Smazat řádek"
+      "delete": "Smazat řádek",
+      "replicate": "Replikovat"
     },
     "info": {
       "loading": "Načítání dat, vydržte prosím",

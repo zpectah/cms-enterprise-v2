@@ -49,6 +49,7 @@ export interface DataTableProps {
 	defaultOrder?: orderType;
 	defaultOrderBy?: string;
 	onDetail: (id: number) => void;
+	onReplicate?: (id: number) => void;
 	onToggle: (ids: number[]) => Promise<unknown>;
 	onDelete: (ids: number[]) => Promise<unknown>;
 	afterExport?: (response: any) => void;
@@ -58,6 +59,7 @@ export interface DataTableProps {
 	loading?: boolean;
 	model: appModel;
 	actions: entityActionsType;
+	replicateOptions?: boolean;
 }
 
 export interface TableToolbarProps {

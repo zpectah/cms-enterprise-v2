@@ -103,20 +103,38 @@ const PostsDetail = (props: PostsDetailProps) => {
 		setConfirmData([]);
 	};
 
-	useEffect(
-		() => setDetailData(getDetailData(
-			'Posts',
-			dataItems,
-			params.id,
-			languageActive,
-			{
-				title: '',
-				description: '',
-				content: '',
-			},
-		)),
-		[ dataItems, params, languageActive ],
-	);
+	useEffect(() => {
+		const loc = window.location;
+		const href = loc.href;
+		const search = new URLSearchParams(href.split('?')[1]);
+		const replica = search.get('replica');
+		let detailData;
+		if (replica) {
+			const template = dataItems.find((item) => item.id === Number(replica));
+			if (template) {
+				detailData = {
+					...template,
+					id: 'new',
+					name: `copy-${template.name}`,
+					template: false,
+				};
+			}
+		} else {
+			detailData = getDetailData(
+				'Posts',
+				dataItems,
+				params.id,
+				languageActive,
+				{
+					title: '',
+					description: '',
+					content: '',
+				},
+			);
+		}
+
+		if (detailData) setDetailData(detailData);
+	}, [ dataItems, params, languageActive, window.location ]);
 
 	const options_type = useMemo(
 		() => getOptionsList(config.options.model.Posts.type, t),
