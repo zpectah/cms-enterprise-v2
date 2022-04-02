@@ -52,11 +52,14 @@ class MenuItems {
         // request params
         $__menuId = $data['menu_id'];
         $__with_children = $data['with_children'];
+        $__ids = $data['ids']; // Must be an array[]
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
                 if ($__menuId) {
                     if ($__menuId == $row['menu_id']) $response[] = self::get_updated_row($conn, $row, $languages);
+                } else if ($__ids) {
+                    if (in_array($row['id'], $__ids)) $response[] = self::get_updated_row($conn, $row, $languages);
                 } else {
                     $response[] = self::get_updated_row($conn, $row, $languages);
                 }

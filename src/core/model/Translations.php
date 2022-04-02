@@ -40,12 +40,15 @@ class Translations {
         // request params
         $__parsed = $params['parsed'];
         $__lang = $params['lang'];
+        $__ids = $params['ids']; // Must be an array[]
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
                 if ($__parsed == 'true' and $__lang) {
                     $r = self::get_updated_row($conn, $row, $languages);
                     $response[$row['name']] = $r['lang'][$__lang]['value'];
+                } else if ($__ids) {
+                    if (in_array($row['id'], $__ids)) $response[] = self::get_updated_row($conn, $row, $languages);
                 } else {
                     $response[] = self::get_updated_row($conn, $row, $languages);
                 }

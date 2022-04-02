@@ -27,11 +27,13 @@ export const post = async (url: string, data: unknown): Promise<apiResponseDefau
 };
 
 export const postRaw = async (url: string, data: unknown): Promise<any> => {
-	return await fetch(url, {
+	const response = await fetch(url, {
 		method: 'POST',
 		...init,
 		body: JSON.stringify(data),
 	});
+
+	return response;
 };
 
 export const fetcher = (url: string) => fetch(url, init).then((res) => res?.json());

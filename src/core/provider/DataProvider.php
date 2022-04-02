@@ -973,10 +973,12 @@ class DataProvider {
     }
 
     public function export_data ($data): array {
-        // $conn = new mysqli(...CFG_DB_CONN);
+        $conn = new mysqli(...CFG_DB_CONN);
         $system = new System;
-        $response = $system -> export_data($data);
-        // $conn -> close();
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $system -> export_data($conn, $data, $languages['language_active']);
+        $conn -> close();
 
         return $response;
     }

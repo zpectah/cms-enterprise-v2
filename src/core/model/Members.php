@@ -35,13 +35,13 @@ class Members {
 
         // request params
         $__id = $params['id'];
+        $__ids = $params['ids']; // Must be an array[]
         $__email = $params['email'];
         $__withPassword = $params['with_password'];
         $__checkExist = $params['check_exist'];
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
-                // iterate by params
                 if ($__id) {
                     if ($__id == $row['id']) {
                         if ($__checkExist) {
@@ -50,6 +50,8 @@ class Members {
                             $response = self::get_updated_row($row, $__withPassword);
                         }
                     }
+                } else if ($__ids) {
+                    if (in_array($row['id'], $__ids)) $response[] = self::get_updated_row($row, false);
                 } else if ($__email) {
                     if ($__email == $row['email']) {
                         if ($__checkExist) {

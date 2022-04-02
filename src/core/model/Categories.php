@@ -39,15 +39,14 @@ class Categories {
 
         // request params
         $__id = $params['id'];
-        $__ids = $params['ids'];
+        $__ids = $params['ids']; // Must be an array[]
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
                 if ($__id) {
                     if ($__id == $row['id']) $response = self::get_updated_row($conn, $row, $languages);
                 } else if ($__ids) {
-                    $arr = explode(",", $__ids);
-                    if (in_array($row['id'], $arr)) $response[] = self::get_updated_row($conn, $row, $languages);
+                    if (in_array($row['id'], $__ids)) $response[] = self::get_updated_row($conn, $row, $languages);
                 } else {
                     $response[] = self::get_updated_row($conn, $row, $languages);
                 }

@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-	Box,
-	BoxProps,
-	Divider, Stack,
-	Typography,
-} from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 
 import config from '../../config';
 import { appModel } from '../../types/app';
 import useSystem from '../../hooks/useSystem';
+import { downloadObjectAsJson } from '../../utils/file';
 import {
 	Dialog,
 	DialogProps,
@@ -56,10 +52,13 @@ const ExportDialog = (props: ExportDialogProps) => {
 			model,
 			ids: dataToExport,
 		}).then((resp) => {
-			console.log('response from export', resp);
 			setLoading(false);
-			// handleClose();
-			if (afterExport) afterExport(resp);
+			const now = new Date();
+			const fileNamePrefix = `${model.toLocaleLowerCase()}_export_${now.getTime()}`;
+			downloadObjectAsJson(resp.data, fileNamePrefix).then(() => {
+				handleClose();
+				if (afterExport) afterExport(resp);
+			});
 		});
 	};
 
@@ -81,7 +80,6 @@ const ExportDialog = (props: ExportDialogProps) => {
 				}}
 				{...rest}
 			>
-				<Divider />
 				<Box
 					sx={{
 						py: 2,
@@ -113,24 +111,21 @@ const ExportDialog = (props: ExportDialogProps) => {
 									value: 'json',
 									children: <>json</>,
 									onClick: () => setFormat('json'),
-									disabled: disabledJson,
-									hidden: !config.project.extras.TABLE_EXPORT_JSON,
+									disabled: disabledJson || !config.project.extras.TABLE_EXPORT_JSON,
 								},
 								{
 									key: 'csv',
 									value: 'csv',
 									children: <>csv</>,
 									onClick: () => setFormat('csv'),
-									disabled: disabledCsv,
-									hidden: !config.project.extras.TABLE_EXPORT_CSV,
+									disabled: disabledCsv || !config.project.extras.TABLE_EXPORT_CSV,
 								},
 								{
 									key: 'sql',
 									value: 'sql',
 									children: <>sql</>,
 									onClick: () => setFormat('sql'),
-									disabled: disabledSql,
-									hidden: !config.project.extras.TABLE_EXPORT_SQL,
+									disabled: disabledSql || !config.project.extras.TABLE_EXPORT_SQL,
 								},
 							]}
 						/>
@@ -140,6 +135,7 @@ const ExportDialog = (props: ExportDialogProps) => {
 						spacing={2}
 						sx={{
 							mt: 3,
+							mb: 2,
 						}}
 					>
 						<Button

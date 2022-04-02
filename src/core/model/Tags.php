@@ -29,8 +29,7 @@ class Tags {
         $stmt -> close();
 
         // request params
-        $__ids = null;
-        if ($params['ids']) $__ids = explode(",", $params['ids']);
+        $__ids = $params['ids']; // Must be an array[]
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {

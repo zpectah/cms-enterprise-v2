@@ -85,7 +85,7 @@
     "base_path": "/api"
   },
   "extras": {
-    "TABLE_EXPORT_GLOBAL": false,
+    "TABLE_EXPORT_GLOBAL": true,
     "TABLE_EXPORT_JSON": true,
     "TABLE_EXPORT_CSV": false,
     "TABLE_EXPORT_SQL": false,

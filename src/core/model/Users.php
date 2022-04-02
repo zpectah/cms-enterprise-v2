@@ -34,10 +34,10 @@ class Users {
         $__email = $params['email'];
         $__withPassword = $params['with_password'];
         $__checkExist = $params['check_exist'];
+        $__ids = $params['ids']; // Must be an array[]
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
-                // iterate by params
                 if ($__id) {
                     if ($__id == $row['id']) {
                         if ($__checkExist) {
@@ -54,6 +54,8 @@ class Users {
                             $response = self::get_updated_row($row, $__withPassword);
                         }
                     }
+                } else if ($__ids) {
+                    if (in_array($row['id'], $__ids)) $response[] = self::get_updated_row($row);
                 } else {
                     $response[] = self::get_updated_row($row, $__withPassword);
                 }

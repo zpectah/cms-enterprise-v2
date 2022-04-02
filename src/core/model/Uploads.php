@@ -38,13 +38,12 @@ class Uploads {
         $stmt -> close();
 
         // request params
-        $__ids = $data['ids'];
+        $__ids = $data['ids']; // Must be an array[]
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
                 if ($__ids) {
-                    $rp_ids = explode(",", $__ids);
-                    if (in_array($row['id'], $rp_ids)) $response[] = self::get_updated_row($conn, $row, $languages);
+                    if (in_array($row['id'], $__ids)) $response[] = self::get_updated_row($conn, $row, $languages);
                 } else {
                     $response[] = self::get_updated_row($conn, $row, $languages);
                 }

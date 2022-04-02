@@ -30,10 +30,108 @@ class System {
         return [];
     }
 
-    // TODO
-    public function export_data ($attrs): array {
+    public function export_data ($conn, $data, $languages): array {
+        $response = null;
+        $exported = new \stdClass();
+        $model = $data['model'];
+        $items = $data['ids'];
+        $format = $data['format'];
+        $req = [
+            'ids' => $items,
+        ];
 
-        return [ $attrs ];
+        switch ($format) {
+
+            case 'json':
+
+                switch ($model) {
+
+                    case 'Categories':
+                        $categories = new Categories;
+                        $exported = $categories -> get($conn, $req, $languages);
+                        break;
+
+                    case 'Members':
+                        $members = new Members;
+                        $exported = $members -> get($conn, $req);
+                        break;
+
+                    case 'Menu':
+                        $menu = new Menu;
+                        $exported = $menu -> get($conn, $req, $languages);
+                        break;
+
+                    case 'MenuItems':
+                        $menuItems = new MenuItems;
+                        $exported = $menuItems -> get($conn, $req, $languages);
+                        break;
+
+                    case 'Messages':
+                        $messages = new Messages;
+                        $exported = $messages -> get($conn, $req);
+                        break;
+
+                    case 'Pages':
+                        $pages = new Pages;
+                        $exported = $pages -> get($conn, $req, $languages);
+                        break;
+
+                    case 'Posts':
+                        $posts = new Posts;
+                        $exported = $posts -> get($conn, $req, $languages);
+                        break;
+
+                    case 'Tags':
+                        $tags = new Tags;
+                        $exported = $tags -> get($conn, $req);
+                        break;
+
+                    case 'Translations':
+                        $translations = new Translations;
+                        $exported = $translations -> get($conn, $req, $languages);
+                        break;
+
+                    case 'Uploads':
+                        $uploads = new Uploads;
+                        $exported = $uploads -> get($conn, $req, $languages);
+                        break;
+
+                    case 'Users':
+                        $users = new Users;
+                        $exported = $users -> get($conn, $req);
+                        break;
+
+                }
+
+                $response = $exported;
+
+                break;
+
+            case 'csv':
+
+                // TODO
+                // create blob and return csv as blob
+                // $json = json_encode($exported);
+                // $bytes = file_put_contents("_export.json", $json);
+                // $response = $bytes;
+
+                $response = [ 'scv file' ];
+                break;
+
+            case 'sql':
+
+                // TODO
+                // create blob and return sql as blob
+                // $json = json_encode($exported);
+                // $bytes = file_put_contents("_export.json", $json);
+                // $response = $bytes;
+
+                $response = [ 'sql file' ];
+                break;
+
+        }
+
+        return $response;
     }
 
 
