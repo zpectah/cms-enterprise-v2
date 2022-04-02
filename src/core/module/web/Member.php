@@ -70,7 +70,7 @@ class Member {
         $cmsRequests = new CmsRequests;
         $settings = new Settings;
         $helpers = new Helpers;
-        $sender = $settings['form_email_sender'];
+        $sender = $settings -> get_cms_settings($conn)['form_email_sender'];
         $email = $data['email'];
         $user = $members -> get($conn, ['email' => $email]);
         if ($user) {

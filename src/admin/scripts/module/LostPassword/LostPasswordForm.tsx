@@ -3,20 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import {
-	Paper,
 	Typography,
 	Stack,
-	Box,
+	Alert,
 } from '@mui/material';
 
 import { EMAIL_REGEX } from '../../constants';
-import routes from '../../routes';
 import useProfile from '../../hooks/useProfile';
 import {
 	ControlledForm,
 	ControlledFormRow,
 	Input,
-	PasswordInput,
 	PrimaryButton,
 	Button,
 } from '../../component/ui';
@@ -28,16 +25,19 @@ interface lostPasswordFormProps {
 const LostPasswordForm = () => {
 	const { t } = useTranslation([ 'form', 'components' ]);
 	const [ submitting, setSubmitting ] = useState(false);
+	const [ submitted, setSubmitted ] = useState(false);
+	const [ responseMessage, setResponseMessage ] = useState(null);
 	const navigate = useNavigate();
 	const { userLostPassword } = useProfile();
 
 	const submitHandler = (data: lostPasswordFormProps) => {
 		setSubmitting(true);
+		setResponseMessage(null);
 		const master = _.cloneDeep(data);
-		console.log('submitHandler', master);
 		return userLostPassword(master).then((resp) => {
-			console.log('userLostPassword', resp);
+			setResponseMessage(resp.data.message);
 			setSubmitting(false);
+			setSubmitted(true);
 		});
 	};
 	const loginLinkHandler = () => {
@@ -53,7 +53,7 @@ const LostPasswordForm = () => {
 					textAlign: 'center',
 				}}
 			>
-				Lost password
+				{t('components:LostPasswordForm.title')}
 			</Typography>
 			<div>
 				<ControlledForm
@@ -74,15 +74,15 @@ const LostPasswordForm = () => {
 							>
 								<PrimaryButton
 									type="submit"
-									disabled={!isValid}
+									disabled={!isValid || submitted}
 									loading={submitting}
 								>
-									Send request
+									{t('components:LostPasswordForm.btn.submit')}
 								</PrimaryButton>
 								<Button
 									onClick={loginLinkHandler}
 								>
-									Back to login
+									{t('components:LostPasswordForm.btn.return_login')}
 								</Button>
 							</Stack>
 						);
@@ -93,7 +93,6 @@ const LostPasswordForm = () => {
 
 						return (
 							<>
-
 								<ControlledFormRow
 									name="email"
 									control={control}
@@ -118,7 +117,14 @@ const LostPasswordForm = () => {
 										);
 									}}
 								/>
-
+								{responseMessage && (
+									<Alert
+										severity={responseMessage === 'request_was_send' ? 'success' : 'error'}
+										sx={{ mb: 2 }}
+									>
+										{t(`components:LostPasswordForm.message.${responseMessage}`)}
+									</Alert>
+								)}
 							</>
 						);
 					}}

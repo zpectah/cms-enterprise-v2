@@ -183,7 +183,7 @@ class Profile {
         $cmsRequests = new CmsRequests;
         $settings = new Settings;
         $helpers = new Helpers;
-        $sender = $settings['form_email_sender'];
+        $sender = $settings -> get_cms_settings($conn)['form_email_sender'];
         $email = $data['email'];
         $user = $users -> get($conn, ['email' => $email]);
         if ($user) {
@@ -206,7 +206,8 @@ class Profile {
                     'type' => 'user',
                     'context' => 'lost_password',
                     'value' => $email,
-                    'token' => $token
+                    'token' => $token,
+                    'ip_address' => $helpers -> get_client_ip_address(),
                 ]);
                 $response['message'] = 'request_was_send';
             }

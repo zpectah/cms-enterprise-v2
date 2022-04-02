@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import {
-	Paper,
 	Typography,
 	Stack,
-	Box,
+	Alert,
 } from '@mui/material';
 
-import routes from '../../routes';
 import useProfile from '../../hooks/useProfile';
 import {
 	ControlledForm,
 	ControlledFormRow,
-	Input,
 	PasswordInput,
 	PrimaryButton,
 	Button,
@@ -29,25 +26,24 @@ const CreateNewPasswordForm = () => {
 	const { t } = useTranslation([ 'form', 'components' ]);
 	const params = useParams();
 	const [ submitting, setSubmitting ] = useState(false);
+	const [ submitted, setSubmitted ] = useState(false);
+	const [ responseMessage, setResponseMessage ] = useState(null);
 	const navigate = useNavigate();
 	const { userCreateNewPassword } = useProfile();
 
 	const submitHandler = (data: newPasswordFormProps) => {
 		setSubmitting(true);
+		setResponseMessage(null);
 		const master = _.cloneDeep(data);
-		console.log('submitHandler', master);
 		return userCreateNewPassword(master).then((resp) => {
-			console.log('userCreateNewPassword', resp);
+			setResponseMessage(resp.data.message);
 			setSubmitting(false);
+			setSubmitted(true);
 		});
 	};
 	const loginLinkHandler = () => {
 		navigate(`/admin/login`);
 	};
-
-	useEffect(() => {
-		console.log('params', params);
-	}, [ params ]);
 
 	return (
 		<>
@@ -58,13 +54,13 @@ const CreateNewPasswordForm = () => {
 					textAlign: 'center',
 				}}
 			>
-				Create new password
+				{t('components:CreateNewPasswordForm.title')}
 			</Typography>
 			<div>
 				<ControlledForm
 					dataId="CreateNewPasswordForm"
 					defaultValues={{
-						token: '',
+						token: params?.token,
 						password: '',
 					}}
 					onSubmit={submitHandler}
@@ -80,15 +76,15 @@ const CreateNewPasswordForm = () => {
 							>
 								<PrimaryButton
 									type="submit"
-									disabled={!isValid}
+									disabled={!isValid || submitted}
 									loading={submitting}
 								>
-									Send request
+									{t('components:CreateNewPasswordForm.btn.submit')}
 								</PrimaryButton>
 								<Button
 									onClick={loginLinkHandler}
 								>
-									Back to login
+									{t('components:CreateNewPasswordForm.btn.return_login')}
 								</Button>
 							</Stack>
 						);
@@ -99,7 +95,6 @@ const CreateNewPasswordForm = () => {
 
 						return (
 							<>
-
 								<ControlledFormRow
 									name="password"
 									control={control}
@@ -126,7 +121,14 @@ const CreateNewPasswordForm = () => {
 										);
 									}}
 								/>
-
+								{responseMessage && (
+									<Alert
+										severity={responseMessage === 'user_password_reset_success' ? 'success' : 'error'}
+										sx={{ mb: 2 }}
+									>
+										{t(`components:CreateNewPasswordForm.message.${responseMessage}`)}
+									</Alert>
+								)}
 							</>
 						);
 					}}

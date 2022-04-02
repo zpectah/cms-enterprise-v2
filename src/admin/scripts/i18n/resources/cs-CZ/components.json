@@ -218,8 +218,33 @@
       "already_loggedIn": "Jste již v pořádku přihlášen, není potřeba se přihlašovat znovu"
     }
   },
-  "LostPasswordForm": {},
-  "CreateNewPasswordForm": {},
+  "LostPasswordForm": {
+    "title": "Obnova ztraceného hesla",
+    "btn": {
+      "submit": "Odeslat požadavek",
+      "return_login": "Zpět na přihlášení"
+    },
+    "message": {
+      "user_not_found": "Uživatel nebyl nalezen",
+      "user_not_active": "Tento uživatel není aktivní",
+      "user_is_deleted": "Tento uživatel byl smazaný",
+      "request_was_send": "Požadavek k obnově nového hesla byl úspěšně odeslán, zkonrolujte si svou emailou schránku a požadavek potvrďte."
+    }
+  },
+  "CreateNewPasswordForm": {
+    "title": "Vytvořit nové heslo",
+    "btn": {
+      "submit": "Změnit heslo",
+      "return_login": "Zpět na přihlášení"
+    },
+    "message": {
+      "user_password_reset_error": "Během ukládání nového hesla došlo k chybě, zkuste prosím znovu",
+      "user_password_reset_success": "Nové heslo bylo úspěšně uloženo, nyní se můžete přihlásit s novým heslem a v profilu si ho změnit znovu",
+      "user_password_already_reset": "Nové heslo již bylo vytvořeno",
+      "request_not_found": "Požadavek pro změnu hesla nebyl nalezen",
+      "token_not_found": "Token nebyl nalezen"
+    }
+  },
   "AvatarPicker": {
     "dialog": {
       "title": "Vyberte svůj avatar"
