@@ -1,7 +1,8 @@
 <?php
 const PATH_ROOT = '../../';
 require PATH_ROOT . 'core/index.php';
-
+$as = new \core\service\AuthService;
+$token = $as -> start_app_session();
 ?>
 <!doctype html>
 <html lang="<?= (ADMIN_DOCUMENT['meta']['lang']) ?>">
@@ -17,6 +18,8 @@ require PATH_ROOT . 'core/index.php';
 	<script>
 		window.APP_ENV = window.APP_ENV || '<?=(ENV)?>';
 		window.APP_TIMESTAMP = window.APP_TIMESTAMP || '<?=(TIMESTAMP)?>';
+		window.APP_TOKEN = window.APP_TOKEN || '<?=($token)?>';
+		window.USER_TOKEN = window.USER_TOKEN || '<?=($as -> get_user_token())?>';
 	</script>
 </head>
 <body class="page">

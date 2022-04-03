@@ -12,4 +12,6 @@ export default {
 	project: project,
 	options: options,
 	locales: locales,
+	APP_TOKEN: window.APP_TOKEN,
+	USER_TOKEN: window.USER_TOKEN,
 };

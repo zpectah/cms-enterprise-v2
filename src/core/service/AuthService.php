@@ -4,6 +4,26 @@ namespace core\service;
 
 class AuthService {
 
+    // Application
+    public function start_app_session () {
+        session_start();
+        $token = bin2hex(random_bytes(8));
+        $_SESSION[SESSION_APP_TOKEN_PREFIX] = $token;
+
+        return $token;
+    }
+    public function get_app_token () {
+        session_start();
+
+        return $_SESSION[SESSION_APP_TOKEN_PREFIX];
+    }
+//    public function close_app_session () {
+//        session_start();
+//        unset($_SESSION[SESSION_APP_TOKEN_PREFIX]);
+//
+//        return $_SESSION[SESSION_APP_TOKEN_PREFIX];
+//    }
+
     // User / Profile
     public function get_user_session () {
         session_start();

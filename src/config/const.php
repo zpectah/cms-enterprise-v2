@@ -7,7 +7,7 @@ $CFG_OPTIONS = json_decode(file_get_contents(PATH_ROOT . 'config/options.json'),
 $CFG_PROJECT = json_decode(file_get_contents(PATH_ROOT . 'config/project.json'), true);
 $CFG_LOCALES = json_decode(file_get_contents(PATH_ROOT . 'config/locales.json'), true);
 
-
+const APP_DEBUG = true;
 const ENV = BUILD['env'];
 const TIMESTAMP = BUILD['timestamp'];
 const PASS_CRYPT = PASSWORD_ARGON2ID;
@@ -99,6 +99,7 @@ const MESSAGES = [
     ],
 ];
 const SESSION_USER_NAME_PREFIX = 'cms_enterprise_user';
+const SESSION_APP_TOKEN_PREFIX = 'cms_enterprise_app_token';
 const SESSION_USER_TOKEN_PREFIX = 'cms_enterprise_user_token';
 const SESSION_MEMBER_NAME_PREFIX = 'cms_enterprise_member';
 const SESSION_MEMBER_TOKEN_PREFIX = 'cms_enterprise_member_token';

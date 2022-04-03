@@ -1,10 +1,11 @@
+import config from '../config';
 import { apiRequestHeadersProps, apiResponseDefaultProps } from '../types/api';
 
 const init: apiRequestHeadersProps = {
 	headers: {
 		'Content-Type': 'application/json',
-		'X-User-Token': 'DEMO_USER_TOKEN',
-		'X-App-Token': 'DEMO_APP_TOKEN',
+		'X-App-Token': config.APP_TOKEN, // For app authorization (if request is from app) ... [for data get]
+		'X-User-Token': config.USER_TOKEN, // For user authorization (if request is for logged user) ... [for rest data modification]
 	},
 };
 
