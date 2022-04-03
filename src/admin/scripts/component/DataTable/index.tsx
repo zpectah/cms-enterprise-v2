@@ -254,6 +254,22 @@ const DataTable = (props: DataTableProps) => {
 				</RowItemLink>
 			),
 		});
+		if (columns.subject) cols.push({
+			id: 'subject',
+			component: 'th',
+			align: columns.subject[0],
+			width: columns.subject[1],
+			scope: true,
+			children: (
+				<RowItemLink
+					onClick={() => {
+						if (canUpdate) detailCallback(row.id);
+					}}
+				>
+					{row.subject}
+				</RowItemLink>
+			),
+		});
 		if (columns.type) cols.push({
 			id: 'type',
 			component: 'td',
@@ -327,13 +343,13 @@ const DataTable = (props: DataTableProps) => {
 	const getActionsOptions = useCallback((row: any, canUpdate: boolean, canDelete: boolean) => {
 		const options = [];
 		if (canUpdate) {
-			options.push({
+			if (onDetail) options.push({
 				key: 'detail',
 				label: t('table:row.menu.detail'),
 				onClick: () => detailCallback(row.id),
 				hidden: !canUpdate,
 			});
-			options.push({
+			if (onToggle) options.push({
 				key: 'toggle',
 				label: t('table:row.menu.toggle'),
 				onClick: () => toggleCallback([row.id]),
@@ -342,7 +358,7 @@ const DataTable = (props: DataTableProps) => {
 			});
 		}
 		if (canDelete) {
-			options.push({
+			if (onDelete) options.push({
 				key: 'delete',
 				label: t('table:row.menu.delete'),
 				onClick: () => deleteConfirm([row.id]),

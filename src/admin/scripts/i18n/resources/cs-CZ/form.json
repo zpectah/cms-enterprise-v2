@@ -49,7 +49,8 @@
     "order": "Pořadí",
     "custom_key": "Vlastní klíč",
     "ip": "IP Adresa",
-    "cause": "Příčina"
+    "cause": "Příčina",
+    "subject": "Předmět"
   },
   "placeholder": {
     "name": "Zadejte název",
@@ -101,7 +102,8 @@
     "order": "Vyberte pořadí",
     "custom_key": "Zadejte vlastní klíč",
     "ip": "Zadejte IP adresu",
-    "cause": "Zadejte příčinu"
+    "cause": "Zadejte příčinu",
+    "subject": "Zadejte předmět"
   },
   "help": {
     "password": "Heslo by mělo obsahovat velké, malé znaky a číslo",
@@ -109,5 +111,5 @@
     "common_date_format": "Formát data je DD.MM.YYYY",
     "common_datetime_format": "Formát data a času je DD.MM.YYYY HH:MM:SS"
   },
-  "mandatoryInfo": "* Tyto pole jsou povinné"
+  "mandatoryInfo": "* Tato pole jsou povinná"
 }

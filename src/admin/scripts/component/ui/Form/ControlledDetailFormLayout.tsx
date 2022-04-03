@@ -216,7 +216,7 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 											{detailId === 'new' ? (
 												<PrimaryButton
 													type="submit"
-													disabled={!form.form.formState.isValid || externalError || !actions.create}
+													disabled={!form.form.formState.isValid || externalError || !actions.create || !editable}
 													loading={submitting}
 												>
 													{t('btn.create')}
@@ -224,7 +224,7 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 											) : (
 												<PrimaryButton
 													type="submit"
-													disabled={!form.form.formState.isValid || externalError || !actions.update}
+													disabled={!form.form.formState.isValid || externalError || !actions.update || !editable}
 													loading={submitting}
 												>
 													{t('btn.update')}
@@ -233,7 +233,7 @@ const ControlledDetailFormLayout = (props: ControlledDetailFormLayoutProps) => {
 											{detailId !== 'new' && (
 												<DeleteButton
 													onClick={deleteHandler}
-													disabled={!actions.delete || submitting}
+													disabled={!actions.delete || submitting || !editable}
 												/>
 											)}
 										</>

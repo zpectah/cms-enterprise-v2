@@ -6,7 +6,8 @@
     "type": "Typ",
     "active": "Aktivní",
     "actions": "Akce",
-    "ip": "IP Adresa"
+    "ip": "IP Adresa",
+    "subject": "Předmět"
   },
   "row": {
     "menu": {

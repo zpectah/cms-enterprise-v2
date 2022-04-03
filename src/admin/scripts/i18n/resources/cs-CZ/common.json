@@ -34,7 +34,8 @@
     "image_small": "Malý obrázek",
     "image_medium": "Střední obrázek",
     "image_large": "Velký obrázek",
-    "image_custom_1": "Custom 1 obrázek"
+    "image_custom_1": "Custom 1 obrázek",
+    "ipAddress": "IP Adresa"
   },
   "model": {
     "Categories": "Kategorie",

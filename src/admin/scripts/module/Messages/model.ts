@@ -5,8 +5,6 @@ export default {
 	type: 'email',
 	sender: '',
 	recipients: [],
-	title: '',
+	subject: '',
 	content: '',
-	created: '',
-	status: 0,
 } as MessagesItemProps;

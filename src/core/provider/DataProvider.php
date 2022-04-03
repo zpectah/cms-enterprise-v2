@@ -2,6 +2,7 @@
 
 namespace core\provider;
 
+use core\common\Helpers;
 use core\model\Categories;
 use core\model\CmsRequests;
 use core\model\Comments;
@@ -141,7 +142,15 @@ class DataProvider {
     public function create_comments ($data) {
         $conn = new mysqli(...CFG_DB_CONN);
         $comments = new Comments;
-        $response = $comments -> create($conn, $data);
+        $helpers = new Helpers;
+        $ip = $helpers -> get_client_ip_address();
+        $merged_data = array_merge(
+            $data,
+            [
+                'ip_address' => $ip,
+            ]
+        );
+        $response = $comments -> create($conn, $merged_data);
         $conn -> close();
 
         return $response;
@@ -363,7 +372,15 @@ class DataProvider {
     public function create_messages ($data) {
         $conn = new mysqli(...CFG_DB_CONN);
         $messages = new Messages;
-        $response = $messages -> create($conn, $data);
+        $helpers = new Helpers;
+        $ip = $helpers -> get_client_ip_address();
+        $merged_data = array_merge(
+            $data,
+            [
+                'ip_address' => $ip,
+            ]
+        );
+        $response = $messages -> create($conn, $merged_data);
         $conn -> close();
 
         return $response;

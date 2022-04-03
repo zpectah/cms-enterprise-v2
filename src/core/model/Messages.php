@@ -3,6 +3,7 @@
 namespace core\model;
 
 use core\common\Helpers;
+use core\service\EmailService;
 
 class Messages {
 
@@ -46,19 +47,37 @@ class Messages {
 
     public function create ($conn, $data) {
         $response = [];
+        $es = new EmailService;
+        $email_sent = [];
+        $type = $data['type'];
+        $subject = $data['subject'];
+        $content = $data['content'];
+        $sender = $data['sender'];
+        $recipients = $data['recipients'];
+        foreach ($recipients as $email) {
+            $sent = $es -> send_email_message(
+                $email,
+                $subject,
+                "<div>" . $content . "</div>",
+                null,
+                "message_" . $type,
+                $sender
+            );
+            if ($sent) $email_sent[] = $email;
+        }
 
         // prepare
-        $query = ('INSERT INTO messages (type, sender, recipients, title, content, ip_address, status, deleted) VALUES (?,?,?,?,?,?,?,?)');
-        $types = 'ssssssii';
+        $query = ('INSERT INTO messages (type, sender, recipients, subject, content, ip_address, email_sent, status) VALUES (?,?,?,?,?,?,?,?)');
+        $types = 'sssssssi';
         $args = [
-            $data['type'],
-            $data['sender'],
-            $data['recipients'],
-            $data['title'],
-            $data['content'],
+            $type,
+            $sender,
+            $data['recipients'] ? implode(",", $data['recipients']) : '',
+            $subject,
+            $content,
             $data['ip_address'] ?? '',
-            $data['status'],
-            0
+            $email_sent ? implode(",", $email_sent) : '',
+            1
         ];
 
         // execute
@@ -79,15 +98,9 @@ class Messages {
         $response = [];
 
         // prepare
-        $query = ('UPDATE messages SET type = ?, sender = ?, recipients = ?, title = ?, content = ?, ip_address = ?, status = ? WHERE id = ?');
-        $types = 'ssssssii';
+        $query = ('UPDATE messages SET status = ? WHERE id = ?');
+        $types = 'ii';
         $args = [
-            $data['type'],
-            $data['sender'],
-            $data['recipients'],
-            $data['title'],
-            $data['content'],
-            $data['ip_address'] ?? '',
             $data['status'],
             $data['id']
         ];

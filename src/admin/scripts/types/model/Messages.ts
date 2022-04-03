@@ -3,7 +3,7 @@ export interface MessagesItemModel {
 	type: string;
 	sender?: string;
 	recipients?: string[];
-	title: string;
+	subject: string;
 	content?: string;
 	ip_address?: string;
 	status: number;

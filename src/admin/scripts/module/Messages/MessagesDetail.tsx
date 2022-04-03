@@ -87,6 +87,9 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 
 	useEffect(() => setDetailData(getDetailData('Messages', dataItems, params.id)), [ dataItems, params ]);
 
+	const editable = useMemo(() => {
+		return detailData?.id === 'new';
+	}, [ detailData ]);
 	const options_type = useMemo(() => getOptionsList(config.options.model.Messages.type, t), [ detailData ]);
 	const options_sender = useMemo(() => {
 		const list = [];
@@ -133,13 +136,14 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 			{loading && <BarPreloader />}
 			{detailData ? (
 				<ControlledDetailFormLayout
-					mandatoryInfo
+					mandatoryInfo={editable}
 					dataId="MessagesDetailForm"
 					actions={{
 						update: actions.update,
 						create: actions.create,
 						delete: actions.delete,
 					}}
+					editable={editable}
 					detailId={detailData.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}
@@ -150,6 +154,7 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 							list={{
 								'status': <Chip label={String(detailData.status)} size="small" />,
 								'created': detailData.created ? detailData.created : 'N/A',
+								'ipAddress': detailData.ip_address,
 							}}
 						/>
 					)}
@@ -208,6 +213,7 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 														inputRef={ref}
 														options={options_sender}
 														sx={{ width: { xs: '100%', md: '50%' } }}
+														readOnly={!editable}
 														{...rest}
 													/>
 												);
@@ -232,6 +238,7 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 														inputRef={ref}
 														options={options_recipients}
 														sx={{ width: { xs: '100%', md: '75%' } }}
+														readOnly={!editable}
 														multiple
 														{...rest}
 													/>
@@ -241,23 +248,26 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 									</Section>
 									<Section>
 										<ControlledFormRow
-											name="title"
+											name="subject"
 											control={control}
 											rules={{ required: true }}
-											defaultValue={detailData.title}
+											defaultValue={detailData.subject}
 											render={({ field, fieldState }) => {
 												const { ref, ...rest } = field;
 												const { error } = fieldState;
 
 												return (
 													<Input
-														label={t('form:label.title')}
-														placeholder={t('form:placeholder.title')}
-														id={`${token}_title`}
+														label={t('form:label.subject')}
+														placeholder={t('form:placeholder.subject')}
+														id={`${token}_subject`}
 														error={!!error}
 														required
 														inputRef={ref}
 														sx={{ width: { xs: '100%', md: '75%' } }}
+														InputProps={{
+															readOnly: !editable,
+														}}
 														{...rest}
 													/>
 												);
@@ -281,6 +291,9 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 														required
 														inputRef={ref}
 														rows={7}
+														InputProps={{
+															readOnly: !editable,
+														}}
 														{...rest}
 													/>
 												);

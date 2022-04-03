@@ -17,6 +17,7 @@ const PASS_CRYPT_OPTIONS = [
     'threads' => 3
 ];
 define( "CFG_DB_SQL", $DATABASE[ ENV ]['SQL'] );
+define("PROJECT_ADMIN_TITLE", $CFG_PROJECT['admin']['meta']['title']);
 const CFG_DB_CONN = [
     CFG_DB_SQL['server'],
     CFG_DB_SQL['user'],
@@ -24,19 +25,8 @@ const CFG_DB_CONN = [
     CFG_DB_SQL['name'],
     CFG_DB_SQL['port'],
 ];
-const SESSION_KEYS = [
-    'USER_NAME' => 'USER_NAME',
-    'USER_TOKEN' => 'USER_TOKEN',
-    'MEMBER_NAME' => 'MEMBER_NAME',
-    'MEMBER_TOKEN' => 'MEMBER_TOKEN',
-];
-
 define("CFG_ENV", $CFG_ENV[ENV]);
 const ROOT = CFG_ENV['root'];
-const URL = [
-    'USER_LOST_PASSWORD' => ROOT . 'admin/lost-password/token/',
-    'MEMBER_LOST_PASSWORD' => ROOT . 'lost-password/token/',
-];
 define("PATHS", [
     'ROOT' => ROOT,
     'UPLOADS' => PATH_ROOT . $CFG_PROJECT['global']['path']['uploads'],
@@ -47,13 +37,11 @@ define("LOCATION", [
     'UPLOADS' => '/' . $CFG_PROJECT['global']['path']['uploads'],
     'LOGS' => '/' . $CFG_PROJECT['global']['path']['logs'],
 ]);
-// define("LOGS", []);
 define("UPLOADS", [
     'IMAGE' => [
         'FORMATS' => $CFG_OPTIONS['model']['Uploads']['image']['format'],
     ],
 ]);
-
 define('ADMIN_DOCUMENT', [
     'meta' => [
         'title' => $CFG_PROJECT['admin']['meta']['title'],
@@ -69,7 +57,6 @@ define('ADMIN_DOCUMENT', [
     'scripts' => CFG_ENV['admin']['scripts'] . '?v=' . TIMESTAMP,
     'no_script_message' => 'Javascript must be allowed to run this app.',
 ]);
-
 define('WEB_DOCUMENT', [
     'meta' => [
         'title' => $CFG_PROJECT['web']['meta']['title'],
@@ -86,7 +73,6 @@ define('WEB_DOCUMENT', [
     'styles' => CFG_ENV['web']['styles'] . '?v=' . TIMESTAMP,
     'no_script_message' => 'Javascript must be allowed to run this app.',
 ]);
-
 const MESSAGES = [
     'API' => [
         'REQUEST_ERROR' => 'request_error',

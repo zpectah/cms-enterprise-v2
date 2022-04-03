@@ -48,18 +48,17 @@ const MessagesList = (props: MessagesListProps) => {
 				rows={dataItems}
 				columns={{
 					id: ['center', '100px'],
-					name: ['left', 'auto'],
+					subject: ['left', 'auto'],
 					type: ['left', '150px'],
-					active: ['right', '125px'],
 				}}
 				searchProps={[
 					'sender',
 					'recipients',
-					'title',
+					'subject',
 					'content',
 				]}
 				onDetail={(id) => navigate(`${tableOptions.root}/detail/${id}`)}
-				onToggle={onToggle}
+				// onToggle={onToggle}
 				onDelete={onDelete}
 				loading={loading}
 				actions={actions}
