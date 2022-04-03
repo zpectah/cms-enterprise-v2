@@ -88,7 +88,7 @@
       "sex": ["male", "female", "undefined"]
     },
     "Messages": {
-      "type": ["email", "intern", "contact_form"]
+      "type": ["email", "contact_form"]
     },
     "Comments": {
       "type": ["default", "reply"]

@@ -7,6 +7,8 @@ import config from '../../config';
 import routes from '../../routes';
 import { MessagesItemProps } from '../../types/model';
 import { submitMethodProps, entityActionsType } from '../../types/common';
+import useSettings from '../../hooks/useSettings';
+import { useUsers, useMembers } from '../../hooks/model';
 import PageHeading from '../../component/PageHeading';
 import {
 	ConfirmDialog,
@@ -46,6 +48,9 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 	const { t } = useTranslation([ 'common', 'form', 'types' ]);
 	const params = useParams();
 	const navigate = useNavigate();
+	const { settings } = useSettings();
+	const { users } = useUsers();
+	const { members } = useMembers();
 	const [ detailData, setDetailData ] = useState<MessagesItemProps>(null);
 	const [ confirmOpen, setConfirmOpen ] = useState<boolean>(false);
 	const [ confirmData, setConfirmData ] = useState<(string | number)[]>([]);
@@ -83,6 +88,39 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 	useEffect(() => setDetailData(getDetailData('Messages', dataItems, params.id)), [ dataItems, params ]);
 
 	const options_type = useMemo(() => getOptionsList(config.options.model.Messages.type, t), [ detailData ]);
+	const options_sender = useMemo(() => {
+		const list = [];
+		if (settings.form_email_sender) list.push({
+			key: settings.form_email_sender,
+			value: settings.form_email_sender,
+			label: settings.form_email_sender,
+		});
+		if (users) {
+			users?.map((user) => {
+				list.push({
+					key: user.id,
+					value: user.email,
+					label: user.email,
+				});
+			});
+		}
+
+		return list;
+	}, [ settings, users ]);
+	const options_recipients = useMemo(() => {
+		const list = [];
+		if (members) {
+			members?.map((user) => {
+				list.push({
+					key: user.id,
+					value: user.email,
+					label: user.email,
+				});
+			});
+		}
+
+		return list;
+	}, [ settings, members ]);
 
 	return (
 		<>
@@ -145,6 +183,7 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 														inputRef={ref}
 														options={options_type}
 														sx={{ width: { xs: '100%', md: '250px' } }}
+														disabled={true} // TODO
 														{...rest}
 													/>
 												);
@@ -160,14 +199,15 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 												const { error } = fieldState;
 
 												return (
-													<Input
+													<Select
 														label={t('form:label.sender')}
 														placeholder={t('form:placeholder.sender')}
 														id={`${token}_sender`}
 														error={!!error}
 														required
 														inputRef={ref}
-														sx={{ width: { xs: '100%', md: '75%' } }}
+														options={options_sender}
+														sx={{ width: { xs: '100%', md: '50%' } }}
 														{...rest}
 													/>
 												);
@@ -183,14 +223,16 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 												const { error } = fieldState;
 
 												return (
-													<Input
+													<Select
 														label={t('form:label.recipients')}
 														placeholder={t('form:placeholder.recipients')}
 														id={`${token}_recipients`}
 														error={!!error}
 														required
 														inputRef={ref}
+														options={options_recipients}
 														sx={{ width: { xs: '100%', md: '75%' } }}
+														multiple
 														{...rest}
 													/>
 												);
