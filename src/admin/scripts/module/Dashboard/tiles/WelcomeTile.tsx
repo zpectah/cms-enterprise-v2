@@ -6,7 +6,6 @@ import {
 } from '@mui/material';
 
 import { date } from '../../../../../../utils/helpers';
-import config from '../../../config';
 import { utilsDateObjectProps } from '../../../types/common';
 import useSettings from '../../../hooks/useSettings';
 import TileBase, { TileBaseProps } from './TileBase';
@@ -22,7 +21,6 @@ const WelcomeTile = (props: WelcomeTileProps) => {
 	const { settings } = useSettings();
 	const [ time, setTime ] = useState<utilsDateObjectProps>(date.getTodayObject());
 
-	const projectName = settings?.project_name ? settings?.project_name : config.project.web.meta.title;
 	const interval = 1000;
 	let timer: any = null;
 
@@ -71,7 +69,7 @@ const WelcomeTile = (props: WelcomeTileProps) => {
 					>
 						{t('components:WelcomeTile.title')}
 						&nbsp;
-						{projectName}
+						{settings?.web_meta_title}
 					</Typography>
 				</Stack>
 				<Stack>

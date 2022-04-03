@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { Box, BoxProps, Menu, MenuItem } from '@mui/material';
+import {
+	Box,
+	BoxProps,
+	Menu,
+	MenuItem,
+} from '@mui/material';
 
 export interface MoreMenuItemProps {
 	key: string | number;

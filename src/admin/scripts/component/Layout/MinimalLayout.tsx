@@ -8,15 +8,19 @@ import config from '../../config';
 import { pageLayoutProps } from '../../types/page';
 import { LayoutWrapper, LayoutContent } from '../../styles/mixins';
 import Footer from './Footer';
+import LanguageSwitcher from '../LanguageSwitcher';
 
 interface MinimalLayoutProps extends pageLayoutProps {
 	withOptions?: boolean;
 }
 
 const FloatingBlock = styled('div')`
-	width: 60px;
-	height: 60px;
-	display: block;
+	width: auto;
+	height: auto;
+	padding: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	position: absolute;
 	top: 1rem;
 	right: 1rem;
@@ -45,7 +49,11 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = (props) => {
 					<LayoutContent>{children}</LayoutContent>
 					{withFooter && <Footer />}
 				</Container>
-				{withOptions && <FloatingBlock>floating options button</FloatingBlock>}
+				{withOptions && (
+					<FloatingBlock>
+						<LanguageSwitcher />
+					</FloatingBlock>
+				)}
 			</LayoutWrapper>
 		</>
 	);

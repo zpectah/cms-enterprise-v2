@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 
 import useProfile from '../../hooks/useProfile';
+import useSettings from '../../hooks/useSettings';
 import {
 	ControlledForm,
 	ControlledFormRow,
@@ -30,6 +31,7 @@ const CreateNewPasswordForm = () => {
 	const [ responseMessage, setResponseMessage ] = useState(null);
 	const navigate = useNavigate();
 	const { userCreateNewPassword } = useProfile();
+	const { settings } = useSettings();
 
 	const submitHandler = (data: newPasswordFormProps) => {
 		setSubmitting(true);
@@ -47,6 +49,14 @@ const CreateNewPasswordForm = () => {
 
 	return (
 		<>
+			<Typography
+				sx={{
+					pb: 1.5,
+					textAlign: 'center',
+				}}
+			>
+				{settings?.web_meta_title}
+			</Typography>
 			<Typography
 				variant="h3"
 				sx={{
@@ -112,10 +122,6 @@ const CreateNewPasswordForm = () => {
 												error={!!error}
 												required
 												inputRef={ref}
-												size="medium"
-												formControlProps={{
-													size: 'medium',
-												}}
 												{...rest}
 											/>
 										);

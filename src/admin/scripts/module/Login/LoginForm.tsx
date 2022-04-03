@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { Stack, Alert, Typography } from '@mui/material';
 
 import { EMAIL_REGEX } from '../../constants';
-import routes from '../../routes';
 import useProfile from '../../hooks/useProfile';
+import useSettings from '../../hooks/useSettings';
 import useToasts from '../../hooks/useToasts';
 import {
 	ControlledForm,
@@ -32,6 +32,7 @@ const LoginForm = (props: LoginFormProps) => {
 	const navigate = useNavigate();
 	const { createErrorToast } = useToasts();
 	const { profile } = useProfile();
+	const { settings } = useSettings();
 	const [ submitting, setSubmitting ] = useState(false);
 	const [ responseMessage, setResponseMessage ] = useState(null);
 	const [ responseStatus, setResponseStatus ] = useState(null);
@@ -97,6 +98,14 @@ const LoginForm = (props: LoginFormProps) => {
 
 	return (
 		<>
+			<Typography
+				sx={{
+					pb: 1.5,
+					textAlign: 'center',
+				}}
+			>
+				{settings?.web_meta_title}
+			</Typography>
 			<Typography
 				variant="h3"
 				sx={{
@@ -198,7 +207,6 @@ const LoginForm = (props: LoginFormProps) => {
 												error={!!error}
 												required
 												inputRef={ref}
-												size="medium"
 												{...rest}
 											/>
 										);
@@ -221,10 +229,6 @@ const LoginForm = (props: LoginFormProps) => {
 												error={!!error}
 												required
 												inputRef={ref}
-												size="medium"
-												formControlProps={{
-													size: 'medium',
-												}}
 												{...rest}
 											/>
 										);

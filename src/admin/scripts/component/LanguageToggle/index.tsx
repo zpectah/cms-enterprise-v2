@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import i18n from 'i18next';
 
 import config from '../../config';
@@ -11,7 +11,8 @@ interface LanguageToggleProps {
 
 const LanguageToggle = (props: LanguageToggleProps) => {
 	const { onLanguageChange } = props;
-	const [lang, setLang] = useState<string>(LanguageService.get());
+
+	const [ lang, setLang ] = useState<string>(LanguageService.get());
 
 	const handleChange = (event: React.MouseEvent<HTMLElement>, lang: string) => {
 		setLang(lang);
@@ -23,20 +24,20 @@ const LanguageToggle = (props: LanguageToggleProps) => {
 			});
 	};
 
-	const getItems = () => {
+	const languages_list = useMemo(() => {
 		const items = [];
-		config.project.admin.language.list.map((item) => {
+		config.project.admin.language.list.map((lng) => {
 			items.push({
-				key: item,
-				value: item,
+				key: lng,
+				value: lng,
 				children: (
-					<>{config.locales[item].label}</>
+					<>{config.locales[lng].label}</>
 				),
 			});
 		})
 
 		return items;
-	};
+	}, []);
 
 	return (
 		<Toggle
@@ -45,7 +46,7 @@ const LanguageToggle = (props: LanguageToggleProps) => {
 			value={lang}
 			onChange={handleChange}
 			exclusive
-			items={getItems()}
+			items={languages_list}
 		/>
 	);
 };
