@@ -1,5 +1,7 @@
 import React, { ErrorInfo } from 'react';
 
+import ErrorView from './ErrorView';
+
 interface ErrorBoundaryProps {}
 
 interface ErrorBoundaryState {
@@ -34,10 +36,10 @@ class ErrorBoundary extends React.Component<
 	render() {
 		if (this.state.isError) {
 			return (
-				<div>
-					<p>Something went wrong, see details in console</p>
-					{this.state.error && <pre>{String(this.state.error)}</pre>}
-				</div>
+				<ErrorView
+					type="boundary"
+					boundaryError={this.state.error}
+				/>
 			);
 		}
 

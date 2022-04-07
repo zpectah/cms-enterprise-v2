@@ -253,5 +253,18 @@
   "WelcomeTile": {
     "title": "Vítejte v administraci",
     "today_is": "Dnes je"
+  },
+  "ErrorView": {
+    "404": {
+      "description": "Omlouváme se, ale požadovaná stránka byla buďto smazána, neexistuje nebo máte špatný odkaz."
+    },
+    "boundary": {
+      "title": "Chyba aplikace",
+      "description": "Nastala chyba v aplikaci, zkuste stránku načíst znovu a pokud se problém opakuje, kontaktujte hlavního administrátora webu."
+    },
+    "btn": {
+      "login": "Zpět na přihlášení",
+      "dashboard": "Zpět na dashboard"
+    }
   }
 }
