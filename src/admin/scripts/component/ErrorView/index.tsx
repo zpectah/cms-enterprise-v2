@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Box, Stack, Typography } from '@mui/material';
 
@@ -9,16 +8,17 @@ import { Button } from '../ui';
 export interface ErrorViewProps {
 	type: 404 | 'boundary';
 	boundaryError?: any;
+	onReturn: (path: string) => void;
 }
 
 const ErrorView = (props: ErrorViewProps) => {
 	const {
 		type,
 		boundaryError,
+		onReturn,
 	} = props;
 
 	const { t } = useTranslation([ 'components' ]);
-	const navigate = useNavigate();
 	const { profile } = useProfile();
 	const linkText = t(`components:ErrorView.btn.${profile ? 'dashboard' : 'login'}`);
 
@@ -27,11 +27,7 @@ const ErrorView = (props: ErrorViewProps) => {
 		if (profile) {
 			path = '/admin/app';
 		}
-		if (type !== 'boundary') {
-			navigate(path);
-		} else {
-			window.location.href = path;
-		}
+		onReturn(path);
 	};
 
 	const renderButton = useMemo(() => {

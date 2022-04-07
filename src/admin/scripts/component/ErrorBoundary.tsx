@@ -39,6 +39,7 @@ class ErrorBoundary extends React.Component<
 				<ErrorView
 					type="boundary"
 					boundaryError={this.state.error}
+					onReturn={(path) => window.location.href = path}
 				/>
 			);
 		}

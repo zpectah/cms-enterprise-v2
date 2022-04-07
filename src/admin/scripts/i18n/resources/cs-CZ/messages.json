@@ -39,5 +39,14 @@
     "user_noPermission_update": "Nemáte dostatečná oprávnění k úpravě této položky",
     "user_noPermission_create": "Nemáte dostatečná oprávnění k vytvoření této položky",
     "user_noPermission_delete": "Nemáte dostatečná oprávnění ke smazání této položky"
+  },
+  "settings": {
+    "project_name": "Název projektu není nastaven",
+    "web_meta_title": "Titulek webu není nastaven",
+    "web_meta_description": "Popis webu není nastavn",
+    "form_email_sender": "Není nastaven odesílatel zpráv",
+    "language_installed": "Žádný jazyk není nainstalován",
+    "language_active": "Žádný jazyk není aktivovaný",
+    "language_default": "Není nastaven výchozí jazyk"
   }
 }
