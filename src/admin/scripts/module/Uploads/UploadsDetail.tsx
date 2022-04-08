@@ -108,13 +108,31 @@ const UploadsDetail = (props: UploadsDetailProps) => {
 
 	const list_meta = useMemo(() => {
 		const list = {
-			'created': detailData?.created ? detailData?.created : 'N/A',
+			'created': detailData?.created ? (
+				<small>{detailData?.created}</small>
+			) : 'N/A',
 			'file_size': detailData?.file_size ? fileUtils.formatBytes(detailData?.file_size) : 'N/A',
-			'file_path': `${config.environmental.root}uploads/${detailData?.type}/${detailData?.file_name}`,
+			'file_path': (
+				<a
+					href={`${config.environmental.root}uploads/${detailData?.type}/${detailData?.file_name}`}
+					target="_blank"
+					title={`${config.environmental.root}uploads/${detailData?.type}/${detailData?.file_name}`}
+				>
+					{detailData?.file_name}
+				</a>
+			),
 		};
 		if (detailData?.type === 'image') {
 			config.options.model.Uploads.image.format.map((format) => {
-				list[`image_${format.key}`] = `${config.environmental.root}uploads/${detailData?.type}/${format.key}/${detailData?.file_name}`;
+				list[`image_${format.key}`] = (
+					<a
+						href={`${config.environmental.root}uploads/${detailData?.type}/${format.key}/${detailData?.file_name}`}
+						target="_blank"
+						title={`${config.environmental.root}uploads/${detailData?.type}/${format.key}/${detailData?.file_name}`}
+					>
+						{format.key}/{detailData?.file_name}
+					</a>
+				);
 			});
 		}
 

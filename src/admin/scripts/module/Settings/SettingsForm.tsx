@@ -168,6 +168,8 @@ const SettingsForm = (props: SettingsFormProps) => {
 								items={panels}
 								activeValue={panelValue}
 								onChange={panelChangeHandler}
+								variant="scrollable"
+								scrollButtons="auto"
 							>
 								{!panels[0].hidden && (
 									<TabPanel

@@ -1,6 +1,5 @@
 import config from '../config';
 import { storage } from '../../../../utils/helpers';
-import { themeListProps } from '../types/common';
 
 class ThemeService {
 	init(): void {

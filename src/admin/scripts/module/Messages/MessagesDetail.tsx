@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { Typography, Stack } from '@mui/material';
 
 import config from '../../config';
 import routes from '../../routes';
@@ -93,10 +94,10 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 	const options_type = useMemo(() => getOptionsList(config.options.model.Messages.type, t), [ detailData ]);
 	const options_sender = useMemo(() => {
 		const list = [];
-		if (settings.form_email_sender) list.push({
-			key: settings.form_email_sender,
-			value: settings.form_email_sender,
-			label: settings.form_email_sender,
+		if (settings?.form_email_sender) list.push({
+			key: settings?.form_email_sender,
+			value: settings?.form_email_sender,
+			label: settings?.form_email_sender,
 		});
 		if (users) {
 			users?.map((user) => {
@@ -128,7 +129,7 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 	return (
 		<>
 			<PageHeading
-				title={detailData?.id === 'new' ? t('model_new.Messages') : detailData?.sender}
+				title={detailData?.id === 'new' ? t('model_new.Messages') : detailData?.subject}
 				returnTo={detailOptions.root}
 				createButtonLabel={t('model_new.Messages')}
 				createButtonPath={`${detailOptions.root}/detail/new`}
@@ -144,17 +145,21 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 						delete: actions.delete,
 					}}
 					editable={editable}
-					detailId={detailData.id}
+					detailId={detailData?.id}
 					defaultValues={detailData}
 					onSubmit={submitHandler}
 					submitting={submitting}
-					onDelete={() => deleteHandler(detailData.id)}
+					onDelete={() => deleteHandler(detailData?.id)}
 					renderSidebar={() => (
 						<InfoMetaBlock
 							list={{
-								'status': <Chip label={String(detailData.status)} size="small" />,
-								'created': detailData.created ? detailData.created : 'N/A',
-								'ipAddress': detailData.ip_address,
+								'created': detailData?.created ? (
+									<small>{detailData?.created}</small>
+								) : 'N/A',
+								'ipAddress': (
+									<small>{detailData?.ip_address}</small>
+								),
+								'status': <Chip label={String(detailData?.status)} size="small" />,
 							}}
 						/>
 					)}
@@ -179,18 +184,26 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 												const { error } = fieldState;
 
 												return (
-													<Select
-														label={t('form:label.type')}
-														placeholder={t('form:placeholder.type')}
-														id={`${token}_type`}
-														error={!!error}
-														required
-														inputRef={ref}
-														options={options_type}
-														sx={{ width: { xs: '100%', md: '250px' } }}
-														disabled={true} // TODO
-														{...rest}
-													/>
+													<>
+														{detailData?.id === 'new' ? (
+															<Select
+																label={t('form:label.type')}
+																placeholder={t('form:placeholder.type')}
+																id={`${token}_type`}
+																error={!!error}
+																required
+																inputRef={ref}
+																options={options_type}
+																sx={{ width: { xs: '100%', md: '250px' } }}
+																disabled={true} // TODO
+																{...rest}
+															/>
+														) : (
+															<Typography>
+																{t('form:label.type')}: <b>{field.value}</b>
+															</Typography>
+														)}
+													</>
 												);
 											}}
 										/>
@@ -204,18 +217,26 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 												const { error } = fieldState;
 
 												return (
-													<Select
-														label={t('form:label.sender')}
-														placeholder={t('form:placeholder.sender')}
-														id={`${token}_sender`}
-														error={!!error}
-														required
-														inputRef={ref}
-														options={options_sender}
-														sx={{ width: { xs: '100%', md: '50%' } }}
-														readOnly={!editable}
-														{...rest}
-													/>
+													<>
+														{detailData?.id === 'new' ? (
+															<Select
+																label={t('form:label.sender')}
+																placeholder={t('form:placeholder.sender')}
+																id={`${token}_sender`}
+																error={!!error}
+																required
+																inputRef={ref}
+																options={options_sender}
+																sx={{ width: { xs: '100%', md: '50%' } }}
+																readOnly={!editable}
+																{...rest}
+															/>
+														) : (
+															<Typography>
+																{t('form:label.sender')}: <b>{field.value}</b>
+															</Typography>
+														)}
+													</>
 												);
 											}}
 										/>
@@ -229,19 +250,39 @@ const MessagesDetail = (props: MessagesDetailProps) => {
 												const { error } = fieldState;
 
 												return (
-													<Select
-														label={t('form:label.recipients')}
-														placeholder={t('form:placeholder.recipients')}
-														id={`${token}_recipients`}
-														error={!!error}
-														required
-														inputRef={ref}
-														options={options_recipients}
-														sx={{ width: { xs: '100%', md: '75%' } }}
-														readOnly={!editable}
-														multiple
-														{...rest}
-													/>
+													<>
+														{detailData?.id === 'new' ? (
+															<Select
+																label={t('form:label.recipients')}
+																placeholder={t('form:placeholder.recipients')}
+																id={`${token}_recipients`}
+																error={!!error}
+																required
+																inputRef={ref}
+																options={options_recipients}
+																sx={{ width: { xs: '100%', md: '75%' } }}
+																readOnly={!editable}
+																multiple
+																{...rest}
+															/>
+														) : (
+															<Stack
+																direction="row"
+																spacing={1}
+															>
+																<Typography>
+																	{t('form:label.recipients')}:
+																</Typography>
+																{field.value.map((val) => (
+																	<Chip
+																		key={val}
+																		label={val}
+																		size="small"
+																	/>
+																))}
+															</Stack>
+														)}
+													</>
 												);
 											}}
 										/>
