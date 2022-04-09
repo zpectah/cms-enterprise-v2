@@ -2,6 +2,9 @@
 
 namespace app;
 
+use app\controller\MemberController;
+use app\controller\RouteController;
+use app\controller\ViewController;
 use eftec\bladeone\BladeOne;
 
 class View {
@@ -31,7 +34,17 @@ class View {
         );
     }
 
+
+
+
+
+
+
     public function get_view_meta (): array {
+        $rc = new RouteController;
+        $mc = new MemberController;
+        $vc = new ViewController;
+
         return [
             'title' => 'web title ...',
             'description' => '',
@@ -42,16 +55,32 @@ class View {
     }
 
     public function render_page () {
+        $rc = new RouteController;
+        $mc = new MemberController;
+        $vc = new ViewController;
 
-        $page = [
+        $urlAttrs = $rc -> get_url_attrs();
+        $urlParams = $rc -> get_url_params();
+
+        $view = [
+            'layout' => 'layout.default',
             'template' => 'page.default'
         ];
+        $route = [
+            'attrs' => $urlAttrs,
+            'params' => $urlParams,
+        ];
 
-        echo $this -> $blade -> run('layout.default', [
+        echo $this -> $blade -> run(
+            $view['layout'],
+            [
 
-            'page' => $page,
+                'view' => $view,
 
-        ]);
+                'route' => $route,
+
+            ]
+        );
     }
 
 }

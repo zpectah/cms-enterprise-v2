@@ -4,9 +4,8 @@
 >
     @include('shared.header')
     <div>
-        <demo-component>xxx</demo-component>
         <div>
-            @include($page['template'])
+            @include($view['template'])
         </div>
         @include('shared.sidebar')
     </div>
