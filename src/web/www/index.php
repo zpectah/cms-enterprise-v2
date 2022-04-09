@@ -7,7 +7,7 @@ $as = new \core\service\AuthService;
 $view = new \app\View;
 
 $token = $as -> start_app_session();
-$meta = $view -> get_view_meta();
+$meta = $view -> get_meta();
 ?>
 <!doctype html>
 <html lang="<?= (WEB_DOCUMENT['meta']['lang']) ?>">
@@ -33,7 +33,7 @@ $meta = $view -> get_view_meta();
 	id="page"
 	class="page"
 >
-<?php $view -> render_page() ?>
+<?php $view -> render() ?>
 <script src="<?= (WEB_DOCUMENT['scripts']) ?>"></script>
 </body>
 </html>

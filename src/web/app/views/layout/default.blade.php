@@ -2,10 +2,19 @@
         id="vue-app"
         class="page-app layout layout--default"
 >
+    <pre>
+        <code>
+            @php
+                print_r($page);
+                print_r($detail);
+                print_r($route);
+            @endphp
+        </code>
+    </pre>
     @include('shared.header')
     <div>
         <div>
-            @include($view['template'])
+            @include($page['template'])
         </div>
         @include('shared.sidebar')
     </div>

@@ -10,7 +10,30 @@ class RouteController {
         unset($request_array[0]); // unset 'web/'
         unset($request_array[1]); // unset 'www/'
 
-        return array_values($request_array);
+        $listed = array_values($request_array);
+        $model = 'unknown';
+        $context = 'unknown';
+        $page = $listed[0];
+        $detail = $listed[1] == 'detail' ? true : false;
+        $id = $listed[2];
+        if ($detail && $id) $context = 'category';
+        if ($listed[0] === 'detail' && $listed[2]) {
+            if ($listed[1] == 'posts') {
+                $detail = true;
+                $id = $listed[2];
+                $context = 'detail';
+                $model = 'posts';
+            }
+        }
+
+        return [
+            'listed' => $listed,
+            'page' => $page,
+            'detail' => $detail,
+            'id' => $id,
+            'context' => $context,
+            'model' => $model,
+        ];
     }
 
     public function get_url_params (): array {

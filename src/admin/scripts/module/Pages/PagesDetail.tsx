@@ -105,7 +105,7 @@ const PagesDetail = (props: PagesDetailProps) => {
 
 	const options_type = useMemo(() => getOptionsList(config.options.model.Pages.type, t), [ detailData ]);
 	const options_elements = useMemo(() => getOptionsList(config.options.model.Pages.elements, t), [ detailData ]);
-	const options_index = useMemo(() => getOptionsList(config.options.common.meta_robots, t), [ detailData ]);
+	const options_index = useMemo(() => getOptionsList([ 'inherit', ...config.options.common.meta_robots ], t), [ detailData ]);
 
 	return (
 		<>

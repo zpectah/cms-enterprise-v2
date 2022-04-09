@@ -5,7 +5,7 @@ export default {
 	type: 'default',
 	type_id: '',
 	name: '',
-	meta_robots: 'all',
+	meta_robots: 'inherit',
 	page_elements: [],
 	active: true,
 	lang: {},

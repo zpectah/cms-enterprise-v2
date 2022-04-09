@@ -35,35 +35,35 @@ class Posts {
     }
 
     private function get_row_sub_data ($conn, $row, $languages) {
-        $row['sub_media'] = [];
-        $row['sub_attachments'] = [];
-        $row['sub_tags'] = [];
-        $row['sub_categories'] = [];
-        $row['sub_links'] = [];
-        $row['sub_author'] = [];
+        $row['__media'] = [];
+        $row['__attachments'] = [];
+        $row['__tags'] = [];
+        $row['__categories'] = [];
+        $row['__links'] = [];
+        $row['__author'] = [];
 
         if ($row['media']) {
             $uploads = new Uploads;
-            $row['sub_media'] = $uploads -> get($conn, [ 'ids' => $row['media'] ], $languages);
+            $row['__media'] = $uploads -> get($conn, [ 'ids' => $row['media'] ], $languages);
         }
         if ($row['attachments']) {
             $uploads = new Uploads;
-            $row['sub_attachments'] = $uploads -> get($conn, [ 'ids' => $row['attachments'] ], $languages);
+            $row['__attachments'] = $uploads -> get($conn, [ 'ids' => $row['attachments'] ], $languages);
         }
         if ($row['tags']) {
             $tags = new Tags;
-            $row['sub_tags'] = $tags -> get($conn, [ 'ids' => $row['tags'] ], []);
+            $row['__tags'] = $tags -> get($conn, [ 'ids' => $row['tags'] ], []);
         }
         if ($row['categories']) {
             $categories = new Categories;
-            $row['sub_categories'] = $categories -> get($conn, [ 'ids' => $row['categories'] ], $languages);
+            $row['__categories'] = $categories -> get($conn, [ 'ids' => $row['categories'] ], $languages);
         }
         if ($row['links']) {
-            $row['sub_links'] = $row['links']; // TODO
+            $row['__links'] = $row['links']; // TODO
         }
         if ($row['author']) {
             $users = new Users;
-            $row['sub_author'] = $users -> get($conn, [ 'id' => $row['author'] ]);
+            $row['__author'] = $users -> get($conn, [ 'id' => $row['author'] ]);
         }
 
         return $row;
@@ -86,14 +86,29 @@ class Posts {
 
         // request params
         $__sub = $data['sub'];
+        $__name = $data['name'];
         $__ids = $data['ids']; // Must be an array[]
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
-                if ($__sub) {
+                if ($__ids) {
+                    if (in_array($row['id'], $__ids)) {
+                        if ($__sub) {
+                            $response[] = self::get_row_sub_data($conn, self::get_updated_row($conn, $row, $languages), $languages);
+                        } else {
+                            $response[] = self::get_updated_row($conn, $row, $languages);
+                        }
+                    }
+                } else if ($__name) {
+                    if ($row['name'] == $__name) {
+                        if ($__sub) {
+                            $response = self::get_row_sub_data($conn, self::get_updated_row($conn, $row, $languages), $languages);
+                        } else {
+                            $response = self::get_updated_row($conn, $row, $languages);
+                        }
+                    }
+                } else if ($__sub) {
                     $response[] = self::get_row_sub_data($conn, self::get_updated_row($conn, $row, $languages), $languages);
-                } else if ($__ids) {
-                    if (in_array($row['id'], $__ids)) $response[] = self::get_updated_row($conn, $row, $languages);
                 } else {
                     $response[] = self::get_updated_row($conn, $row, $languages);
                 }

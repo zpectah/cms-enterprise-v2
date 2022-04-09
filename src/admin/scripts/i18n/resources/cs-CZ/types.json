@@ -44,5 +44,6 @@
   "reply": "Odpověď",
   "page": "Stránka",
   "external": "Externí",
-  "empty": "Prázdné"
+  "empty": "Prázdné",
+  "inherit": "Zděděné"
 }
