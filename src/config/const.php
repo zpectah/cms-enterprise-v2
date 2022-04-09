@@ -27,6 +27,7 @@ const CFG_DB_CONN = [
 ];
 define("CFG_ENV", $CFG_ENV[ENV]);
 const ROOT = CFG_ENV['root'];
+define("TEMPLATE_ROOT_PATH", PATH_ROOT . $CFG_PROJECT['web']['blade']['root']);
 define("PATHS", [
     'ROOT' => ROOT,
     'UPLOADS' => PATH_ROOT . $CFG_PROJECT['global']['path']['uploads'],

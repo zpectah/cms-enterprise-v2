@@ -75,6 +75,9 @@
         "cs-CZ"
       ]
     },
+    "blade": {
+      "root": "web/app/views"
+    },
     "tests": {
       "prepare_element_id": true,
       "data_attr_id": "data-test-id",

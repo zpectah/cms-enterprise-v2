@@ -1,12 +1,16 @@
 <template>
-	<div>demo component</div>
+	<div>demo component: {{globalValue}} ... {{count}}</div>
 </template>
 
 <script>
 module.exports = {
 	props: {},
-	data: function() {
-	},
+	data() {
+		return {
+			count: 0,
+			globalValue: this.$root.globalValue,
+		}
+	}
 };
 </script>
 

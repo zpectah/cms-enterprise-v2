@@ -1,5 +1,6 @@
 import { src, dest, series, parallel, watch } from 'gulp';
 import del from 'del';
+import webpack from 'webpack';
 import webpack_stream from 'webpack-stream';
 import gulpReplace from 'gulp-replace';
 import gulpRename from 'gulp-rename';
@@ -8,7 +9,7 @@ import gulpIf from 'gulp-if';
 import gulpCleanCss from 'gulp-clean-css';
 import gulpCssImport from 'gulp-cssimport';
 import gulpSourceMaps from 'gulp-sourcemaps';
-import VueLoaderPlugin from "vue-loader/lib/plugin";
+import { VueLoaderPlugin } from 'vue-loader';
 
 import { date } from './utils/helpers';
 
@@ -165,8 +166,18 @@ const TaskDef = {
 			},
 			resolve: {
 				extensions: ['.js', '.jsx', '.vue'],
+				alias: {
+					vue: "vue/dist/vue.esm-bundler.js"
+				},
 			},
 			plugins: [
+				new webpack.DefinePlugin({
+					__VUE_OPTIONS_API__: getEnv(env) === ENV_DEV,
+					__VUE_PROD_DEVTOOLS__: getEnv(env) === ENV_DEV,
+					'process.env': {
+						NODE_ENV: JSON.stringify(getEnv(env)),
+					}
+				}),
 				new VueLoaderPlugin(),
 			],
 			module: {
