@@ -8,6 +8,9 @@
                 print_r($language);
                 print_r($page);
                 print_r($detail);
+                print_r($_page);
+                print_r($_category);
+                print_r($_detail);
             @endphp
         </code>
     </pre>

@@ -65,8 +65,11 @@ class ViewController {
     }
 
     public function get_translations (): array {
+        $dp = new DataProvider;
+        $language = $this -> get_language();
+        $lang = $language['current'];
 
-        return [];
+        return $dp -> get_translations([ 'parsed' => true, 'lang' => $lang ]);
     }
 
     public function get_detail ($model, $id) {
