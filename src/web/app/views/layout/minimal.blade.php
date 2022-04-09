@@ -5,9 +5,7 @@
     <pre>
         <code>
             @php
-                print_r($page);
-                print_r($detail);
-                print_r($route);
+                print_r($language);
             @endphp
         </code>
     </pre>

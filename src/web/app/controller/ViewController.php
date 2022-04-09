@@ -8,9 +8,9 @@ class ViewController {
 
     private function get_category ($id): array {
         $dp = new DataProvider;
-        $category = $dp -> get_categories([ 'id' => $id ]);
         $items = [];
         $model = 'unknown';
+        $category = $dp -> get_categories([ 'id' => $id ]);
 
         if ($category) {
             if ($category['type'] == 'posts') {
@@ -34,15 +34,28 @@ class ViewController {
         ];
     }
 
+
     public function get_language (): array {
+        $dp = new DataProvider;
+        $cmsLanguages = $dp -> get_cms_languages();
+        $language = WEB_DOCUMENT['language'];
+        $langParam = $_GET['lang'];
+        $current = $langParam ?? $language['default'];
+        $urlParameter = $langParam ? 'lang=' . $current : '';
 
         return [
-            'current' => 'cs-CZ', // TODO
-            'default' => 'cs-CZ', // TODO
-            'installed' => [ 'cs-CZ' ], // TODO
-            'active' => [ 'cs-CZ' ], // TODO
-            'url_param' => null,  // TODO ... get and set ...
+            'current' => $current,
+            'default' => $cmsLanguages['language_default'],
+            'installed' => $cmsLanguages['language_installed'],
+            'active' => $cmsLanguages['language_active'],
+            'url_param' => $urlParameter,
         ];
+    }
+
+    public function get_web (): array {
+        $dp = new DataProvider;
+
+        return $dp -> get_cms_web();
     }
 
     public function get_translations (): array {

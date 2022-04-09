@@ -36,19 +36,17 @@ class View {
 
 
 
-    private function get_detail ($lang, $pageModel): array {
+    private function get_detail_data ($lang, $pageModel): array {
         $rc = new RouteController;
         $vc = new ViewController;
-
-        $urlAttrs = $rc -> get_url_attrs();
-
         $data = [
             'detail_raw' => null,
             'detail' => null,
         ];
-
+        $urlAttrs = $rc -> get_url_attrs();
         $model = null;
         $id = $urlAttrs['id'];
+
         if ($urlAttrs['context'] == 'detail') {
             $model = $urlAttrs['model'];
         } else if ($urlAttrs['context'] == 'category') {
@@ -65,17 +63,9 @@ class View {
         return $data;
     }
 
-    private function get_page ($lang): array {
+    private function get_page_data ($lang): array {
         $rc = new RouteController;
-        // $mc = new MemberController;
         $vc = new ViewController;
-
-        $urlAttrs = $rc -> get_url_attrs();
-
-        $pageName = $urlAttrs['page'];
-
-        $page = $vc -> get_page($pageName);
-
         $data = [
             'data_raw' => null,                                                       // Raw database data
             'data' => null,                                                           // Translated page data (title, description, content)
@@ -85,6 +75,9 @@ class View {
             'layout' => self::$o['layout']['minimal'],                                // Layout template
             'model' => 'unknown',                                                     // Model data (posts, ...)
         ];
+        $urlAttrs = $rc -> get_url_attrs();
+        $pageName = $urlAttrs['page'];
+        $page = $vc -> get_page($pageName);
 
         if (!$pageName) {
             // Page: home
@@ -115,18 +108,17 @@ class View {
 
     public function get_meta (): array {
         $vc = new ViewController;
+        $cms = $vc -> get_web();
         $meta = [
-            'title' => WEB_DOCUMENT['meta']['title'],
-            'description' => WEB_DOCUMENT['meta']['description'],
-            'keywords' => WEB_DOCUMENT['meta']['keywords'],
-            'robots' => WEB_DOCUMENT['meta']['robots'],
+            'title' => $cms['web_meta_title'] ?? WEB_DOCUMENT['meta']['title'],
+            'description' => $cms['web_meta_description'] ?? WEB_DOCUMENT['meta']['description'],
+            'keywords' => $cms['web_meta_keywords'] ? implode(",", $cms['web_meta_keywords']) : WEB_DOCUMENT['meta']['keywords'],
+            'robots' => $cms['web_meta_robots'] ?? WEB_DOCUMENT['meta']['robots'],
             'url' => WEB_DOCUMENT['root'],
         ];
-
         $language = $vc -> get_language();
-
-        $page = $this -> get_page($language['current']);
-        $detail = $this -> get_detail(
+        $page = $this -> get_page_data($language['current']);
+        $detail = $this -> get_detail_data(
             $language['current'],
             $page['data_raw']['model'],
         );
@@ -142,21 +134,19 @@ class View {
                     if ($page['data_raw']['page']['meta_robots'] !== 'inherit') {
                         $meta['robots'] = $page['data_raw']['page']['meta_robots'];
                     }
-                } else if ($detail) {
-                    // TODO
                 }
                 break;
 
             case 'static':
-                // TODO: set static page meta from translations ...
-                // ... set translations keys first
+                // TODO ##translations
+                // set static page meta from translations
                 break;
 
-            case 'unknown':
-            default:
-                // Do nothing, keep default state
-                break;
+        }
 
+        if ($detail) {
+            $meta['title'] = $detail['detail']['title'] . ' | ' . $meta['title'];
+            $meta['description'] = $detail['detail']['description']; // TODO ##trim
         }
 
         return $meta;
@@ -171,26 +161,24 @@ class View {
         $urlAttrs = $rc -> get_url_attrs();
         $urlParams = $rc -> get_url_params();
 
-        $page = $this -> get_page($language['current']);
-        $detail = $this -> get_detail(
+        // Prepare data to render
+        $page = $this -> get_page_data($language['current']);
+        $detail = $this -> get_detail_data(
             $language['current'],
             $page['data_raw']['model'],
         );
 
-        $route = [
-            'attrs' => $urlAttrs,
-            'params' => $urlParams,
-        ];
-
+        // Render
         echo $this -> $blade -> run(
             $page['layout'],
             [
-
                 'page' => $page,
                 'detail' => $detail,
-
-                'route' => $route,
-
+                'route' => [
+                    'attrs' => $urlAttrs,
+                    'params' => $urlParams,
+                ],
+                'language' => $language,
             ]
         );
     }

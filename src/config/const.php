@@ -73,6 +73,7 @@ define('WEB_DOCUMENT', [
     'scripts' => CFG_ENV['web']['scripts'] . '?v=' . TIMESTAMP,
     'styles' => CFG_ENV['web']['styles'] . '?v=' . TIMESTAMP,
     'no_script_message' => 'Javascript must be allowed to run this app.',
+    'language' => $CFG_PROJECT['web']['language'],
 ]);
 const MESSAGES = [
     'API' => [

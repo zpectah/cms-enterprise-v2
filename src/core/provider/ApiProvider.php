@@ -771,6 +771,36 @@ class ApiProvider {
                 }
                 break;
 
+            case 'get_cms_web':
+                if ($auth['user']) {
+                    $response['data'] = $dp -> get_cms_web();
+                    $response['status'] = 'ok';
+                    $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                } else {
+                    $response['message'] = $msg_unauthorized;
+                }
+                break;
+
+            case 'get_cms_company':
+                if ($auth['user']) {
+                    $response['data'] = $dp -> get_cms_company();
+                    $response['status'] = 'ok';
+                    $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                } else {
+                    $response['message'] = $msg_unauthorized;
+                }
+                break;
+
+            case 'get_cms_members':
+                if ($auth['user']) {
+                    $response['data'] = $dp -> get_cms_members();
+                    $response['status'] = 'ok';
+                    $response['message'] = $response['data'] ? $msg_success : $msg_noData;
+                } else {
+                    $response['message'] = $msg_unauthorized;
+                }
+                break;
+
             /**
              * Profile
              **/

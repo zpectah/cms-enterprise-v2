@@ -108,9 +108,147 @@ class Settings {
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
-                if ($row['name'] == 'language_default') $response['language_default'] = $row['value'];
-                if ($row['name'] == 'language_installed') $response['language_installed'] = explode(",", $row['value']);
-                if ($row['name'] == 'language_active') $response['language_active'] = explode(",", $row['value']);
+                switch ($row['format']) {
+
+                    case 'boolean':
+                        $nv = $row['value'] == 'true';
+                        break;
+
+                    case 'array':
+                        $nv = $row['value'] ? explode(",", $row['value']) : [];
+                        break;
+
+                    case 'json':
+                    default:
+                        $nv = $row['value'];
+                        break;
+
+                }
+
+                $response[$row['name']] = $nv;
+            }
+        }
+
+        return $response;
+    }
+
+    public function get_cms_web ($conn): array {
+        $response = [];
+
+        // prepare
+        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM cms_settings WHERE context = ?');
+        $types = 's';
+        $args = [ 'web' ];
+
+        // execute
+        $stmt = $conn -> prepare($query);
+        $stmt -> bind_param($types, ...$args);
+        $stmt -> execute();
+        $result = $stmt -> get_result();
+        $stmt -> close();
+
+        if ($result -> num_rows > 0) {
+            while($row = $result -> fetch_assoc()) {
+                switch ($row['format']) {
+
+                    case 'boolean':
+                        $nv = $row['value'] == 'true';
+                        break;
+
+                    case 'array':
+                        $nv = $row['value'] ? explode(",", $row['value']) : [];
+                        break;
+
+                    case 'json':
+                    default:
+                        $nv = $row['value'];
+                        break;
+
+                }
+
+                $response[$row['name']] = $nv;
+            }
+        }
+
+        return $response;
+    }
+
+    public function get_cms_company ($conn): array {
+        $response = [];
+
+        // prepare
+        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM cms_settings WHERE context = ?');
+        $types = 's';
+        $args = [ 'company' ];
+
+        // execute
+        $stmt = $conn -> prepare($query);
+        $stmt -> bind_param($types, ...$args);
+        $stmt -> execute();
+        $result = $stmt -> get_result();
+        $stmt -> close();
+
+        if ($result -> num_rows > 0) {
+            while($row = $result -> fetch_assoc()) {
+                switch ($row['format']) {
+
+                    case 'boolean':
+                        $nv = $row['value'] == 'true';
+                        break;
+
+                    case 'array':
+                        $nv = $row['value'] ? explode(",", $row['value']) : [];
+                        break;
+
+                    case 'json':
+                    default:
+                        $nv = $row['value'];
+                        break;
+
+                }
+
+                $response[$row['name']] = $nv;
+            }
+        }
+
+        return $response;
+    }
+
+    public function get_cms_members ($conn): array {
+        $response = [];
+
+        // prepare
+        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM cms_settings WHERE context = ?');
+        $types = 's';
+        $args = [ 'members' ];
+
+        // execute
+        $stmt = $conn -> prepare($query);
+        $stmt -> bind_param($types, ...$args);
+        $stmt -> execute();
+        $result = $stmt -> get_result();
+        $stmt -> close();
+
+        if ($result -> num_rows > 0) {
+            while($row = $result -> fetch_assoc()) {
+                switch ($row['format']) {
+
+                    case 'boolean':
+                        $nv = $row['value'] == 'true';
+                        break;
+
+                    case 'array':
+                        $nv = $row['value'] ? explode(",", $row['value']) : [];
+                        break;
+
+                    case 'json':
+                    default:
+                        $nv = $row['value'];
+                        break;
+
+                }
+
+                $response[$row['name']] = $nv;
             }
         }
 

@@ -834,6 +834,33 @@ class DataProvider {
         return $response;
     }
 
+    public function get_cms_web (): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $settings = new Settings;
+        $response = $settings -> get_cms_web($conn);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function get_cms_company (): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $settings = new Settings;
+        $response = $settings -> get_cms_company($conn);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function get_cms_members (): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $settings = new Settings;
+        $response = $settings -> get_cms_members($conn);
+        $conn -> close();
+
+        return $response;
+    }
+
     /**
      * Profile
      **/
