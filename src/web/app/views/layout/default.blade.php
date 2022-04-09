@@ -1,28 +1,17 @@
 <div
         id="vue-app"
-        class="page-app layout layout--default"
+        class="page-layout page-layout--default"
 >
-    <pre>
-        <code>
-            @php
-                print_r($language);
-                print_r($page);
-                print_r($detail);
-                print_r($_page);
-                print_r($_category);
-                print_r($_detail);
-                print_r($menu);
-                print_r($search_results);
-            @endphp
-        </code>
-    </pre>
     @include('shared.header')
-    {{$t('common:btn.open')}}
-    <div>
-        <div>
-            @include($page['template'])
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-7 col-lg-8">
+                @include($page['template'])
+            </div>
+            <div class="col-12 col-md-5 col-lg-4">
+                @include('shared.sidebar')
+            </div>
         </div>
-        @include('shared.sidebar')
     </div>
     @include('shared.footer')
 </div>

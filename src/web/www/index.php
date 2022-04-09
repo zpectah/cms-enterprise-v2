@@ -12,15 +12,21 @@ $meta = $view -> get_meta();
 <!doctype html>
 <html lang="<?= (WEB_DOCUMENT['meta']['lang']) ?>">
 <head>
-	<meta charset="<?= (WEB_DOCUMENT['meta']['charset']) ?>">
-	<meta name="viewport" content="<?= (WEB_DOCUMENT['meta']['viewport']) ?>">
+	<meta charset="<?= (WEB_DOCUMENT['meta']['charset']) ?>" />
+	<meta name="viewport" content="<?= (WEB_DOCUMENT['meta']['viewport']) ?>" />
 	<title><?=($meta['title']) ?></title>
-	<meta name="description" content="<?=($meta['description']) ?>">
-	<meta name="keywords" content="<?=($meta['keywords']) ?>">
-	<meta name="robots" content="<?=($meta['robots']) ?>">
-	<meta name="og:url" content="<?=($meta['url']) ?>">
+	<meta name="description" content="<?=($meta['description']) ?>" />
+	<meta name="keywords" content="<?=($meta['keywords']) ?>" />
+	<meta name="robots" content="<?=($meta['robots']) ?>" />
+	<meta name="og:url" content="<?=($meta['url']) ?>" />
 
-	<link href="<?= (WEB_DOCUMENT['styles']) ?>" rel="stylesheet">
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+		crossorigin="anonymous"
+	/>
+	<link href="<?= (WEB_DOCUMENT['styles']) ?>" rel="stylesheet" />
 
 	<script>
 		window.APP_ENV = window.APP_ENV || '<?=(ENV)?>';
@@ -34,6 +40,11 @@ $meta = $view -> get_meta();
 	class="page"
 >
 <?php $view -> render() ?>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"
+></script>
 <script src="<?= (WEB_DOCUMENT['scripts']) ?>"></script>
 </body>
 </html>

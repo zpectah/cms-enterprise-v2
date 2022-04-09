@@ -1,21 +1,13 @@
 <div
         id="vue-app"
-        class="page-app layout layout--minimal"
+        class="page-layout page-layout--minimal"
 >
-    <pre>
-        <code>
-            @php
-                print_r($language);
-                print_r($page);
-                print_r($detail);
-                print_r($_page);
-                print_r($_category);
-                print_r($_detail);
-            @endphp
-        </code>
-    </pre>
-    <div>
-        @include($page['template'])
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                @include($page['template'])
+            </div>
+        </div>
     </div>
     @include('shared.footer')
 </div>

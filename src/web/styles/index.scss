@@ -1,4 +1,15 @@
-* {
-  margin: 0;
-  padding: 0;
+.page{
+  &-layout{
+    &--default{}
+    &--minimal{}
+  }
 }
+
+.header{
+  color: rgb(225,225,225);
+  background-color: rgba(25,25,25,.75);
+}
+
+.footer{}
+
+
