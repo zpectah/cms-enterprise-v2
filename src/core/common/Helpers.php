@@ -292,4 +292,10 @@ class Helpers {
         return $response;
     }
 
+    public function build_sorter ($key): \Closure {
+        return function ($a, $b) use ($key) {
+            return strnatcmp($a[$key], $b[$key]);
+        };
+    }
+
 }

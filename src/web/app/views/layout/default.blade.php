@@ -11,6 +11,8 @@
                 print_r($_page);
                 print_r($_category);
                 print_r($_detail);
+                print_r($menu);
+                print_r($results);
             @endphp
         </code>
     </pre>

@@ -2,6 +2,7 @@
 
 namespace app\controller;
 
+use core\common\Helpers;
 use core\provider\DataProvider;
 
 class ViewController {
@@ -40,7 +41,6 @@ class ViewController {
         ];
     }
 
-
     public function get_language (): array {
         $dp = new DataProvider;
         $cmsLanguages = $dp -> get_cms_languages();
@@ -58,15 +58,27 @@ class ViewController {
         ];
     }
 
-    public function get_web (): array {
+    public function get_web_settings (): array {
         $dp = new DataProvider;
 
         return $dp -> get_cms_web();
     }
 
+    public function get_company_settings (): array {
+        $dp = new DataProvider;
+
+        return $dp -> get_cms_company();
+    }
+
+    public function get_members_settings (): array {
+        $dp = new DataProvider;
+
+        return $dp -> get_cms_members();
+    }
+
     public function get_translations (): array {
         $dp = new DataProvider;
-        $language = $this -> get_language();
+        $language = self::get_language();
         $lang = $language['current'];
 
         return $dp -> get_translations([ 'parsed' => true, 'lang' => $lang ]);
@@ -108,7 +120,7 @@ class ViewController {
                 $page['page'] = $p;
                 // Category data
                 if ($p['type'] == 'category' && $p['type_id']) {
-                    $page['category'] = $this -> get_category($p['type_id']);
+                    $page['category'] = self::get_category($p['type_id']);
                     $page['model'] = $page['category']['model'];
                 }
             }
@@ -117,9 +129,40 @@ class ViewController {
         return $page;
     }
 
-    public function get_search_results (): array {
+    public function get_menu_items ($menuId): array {
+        $dp = new DataProvider;
+        $helper = new Helpers;
+        $data = $dp -> get_menuItems([ 'menu_id' => $menuId, 'with_children' => true ]);
+        usort($data, $helper -> build_sorter('item_order'));
 
-        return [];
+        return $data;
+    }
+
+    public function get_menu (): array {
+        $dp = new DataProvider;
+        $data = [
+            'primary' => [],
+            'secondary' => [],
+            'tertiary' => [],
+            'custom' => [],
+        ];
+        $menu = $dp -> get_menu();
+        foreach ($menu as $item) {
+            if ($item['active']) {
+                $item['__items'] = self::get_menu_items($item['id']);
+                $data[$item['type']][$item['name']] = $item;
+            }
+        }
+
+        return $data;
+    }
+
+    public function get_search_results ($search, $lang): array {
+        $dp = new DataProvider;
+        $pages = $dp -> search_pages([ 'search' => $search, 'lang' => $lang ]);
+        $posts = $dp -> search_posts([ 'search' => $search, 'lang' => $lang ]);
+
+        return array_merge($pages, $posts);
     }
 
 }

@@ -316,7 +316,7 @@ class Posts {
         return $response;
     }
 
-    public function search ($conn, $data, $languages): array {
+    public function search ($conn, $data, $languages) {
         $results = [];
         $string = strtolower($data['search']);
         $settings = new Settings;
@@ -325,7 +325,7 @@ class Posts {
         } else {
             $lng = $settings['language_default'];
         }
-        $posts = $this -> get($conn, [], $languages);
+        $posts = self::get($conn, [], $languages);
         $today = strtotime(date('Y-m-d H:i:s'));
         foreach ($posts as $item) {
             if (

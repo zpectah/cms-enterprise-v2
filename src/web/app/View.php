@@ -34,8 +34,6 @@ class View {
         );
     }
 
-
-
     private function get_detail_data ($pageModel): array {
         $rc = new RouteController;
         $vc = new ViewController;
@@ -62,7 +60,6 @@ class View {
 
         return $data;
     }
-
     private function get_page_data (): array {
         $rc = new RouteController;
         $vc = new ViewController;
@@ -104,8 +101,7 @@ class View {
 
         return $data;
     }
-
-    private function get_t ($key) {
+    private function get_t ($key): string {
         $vc = new ViewController;
         $translations = $vc -> get_translations();
         $value = $key;
@@ -113,22 +109,49 @@ class View {
 
         return $value;
     }
+    private function get_menu_link ($linkObject): array {
+        // $vc = new ViewController;
+        // $language = $vc -> get_language();
+        // $lang = $language['current'];
 
+
+        // TODO ##menu
+        // Transform menu link to proper nice object with language path, etc
+
+
+        return [
+            'path' => '',
+            'label' => '',
+            'selected' => true,
+        ];
+    }
+    private function get_search_results (): array {
+        $vc = new ViewController;
+        $rc = new RouteController;
+        $results = [];
+        $language = $vc -> get_language();
+        $urlParams = $rc -> get_url_params();
+        $search = $urlParams['search'];
+
+        if ($search) $results = $vc -> get_search_results($search, $language['current']);
+
+        return $results;
+    }
 
     public function get_meta (): array {
         $vc = new ViewController;
-        $cms = $vc -> get_web();
+        $web = $vc -> get_web_settings();
         $meta = [
-            'title' => $cms['web_meta_title'] ?? WEB_DOCUMENT['meta']['title'],
-            'description' => $cms['web_meta_description'] ?? WEB_DOCUMENT['meta']['description'],
-            'keywords' => $cms['web_meta_keywords'] ? implode(",", $cms['web_meta_keywords']) : WEB_DOCUMENT['meta']['keywords'],
-            'robots' => $cms['web_meta_robots'] ?? WEB_DOCUMENT['meta']['robots'],
+            'title' => $web['web_meta_title'] ?? WEB_DOCUMENT['meta']['title'],
+            'description' => $web['web_meta_description'] ?? WEB_DOCUMENT['meta']['description'],
+            'keywords' => $web['web_meta_keywords'] ? implode(",", $web['web_meta_keywords']) : WEB_DOCUMENT['meta']['keywords'],
+            'robots' => $web['web_meta_robots'] ?? WEB_DOCUMENT['meta']['robots'],
             'url' => WEB_DOCUMENT['root'],
         ];
         $language = $vc -> get_language();
         $lang = $language['current'];
-        $page = $this -> get_page_data();
-        $detail = $this -> get_detail_data($page['page']['model']);
+        $page = self::get_page_data();
+        $detail = self::get_detail_data($page['page']['model']);
 
         switch ($page['type']) {
 
@@ -159,23 +182,23 @@ class View {
         return $meta;
     }
 
-    public function render () {
+    public function render (): void {
         $rc = new RouteController;
-        $mc = new MemberController;
+        // $mc = new MemberController; // TODO ##member
         $vc = new ViewController;
-
         $language = $vc -> get_language();
         $urlAttrs = $rc -> get_url_attrs();
         $urlParams = $rc -> get_url_params();
         $translations = $vc -> get_translations();
-
-        // Prepare data to render
-        $page = $this -> get_page_data();
-        $detail = $this -> get_detail_data($page['page']['model']);
-
-        $page_translated = $page['page']['page']['lang'][$language['current']];
-        $category_translated = $page['page']['category']['data']['lang'][$language['current']];
-        $detail_translated = $detail['detail']['lang'][$language['current']];
+        $menu = $vc -> get_menu();
+        $company = $vc -> get_company_settings();
+        $members = $vc -> get_members_settings();
+        $member = [
+            // TODO ##member
+        ];
+        $page = self::get_page_data();
+        $detail = self::get_detail_data($page['page']['model']);
+        $search_results = self::get_search_results();
 
         // Render
         echo $this -> $blade -> run(
@@ -183,16 +206,24 @@ class View {
             [
                 'page' => $page,
                 'detail' => $detail,
-                '_page' => $page_translated,
-                '_category' => $category_translated,
-                '_detail' => $detail_translated,
+                'search_results' => $search_results,
                 'route' => [
                     'attrs' => $urlAttrs,
                     'params' => $urlParams,
+                    'root' => $_SERVER['REDIRECT_URL'],
                 ],
                 'language' => $language,
+                'lang' => $language['current'],
                 'translations' => $translations,
                 't' => function ($key) { return self::get_t($key); },
+                'menu' => $menu,
+                'menuLink' => function ($linkObject) { return self::get_menu_link($linkObject); },
+                'company' => $company,
+                'members' => $members,
+                'member' => $member,
+                '_page' => $page['page']['page']['lang'][$language['current']],
+                '_category' => $page['page']['category']['data']['lang'][$language['current']],
+                '_detail' => $detail['detail']['lang'][$language['current']],
             ]
         );
     }
