@@ -6,6 +6,8 @@
         <code>
             @php
                 print_r($language);
+                print_r($page);
+                print_r($detail);
             @endphp
         </code>
     </pre>

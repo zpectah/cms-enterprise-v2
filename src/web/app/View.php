@@ -42,6 +42,7 @@ class View {
         $data = [
             'detail_raw' => null,
             'detail' => null,
+            'model' => 'unknown',
         ];
         $urlAttrs = $rc -> get_url_attrs();
         $model = null;
@@ -58,6 +59,7 @@ class View {
         if ($detail) {
             $data['detail_raw'] = $detail;
             $data['detail'] = $detail['lang'][$lang];
+            $data['model'] = $model;
         }
 
         return $data;
@@ -67,13 +69,13 @@ class View {
         $rc = new RouteController;
         $vc = new ViewController;
         $data = [
-            'data_raw' => null,                                                       // Raw database data
-            'data' => null,                                                           // Translated page data (title, description, content)
+            'page_raw' => null,                                                       // Raw database data
+            'page' => null,                                                           // Translated page data (title, description, content)
             'type' => 'unknown',                                                      // Page type (unknown, static, generic)
             'name' => 'error',                                                        // Route name
             'template' => self::$o['page']['error'],                                  // Page template
             'layout' => self::$o['layout']['minimal'],                                // Layout template
-            'model' => 'unknown',                                                     // Model data (posts, ...)
+            'category' => null,
         ];
         $urlAttrs = $rc -> get_url_attrs();
         $pageName = $urlAttrs['page'];
@@ -93,13 +95,18 @@ class View {
             $data['layout'] = self::$o['layout']['default'];
         } else if ($page['page']) {
             // Page: generic
-            $data['data_raw'] = $page;
-            $data['data'] = $page['page']['lang'][$lang];
+            $data['page_raw'] = $page;
+            $data['page'] = $page['page']['lang'][$lang];
             $data['type'] = 'generic';
             $data['name'] = $pageName;
             $data['template'] = self::$o['page'][$page['page']['type']];
             $data['layout'] = self::$o['layout']['default'];
-            $data['model'] = $page['model'];
+            if ($page['model'] && $urlAttrs['detail']) {
+                $data['template'] = self::$o['page']['detail'];
+            }
+            if ($page['page']['category']['data'] && $urlAttrs['context'] == 'category') {
+                $data['category'] = $page['page']['category']['data']['lang'][$lang];
+            }
         }
 
         return $data;
@@ -120,19 +127,19 @@ class View {
         $page = $this -> get_page_data($language['current']);
         $detail = $this -> get_detail_data(
             $language['current'],
-            $page['data_raw']['model'],
+            $page['page_raw']['model'],
         );
 
         switch ($page['type']) {
 
             case 'generic':
-                if ($page['data_raw'] && $page['data']) {
-                    $meta['title'] = $page['data']['title'] . ' | ' . $meta['title'];
-                    if ($page['data']['description'] !== '') {
-                        $meta['description'] = $page['data']['description'];
+                if ($page['page_raw'] && $page['page']) {
+                    $meta['title'] = $page['page']['title'] . ' | ' . $meta['title'];
+                    if ($page['page']['description'] !== '') {
+                        $meta['description'] = $page['page']['description'];
                     }
-                    if ($page['data_raw']['page']['meta_robots'] !== 'inherit') {
-                        $meta['robots'] = $page['data_raw']['page']['meta_robots'];
+                    if ($page['page_raw']['page']['meta_robots'] !== 'inherit') {
+                        $meta['robots'] = $page['page_raw']['page']['meta_robots'];
                     }
                 }
                 break;
@@ -165,8 +172,12 @@ class View {
         $page = $this -> get_page_data($language['current']);
         $detail = $this -> get_detail_data(
             $language['current'],
-            $page['data_raw']['model'],
+            $page['page_raw']['model'],
         );
+
+        $page_translated = [];
+        $category_translated = [];
+        $detail_translated = [];
 
         // Render
         echo $this -> $blade -> run(

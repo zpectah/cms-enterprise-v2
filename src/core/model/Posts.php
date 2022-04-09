@@ -87,6 +87,7 @@ class Posts {
         // request params
         $__sub = $data['sub'];
         $__name = $data['name'];
+        $__id = $data['id'];
         $__ids = $data['ids']; // Must be an array[]
 
         if ($result -> num_rows > 0) {
@@ -101,6 +102,14 @@ class Posts {
                     }
                 } else if ($__name) {
                     if ($row['name'] == $__name) {
+                        if ($__sub) {
+                            $response = self::get_row_sub_data($conn, self::get_updated_row($conn, $row, $languages), $languages);
+                        } else {
+                            $response = self::get_updated_row($conn, $row, $languages);
+                        }
+                    }
+                } else if ($__id) {
+                    if ($row['id'] == $__id) {
                         if ($__sub) {
                             $response = self::get_row_sub_data($conn, self::get_updated_row($conn, $row, $languages), $languages);
                         } else {

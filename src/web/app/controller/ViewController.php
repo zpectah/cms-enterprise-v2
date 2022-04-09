@@ -13,23 +13,29 @@ class ViewController {
         $category = $dp -> get_categories([ 'id' => $id ]);
 
         if ($category) {
-            if ($category['type'] == 'posts') {
-                $model = $category['type'];
-                $posts = $dp -> get_posts([ 'sub' => true ]);
-                foreach ($posts as $post) {
-                    $today = strtotime(date('Y-m-d H:i:s'));
-                    $published = strtotime($post['published']);
-                    if (in_array($category['id'], $post['categories'])
-                        && $post['active']
-                        && ($today >= $published)
-                    ) $items[] = $post;
-                }
+
+            switch ($category['type']) {
+
+                case 'posts':
+                    $model = $category['type'];
+                    $posts = $dp -> get_posts([ 'sub' => true ]);
+                    foreach ($posts as $post) {
+                        $today = strtotime(date('Y-m-d H:i:s'));
+                        $published = strtotime($post['published']);
+                        if (in_array($category['id'], $post['categories'])
+                            && $post['active']
+                            && ($today >= $published)
+                        ) $items[] = $post;
+                    }
+                    break;
+
             }
+
         }
 
         return [
             'model' => $model,
-            'category' => $category,
+            'data' => $category,
             'items' => $items,
         ];
     }
@@ -45,9 +51,9 @@ class ViewController {
 
         return [
             'current' => $current,
-            'default' => $cmsLanguages['language_default'],
-            'installed' => $cmsLanguages['language_installed'],
-            'active' => $cmsLanguages['language_active'],
+            'default' => $cmsLanguages['language_default'] ?? WEB_DOCUMENT['language']['default'],
+            'installed' => $cmsLanguages['language_installed'] ?? WEB_DOCUMENT['language']['list'],
+            'active' => $cmsLanguages['language_active'] ?? WEB_DOCUMENT['language']['list'],
             'url_param' => $urlParameter,
         ];
     }
@@ -71,7 +77,15 @@ class ViewController {
         switch ($model) {
 
             case 'posts':
-                $detail = $dp -> get_posts([ 'name' => $id, 'sub' => true ]);
+                $tmp_detail = $dp -> get_posts([ 'name' => $id, 'sub' => true ]);
+                if ($tmp_detail) {
+                    $today = strtotime(date('Y-m-d H:i:s'));
+                    $published = strtotime($tmp_detail['published']);
+                    if ($tmp_detail['active'] && ($today >= $published)) {
+                        $detail = $tmp_detail;
+                    }
+                }
+
                 break;
 
         }
