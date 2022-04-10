@@ -6,4 +6,9 @@
         'items' => $search_results,
         'context' => 'search',
     ])
+    @if(!$search_results)
+        <section>
+            {{$t('common:text.nothing-was-found')}}
+        </section>
+    @endif
 </main>

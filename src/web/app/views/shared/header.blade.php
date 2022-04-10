@@ -4,8 +4,9 @@
             <div class="col">
                 <a
                     href="{{$public['home_link']}}"
+                    class="header-brand"
                 >
-                    {{$public['project_name']}}
+                    {{$public['web_meta_title']}}
                 </a>
             </div>
             <div class="col">

@@ -1,10 +1,12 @@
 import { createApp } from 'vue';
 
-import demoComponent from './component/demoComponent';
+// import demoComponent from './component/demoComponent';
+import MemberSubscriptionForm from './component/MemberSubscriptionForm';
 
 createApp({
 	components: {
-		'demo-component': demoComponent,
+		// 'demo-component': demoComponent,
+		'member-subscription-form': MemberSubscriptionForm,
 	},
 	mixins: [],
 	data() {

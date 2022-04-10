@@ -58,6 +58,12 @@ class ViewController {
         ];
     }
 
+//    public function get_settings (): array {
+//        $dp = new DataProvider;
+//
+//        return $dp -> get_cms_settings();
+//    }
+
     public function get_web_settings (): array {
         $dp = new DataProvider;
 
@@ -74,12 +80,6 @@ class ViewController {
         $dp = new DataProvider;
 
         return $dp -> get_cms_members();
-    }
-
-    public function get_settings (): array {
-        $dp = new DataProvider;
-
-        return $dp -> get_cms_settings();
     }
 
     public function get_translations (): array {

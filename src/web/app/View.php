@@ -225,7 +225,6 @@ class View {
         $rc = new RouteController;
         // $mc = new MemberController; // TODO ##member
         $vc = new ViewController;
-        $settings = $vc -> get_settings();
         $language = $vc -> get_language();
         $urlAttrs = $rc -> get_url_attrs();
         $urlParams = $rc -> get_url_params();
@@ -234,13 +233,14 @@ class View {
         $company = $vc -> get_company_settings();
         $members = $vc -> get_members_settings();
         $member = [ /* TODO ##member */ ];
+        $web = $vc -> get_web_settings();
         $page = self::get_page_data();
         $search_results = self::get_search_results();
         $detail = self::get_detail_data($page['page']['model']);
         $category_context = self::get_category_context($page['page']['category'], $detail);
         $public = [
-            'project_name' => $settings['project_name'],
             'home_link' => $urlParams['lang'] ? '/?' . $language['url_param'] : '/',
+            'search_action_link' => $urlParams['lang'] ? '/search-results?' . $language['url_param'] : '/search-results',
         ];
 
         echo $this -> $blade -> run(
@@ -264,7 +264,7 @@ class View {
                 'company' => $company,
                 'members' => $members,
                 'member' => $member,
-                'public' => $public,
+                'public' => array_merge($public, $web),
                 '_page' => $page['page']['page']['lang'][$language['current']],
                 '_category' => $page['page']['category']['data']['lang'][$language['current']],
                 '_detail' => $detail['detail']['lang'][$language['current']],

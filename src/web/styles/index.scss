@@ -1,7 +1,15 @@
 @import 'vars';
+
 @import 'view';
+
 @import 'shared/common';
 @import 'shared/typography';
+
 @import 'component/navigation';
 @import 'component/menu';
 @import 'component/section';
+
+@import 'widget/common';
+@import 'widget/widget-search';
+@import 'widget/widget-subscription';
+@import 'widget/widget-links';
