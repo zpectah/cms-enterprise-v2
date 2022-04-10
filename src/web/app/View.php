@@ -161,7 +161,6 @@ class View {
             'label' => $linkObject['lang'][$lang]['label'],
             'selected' => $selected,
             'target' => $target,
-            's' => $urlAttrs['url'],
         ];
     }
     private function get_search_results (): array {

@@ -5,8 +5,9 @@
                 header
             </div>
             <div class="col">
-                @include('component.menu-horizontal', [
+                @include('component.navigation', [
                     'menuData' => $menu['primary']['main-menu'],
+                    'type' => 'horizontal',
                 ])
             </div>
         </div>

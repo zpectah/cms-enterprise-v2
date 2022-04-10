@@ -1,0 +1,18 @@
+.menu{
+  &-item{
+    &-link{}
+    &-children{
+      & .menu-item{
+        &-link{}
+        &-children{}
+      }
+    }
+
+    &--external{}
+    &--internal{}
+    &--page{}
+  }
+
+  &--horizontal{}
+  &--vertical{}
+}

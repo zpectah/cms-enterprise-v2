@@ -1,0 +1,15 @@
+.section{
+  &-list{
+    &-item{
+      &--posts{}
+      &--pages{}
+    }
+
+    &--category{}
+    &--search{}
+  }
+
+  &--heading{}
+  &--main{}
+  &--list{}
+}
