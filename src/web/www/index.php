@@ -10,10 +10,10 @@ $token = $as -> start_app_session();
 $meta = $view -> get_meta();
 ?>
 <!doctype html>
-<html lang="<?= (WEB_DOCUMENT['meta']['lang']) ?>">
+<html lang="<?=($meta['lang']) ?>">
 <head>
-	<meta charset="<?= (WEB_DOCUMENT['meta']['charset']) ?>" />
-	<meta name="viewport" content="<?= (WEB_DOCUMENT['meta']['viewport']) ?>" />
+	<meta charset="<?=(WEB_DOCUMENT['meta']['charset']) ?>" />
+	<meta name="viewport" content="<?=(WEB_DOCUMENT['meta']['viewport']) ?>" />
 	<title><?=($meta['title']) ?></title>
 	<meta name="description" content="<?=($meta['description']) ?>" />
 	<meta name="keywords" content="<?=($meta['keywords']) ?>" />
@@ -33,6 +33,7 @@ $meta = $view -> get_meta();
 		window.APP_TIMESTAMP = window.APP_TIMESTAMP || '<?=(TIMESTAMP)?>';
 		window.APP_TOKEN = window.APP_TOKEN || '<?=($token)?>';
 		window.MEMBER_TOKEN = window.MEMBER_TOKEN || '<?=($as -> get_member_token())?>';
+		window.APP_LANG = window.APP_LANG || '<?=($meta['lang'])?>';
 	</script>
 </head>
 <body

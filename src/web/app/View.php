@@ -2,7 +2,7 @@
 
 namespace app;
 
-use app\controller\MemberController;
+// use app\controller\MemberController; // TODO ##member
 use app\controller\RouteController;
 use app\controller\ViewController;
 use eftec\bladeone\BladeOne;
@@ -11,19 +11,19 @@ class View {
 
     static array $o = [
         'layout' => [
-            'minimal' => 'layout.minimal',
-            'default' => 'layout.default',
+            'minimal' =>                                                            'layout.minimal',
+            'default' =>                                                            'layout.default',
         ],
         'page' => [
-            'error' => 'page.error',
-            'home' => 'page.home',
-            'default' => 'page.default', // Default for generic pages
-            'category' => 'page.category',
-            'search-results' => 'page.search-results',
-            'detail' => 'page.detail',
-            'members-lostPassword' => 'page.members-lost-password',
-            'members-profile' => 'page.members-profile',
-            'members-registration' => 'page.members-registration',
+            'error' =>                                                              'page.error',
+            'home' =>                                                               'page.home',
+            'default' =>                                                            'page.default',
+            'category' =>                                                           'page.category',
+            'search-results' =>                                                     'page.search-results',
+            'detail' =>                                                             'page.detail',
+            'members-lost-password' =>                                              'page.members-lost-password',
+            'members-profile' =>                                                    'page.members-profile',
+            'members-registration' =>                                               'page.members-registration',
         ],
     ];
 
@@ -53,8 +53,8 @@ class View {
         $rc = new RouteController;
         $vc = new ViewController;
         $data = [
-            'model' => 'unknown',                                                   // Detail model
-            'detail' => null,                                                       // Detail data
+            'model' => 'unknown',
+            'detail' => null,
         ];
         $urlAttrs = $rc -> get_url_attrs();
         $model = null;
@@ -79,15 +79,16 @@ class View {
         $rc = new RouteController;
         $vc = new ViewController;
         $data = [
-            'page' => null,                                                           // Page data
-            'type' => 'unknown',                                                      // Page type (unknown, static, generic)
-            'name' => 'error',                                                        // Route name
-            'template' => self::$o['page']['error'],                                  // Page template
-            'layout' => self::$o['layout']['minimal'],                                // Layout template
+            'page' => null,
+            'type' => 'unknown',
+            'name' => 'error',
+            'template' => self::$o['page']['error'],
+            'layout' => self::$o['layout']['minimal'],
         ];
         $urlAttrs = $rc -> get_url_attrs();
         $pageName = $urlAttrs['page'];
         $page = $vc -> get_page($pageName);
+        $members = $vc -> get_members_settings();
 
         if (!$pageName) {
             // Page: home
@@ -101,6 +102,18 @@ class View {
             $data['name'] = $pageName;
             $data['template'] = self::$o['page'][$pageName];
             $data['layout'] = self::$o['layout']['default'];
+            // Reset stats when Members are not activated
+            if (
+                (strpos($pageName, 'members') && !GLOBAL_MEMBERS_ACTIVE)
+                || ($pageName == 'members-lost-password' && !$members['members_lostPassword_active'])
+                || ($pageName == 'members-profile' && !$members['members_profile_active'])
+                || ($pageName == 'members-registration' && !$members['members_register_active'])
+            ) {
+                $data['type'] = 'unknown';
+                $data['name'] = 'error';
+                $data['template'] = self::$o['page']['error'];
+                $data['layout'] = self::$o['layout']['minimal'];
+            }
         } else if ($page['page']) {
             // Page: generic
             $data['page'] = $page;
@@ -179,17 +192,18 @@ class View {
     public function get_meta (): array {
         $vc = new ViewController;
         $web = $vc -> get_web_settings();
+        $language = $vc -> get_language();
+        $lang = $language['current'];
+        $page = self::get_page_data();
+        $detail = self::get_detail_data($page['page']['model']);
         $meta = [
             'title' => $web['web_meta_title'] ?? WEB_DOCUMENT['meta']['title'],
             'description' => $web['web_meta_description'] ?? WEB_DOCUMENT['meta']['description'],
             'keywords' => $web['web_meta_keywords'] ? implode(",", $web['web_meta_keywords']) : WEB_DOCUMENT['meta']['keywords'],
             'robots' => $web['web_meta_robots'] ?? WEB_DOCUMENT['meta']['robots'],
             'url' => WEB_DOCUMENT['root'],
+            'lang' => $lang,
         ];
-        $language = $vc -> get_language();
-        $lang = $language['current'];
-        $page = self::get_page_data();
-        $detail = self::get_detail_data($page['page']['model']);
 
         switch ($page['type']) {
 
@@ -223,8 +237,8 @@ class View {
 
     public function render (): void {
         $rc = new RouteController;
-        // $mc = new MemberController; // TODO ##member
         $vc = new ViewController;
+        // $mc = new MemberController; // TODO ##member
         $language = $vc -> get_language();
         $urlAttrs = $rc -> get_url_attrs();
         $urlParams = $rc -> get_url_params();
@@ -232,7 +246,6 @@ class View {
         $menu = $vc -> get_menu();
         $company = $vc -> get_company_settings();
         $members = $vc -> get_members_settings();
-        $member = [ /* TODO ##member */ ];
         $web = $vc -> get_web_settings();
         $page = self::get_page_data();
         $search_results = self::get_search_results();
@@ -241,11 +254,18 @@ class View {
         $public = [
             'home_link' => $urlParams['lang'] ? '/?' . $language['url_param'] : '/',
             'search_action_link' => $urlParams['lang'] ? '/search-results?' . $language['url_param'] : '/search-results',
+            'members_registration_link' => $urlParams['lang'] ? '/members-registration?' . $language['url_param'] : '/members-registration',
+            'members_lostPassword_link' => $urlParams['lang'] ? '/members-lost-password?' . $language['url_param'] : '/members-lost-password',
+            'members_profile_link' => $urlParams['lang'] ? '/members-profile?' . $language['url_param'] : '/members-profile',
         ];
+        // $member = []; // TODO ##member
 
         echo $this -> $blade -> run(
             $page['layout'],
             [
+                '_page' => $page['page']['page']['lang'][$language['current']],
+                '_category' => $page['page']['category']['data']['lang'][$language['current']],
+                '_detail' => $detail['detail']['lang'][$language['current']],
                 'page' => $page,
                 'detail' => $detail,
                 'category_context' => $category_context,
@@ -262,12 +282,9 @@ class View {
                 'menu' => $menu,
                 'menuLink' => function ($linkObject) { return self::get_menu_link($linkObject); },
                 'company' => $company,
-                'members' => $members,
-                'member' => $member,
                 'public' => array_merge($public, $web),
-                '_page' => $page['page']['page']['lang'][$language['current']],
-                '_category' => $page['page']['category']['data']['lang'][$language['current']],
-                '_detail' => $detail['detail']['lang'][$language['current']],
+                'members' => array_merge($members, [ 'active' => GLOBAL_MEMBERS_ACTIVE ]),
+                // 'member' => $member, // TODO ##member
             ]
         );
     }

@@ -1,6 +1,6 @@
 <template>
 	<form>
-		MemberSubscriptionForm: {{globalValue}} ... {{count}}
+		MemberSubscriptionForm: ... {{t('common:btn.close')}}
 	</form>
 </template>
 
@@ -9,8 +9,7 @@ module.exports = {
 	props: {},
 	data() {
 		return {
-			count: 0,
-			globalValue: this.$root.globalValue,
+			t: this.$root.t,
 		}
 	}
 };

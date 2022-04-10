@@ -1,6 +1,6 @@
 <template>
 	<form>
-		MemberLoginForm: ... {{t('common:btn.close')}}
+		MemberLostPasswordForm: ... {{t('common:btn.close')}}
 	</form>
 </template>
 
