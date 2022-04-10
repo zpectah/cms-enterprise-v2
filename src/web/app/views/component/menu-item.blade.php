@@ -2,12 +2,12 @@
     $ml = $menuLink($item);
 @endphp
 <li
-        class="menu-item menu-item--{{$item['type']}} {{$ml['selected'] ? 'selected' : ''}}"
+    class="menu-item menu-item--{{$item['type']}} {{$ml['selected'] ? 'selected' : ''}}"
 >
     <a
-            href="{{$ml['path']}}"
-            target="{{$ml['target']}}"
-            class="menu-item-link"
+        href="{{$ml['path']}}"
+        target="{{$ml['target']}}"
+        class="menu-item-link"
     >
         {{$ml['label']}}
     </a>

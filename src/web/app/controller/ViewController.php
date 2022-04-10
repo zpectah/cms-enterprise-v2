@@ -76,6 +76,12 @@ class ViewController {
         return $dp -> get_cms_members();
     }
 
+    public function get_settings (): array {
+        $dp = new DataProvider;
+
+        return $dp -> get_cms_settings();
+    }
+
     public function get_translations (): array {
         $dp = new DataProvider;
         $language = self::get_language();
@@ -89,6 +95,7 @@ class ViewController {
 
         $dp = new DataProvider;
         $detail = null;
+
         switch ($model) {
 
             case 'posts':
@@ -115,6 +122,7 @@ class ViewController {
             'page' => null,
             'category' => null,
         ];
+
         foreach ($pages as $p) {
             if ($p['name'] == $name && $p['active']) {
                 $page['page'] = $p;
@@ -152,6 +160,7 @@ class ViewController {
             'custom' => [],
         ];
         $menu = $dp -> get_menu();
+
         foreach ($menu as $item) {
             if ($item['active']) {
                 $item['__items'] = self::get_menu_items($item['id']);

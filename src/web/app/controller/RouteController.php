@@ -9,13 +9,13 @@ class RouteController {
         $request_array = explode( "/", $request_url_trimmed );
         unset($request_array[0]); // unset 'web/'
         unset($request_array[1]); // unset 'www/'
-
         $listed = array_values($request_array);
         $model = 'unknown';
         $context = 'unknown';
         $page = $listed[0];
-        $detail = $listed[1] == 'detail' ? true : false;
+        $detail = $listed[1] == 'detail';
         $id = $listed[2];
+
         if ($detail && $id) $context = 'category';
         if ($listed[0] === 'detail' && $listed[2]) {
             if ($listed[1] == 'posts') {
@@ -39,17 +39,10 @@ class RouteController {
 
     public function get_url_params (): array {
         return [
-
-            // Languages
             'lang' => $_GET['lang'],
-
-            // Search string
             'search' => $_GET['search'],
-
-            // Lists paginating & limit
             'page' => $_GET['page'],
             'limit' => $_GET['limit'],
-
         ];
     }
 

@@ -10,7 +10,4 @@
         'context' => 'category',
         'pageName' => $page['page']['page']['name'],
     ])
-    @php
-        print_r($menu['primary']['main-menu']);
-    @endphp
 </main>

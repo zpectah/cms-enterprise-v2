@@ -2,7 +2,11 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                header
+                <a
+                    href="{{$public['home_link']}}"
+                >
+                    {{$public['project_name']}}
+                </a>
             </div>
             <div class="col">
                 @include('component.navigation', [
