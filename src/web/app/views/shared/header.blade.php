@@ -1,4 +1,4 @@
-<header class="header">
+<header class="header page-layout-header">
     <div class="container">
         <div class="row">
             <div class="col">

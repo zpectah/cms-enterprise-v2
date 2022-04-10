@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer class="footer page-layout-footer">
     <div class="container">
         <div class="row">
             <div class="col">

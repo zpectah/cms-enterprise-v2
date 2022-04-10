@@ -34,12 +34,27 @@ class View {
         );
     }
 
+    private function get_category_context ($category, $detail): array {
+        $context = [
+            'prev' => null,
+            'index' => null,
+            'next' => null,
+        ];
+        if ($category['items']) {
+            $index = array_search($detail['detail'], $category['items']);
+            $context['index'] = $index;
+            if($index > 0 ) $context['prev'] = $category['items'][ $index -1 ];
+            if($index < count($category['items']) -1 ) $context['next'] = $category['items'][ $index +1 ];
+        }
+
+        return $context;
+    }
     private function get_detail_data ($pageModel): array {
         $rc = new RouteController;
         $vc = new ViewController;
         $data = [
-            'detail' => null,                                                       // Detail data
             'model' => 'unknown',                                                   // Detail model
+            'detail' => null,                                                       // Detail data
         ];
         $urlAttrs = $rc -> get_url_attrs();
         $model = null;
@@ -69,7 +84,6 @@ class View {
             'name' => 'error',                                                        // Route name
             'template' => self::$o['page']['error'],                                  // Page template
             'layout' => self::$o['layout']['minimal'],                                // Layout template
-            'category' => null,
         ];
         $urlAttrs = $rc -> get_url_attrs();
         $pageName = $urlAttrs['page'];
@@ -168,15 +182,16 @@ class View {
                 break;
 
             case 'static':
-                // TODO ##translations
-                // set static page meta from translations
+                if ($page['name'] !== 'home') {
+                    $meta['title'] = self::get_t('page:' . $page['name'] . '.title') . ' | ' . $meta['title'];
+                }
                 break;
 
         }
 
-        if ($detail) {
+        if ($detail['detail']) {
             $meta['title'] = $detail['detail']['lang'][$lang]['title'] . ' | ' . $meta['title'];
-            $meta['description'] = $detail['detail']['lang'][$lang]['description']; // TODO ##trim
+            $meta['description'] = substr($detail['detail']['lang'][$lang]['description'],0,200);
         }
 
         return $meta;
@@ -193,19 +208,18 @@ class View {
         $menu = $vc -> get_menu();
         $company = $vc -> get_company_settings();
         $members = $vc -> get_members_settings();
-        $member = [
-            // TODO ##member
-        ];
+        $member = [ /* TODO ##member */ ];
         $page = self::get_page_data();
-        $detail = self::get_detail_data($page['page']['model']);
         $search_results = self::get_search_results();
+        $detail = self::get_detail_data($page['page']['model']);
+        $category_context = self::get_category_context($page['page']['category'], $detail);
 
-        // Render
         echo $this -> $blade -> run(
             $page['layout'],
             [
                 'page' => $page,
                 'detail' => $detail,
+                'category_context' => $category_context,
                 'search_results' => $search_results,
                 'route' => [
                     'attrs' => $urlAttrs,
