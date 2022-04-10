@@ -84,15 +84,16 @@ class MenuItems {
         $helpers = new Helpers;
 
         // prepare
-        $query = ('INSERT INTO menu_items (name, type, page_id, path_url, menu_id, parent, item_order, active, deleted) VALUES (?,?,?,?,?,?,?,?,?)');
-        $types = 'ssssisiii';
+        $query = ('INSERT INTO menu_items (name, type, page_id, path_url, parent, link_custom_key, menu_id, item_order, active, deleted) VALUES (?,?,?,?,?,?,?,?,?,?)');
+        $types = 'ssssssiiii';
         $args = [
             $data['name'],
             $data['type'],
-            $data['page_id'],
-            $data['path_url'],
+            $data['page_id'] ?? '',
+            $data['path_url'] ?? '',
+            $data['parent'] ?? '',
+            $data['link_custom_key'] ?? '',
             $data['menu_id'],
-            $data['parent'],
             $data['item_order'],
             $data['active'],
             0
@@ -130,15 +131,16 @@ class MenuItems {
         $helpers = new Helpers;
 
         // prepare
-        $query = ('UPDATE menu_items SET name = ?, type = ?, page_id = ?, path_url = ?, menu_id = ?, parent = ?, item_order = ?, active = ? WHERE id = ?');
-        $types = 'ssssisiii';
+        $query = ('UPDATE menu_items SET name = ?, type = ?, page_id = ?, path_url = ?, menu_id = ?, parent = ?, link_custom_key = ?, item_order = ?, active = ? WHERE id = ?');
+        $types = 'ssssissiii';
         $args = [
             $data['name'],
             $data['type'],
             $data['page_id'],
             $data['path_url'],
             $data['menu_id'],
-            $data['parent'],
+            $data['parent'] ?? '',
+            $data['link_custom_key'] ?? '',
             $data['item_order'],
             $data['active'],
             $data['id']

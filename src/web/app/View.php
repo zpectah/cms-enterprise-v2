@@ -124,19 +124,44 @@ class View {
         return $value;
     }
     private function get_menu_link ($linkObject): array {
-        // $vc = new ViewController;
-        // $language = $vc -> get_language();
-        // $lang = $language['current'];
+        $vc = new ViewController;
+        $rc = new RouteController;
+        $language = $vc -> get_language();
+        $lang = $language['current'];
+        $urlParams = $rc -> get_url_params();
+        $urlAttrs = $rc -> get_url_attrs();
+        $path = null;
+        $target = null;
+        $selected = false;
 
+        switch ($linkObject['type']) {
 
-        // TODO ##menu
-        // Transform menu link to proper nice object with language path, etc
+            case 'external':
+                $target = '_blank';
+                $path = $linkObject['path_url'];
+                break;
 
+            case 'internal':
+                $target = '_self';
+                $path = $linkObject['path_url'];
+                break;
+
+            case 'page':
+                $page = $vc -> get_menu_item_page($linkObject['page_id']);
+                $target = '_self';
+                $path = '/' . $page['name'];
+                if ($urlParams['lang']) $path .= '?' . $language['url_param'];
+                if ('web/www' . $path == $urlAttrs['url']) $selected = true;
+                break;
+
+        }
 
         return [
-            'path' => '',
-            'label' => '',
-            'selected' => true,
+            'path' => $path,
+            'label' => $linkObject['lang'][$lang]['label'],
+            'selected' => $selected,
+            'target' => $target,
+            's' => $urlAttrs['url'],
         ];
     }
     private function get_search_results (): array {

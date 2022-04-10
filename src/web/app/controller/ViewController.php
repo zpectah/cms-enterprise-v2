@@ -129,6 +129,11 @@ class ViewController {
         return $page;
     }
 
+    public function get_menu_item_page ($id) {
+        $dp = new DataProvider;
+
+        return $dp -> get_pages([ 'id' => $id ]);
+    }
     public function get_menu_items ($menuId): array {
         $dp = new DataProvider;
         $helper = new Helpers;

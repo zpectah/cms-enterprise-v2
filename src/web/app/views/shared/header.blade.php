@@ -4,6 +4,11 @@
             <div class="col">
                 header
             </div>
+            <div class="col">
+                @include('component.menu-horizontal', [
+                    'menuData' => $menu['primary']['main-menu'],
+                ])
+            </div>
         </div>
     </div>
 </header>

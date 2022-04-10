@@ -27,6 +27,7 @@ class RouteController {
         }
 
         return [
+            'url' => $request_url_trimmed,
             'listed' => $listed,
             'page' => $page,
             'detail' => $detail,
