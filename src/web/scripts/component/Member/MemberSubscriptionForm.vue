@@ -40,8 +40,6 @@ const { UiInput } = require('../ui');
 
 const formModel = {
 	email: '',
-	type: 'subscriber',
-	subscription: true,
 };
 
 module.exports = {
@@ -66,19 +64,17 @@ module.exports = {
 	methods: {
 		formValidHandler: function (model) {
 			let valid = true;
-			const errors = {};
+			this.state.errors = {};
 
 			if (model.email === '' || model.email.length < 3 || !model.email.match(EMAIL_REGEX)) {
 				valid = false;
 				if (!model.email.match(EMAIL_REGEX)) {
-					errors['email'] = this.t('message.input.email_format');
+					this.state.errors['email'] = this.t('message.input.email_format');
 				} else {
-					errors['email'] = this.t('message.input.required');
+					this.state.errors['email'] = this.t('message.input.required');
 				}
 			}
 
-			console.log('form validator', errors, model);
-			this.state.errors = errors;
 			this.state.valid = valid;
 		},
 		submitHandler: function (e) {
@@ -90,9 +86,6 @@ module.exports = {
 			const master = _.cloneDeep(this.model);
 
 			return post('/api/member_subscribe', master).then((resp) => {
-
-				console.log('response', resp);
-
 				switch (resp.message) {
 
 					case 'member_success_created':

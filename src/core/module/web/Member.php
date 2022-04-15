@@ -34,18 +34,18 @@ class Member {
         $blacklist = new VisitorBlacklist;
         $response = [
             'message' => 'member_subscribe_error',
-            'blacklisted' => false,
         ];
+        $should_create = false;
+        $blacklisted = false;
         $ipAddress = $helpers -> get_client_ip_address();
         $allMembers = $members -> get($conn, []);
         $bl = $blacklist -> get($conn, []);
-        $should_create = false;
         foreach ($allMembers as $m) {
             if ($m['email'] !== $data['email']) {
                 foreach ($bl as $li) {
-                    if ($li['visitor_email'] == $data['email'] || $li['visitor_ip'] == $ipAddress) $response['blacklisted'] = true;
+                    if ($li['visitor_email'] == $data['email'] || $li['visitor_ip'] == $ipAddress) $blacklisted = true;
                 }
-                if ($response['blacklisted']) {
+                if ($blacklisted) {
                     $response['message'] = 'member_is_blacklisted';
                     $should_create = false;
                 } else {
@@ -57,12 +57,16 @@ class Member {
             }
         }
         if ($should_create) {
-            $updatedData = array_merge($data, [ 'ip_address' => $ipAddress ]);
+            $updatedData = array_merge($data, [
+                'ip_address' => $ipAddress,
+                'type' => 'subscriber',
+                'subscription' => true,
+            ]);
             $member = $members -> create($conn, $updatedData);
             if ($member['id'] !== 0) {
                 $response['message'] = 'member_success_created';
             } else {
-                $response['message'] = 'user_not_created';
+                $response['message'] = 'member_not_created';
             }
         }
 
@@ -75,18 +79,18 @@ class Member {
         $blacklist = new VisitorBlacklist;
         $response = [
             'message' => 'member_registration_error',
-            'blacklisted' => false,
         ];
+        $should_create = false;
+        $blacklisted = false;
         $ipAddress = $helpers -> get_client_ip_address();
         $allMembers = $members -> get($conn, []);
         $bl = $blacklist -> get($conn, []);
-        $should_create = false;
         foreach ($allMembers as $m) {
             if ($m['email'] !== $data['email']) {
                 foreach ($bl as $li) {
-                    if ($li['visitor_email'] == $data['email'] || $li['visitor_ip'] == $ipAddress) $response['blacklisted'] = true;
+                    if ($li['visitor_email'] == $data['email'] || $li['visitor_ip'] == $ipAddress) $blacklisted = true;
                 }
-                if ($response['blacklisted']) {
+                if ($blacklisted) {
                     $response['message'] = 'member_is_blacklisted';
                     $should_create = false;
                 } else {
@@ -98,12 +102,15 @@ class Member {
             }
         }
         if ($should_create) {
-            $updatedData = array_merge($data, [ 'ip_address' => $ipAddress ]);
+            $updatedData = array_merge($data, [
+                'ip_address' => $ipAddress,
+                'type' => 'default',
+            ]);
             $member = $members -> create($conn, $updatedData);
             if ($member['id'] !== 0) {
                 $response['message'] = 'member_success_created';
             } else {
-                $response['message'] = 'user_not_created';
+                $response['message'] = 'member_not_created';
             }
         }
 

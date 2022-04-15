@@ -64,7 +64,7 @@ module.exports = {
 		}
 	},
 	methods: {
-		formValidHandler: (model) => {
+		formValidHandler: function (model) {
 			let valid = true;
 			const errors = {};
 

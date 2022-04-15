@@ -2,7 +2,72 @@
 	<form
 		name="MemberRegistrationForm"
 	>
-		MemberRegistrationForm: ... {{t('common:btn.close')}}
+		<div class="mb-3">
+			<ui-input
+				id="MemberSubscriptionForm_name_first"
+				label="First name"
+				placeholder="First name"
+				v-model="model.name_first"
+				:error="state.errors.name_first"
+			/>
+		</div>
+		<div class="mb-3">
+			<ui-input
+				id="MemberSubscriptionForm_name_last"
+				label="Last name"
+				placeholder="Last name"
+				v-model="model.name_last"
+				:error="state.errors.name_last"
+			/>
+		</div>
+		<div class="mb-3">
+			<ui-input
+				id="MemberSubscriptionForm_email"
+				label="Your e-mail"
+				placeholder="Your e-mail"
+				v-model="model.email"
+				:error="state.errors.email"
+			/>
+		</div>
+		<div class="mb-3">
+			<ui-input
+				id="MemberSubscriptionForm_password"
+				label="Password"
+				placeholder="Password"
+				v-model="model.password"
+				:error="state.errors.password"
+			/>
+		</div>
+		<div class="mb-3">
+			<ui-checkbox
+				id="MemberSubscriptionForm_subscription"
+				label="Subscription"
+				v-model:checked="model.subscription"
+			/>
+		</div>
+		<div
+			v-if="state.formMessage"
+			class="alert"
+			:class="state.formError ? 'alert-danger' : 'alert-success'"
+			role="alert"
+		>
+			{{state.formMessage}}
+		</div>
+		<div>
+			<button
+				type="button"
+				class="btn btn-primary"
+				@click="submitHandler"
+				:disabled="!state.valid || state.process"
+			>
+				{{t('common:btn.submit')}}
+			</button>
+		</div>
+		<pre>
+			<code>
+				{{model}}
+			</code>
+		</pre>
 	</form>
 </template>
 
@@ -10,19 +75,26 @@
 const _ = require('lodash');
 const { EMAIL_REGEX } = require('../../constants');
 const { get, post } = require('../../utils/http');
-const { UiInput } = require('../ui');
+const { UiInput, UiCheckbox } = require('../ui');
+
+const formModel = {
+	name_first: '',
+	name_last: '',
+	email: '',
+	password: '',
+	subscription: true,
+};
 
 module.exports = {
 	components: {
 		'ui-input': UiInput,
+		'ui-checkbox': UiCheckbox,
 	},
 	props: {},
 	data() {
 		return {
 			t: this.$root.t,
-			model: {
-				email: ''
-			},
+			model: _.cloneDeep(formModel),
 			state: {
 				process: false, // ... for submitting
 				loading: false, // .. for load
@@ -34,9 +106,9 @@ module.exports = {
 		}
 	},
 	methods: {
-		formValidHandler: (model) => {
+		formValidHandler: function (model) {
 			let valid = true;
-			const errors = {};
+			let errors = {};
 
 			if (model.email === '' || model.email.length < 3 || !model.email.match(EMAIL_REGEX)) {
 				valid = false;
@@ -46,8 +118,19 @@ module.exports = {
 					errors['email'] = this.t('message.input.required');
 				}
 			}
+			if (model.password === '' || model.password.length < 3) {
+				valid = false;
+				errors['password'] = this.t('message.input.required');
+			}
+			if (model.name_first === '' || model.name_first.length < 3) {
+				valid = false;
+				errors['name_first'] = this.t('message.input.required');
+			}
+			if (model.name_last === '' || model.name_last.length < 3) {
+				valid = false;
+				errors['name_last'] = this.t('message.input.required');
+			}
 
-			console.log('form validator', errors, model);
 			this.state.errors = errors;
 			this.state.valid = valid;
 		},
@@ -59,12 +142,27 @@ module.exports = {
 			this.state.formMessage = '';
 			const master = _.cloneDeep(this.model);
 
-			console.log('model on submit', master);
-			setTimeout(() => {
+			return post('/api/member_registration', master).then((resp) => {
+				switch (resp.message) {
+
+					case 'member_success_created':
+						break;
+
+					case 'member_is_blacklisted':
+					case 'user_not_created':
+					case 'member_already_exist':
+					case 'member_subscribe_error':
+					default:
+						self.state.formError = true;
+						break;
+
+				}
+
+				self.state.formMessage = self.t(`message:${resp.message}`);
 				self.state.process = false;
-				self.state.formError = true;
-				self.state.formMessage = '... some form error';
-			}, 1000);
+				self.model = _.cloneDeep(formModel);
+
+			});
 		},
 	},
 	watch: {
