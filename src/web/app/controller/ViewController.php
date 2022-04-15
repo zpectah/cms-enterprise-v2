@@ -190,4 +190,34 @@ class ViewController {
         ];
     }
 
+    public function get_posts_list ($props): array {
+        // [ order_by, category_id, tag_id, limit ]
+        $dp = new DataProvider;
+        $posts = $dp -> get_posts([]);
+        $filtered = [];
+        foreach ($posts as $post) {
+            if ($post['active']) $filtered[] = $post;
+        }
+        $posts = $filtered;
+        $orderBy = $props['order_by'] ?? 'id';
+        if ($props['category_id']) {
+            $filtered = [];
+            foreach ($posts as $post) {
+                if (in_array($props['category_id'], $post['categories'])) $filtered[] = $post;
+            }
+            $posts = $filtered;
+        }
+        if ($props['tag_id']) {
+            $filtered = [];
+            foreach ($posts as $post) {
+                if (in_array($props['tag_id'], $post['tags'])) $filtered[] = $post;
+            }
+            $posts = $filtered;
+        }
+        usort($posts, function ($a, $b) use ($orderBy) { return strcmp($b[$orderBy], $a[$orderBy]); });
+        if ($props['limit']) $posts = array_slice($posts, 0, $props['limit']);
+
+        return $posts;
+    }
+
 }

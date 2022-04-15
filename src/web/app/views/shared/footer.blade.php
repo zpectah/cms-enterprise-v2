@@ -5,12 +5,20 @@
                 <small>
                     &copy; 2022
                     <a
-                            href="{{$public['home_link']}}"
+                        href="{{$public['home_link']}}"
                     >
                         {{$public['web_meta_title']}}
                     </a>
                     |
                     {{$t('common:text.all-rights')}}
+                    |
+                    Powered by
+                    <a
+                        href="/admin"
+                        target="_blank"
+                    >
+                        CMS Enterprise v0.9
+                    </a>
                 </small>
             </div>
         </div>

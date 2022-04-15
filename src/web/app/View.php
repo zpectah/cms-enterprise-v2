@@ -196,6 +196,11 @@ class View {
 
         return $results;
     }
+    private function get_posts ($props): array {
+        $vc = new ViewController;
+
+        return $vc -> get_posts_list($props);
+    }
 
     public function get_meta (): array {
         $vc = new ViewController;
@@ -304,6 +309,7 @@ class View {
                 't' => function ($key) { return self::get_t($key); },
                 'menuLink' => function ($linkObject) { return self::get_menu_link($linkObject); },
                 'languageLink' => function ($path) { return self::get_language_link_path($path); },
+                'get_posts' => function ($props) { return self::get_posts($props); },
             ]
         );
     }

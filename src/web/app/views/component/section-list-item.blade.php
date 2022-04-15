@@ -16,7 +16,6 @@
             }
             break;
     }
-    if ($language['url_param']) $path .= '?' . $language['url_param'];
 @endphp
 <article
     class="section-list-item section-list-item--{{$m}}"
@@ -26,7 +25,7 @@
 >
     <h3 class="title title--item">
         <a
-            href="{{$path}}"
+            href="{{$languageLink($path)}}"
         >
             {{$title}}
         </a>
@@ -37,7 +36,7 @@
         </p>
     @endif
     <a
-        href="{{$path}}"
+        href="{{$languageLink($path)}}"
         class="btn btn-outline-primary"
     >
         {{$t('common:btn.detail')}}
