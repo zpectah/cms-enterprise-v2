@@ -1,0 +1,25 @@
+.Cookiebot{
+  width: 100vw;
+  height: auto;
+  margin: 0;
+  padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1024;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: row;
+  color: rgb(225,225,225);
+  background-color: rgba(25,25,25,.95);
+
+  &-content{}
+  &-actions{
+    padding: 0 0 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+}

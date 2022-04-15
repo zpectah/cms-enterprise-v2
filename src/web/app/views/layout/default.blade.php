@@ -14,4 +14,5 @@
         </div>
     </div>
     @include('shared.footer')
+    <cookie-bot />
 </div>

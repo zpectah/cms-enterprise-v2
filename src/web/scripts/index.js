@@ -4,6 +4,7 @@ import {
 	loadTranslations,
 	getTranslationFromKey,
 } from './utils/translations';
+import { Cookiebot } from './component/EuCookies';
 import {
 	MemberSubscriptionForm,
 	MemberLoginForm,
@@ -16,6 +17,7 @@ import {
 
 createApp({
 	components: {
+		'cookie-bot': Cookiebot,
 		'member-subscription-form': MemberSubscriptionForm,
 		'member-login-form': MemberLoginForm,
 		'member-lost-password-form': MemberLostPasswordForm,
