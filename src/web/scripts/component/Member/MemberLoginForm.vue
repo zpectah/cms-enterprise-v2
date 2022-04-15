@@ -18,6 +18,14 @@
 				v-model="model.password"
 			/>
 		</div>
+		<div
+			v-if="state.formMessage"
+			class="alert"
+			:class="state.formError ? 'alert-danger' : 'alert-success'"
+			role="alert"
+		>
+			{{state.formMessage}}
+		</div>
 		<div>
 			<button
 				type="button"

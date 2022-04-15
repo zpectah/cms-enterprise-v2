@@ -877,6 +877,12 @@ class ApiProvider {
                 }
                 break;
 
+            case 'member_subscribe':
+                $response['data'] = $dp -> member_subscribe($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['message'];
+                break;
+
             case 'member_login':
                 $response['data'] = $dp -> member_login($data);
                 $response['status'] = 'ok';

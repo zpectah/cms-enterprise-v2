@@ -91,14 +91,15 @@ class Members {
                 img_avatar,
                 phone_alt,
                 email_alt,
-                 sex,
-                 birthdate,
+                sex,
+                birthdate,
                 description,
+                ip_address,
                 subscription,
                 active, 
                 deleted
-                   ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
-        $types = 'sssssssssssssssssssiii';
+                   ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+        $types = 'ssssssssssssssssssssiii';
         $args = [
             $data['email'],
             $data['type'],
@@ -119,6 +120,7 @@ class Members {
             $data['sex'] ? $data['sex'] : '',
             $data['birthdate'] ? $data['birthdate'] : '',
             $data['description'] ? $data['description'] : '',
+            $data['ip_address'] ?? '',
             $data['subscription'],
             $data['active'] ? $data['active'] : 1,
             0
@@ -164,6 +166,7 @@ class Members {
                 sex = ?,
                 birthdate = ?,
                 description = ?, 
+                ip_address = ?,
                 subscription = ?,
                 active = ? 
             WHERE id = ?')
@@ -186,6 +189,7 @@ class Members {
                 sex = ?,
                 birthdate = ?, 
                 description = ?, 
+                ip_address = ?,
                 subscription = ?,
                 active = ? 
             WHERE id = ?');
@@ -210,6 +214,7 @@ class Members {
             $data['sex'],
             $data['birthdate'] ?? '',
             $data['description'],
+            $data['ip_address'] ?? '',
             $data['subscription'],
             $data['active'],
             $data['id']
@@ -232,6 +237,7 @@ class Members {
             $data['sex'],
             $data['birthdate'] ?? '',
             $data['description'],
+            $data['ip_address'] ?? '',
             $data['subscription'],
             $data['active'],
             $data['id']

@@ -7,14 +7,31 @@
 		>
 			{{label}}
 		</label>
-		<input
-			class="form-control"
-			:type="type"
-			:id="id"
-			:placeholder="placeholder"
-			:value="modelValue"
-			@input='onInput'
-		/>
+		<div
+			class="input-group"
+		>
+			<input
+				class="form-control"
+				:class="error ?? 'is-invalid'"
+				:type="type"
+				:id="id"
+				:placeholder="placeholder"
+				:value="modelValue"
+				@input='onInput'
+			/>
+			<div
+				v-if="help"
+				class="form-text"
+			>
+				{{help}}
+			</div>
+			<div
+				v-if="error"
+				class="form-text invalid-feedback"
+			>
+				{{error}}
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -40,6 +57,14 @@ module.exports = {
 		placeholder: {
 			type: String,
 			default: ''
+		},
+		help: {
+			type: String,
+			default: '',
+		},
+		error: {
+			type: String,
+			default: '',
 		},
 	},
 	methods: {

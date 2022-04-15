@@ -5,6 +5,7 @@ namespace core\module\web;
 use core\common\Helpers;
 use core\model\CmsRequests;
 use core\model\Members;
+use core\model\VisitorBlacklist;
 use core\module\admin\Settings;
 use core\service\AuthService;
 use core\service\EmailService;
@@ -25,6 +26,47 @@ class Member {
         $members = new Members;
 
         return $members -> update($conn, $data);
+    }
+
+    public function member_subscribe ($conn, $data): array {
+        $members = new Members;
+        $helpers = new Helpers;
+        $blacklist = new VisitorBlacklist;
+        $response = [
+            'message' => 'member_subscribe_error',
+            'blacklisted' => false,
+        ];
+        $ipAddress = $helpers -> get_client_ip_address();
+        $allMembers = $members -> get($conn, []);
+        $bl = $blacklist -> get($conn, []);
+        $should_create = false;
+        foreach ($allMembers as $m) {
+            if ($m['email'] !== $data['email']) {
+                foreach ($bl as $li) {
+                    if ($li['visitor_email'] == $data['email'] || $li['visitor_ip'] == $ipAddress) $response['blacklisted'] = true;
+                }
+                if ($response['blacklisted']) {
+                    $response['message'] = 'member_is_blacklisted';
+                    $should_create = false;
+                } else {
+                    $should_create = true;
+                }
+            } else {
+                $response['message'] = 'member_already_exist';
+                $should_create = false;
+            }
+        }
+        if ($should_create) {
+            $updatedData = array_merge($data, [ 'ip_address' => $ipAddress ]);
+            $member = $members -> create($conn, $updatedData);
+            if ($member['id'] !== 0) {
+                $response['message'] = 'member_success_created';
+            } else {
+                $response['message'] = 'user_not_created';
+            }
+        }
+
+        return $response;
     }
 
     public function member_login ($conn, $data): array {
