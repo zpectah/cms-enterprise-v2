@@ -1,4 +1,4 @@
-@if($members['active'] && $members['members_register_active'])
+@if($members_options['active'] && $members_options['members_register_active'])
     @php
         $formId = $d ?? 'FormSubscription';
     @endphp

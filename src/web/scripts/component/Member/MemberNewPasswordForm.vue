@@ -9,7 +9,7 @@
 				label="New password"
 				placeholder="New password"
 				v-model="model.password"
-				:error="state.errors.password"
+				:error="errors.password"
 			/>
 		</div>
 		<div
@@ -35,7 +35,7 @@
 
 <script>
 const _ = require('lodash');
-const { get, post } = require('../../utils/http');
+const { post } = require('../../utils/http');
 const { UiInput } = require('../ui');
 
 const formModel = {
@@ -61,13 +61,13 @@ module.exports = {
 			t: this.$root.t,
 			model: _.cloneDeep(formModel),
 			state: {
-				process: false, // ... for submitting
-				loading: false, // .. for load
+				process: false,
+				loading: false,
 				valid: false,
-				errors: {},
 				formError: false,
 				formMessage: '',
 			},
+			errors: {},
 		}
 	},
 	methods: {
@@ -80,7 +80,7 @@ module.exports = {
 				errors['password'] = this.t('message.input.required');
 			}
 
-			this.state.errors = errors;
+			this.errors = errors;
 			this.state.valid = valid;
 		},
 		submitHandler: function (e) {

@@ -2,7 +2,7 @@
 
 namespace app;
 
-// use app\controller\MemberController; // TODO ##member
+use app\controller\MemberController;
 use app\controller\RouteController;
 use app\controller\ViewController;
 use eftec\bladeone\BladeOne;
@@ -246,7 +246,7 @@ class View {
     public function render (): void {
         $rc = new RouteController;
         $vc = new ViewController;
-        // $mc = new MemberController; // TODO ##member
+        $mc = new MemberController;
         $language = $vc -> get_language();
         $urlAttrs = $rc -> get_url_attrs();
         $urlParams = $rc -> get_url_params();
@@ -259,10 +259,17 @@ class View {
         $search_results = self::get_search_results();
         $detail = self::get_detail_data($page['page']['model']);
         $category_context = self::get_category_context($page['page']['category'], $detail);
-        $member = $vc -> get_member_options(
-            $urlAttrs['listed'],
-            $urlAttrs['page'] == 'members-lost-password',
+        $member_options = array_merge(
+            $members,
+            [
+                'active' => GLOBAL_MEMBERS_ACTIVE,
+            ],
+            $vc -> get_member_options(
+                $urlAttrs['listed'],
+                $urlAttrs['page'] == 'members-lost-password',
+            ),
         );
+        $member = $mc -> get_member();
         $public = [
             'home_link' => self::get_language_link_path('/'),
             'search_action_link' => self::get_language_link_path('/search-results'),
@@ -289,13 +296,14 @@ class View {
                 'language' => $language,
                 'lang' => $language['current'],
                 'translations' => $translations,
-                't' => function ($key) { return self::get_t($key); },
                 'menu' => $menu,
-                'menuLink' => function ($linkObject) { return self::get_menu_link($linkObject); },
                 'company' => $company,
                 'public' => array_merge($public, $web),
-                'members' => array_merge($members, [ 'active' => GLOBAL_MEMBERS_ACTIVE ]),
+                'members_options' => $member_options,
                 'member' => $member,
+                't' => function ($key) { return self::get_t($key); },
+                'menuLink' => function ($linkObject) { return self::get_menu_link($linkObject); },
+                'languageLink' => function ($path) { return self::get_language_link_path($path); },
             ]
         );
     }

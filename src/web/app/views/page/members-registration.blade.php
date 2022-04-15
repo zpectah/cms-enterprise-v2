@@ -1,4 +1,4 @@
-@if($members['active'] && $members['members_register_active'])
+@if($members_options['active'] && $members_options['members_register_active'])
     <main class="view page-view page-view--members-registration">
         @include('component.section-heading', [
             'title' => $t('page:members-registration.title'),

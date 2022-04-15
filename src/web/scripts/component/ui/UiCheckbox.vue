@@ -5,6 +5,7 @@
 			class="form-check-input"
 			:id="id"
 			:checked="checked"
+			:disabled="disabled"
 			@input="(event) => $emit('update:checked',event.target.checked)"
 		/>
 		<label
@@ -38,6 +39,10 @@ module.exports = {
 		error: {
 			type: String,
 			default: '',
+		},
+		disabled: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	// methods: {

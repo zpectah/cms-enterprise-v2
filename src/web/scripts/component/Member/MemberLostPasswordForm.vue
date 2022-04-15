@@ -4,11 +4,12 @@
 	>
 		<div class="mb-3">
 			<ui-input
+				type="email"
 				id="MemberLostPasswordForm_email"
 				label="Your e-mail"
 				placeholder="Your e-mail"
 				v-model="model.email"
-				:error="state.errors.email"
+				:error="errors.email"
 			/>
 		</div>
 		<div
@@ -35,7 +36,7 @@
 <script>
 const _ = require('lodash');
 const { EMAIL_REGEX } = require('../../constants');
-const { get, post } = require('../../utils/http');
+const { post } = require('../../utils/http');
 const { UiInput } = require('../ui');
 
 const formModel = {
@@ -53,13 +54,13 @@ module.exports = {
 			t: this.$root.t,
 			model: _.cloneDeep(formModel),
 			state: {
-				process: false, // ... for submitting
-				loading: false, // .. for load
+				process: false,
+				loading: false,
 				valid: false,
-				errors: {},
 				formError: false,
 				formMessage: '',
 			},
+			errors: {},
 		}
 	},
 	methods: {
@@ -76,8 +77,7 @@ module.exports = {
 				}
 			}
 
-			console.log('form validator', errors, model);
-			this.state.errors = errors;
+			this.errors = errors;
 			this.state.valid = valid;
 		},
 		submitHandler: function (e) {

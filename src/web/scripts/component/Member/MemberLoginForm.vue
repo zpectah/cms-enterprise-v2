@@ -4,20 +4,22 @@
 	>
 		<div class="mb-3">
 			<ui-input
+				type="email"
 				id="MemberLoginForm_email"
 				label="Your e-mail"
 				placeholder="Your e-mail"
 				v-model="model.email"
-				:error="state.errors.email"
+				:error="errors.email"
 			/>
 		</div>
 		<div class="mb-3">
 			<ui-input
+				type="password"
 				id="MemberLoginForm_password"
 				label="Your password"
 				placeholder="Your password"
 				v-model="model.password"
-				:error="state.errors.password"
+				:error="errors.password"
 			/>
 		</div>
 		<div
@@ -37,11 +39,6 @@
 				{{t('common:btn.submit')}}
 			</button>
 		</div>
-		<pre>
-			<code>
-				{{model}}
-			</code>
-		</pre>
 	</form>
 </template>
 
@@ -51,6 +48,11 @@ const { EMAIL_REGEX } = require('../../constants');
 const { get, post } = require('../../utils/http');
 const { UiInput } = require('../ui');
 
+const formModel = {
+	email: '',
+	password: '',
+};
+
 module.exports = {
 	components: {
 		'ui-input': UiInput,
@@ -59,18 +61,15 @@ module.exports = {
 	data() {
 		return {
 			t: this.$root.t,
-			model: {
-				email: '',
-				password: '',
-			},
+			model: _.cloneDeep(formModel),
 			state: {
-				process: false, // ... for submitting
-				loading: false, // .. for load
+				process: false,
+				loading: false,
 				valid: false,
-				errors: {},
 				formError: false,
 				formMessage: '',
 			},
+			errors: {},
 		}
 	},
 	methods: {
@@ -86,9 +85,12 @@ module.exports = {
 					errors['email'] = this.t('message.input.required');
 				}
 			}
+			if (model.password === '' || model.password.length < 3) {
+				valid = false;
+				errors['password'] = this.t('message.input.required');
+			}
 
-			console.log('form validator', errors, model);
-			this.state.errors = errors;
+			this.errors = errors;
 			this.state.valid = valid;
 		},
 		submitHandler: function (e) {
@@ -98,13 +100,31 @@ module.exports = {
 			this.state.formError = false;
 			this.state.formMessage = '';
 			const master = _.cloneDeep(this.model);
+			const target = window.location.href;
 
-			console.log('model on submit', master);
-			setTimeout(() => {
+			return post('/api/member_login', master).then((resp) => {
+				switch (resp.message) {
+
+					case 'member_login_success':
+						setTimeout(() => {
+							window.location.href = target;
+						}, 2500);
+						break;
+
+					case 'member_not_found':
+					case 'member_password_mismatch':
+					case 'member_not_active':
+					case 'member_is_deleted':
+					default:
+						self.state.formError = true;
+						break;
+
+				}
+
+				self.state.formMessage = self.t(`message:${resp.message}`);
 				self.state.process = false;
-				self.state.formError = true;
-				self.state.formMessage = '... some form error';
-			}, 1000);
+				self.model = _.cloneDeep(formModel);
+			});
 		},
 	},
 	watch: {

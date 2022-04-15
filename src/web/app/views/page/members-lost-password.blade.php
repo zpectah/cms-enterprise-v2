@@ -1,4 +1,4 @@
-@if($members['active'] && $members['members_lostPassword_active'])
+@if($members_options['active'] && $members_options['members_lostPassword_active'])
     <main class="view page-view page-view--members-lost-password">
         @include('component.section-heading', [
             'title' => $t('page:members-lost-password.title'),

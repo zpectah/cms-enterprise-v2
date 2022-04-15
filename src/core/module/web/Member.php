@@ -15,7 +15,7 @@ class Member {
     public function get_member_profile ($conn): array {
         $response = [];
         $as = new AuthService;
-        $email = $as -> get_user_session();
+        $email = $as -> get_member_session();
         $members = new Members;
         if ($email) $response = $members -> get($conn, ['email' => $email]);
 

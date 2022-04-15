@@ -1,21 +1,53 @@
-@if($members['active'] && $members['members_login_active'])
+@if($members_options['active'] && $members_options['members_login_active'])
     @php
         $formId = $d ?? 'FormLogin';
     @endphp
     <div class="widget widget-login">
         <h4 class="title title--widget">
-            {{$t('widget:login.title')}}
+            @if(!$member['profile'])
+                {{$t('widget:login.title')}}
+            @else
+                {{$t('widget:login.title-profile')}}
+            @endif
         </h4>
         <div class="widget-main">
-            <member-login-form>Loading</member-login-form>
+            @if(!$member['profile'])
+                <member-login-form>Loading</member-login-form>
+            @else
+                <div>
+                    {{$member['profile']['email']}}
+                </div>
+            @endif
         </div>
         <div class="widget-actions">
-            <a href="{{$public['members_registration_link']}}">
-                {{$t('common:btn.sign-in')}}
-            </a>
-            <a href="{{$public['members_lostPassword_link']}}">
-                {{$t('common:btn.lost-password')}}
-            </a>
+            @if(!$member['profile'])
+                <div>
+                    <a
+                        href="{{$public['members_registration_link']}}"
+                        class="btn btn-outline-primary"
+                    >
+                        {{$t('common:btn.sign-in')}}
+                    </a>
+                    <a
+                        href="{{$public['members_lostPassword_link']}}"
+                        class="btn btn-outline-primary"
+                    >
+                        {{$t('common:btn.lost-password')}}
+                    </a>
+                </div>
+            @else
+                <div>
+                    <a
+                        href="{{$public['members_profile_link']}}"
+                        class="btn btn-outline-primary"
+                    >
+                        {{$t('common:btn.profile')}}
+                    </a>
+                    <member-logout-link
+                        path="{{$public['home_link']}}"
+                    />
+                </div>
+            @endif
         </div>
     </div>
 @endif

@@ -11,6 +11,7 @@ import {
 	MemberNewPasswordForm,
 	MemberProfileForm,
 	MemberRegistrationForm,
+	MemberLogoutLink,
 } from './component/Member';
 
 createApp({
@@ -21,6 +22,7 @@ createApp({
 		'member-new-password-form': MemberNewPasswordForm,
 		'member-profile-form': MemberProfileForm,
 		'member-registration-form': MemberRegistrationForm,
+		'member-logout-link': MemberLogoutLink,
 	},
 	mixins: [],
 	data() {

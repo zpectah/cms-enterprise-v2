@@ -8,7 +8,7 @@
 				label="First name"
 				placeholder="First name"
 				v-model="model.name_first"
-				:error="state.errors.name_first"
+				:error="errors.name_first"
 			/>
 		</div>
 		<div class="mb-3">
@@ -17,25 +17,27 @@
 				label="Last name"
 				placeholder="Last name"
 				v-model="model.name_last"
-				:error="state.errors.name_last"
+				:error="errors.name_last"
 			/>
 		</div>
 		<div class="mb-3">
 			<ui-input
+				type="email"
 				id="MemberSubscriptionForm_email"
 				label="Your e-mail"
 				placeholder="Your e-mail"
 				v-model="model.email"
-				:error="state.errors.email"
+				:error="errors.email"
 			/>
 		</div>
 		<div class="mb-3">
 			<ui-input
+				type="password"
 				id="MemberSubscriptionForm_password"
 				label="Password"
 				placeholder="Password"
 				v-model="model.password"
-				:error="state.errors.password"
+				:error="errors.password"
 			/>
 		</div>
 		<div class="mb-3">
@@ -74,7 +76,7 @@
 <script>
 const _ = require('lodash');
 const { EMAIL_REGEX } = require('../../constants');
-const { get, post } = require('../../utils/http');
+const { post } = require('../../utils/http');
 const { UiInput, UiCheckbox } = require('../ui');
 
 const formModel = {
@@ -96,13 +98,13 @@ module.exports = {
 			t: this.$root.t,
 			model: _.cloneDeep(formModel),
 			state: {
-				process: false, // ... for submitting
-				loading: false, // .. for load
+				process: false,
+				loading: false,
 				valid: false,
-				errors: {},
 				formError: false,
 				formMessage: '',
 			},
+			errors: {},
 		}
 	},
 	methods: {
@@ -131,7 +133,7 @@ module.exports = {
 				errors['name_last'] = this.t('message.input.required');
 			}
 
-			this.state.errors = errors;
+			this.errors = errors;
 			this.state.valid = valid;
 		},
 		submitHandler: function (e) {

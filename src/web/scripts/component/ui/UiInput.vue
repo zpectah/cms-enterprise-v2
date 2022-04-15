@@ -18,6 +18,7 @@
 				:placeholder="placeholder"
 				:value="modelValue"
 				@input='onInput'
+				:disabled="readonly || disabled"
 			/>
 			<div
 				v-if="help"
@@ -65,6 +66,14 @@ module.exports = {
 		error: {
 			type: String,
 			default: '',
+		},
+		disabled: {
+			type: Boolean,
+			default: false,
+		},
+		readonly: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	methods: {
