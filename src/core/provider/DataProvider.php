@@ -954,6 +954,15 @@ class DataProvider {
         return $response;
     }
 
+    public function member_registration ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $member = new Member;
+        $response = $member -> member_registration($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
     public function member_login ($data): array {
         $conn = new mysqli(...CFG_DB_CONN);
         $member = new Member;

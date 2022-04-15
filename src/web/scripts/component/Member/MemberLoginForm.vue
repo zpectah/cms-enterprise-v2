@@ -8,6 +8,7 @@
 				label="Your e-mail"
 				placeholder="Your e-mail"
 				v-model="model.email"
+				:error="state.errors.email"
 			/>
 		</div>
 		<div class="mb-3">
@@ -16,6 +17,7 @@
 				label="Your password"
 				placeholder="Your password"
 				v-model="model.password"
+				:error="state.errors.password"
 			/>
 		</div>
 		<div
@@ -73,8 +75,21 @@ module.exports = {
 	},
 	methods: {
 		formValidHandler: (model) => {
+			let valid = true;
+			const errors = {};
 
-			return true;
+			if (model.email === '' || model.email.length < 3 || !model.email.match(EMAIL_REGEX)) {
+				valid = false;
+				if (!model.email.match(EMAIL_REGEX)) {
+					errors['email'] = this.t('message.input.email_format');
+				} else {
+					errors['email'] = this.t('message.input.required');
+				}
+			}
+
+			console.log('form validator', errors, model);
+			this.state.errors = errors;
+			this.state.valid = valid;
 		},
 		submitHandler: function (e) {
 			e.preventDefault();
@@ -90,6 +105,14 @@ module.exports = {
 				self.state.formError = true;
 				self.state.formMessage = '... some form error';
 			}, 1000);
+		},
+	},
+	watch: {
+		'model': {
+			handler: function (nv, ov) {
+				this.formValidHandler(nv);
+			},
+			deep: true,
 		},
 	},
 };

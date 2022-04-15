@@ -883,6 +883,12 @@ class ApiProvider {
                 $response['message'] = $response['data']['message'];
                 break;
 
+            case 'member_registration':
+                $response['data'] = $dp -> member_registration($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['message'];
+                break;
+
             case 'member_login':
                 $response['data'] = $dp -> member_login($data);
                 $response['status'] = 'ok';
