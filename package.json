@@ -56,6 +56,8 @@
     "@mui/material": "5.3.0",
     "@mui/styled-engine-sc": "5.3.0",
     "@mui/styles": "5.3.0",
+    "@types/react": "17.0.44",
+    "@types/react-dom": "17.0.15",
     "draft-convert": "2.1.12",
     "draft-js": "0.11.7",
     "i18next": "21.6.7",

@@ -1,11 +1,16 @@
 import { createApp } from 'vue';
 
-import { loadTranslations, getTranslationFromKey } from './utils/translations';
-import MemberSubscriptionForm from './component/MemberSubscriptionForm';
-import MemberLoginForm from './component/MemberLoginForm';
-import MemberLostPasswordForm from './component/MemberLostPasswordForm';
-import MemberProfileForm from './component/MemberProfileForm';
-import MemberRegistrationForm from './component/MemberRegistrationForm';
+import {
+	loadTranslations,
+	getTranslationFromKey,
+} from './utils/translations';
+import {
+	MemberSubscriptionForm,
+	MemberLoginForm,
+	MemberLostPasswordForm,
+	MemberProfileForm,
+	MemberRegistrationForm,
+} from './component/Member';
 
 createApp({
 	components: {
