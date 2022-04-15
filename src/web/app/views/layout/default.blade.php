@@ -1,5 +1,5 @@
 <div
-        id="vue-app"
+        id="vue-scope"
         class="page-layout page-layout--default"
 >
     @include('shared.header')

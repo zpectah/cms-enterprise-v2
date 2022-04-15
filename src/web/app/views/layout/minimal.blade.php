@@ -1,5 +1,5 @@
 <div
-        id="vue-app"
+        id="vue-scope"
         class="page-layout page-layout--minimal"
 >
     <div class="container">
