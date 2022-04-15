@@ -1,15 +1,34 @@
 <template>
 	<form
-		name="MemberLostPasswordForm"
+		name="ContactForm"
 	>
 		<div class="mb-3">
 			<ui-input
 				type="email"
-				id="MemberLostPasswordForm_email"
-				label="Your e-mail"
-				placeholder="Your e-mail"
-				v-model="model.email"
-				:error="errors.email"
+				id="ContactForm_sender"
+				label="sender"
+				placeholder="sender"
+				v-model="model.sender"
+				:error="errors.sender"
+				:disabled="!!email"
+			/>
+		</div>
+		<div class="mb-3">
+			<ui-input
+				id="ContactForm_subject"
+				label="subject"
+				placeholder="subject"
+				v-model="model.subject"
+				:error="errors.subject"
+			/>
+		</div>
+		<div class="mb-3">
+			<ui-textarea
+				id="ContactForm_content"
+				label="content"
+				placeholder="content"
+				v-model="model.content"
+				:error="errors.content"
 			/>
 		</div>
 		<div
@@ -25,7 +44,6 @@
 				type="button"
 				class="btn btn-primary"
 				@click="submitHandler"
-				:disabled="!state.valid || state.process"
 			>
 				{{t('common:btn.submit')}}
 			</button>
@@ -35,20 +53,31 @@
 
 <script>
 const _ = require('lodash');
-const { EMAIL_REGEX } = require('../../constants');
-const { post } = require('../../utils/http');
-const { UiInput } = require('../ui');
+const { EMAIL_REGEX } = require('../constants');
+const { post } = require('../utils/http');
+const { UiInput, UiTextarea } = require('./ui');
 
 const formModel = {
-	email: '',
+	sender: '',
+	subject: '',
+	content: '',
+	type: 'contact_form',
 };
 
 module.exports = {
 	components: {
 		'ui-input': UiInput,
+		'ui-textarea': UiTextarea,
 	},
-	// props: {},
-	// mounted() {},
+	props: {
+		email: {
+			type: String,
+			default: '',
+		},
+	},
+	mounted() {
+		if (this.email) this.model.sender = this.email;
+	},
 	data() {
 		return {
 			t: this.$root.t,
@@ -67,13 +96,17 @@ module.exports = {
 			let valid = true;
 			const errors = {};
 
-			if (model.email === '' || model.email.length < 3 || !model.email.match(EMAIL_REGEX)) {
+			if (model.sender === '' || model.sender.length < 3) {
 				valid = false;
-				if (!model.email.match(EMAIL_REGEX)) {
-					errors['email'] = this.t('message.input.email_format');
-				} else {
-					errors['email'] = this.t('message.input.required');
-				}
+				errors['sender'] = this.t('message.input.required');
+			}
+			if (model.subject === '' || model.subject.length < 3) {
+				valid = false;
+				errors['subject'] = this.t('message.input.required');
+			}
+			if (model.content === '' || model.content.length < 3) {
+				valid = false;
+				errors['content'] = this.t('message.input.required');
 			}
 
 			this.errors = errors;
@@ -86,15 +119,19 @@ module.exports = {
 			this.state.formError = false;
 			this.state.formMessage = '';
 			const master = _.cloneDeep(this.model);
+			const target = window.location.href;
 
-			return post('/api/member_lost_password', master).then((resp) => {
-
+			return post('/api/create_messages', master).then((resp) => {
 				switch (resp.message) {
 
-					case 'request_was_send':
+					case 'member_login_success':
+						setTimeout(() => {
+							window.location.href = target;
+						}, 2500);
 						break;
 
 					case 'member_not_found':
+					case 'member_password_mismatch':
 					case 'member_not_active':
 					case 'member_is_deleted':
 					default:
@@ -107,7 +144,6 @@ module.exports = {
 				self.state.process = false;
 				self.model = _.cloneDeep(formModel);
 			});
-
 		},
 	},
 	watch: {

@@ -9,4 +9,5 @@
     <section class="section section--paginating">
         detail paginating if category context exist
     </section>
+    @include('widget.widget-contact-form')
 </main>

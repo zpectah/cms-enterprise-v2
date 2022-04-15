@@ -5,6 +5,7 @@ import {
 	getTranslationFromKey,
 } from './utils/translations';
 import { Cookiebot } from './component/EuCookies';
+import ContactForm from './component/ContactForm';
 import {
 	MemberSubscriptionForm,
 	MemberLoginForm,
@@ -18,6 +19,7 @@ import {
 createApp({
 	components: {
 		'cookie-bot': Cookiebot,
+		'contact-form': ContactForm,
 		'member-subscription-form': MemberSubscriptionForm,
 		'member-login-form': MemberLoginForm,
 		'member-lost-password-form': MemberLostPasswordForm,

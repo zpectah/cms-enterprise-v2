@@ -132,7 +132,11 @@ class ApiProvider {
             case 'create_comments':
                 $response['data'] = $dp -> create_comments($data);
                 $response['status'] = 'ok';
-                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                if ($response['data']['error']) {
+                    $response['message'] = $response['data']['error'];
+                } else {
+                    $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                }
                 break;
 
             case 'update_comments':
@@ -344,7 +348,11 @@ class ApiProvider {
             case 'create_messages':
                 $response['data'] = $dp -> create_messages($data);
                 $response['status'] = 'ok';
-                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                if ($response['data']['error']) {
+                    $response['message'] = $response['data']['error'];
+                } else {
+                    $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
+                }
                 break;
 
             case 'update_messages':

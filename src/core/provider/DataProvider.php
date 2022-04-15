@@ -143,15 +143,26 @@ class DataProvider {
         $conn = new mysqli(...CFG_DB_CONN);
         $comments = new Comments;
         $helpers = new Helpers;
+        $blackList = new VisitorBlacklist;
         $ip = $helpers -> get_client_ip_address();
-        $merged_data = array_merge(
-            $data,
-            [
-                'ip_address' => $ip,
-            ]
-        );
-        $response = $comments -> create($conn, $merged_data);
-        $conn -> close();
+        $listed = false;
+        $list = $blackList -> get($conn, []);
+        foreach ($list as $item) {
+            if ($item['visitor_email'] == $data['sender'] || $item['visitor_ip'] == $ip) $listed = true;
+        }
+        if (!$listed) {
+            $merged_data = array_merge(
+                $data,
+                [
+                    'ip_address' => $ip,
+                ]
+            );
+            $response = $comments -> create($conn, $merged_data);
+        } else {
+            $response = [
+                'error' => 'ip_address_in_blacklist',
+            ];
+        }
 
         return $response;
     }
@@ -373,14 +384,26 @@ class DataProvider {
         $conn = new mysqli(...CFG_DB_CONN);
         $messages = new Messages;
         $helpers = new Helpers;
+        $blackList = new VisitorBlacklist;
         $ip = $helpers -> get_client_ip_address();
-        $merged_data = array_merge(
-            $data,
-            [
-                'ip_address' => $ip,
-            ]
-        );
-        $response = $messages -> create($conn, $merged_data);
+        $listed = false;
+        $list = $blackList -> get($conn, []);
+        foreach ($list as $item) {
+            if ($item['visitor_email'] == $data['sender'] || $item['visitor_ip'] == $ip) $listed = true;
+        }
+        if (!$listed) {
+            $merged_data = array_merge(
+                $data,
+                [
+                    'ip_address' => $ip,
+                ]
+            );
+            $response = $messages -> create($conn, $merged_data);
+        } else {
+            $response = [
+                'error' => 'ip_address_in_blacklist',
+            ];
+        }
         $conn -> close();
 
         return $response;

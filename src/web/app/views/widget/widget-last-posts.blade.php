@@ -1,4 +1,3 @@
-
 <div class="widget-last-posts">
     <h4 class="title title--widget">
         {{$t('widget:last-posts.title')}}

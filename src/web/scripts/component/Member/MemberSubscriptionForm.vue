@@ -54,7 +54,6 @@ module.exports = {
 			model: _.cloneDeep(formModel),
 			state: {
 				process: false,
-				loading: false,
 				valid: false,
 				formError: false,
 				formMessage: '',

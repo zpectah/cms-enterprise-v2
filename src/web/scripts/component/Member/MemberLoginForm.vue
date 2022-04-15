@@ -45,7 +45,7 @@
 <script>
 const _ = require('lodash');
 const { EMAIL_REGEX } = require('../../constants');
-const { get, post } = require('../../utils/http');
+const { post } = require('../../utils/http');
 const { UiInput } = require('../ui');
 
 const formModel = {
@@ -64,7 +64,6 @@ module.exports = {
 			model: _.cloneDeep(formModel),
 			state: {
 				process: false,
-				loading: false,
 				valid: false,
 				formError: false,
 				formMessage: '',
