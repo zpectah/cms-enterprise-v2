@@ -161,7 +161,6 @@ module.exports = {
 				self.state.formMessage = self.t(`message:${resp.message}`);
 				self.state.process = false;
 				self.model = _.cloneDeep(formModel);
-
 			});
 		},
 	},

@@ -8,6 +8,7 @@ import {
 	MemberSubscriptionForm,
 	MemberLoginForm,
 	MemberLostPasswordForm,
+	MemberNewPasswordForm,
 	MemberProfileForm,
 	MemberRegistrationForm,
 } from './component/Member';
@@ -17,6 +18,7 @@ createApp({
 		'member-subscription-form': MemberSubscriptionForm,
 		'member-login-form': MemberLoginForm,
 		'member-lost-password-form': MemberLostPasswordForm,
+		'member-new-password-form': MemberNewPasswordForm,
 		'member-profile-form': MemberProfileForm,
 		'member-registration-form': MemberRegistrationForm,
 	},

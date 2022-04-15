@@ -24,15 +24,11 @@
 				type="button"
 				class="btn btn-primary"
 				@click="submitHandler"
+				:disabled="!state.valid || state.process"
 			>
 				{{t('common:btn.submit')}}
 			</button>
 		</div>
-		<pre>
-			<code>
-				{{model}}
-			</code>
-		</pre>
 	</form>
 </template>
 
@@ -42,17 +38,20 @@ const { EMAIL_REGEX } = require('../../constants');
 const { get, post } = require('../../utils/http');
 const { UiInput } = require('../ui');
 
+const formModel = {
+	email: '',
+};
+
 module.exports = {
 	components: {
 		'ui-input': UiInput,
 	},
-	props: {},
+	// props: {},
+	// mounted() {},
 	data() {
 		return {
 			t: this.$root.t,
-			model: {
-				email: ''
-			},
+			model: _.cloneDeep(formModel),
 			state: {
 				process: false, // ... for submitting
 				loading: false, // .. for load
@@ -89,12 +88,27 @@ module.exports = {
 			this.state.formMessage = '';
 			const master = _.cloneDeep(this.model);
 
-			console.log('model on submit', master);
-			setTimeout(() => {
+			return post('/api/member_lost_password', master).then((resp) => {
+
+				switch (resp.message) {
+
+					case 'request_was_send':
+						break;
+
+					case 'member_not_found':
+					case 'member_not_active':
+					case 'member_is_deleted':
+					default:
+						self.state.formError = true;
+						break;
+
+				}
+
+				self.state.formMessage = self.t(`message:${resp.message}`);
 				self.state.process = false;
-				self.state.formError = true;
-				self.state.formMessage = '... some form error';
-			}, 1000);
+				self.model = _.cloneDeep(formModel);
+			});
+
 		},
 	},
 	watch: {

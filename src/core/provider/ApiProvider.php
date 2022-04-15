@@ -827,7 +827,7 @@ class ApiProvider {
             case 'user_login':
                 $response['data'] = $dp -> user_login($data);
                 $response['status'] = 'ok';
-                $response['message'] = $response['data']['message'];
+                $response['message'] = $response['data']['message'] ?? $response['message'];
                 break;
 
             case 'user_logout':
@@ -839,19 +839,19 @@ class ApiProvider {
             case 'user_lost_password':
                 $response['data'] = $dp -> user_lost_password($data);
                 $response['status'] = 'ok';
-                $response['message'] = $msg_success;
+                $response['message'] = $response['data']['message'] ?? $response['message'];
                 break;
 
             case 'user_lost_password_reset':
                 $response['data'] = $dp -> user_lost_password_reset($data);
                 $response['status'] = 'ok';
-                $response['message'] = $msg_success;
+                $response['message'] = $response['data']['message'] ?? $response['message'];
                 break;
 
             case 'user_create_new_password':
                 $response['data'] = $dp -> user_create_new_password($data);
                 $response['status'] = 'ok';
-                $response['message'] = $msg_success;
+                $response['message'] = $response['data']['message'] ?? $response['message'];
                 break;
 
             /**
@@ -892,7 +892,7 @@ class ApiProvider {
             case 'member_login':
                 $response['data'] = $dp -> member_login($data);
                 $response['status'] = 'ok';
-                $response['message'] = $response['data']['message'];
+                $response['message'] = $response['data']['message'] ?? $response['message'];
                 break;
 
             case 'member_logout':
@@ -904,19 +904,19 @@ class ApiProvider {
             case 'member_lost_password':
                 $response['data'] = $dp -> member_lost_password($data);
                 $response['status'] = 'ok';
-                $response['message'] = $msg_success;
+                $response['message'] = $response['data']['message'] ?? $response['message'];
                 break;
 
             case 'member_lost_password_reset':
                 $response['data'] = $dp -> member_lost_password_reset($data);
                 $response['status'] = 'ok';
-                $response['message'] = $msg_success;
+                $response['message'] = $response['data']['message'] ?? $response['message'];
                 break;
 
             case 'member_create_new_password':
                 $response['data'] = $dp -> member_create_new_password($data);
                 $response['status'] = 'ok';
-                $response['message'] = $msg_success;
+                $response['message'] = $response['data']['message'] ?? $response['message'];
                 break;
 
             /**

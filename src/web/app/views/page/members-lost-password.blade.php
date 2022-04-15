@@ -5,7 +5,15 @@
             'description' => $t('page:members-lost-password.description'),
         ])
         <section class="section section--main">
-            <member-lost-password-form>Loading</member-lost-password-form>
+            @if($member['lost_password_token'])
+                <member-new-password-form
+                    token="{{$member['lost_password_token']}}"
+                >
+                    Loading
+                </member-new-password-form>
+            @else
+                <member-lost-password-form>Loading</member-lost-password-form>
+            @endif
         </section>
     </main>
 @else

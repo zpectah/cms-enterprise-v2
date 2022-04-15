@@ -41,6 +41,7 @@ class RouteController {
         return [
             'lang' => $_GET['lang'],
             'search' => $_GET['search'],
+            'email' => $_GET['email'],
             'page' => $_GET['page'],
             'limit' => $_GET['limit'],
         ];

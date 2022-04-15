@@ -1,14 +1,15 @@
 <template>
 	<form
-		name="MemberSubscriptionForm"
+		name="MemberNewPasswordForm"
 	>
 		<div class="mb-3">
 			<ui-input
-				id="MemberSubscriptionForm_email"
-				label="Your e-mail"
-				placeholder="Your e-mail"
-				v-model="model.email"
-				:error="state.errors.email"
+				type="password"
+				id="MemberNewPasswordForm_password"
+				label="New password"
+				placeholder="New password"
+				v-model="model.password"
+				:error="state.errors.password"
 			/>
 		</div>
 		<div
@@ -34,19 +35,27 @@
 
 <script>
 const _ = require('lodash');
-const { EMAIL_REGEX } = require('../../constants');
 const { get, post } = require('../../utils/http');
 const { UiInput } = require('../ui');
 
 const formModel = {
-	email: '',
+	password: '',
+	token: '',
 };
 
 module.exports = {
 	components: {
 		'ui-input': UiInput,
 	},
-	props: {},
+	props: {
+		token: {
+			type: [String, null],
+			default: null,
+		},
+	},
+	mounted() {
+		this.model.token = this.token;
+	},
 	data() {
 		return {
 			t: this.$root.t,
@@ -66,13 +75,9 @@ module.exports = {
 			let valid = true;
 			const errors = {};
 
-			if (model.email === '' || model.email.length < 3 || !model.email.match(EMAIL_REGEX)) {
+			if (model.password === '' || model.password.length < 3) {
 				valid = false;
-				if (!model.email.match(EMAIL_REGEX)) {
-					errors['email'] = this.t('message.input.email_format');
-				} else {
-					errors['email'] = this.t('message.input.required');
-				}
+				errors['password'] = this.t('message.input.required');
 			}
 
 			this.state.errors = errors;
@@ -86,16 +91,17 @@ module.exports = {
 			this.state.formMessage = '';
 			const master = _.cloneDeep(this.model);
 
-			return post('/api/member_subscribe', master).then((resp) => {
+			return post('/api/member_create_new_password', master).then((resp) => {
+
 				switch (resp.message) {
 
-					case 'member_success_created':
+					case 'member_password_reset_success':
 						break;
 
-					case 'member_is_blacklisted':
-					case 'user_not_created':
-					case 'member_already_exist':
-					case 'member_subscribe_error':
+					case 'member_password_reset_error':
+					case 'member_password_already_reset':
+					case 'request_not_found':
+					case 'token_not_found':
 					default:
 						self.state.formError = true;
 						break;
@@ -106,6 +112,7 @@ module.exports = {
 				self.state.process = false;
 				self.model = _.cloneDeep(formModel);
 			});
+
 		},
 	},
 	watch: {

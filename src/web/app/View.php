@@ -34,6 +34,14 @@ class View {
         );
     }
 
+    private function get_language_link_path ($path) {
+        $rc = new RouteController;
+        $vc = new ViewController;
+        $language = $vc -> get_language();
+        $urlParams = $rc -> get_url_params();
+
+        return $urlParams['lang'] ? $path . '?' . $language['url_param'] : $path;
+    }
     private function get_category_context ($category, $detail): array {
         $context = [
             'prev' => null,
@@ -251,14 +259,17 @@ class View {
         $search_results = self::get_search_results();
         $detail = self::get_detail_data($page['page']['model']);
         $category_context = self::get_category_context($page['page']['category'], $detail);
+        $member = $vc -> get_member_options(
+            $urlAttrs['listed'],
+            $urlAttrs['page'] == 'members-lost-password',
+        );
         $public = [
-            'home_link' => $urlParams['lang'] ? '/?' . $language['url_param'] : '/',
-            'search_action_link' => $urlParams['lang'] ? '/search-results?' . $language['url_param'] : '/search-results',
-            'members_registration_link' => $urlParams['lang'] ? '/members-registration?' . $language['url_param'] : '/members-registration',
-            'members_lostPassword_link' => $urlParams['lang'] ? '/members-lost-password?' . $language['url_param'] : '/members-lost-password',
-            'members_profile_link' => $urlParams['lang'] ? '/members-profile?' . $language['url_param'] : '/members-profile',
+            'home_link' => self::get_language_link_path('/'),
+            'search_action_link' => self::get_language_link_path('/search-results'),
+            'members_registration_link' => self::get_language_link_path('/members-registration'),
+            'members_lostPassword_link' => self::get_language_link_path('/members-lost-password'),
+            'members_profile_link' => self::get_language_link_path('/members-profile'),
         ];
-        // $member = []; // TODO ##member
 
         echo $this -> $blade -> run(
             $page['layout'],
@@ -284,7 +295,7 @@ class View {
                 'company' => $company,
                 'public' => array_merge($public, $web),
                 'members' => array_merge($members, [ 'active' => GLOBAL_MEMBERS_ACTIVE ]),
-                // 'member' => $member, // TODO ##member
+                'member' => $member,
             ]
         );
     }
