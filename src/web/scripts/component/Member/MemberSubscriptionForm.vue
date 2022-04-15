@@ -11,9 +11,16 @@
 			/>
 		</div>
 		<div>
+			<div
+				v-if='state.formMessage'
+			>
+				form message: {{state.formMessage}} ... is error {{state.formError}}
+			</div>
 			<button
-				type="submit"
+				type="button"
 				class="btn btn-primary"
+				@click="submitHandler"
+				:disabled="state.process"
 			>
 				{{t('common:btn.submit')}}
 			</button>
@@ -28,6 +35,8 @@
 
 <script>
 const _ = require('lodash');
+const { EMAIL_REGEX } = require('../../constants');
+const { get, post } = require('../../utils/http');
 const { UiInput } = require('../ui');
 
 module.exports = {
@@ -41,8 +50,37 @@ module.exports = {
 			model: {
 				email: ''
 			},
+			state: {
+				process: false, // ... for submitting
+				loading: false, // .. for load
+				valid: false,
+				errors: {},
+				formError: false,
+				formMessage: '',
+			},
 		}
-	}
+	},
+	methods: {
+		formValidHandler: (model) => {
+
+			return true;
+		},
+		submitHandler: function (e) {
+			e.preventDefault();
+			const self = this;
+			this.state.process = true;
+			this.state.formError = false;
+			this.state.formMessage = '';
+			const master = _.cloneDeep(this.model);
+
+			console.log('model on submit', master);
+			setTimeout(() => {
+				self.state.process = false;
+				self.state.formError = true;
+				self.state.formMessage = '... some form error';
+			}, 1000);
+		},
+	},
 };
 </script>
 
