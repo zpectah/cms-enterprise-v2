@@ -9,6 +9,7 @@
 			:assigned-id="assignedId"
 			:onFormSubmit="formSubmitHandler"
 			:email="email"
+			:anonymous="anonymous"
 		/>
 	</div>
 </template>
@@ -41,6 +42,7 @@ export default {
 			type: String,
 			default: null,
 		},
+		anonymous: null,
 	},
 	data() {
 		return {

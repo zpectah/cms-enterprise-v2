@@ -1,11 +1,19 @@
-<section
-    class="section section--comments"
->
-    <comments
-        assigned="{{$assigned}}"
-        assigned-id="{{$assignedId}}"
-        email="{{$member['profile']['email']}}"
+@if($public['comments_global_active'])
+    <section
+        class="section section--comments"
     >
-        Loading
-    </comments>
-</section>
+        <h3
+            class="title title--section"
+        >
+            {{$t('common:title.comments')}}
+        </h3>
+        <comments
+            assigned="{{$assigned}}"
+            assigned-id="{{$assignedId}}"
+            email="{{$member['profile']['email']}}"
+            anonymous="{{$public['comments_anonymous_active'] == 1 || $member['profile']['email']}}"
+        >
+            Loading
+        </comments>
+    </section>
+@endif

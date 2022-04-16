@@ -2,7 +2,9 @@
 	<div
 		class="Comments"
 	>
-		<div>
+		<div
+			v-if="!!anonymous"
+		>
 			<button
 				class="btn btn-secondary"
 				@click="openFormHandler"
@@ -19,7 +21,7 @@
 			</button>
 		</div>
 		<new-comment-form
-			v-if="comment"
+			v-if="comment && !!anonymous"
 			:assigned="assigned"
 			:assigned-id="assignedId"
 			:onFormSubmit="formSubmitHandler"
@@ -31,6 +33,7 @@
 			:items="comments"
 			:onFormSubmit="formSubmitHandler"
 			:email="email"
+			:anonymous="!!anonymous"
 		/>
 	</div>
 </template>
@@ -63,6 +66,7 @@ export default {
 			type: String,
 			default: null,
 		},
+		anonymous: null,
 	},
 	mounted() {
 		if (this.assigned && this.assignedId) {

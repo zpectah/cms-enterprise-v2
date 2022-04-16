@@ -2,6 +2,11 @@
     <section
         class="section section--attachments"
     >
+        <h3
+                class="title title--section"
+        >
+            {{$t('common:title.attachments')}}
+        </h3>
         <ul
             class="list list-attachments"
         >

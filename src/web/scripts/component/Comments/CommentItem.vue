@@ -24,6 +24,7 @@
 		</div>
 		<div
 			class="Comments-list-item-footer"
+			v-if="anonymous"
 		>
 			<button
 				class="btn btn-secondary btn-sm"
@@ -42,7 +43,7 @@
 		</div>
 		<div
 			class="Comments-list-item-reply"
-			v-if="reply"
+			v-if="reply && anonymous"
 		>
 			<new-comment-form
 				:assigned="assigned"
@@ -63,6 +64,7 @@
 				:onFormSubmit="formSubmitHandler"
 				:parent="item.id"
 				:email="email"
+				:anonymous="anonymous"
 			/>
 		</div>
 	</div>
@@ -100,6 +102,7 @@ export default {
 			type: String,
 			default: null,
 		},
+		anonymous: null,
 	},
 	data() {
 		return {

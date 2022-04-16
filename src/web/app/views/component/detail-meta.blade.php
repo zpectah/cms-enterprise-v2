@@ -8,21 +8,33 @@
     <dl>
         <dt>{{$t('common:label.category')}}</dt>
         <dd>
-            @foreach($detail['detail']['__categories'] as $category)
-                <span>
+            <div
+                class="hstack gap-2"
+            >
+                @foreach($detail['detail']['__categories'] as $category)
+                    <span
+                        class="badge bg-info"
+                    >
                     {{$category['lang'][$lang]['title']}}
                 </span>
-            @endforeach
+                @endforeach
+            </div>
         </dd>
     </dl>
     <dl>
         <dt>{{$t('common:label.tags')}}</dt>
         <dd>
-            @foreach($detail['detail']['__tags'] as $category)
-                <span>
+            <div
+                class="hstack gap-2"
+            >
+                @foreach($detail['detail']['__tags'] as $category)
+                    <span
+                        class="badge bg-dark"
+                    >
                     {{$category['name']}}
                 </span>
-            @endforeach
+                @endforeach
+            </div>
         </dd>
     </dl>
 </section>
