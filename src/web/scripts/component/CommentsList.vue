@@ -1,32 +1,44 @@
 <template>
 	<div>
-		Comments list ... {{model}} ... {{modelId}}
+		<new-comment-form
+			:assigned="assigned"
+			:assigned-id="assignedId"
+		/>
+		<div>
+			Comments list ... {{assigned}} ... {{assignedId}}
+		</div>
 	</div>
 </template>
 
 <script>
+import _ from 'lodash';
+import { get, post } from '../utils/http';
+import { EMAIL_REGEX } from '../constants';
+import NewCommentForm from './NewCommentForm';
+import { UiInput, UiTextarea } from './ui';
 
-function loadComments () {
-
-	console.log('load comments list ...');
-
-	return [];
+const loadComments = function (assigned, id) {
+	return get(`/api/get_comments?assigned=${assigned}&assigned_id=${id}&with_children=true`);
 }
 
-module.exports = {
+// TODO: update all .vue imports & exports
+export default {
+	components: {
+		'new-comment-form': NewCommentForm,
+	},
 	props: {
-		model: {
+		assigned: {
 			type: String,
 			default: null,
 		},
-		modelId: {
+		assignedId: {
 			type: String,
 			default: null,
 		},
 	},
 	mounted() {
-		if (this.model && this.modelId) {
-			loadComments().then((resp) => {
+		if (this.assigned && this.assignedId) {
+			loadComments(this.assigned, this.assignedId).then((resp) => {
 				console.log('list ...', resp);
 			});
 		}

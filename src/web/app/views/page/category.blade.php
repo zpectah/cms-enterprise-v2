@@ -11,7 +11,7 @@
         'pageName' => $page['page']['page']['name'],
     ])
     @include('component.section-comments', [
-        'model' => 'category',
-        'modelId' => $page['page']['category']['data']['id'],
+        'assigned' => 'Categories',
+        'assignedId' => $page['page']['category']['data']['id'],
     ])
 </main>

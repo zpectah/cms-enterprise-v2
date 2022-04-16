@@ -2,8 +2,8 @@
     class="section section--comments"
 >
     <comments-list
-        model="{{$model}}"
-        model-id="{{$modelId}}"
+        assigned="{{$assigned}}"
+        assigned-id="{{$assignedId}}"
     >
         Loading
     </comments-list>

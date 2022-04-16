@@ -22,7 +22,7 @@
     @include('component.detail-meta')
     @include('component.detail-author')
     @include('component.section-comments', [
-        'model' => 'posts',
-        'modelId' => $detail['detail']['id'],
+        'assigned' => 'Posts',
+        'assignedId' => $detail['detail']['id'],
     ])
 </main>
