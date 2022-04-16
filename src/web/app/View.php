@@ -281,6 +281,11 @@ class View {
             'members_registration_link' => self::get_language_link_path('/members-registration'),
             'members_lostPassword_link' => self::get_language_link_path('/members-lost-password'),
             'members_profile_link' => self::get_language_link_path('/members-profile'),
+            'project' => [
+                'copyright_year' => 2022,
+                'meta' => PROJECT_META,
+                'global' => PROJECT_GLOBAL,
+            ],
         ];
 
         echo $this -> $blade -> run(

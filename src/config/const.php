@@ -17,6 +17,8 @@ const PASS_CRYPT_OPTIONS = [
     'threads' => 3
 ];
 define( "CFG_DB_SQL", $DATABASE[ ENV ]['SQL'] );
+define("PROJECT_META", $CFG_PROJECT['meta']);
+define("PROJECT_GLOBAL", $CFG_PROJECT['global']);
 define("PROJECT_ADMIN_TITLE", $CFG_PROJECT['admin']['meta']['title']);
 const CFG_DB_CONN = [
     CFG_DB_SQL['server'],

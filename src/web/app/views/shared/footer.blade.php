@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col">
                 <small>
-                    &copy; 2022
+                    &copy; {{$public['project']['copyright_year']}}
                     <a
                         href="{{$public['home_link']}}"
                     >
@@ -12,12 +12,11 @@
                     |
                     {{$t('common:text.all-rights')}}
                     |
-                    Powered by
                     <a
                         href="/admin"
                         target="_blank"
                     >
-                        CMS Enterprise v0.9
+                        {{$public['project']['meta']['name']}} v{{$public['project']['meta']['version']}}
                     </a>
                 </small>
             </div>
