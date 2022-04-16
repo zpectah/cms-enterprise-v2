@@ -1,5 +1,5 @@
 @php
-    $formId = $d ?? 'FormSearch';
+    $formId = $formId ?? 'FormSearch';
 @endphp
 <div class="widget widget-search">
     <div class="widget-main">

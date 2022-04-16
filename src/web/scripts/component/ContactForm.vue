@@ -1,13 +1,14 @@
 <template>
 	<form
-		name="ContactForm"
+		:id="formId"
+		:name="formId"
 	>
 		<div class="mb-3">
 			<ui-input
 				type="email"
-				id="ContactForm_sender"
-				label="sender"
-				placeholder="sender"
+				:id="formId + '_sender'"
+				:label="t('form.label.email')"
+				:placeholder="t('form.placeholder.email')"
 				v-model="model.sender"
 				:error="errors.sender"
 				:disabled="!!email"
@@ -15,18 +16,18 @@
 		</div>
 		<div class="mb-3">
 			<ui-input
-				id="ContactForm_subject"
-				label="subject"
-				placeholder="subject"
+				:id="formId + '_subject'"
+				:label="t('form.label.subject')"
+				:placeholder="t('form.placeholder.subject')"
 				v-model="model.subject"
 				:error="errors.subject"
 			/>
 		</div>
 		<div class="mb-3">
 			<ui-textarea
-				id="ContactForm_content"
-				label="content"
-				placeholder="content"
+				:id="formId + '_content'"
+				:label="t('form.label.content')"
+				:placeholder="t('form.placeholder.content')"
 				v-model="model.content"
 				:error="errors.content"
 			/>
@@ -44,6 +45,7 @@
 				type="button"
 				class="btn btn-primary"
 				@click="submitHandler"
+				:disabled="!state.valid || state.process"
 			>
 				{{t('common:btn.submit')}}
 			</button>
@@ -70,6 +72,10 @@ module.exports = {
 		'ui-textarea': UiTextarea,
 	},
 	props: {
+		formId: {
+			type: String,
+			default: 'ContactForm',
+		},
 		email: {
 			type: String,
 			default: '',
@@ -119,28 +125,18 @@ module.exports = {
 			this.state.formError = false;
 			this.state.formMessage = '';
 			const master = _.cloneDeep(this.model);
-			const target = window.location.href;
 
 			return post('/api/create_messages', master).then((resp) => {
-				switch (resp.message) {
-
-					case 'member_login_success':
-						setTimeout(() => {
-							window.location.href = target;
-						}, 2500);
-						break;
-
-					case 'member_not_found':
-					case 'member_password_mismatch':
-					case 'member_not_active':
-					case 'member_is_deleted':
-					default:
-						self.state.formError = true;
-						break;
-
+				if (resp.data.id && resp.data.id !== 0) {
+					self.state.formMessage = self.t(`message:message_sent`);
+				} else if (resp.message) {
+					self.state.formError = true;
+					self.state.formMessage = self.t(`message:${resp.message}`);
+				} else {
+					self.state.formError = true;
+					self.state.formMessage = self.t(`message:message_error`);
 				}
 
-				self.state.formMessage = self.t(`message:${resp.message}`);
 				self.state.process = false;
 				self.model = _.cloneDeep(formModel);
 			});

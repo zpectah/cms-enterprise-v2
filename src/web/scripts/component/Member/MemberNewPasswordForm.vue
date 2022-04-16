@@ -1,13 +1,14 @@
 <template>
 	<form
-		name="MemberNewPasswordForm"
+		:id="formId"
+		:name="formId"
 	>
 		<div class="mb-3">
 			<ui-input
 				type="password"
-				id="MemberNewPasswordForm_password"
-				label="New password"
-				placeholder="New password"
+				:id="formId + '_password'"
+				:label="t('form.label.password')"
+				:placeholder="t('form.placeholder.password')"
 				v-model="model.password"
 				:error="errors.password"
 			/>
@@ -48,6 +49,10 @@ module.exports = {
 		'ui-input': UiInput,
 	},
 	props: {
+		formId: {
+			type: String,
+			default: 'MemberNewPasswordForm',
+		},
 		token: {
 			type: [String, null],
 			default: null,

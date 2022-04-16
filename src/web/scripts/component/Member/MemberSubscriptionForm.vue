@@ -1,13 +1,14 @@
 <template>
 	<form
-		name="MemberSubscriptionForm"
+		:id="formId"
+		:name="formId"
 	>
 		<div class="mb-3">
 			<ui-input
 				type="email"
-				id="MemberSubscriptionForm_email"
-				label="Your e-mail"
-				placeholder="Your e-mail"
+				:id="formId + '_email'"
+				:label="t('form.label.email')"
+				:placeholder="t('form.placeholder.email')"
 				v-model="model.email"
 				:error="errors.email"
 			/>
@@ -47,7 +48,12 @@ module.exports = {
 	components: {
 		'ui-input': UiInput,
 	},
-	props: {},
+	props: {
+		formId: {
+			type: String,
+			default: 'MemberSubscriptionForm',
+		},
+	},
 	data() {
 		return {
 			t: this.$root.t,

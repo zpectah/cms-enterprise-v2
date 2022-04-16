@@ -1,7 +1,4 @@
 @if($members_options['active'] && $members_options['members_login_active'])
-    @php
-        $formId = $d ?? 'FormLogin';
-    @endphp
     <div class="widget widget-login">
         <h4 class="title title--widget">
             @if(!$member['profile'])
@@ -12,7 +9,7 @@
         </h4>
         <div class="widget-main">
             @if(!$member['profile'])
-                <member-login-form>Loading</member-login-form>
+                <member-login-form form-id="{{$formId}}">Loading</member-login-form>
             @else
                 <div>
                     {{$member['profile']['email']}}

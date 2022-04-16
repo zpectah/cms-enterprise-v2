@@ -52,8 +52,8 @@ class Messages {
         $type = $data['type'];
         $subject = $data['subject'];
         $content = $data['content'];
-        $sender = $data['sender'];
         $recipients = $data['recipients'];
+        $sender = $type == 'contact_form' ? $data['__sender'] : $data['sender'];
         foreach ($recipients as $email) {
             $sent = $es -> send_email_message(
                 $email,
@@ -71,7 +71,7 @@ class Messages {
         $types = 'sssssssi';
         $args = [
             $type,
-            $sender,
+            $data['sender'],
             $data['recipients'] ? implode(",", $data['recipients']) : '',
             $subject,
             $content,

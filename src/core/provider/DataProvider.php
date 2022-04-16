@@ -160,7 +160,7 @@ class DataProvider {
             $response = $comments -> create($conn, $merged_data);
         } else {
             $response = [
-                'error' => 'ip_address_in_blacklist',
+                'error' => 'visitor_in_blacklist',
             ];
         }
 
@@ -385,6 +385,8 @@ class DataProvider {
         $messages = new Messages;
         $helpers = new Helpers;
         $blackList = new VisitorBlacklist;
+        $settings = new Settings;
+        $settings_web = $settings -> get_cms_web($conn);
         $ip = $helpers -> get_client_ip_address();
         $listed = false;
         $list = $blackList -> get($conn, []);
@@ -392,16 +394,19 @@ class DataProvider {
             if ($item['visitor_email'] == $data['sender'] || $item['visitor_ip'] == $ip) $listed = true;
         }
         if (!$listed) {
+            $recipients = $data['recipients'] ?? $settings_web['form_email_recipients'];
             $merged_data = array_merge(
                 $data,
                 [
                     'ip_address' => $ip,
+                    'recipients' => $recipients,
+                    '__sender' => $settings_web['form_email_sender'],
                 ]
             );
             $response = $messages -> create($conn, $merged_data);
         } else {
             $response = [
-                'error' => 'ip_address_in_blacklist',
+                'error' => 'visitor_in_blacklist',
             ];
         }
         $conn -> close();

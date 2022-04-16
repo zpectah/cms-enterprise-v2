@@ -1,13 +1,14 @@
 <template>
 	<form
-		name="MemberLoginForm"
+		:id="formId"
+		:name="formId"
 	>
 		<div class="mb-3">
 			<ui-input
 				type="email"
-				id="MemberLoginForm_email"
-				label="Your e-mail"
-				placeholder="Your e-mail"
+				:id="formId + '_email'"
+				:label="t('form.label.email')"
+				:placeholder="t('form.placeholder.email')"
 				v-model="model.email"
 				:error="errors.email"
 			/>
@@ -15,9 +16,9 @@
 		<div class="mb-3">
 			<ui-input
 				type="password"
-				id="MemberLoginForm_password"
-				label="Your password"
-				placeholder="Your password"
+				:id="formId + '_password'"
+				:label="t('form.label.password')"
+				:placeholder="t('form.placeholder.password')"
 				v-model="model.password"
 				:error="errors.password"
 			/>
@@ -35,6 +36,7 @@
 				type="button"
 				class="btn btn-primary"
 				@click="submitHandler"
+				:disabled="!state.valid || state.process"
 			>
 				{{t('common:btn.submit')}}
 			</button>
@@ -57,7 +59,12 @@ module.exports = {
 	components: {
 		'ui-input': UiInput,
 	},
-	props: {},
+	props: {
+		formId: {
+			type: String,
+			default: 'MemberLoginForm',
+		},
+	},
 	data() {
 		return {
 			t: this.$root.t,
