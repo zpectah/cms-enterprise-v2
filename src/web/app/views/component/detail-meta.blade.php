@@ -10,7 +10,7 @@
         <dd>
             @foreach($detail['detail']['__categories'] as $category)
                 <span>
-                    {{$category['name']}}
+                    {{$category['lang'][$lang]['title']}}
                 </span>
             @endforeach
         </dd>

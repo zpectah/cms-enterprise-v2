@@ -198,13 +198,20 @@ class View {
         $vc = new ViewController;
         $rc = new RouteController;
         $results = [];
+        $count = 0;
         $language = $vc -> get_language();
         $urlParams = $rc -> get_url_params();
         $search = $urlParams['search'];
 
-        if ($search) $results = $vc -> get_search_results($search, $language['current']);
+        if ($search) {
+            $results = $vc -> get_search_results($search, $language['current']);
+            $count = count($results);
+        }
 
-        return $results;
+        return [
+            'results' => $results,
+            'count' => $count,
+        ];
     }
     private function get_posts ($props): array {
         $vc = new ViewController;

@@ -1,12 +1,8 @@
 .section{
   width: 100%;
   height: auto;
-  margin: 0;
+  margin: 0 0 1rem 0;
   padding: 0;
-
-  & + &{
-    margin-bottom: 1rem;
-  }
 
   &--heading{}
   &--main{}
@@ -16,12 +12,38 @@
   &--image{}
   &--author{}
   &--attachments{}
+  &--media{}
   &--meta{}
   &--company{}
+  &--comments{}
+  &--links{}
 }
 
 .section-list{
   &-item{
+    width: 100%;
+    margin: 0 0 1rem 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+
+    &-image{
+      max-width: 25%;
+      padding-right: 1rem;
+
+      img{
+        max-width: 100%;
+        height: auto;
+      }
+    }
+    &-content{
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-direction: column;
+    }
+
     &--posts{}
     &--pages{}
   }

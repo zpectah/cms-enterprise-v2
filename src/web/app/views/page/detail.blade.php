@@ -16,7 +16,13 @@
         {!! $_detail['content'] !!}
     </section>
     @include('component.detail-attachments')
+    @include('component.detail-media')
+    @include('component.detail-links')
     @include('component.detail-pagination')
     @include('component.detail-meta')
     @include('component.detail-author')
+    @include('component.section-comments', [
+        'model' => 'posts',
+        'modelId' => $detail['detail']['id'],
+    ])
 </main>
