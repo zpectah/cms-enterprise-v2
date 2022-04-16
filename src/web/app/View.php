@@ -296,6 +296,11 @@ class View {
                 $urlAttrs['page'] == 'members-lost-password',
             ),
         );
+        $route = [
+            'attrs' => $urlAttrs,
+            'params' => $urlParams,
+            'root' => $_SERVER['REDIRECT_URL'],
+        ];
         $public = [
             'home_link' => self::get_language_link_path('/'),
             'search_action_link' => self::get_language_link_path('/search-results'),
@@ -312,18 +317,16 @@ class View {
         echo $this -> $blade -> run(
             $page['layout'],
             [
+                // Translated data objects
                 '_page' => $page['page']['page']['lang'][$language['current']],
                 '_category' => $page['page']['category']['data']['lang'][$language['current']],
                 '_detail' => $detail['detail']['lang'][$language['current']],
+                // Page data
                 'page' => $page,
                 'detail' => $detail,
                 'category_context' => $category_context,
                 'search_results' => $search_results,
-                'route' => [
-                    'attrs' => $urlAttrs,
-                    'params' => $urlParams,
-                    'root' => $_SERVER['REDIRECT_URL'],
-                ],
+                'route' => $route,
                 'language' => $language,
                 'lang' => $language['current'],
                 'translations' => $translations,
@@ -332,6 +335,7 @@ class View {
                 'public' => array_merge($public, $web),
                 'members_options' => $member_options,
                 'member' => $member,
+                // Functions
                 't' => function ($key) { return self::get_t($key); },
                 'menuLink' => function ($linkObject) { return self::get_menu_link($linkObject); },
                 'languageLink' => function ($path) { return self::get_language_link_path($path); },

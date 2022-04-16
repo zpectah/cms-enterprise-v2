@@ -6,7 +6,7 @@ import {
 } from './utils/translations';
 import Cookiebot from './component/Cookiebot';
 import ContactForm from './component/ContactForm';
-import CommentsList from './component/CommentsList';
+import { Comments } from './component/Comments';
 import {
 	MemberSubscriptionForm,
 	MemberLoginForm,
@@ -21,7 +21,7 @@ createApp({
 	components: {
 		'cookie-bot': Cookiebot,
 		'contact-form': ContactForm,
-		'comments-list': CommentsList,
+		'comments': Comments,
 		'member-subscription-form': MemberSubscriptionForm,
 		'member-login-form': MemberLoginForm,
 		'member-lost-password-form': MemberLostPasswordForm,

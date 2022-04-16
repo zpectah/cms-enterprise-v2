@@ -1,0 +1,15 @@
+.Comments{
+  &-list{
+    &-item{
+      margin: 0 0 1rem 0;
+      padding: 0;
+
+      &-heading{}
+      &-content{}
+      &-footer{}
+      &-children{
+        margin-left: 1rem;
+      }
+    }
+  }
+}

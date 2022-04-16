@@ -1,10 +1,10 @@
 <section
     class="section section--comments"
 >
-    <comments-list
+    <comments
         assigned="{{$assigned}}"
         assigned-id="{{$assignedId}}"
     >
         Loading
-    </comments-list>
+    </comments>
 </section>
