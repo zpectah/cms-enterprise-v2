@@ -2,21 +2,40 @@
 	<div
 		class="Comments"
 	>
+		<div>
+			<button
+				class="btn btn-secondary"
+				@click="openFormHandler"
+				v-if="!comment"
+			>
+				{{t('common:btn.new-comment')}}
+			</button>
+			<button
+				class="btn btn-outline-secondary"
+				@click="closeFormHandler"
+				v-if="comment"
+			>
+				{{t('common:btn.cancel')}}
+			</button>
+		</div>
 		<new-comment-form
+			v-if="comment"
 			:assigned="assigned"
 			:assigned-id="assignedId"
 			:onFormSubmit="formSubmitHandler"
+			:email="email"
 		/>
 		<comments-list
 			:assigned="assigned"
 			:assigned-id="assignedId"
 			:items="comments"
+			:onFormSubmit="formSubmitHandler"
+			:email="email"
 		/>
 	</div>
 </template>
 
 <script>
-// import _ from 'lodash';
 import { get, post } from '../../utils/http';
 import NewCommentForm from './NewCommentForm';
 import CommentsList from './CommentsList';
@@ -40,6 +59,10 @@ export default {
 			type: String,
 			default: null,
 		},
+		email: {
+			type: String,
+			default: null,
+		},
 	},
 	mounted() {
 		if (this.assigned && this.assignedId) {
@@ -51,22 +74,34 @@ export default {
 	data() {
 		return {
 			t: this.$root.t,
+			comment: false,
 			comments: [],
 		}
 	},
 	methods: {
-
-		formSubmitHandler: function (model) {
+		openFormHandler: function (e) {
+			e.preventDefault();
+			this.comment = true;
+		},
+		closeFormHandler: function (e) {
+			e.preventDefault();
+			this.comment = false;
+		},
+		formSubmitHandler: function (master) {
 			return new Promise((resolve) => {
-				// ... as form callback
-				console.log('model submit', model);
-				// ... load comments as callback
+				return post('/api/create_comments', master).then((resp) => {
 
-				// return true;
-				resolve(model);
+					console.log('after submit', resp, master);
+
+					this.comment = false;
+					loadComments(this.assigned, this.assignedId).then((resp) => {
+						this.comments = resp.data;
+					});
+
+					return resolve(master);
+				});
 			});
 		},
-
 	},
 };
 </script>

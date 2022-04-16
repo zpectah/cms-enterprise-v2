@@ -148,7 +148,7 @@ class DataProvider {
         $listed = false;
         $list = $blackList -> get($conn, []);
         foreach ($list as $item) {
-            if ($item['visitor_email'] == $data['sender'] || $item['visitor_ip'] == $ip) $listed = true;
+            if ($data['email'] && ($item['visitor_email'] == $data['email'] || $item['visitor_ip'] == $ip)) $listed = true;
         }
         if (!$listed) {
             $merged_data = array_merge(
@@ -391,7 +391,7 @@ class DataProvider {
         $listed = false;
         $list = $blackList -> get($conn, []);
         foreach ($list as $item) {
-            if ($item['visitor_email'] == $data['sender'] || $item['visitor_ip'] == $ip) $listed = true;
+            if ($data['sender'] && ($item['visitor_email'] == $data['sender'] || $item['visitor_ip'] == $ip)) $listed = true;
         }
         if (!$listed) {
             $recipients = $data['recipients'] ?? $settings_web['form_email_recipients'];

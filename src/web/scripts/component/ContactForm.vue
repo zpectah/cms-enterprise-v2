@@ -78,7 +78,7 @@ module.exports = {
 		},
 		email: {
 			type: String,
-			default: '',
+			default: null,
 		},
 	},
 	mounted() {

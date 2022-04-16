@@ -8,6 +8,7 @@ class Comments {
 
     private function get_items_children ($parentId, $items): array {
         $children = [];
+
         foreach ($items as $item) {
             if ($parentId == $item['parent']) {
                 $item['children'] = self::get_items_children($item['id'], $items);
@@ -15,7 +16,7 @@ class Comments {
             }
         }
 
-        return $children;
+        return array_reverse($children);
     }
 
     public function get ($conn, $data): array {
@@ -60,7 +61,7 @@ class Comments {
             $response = $response_new;
         }
 
-        return $response;
+        return array_reverse($response);
     }
 
     public function create ($conn, $data) {

@@ -11,6 +11,7 @@
 				:placeholder="t('form.placeholder.email')"
 				v-model="model.email"
 				:error="errors.email"
+				:disabled="!!email"
 			/>
 		</div>
 		<div class="mb-3">
@@ -30,14 +31,6 @@
 				v-model="model.content"
 				:error="errors.content"
 			/>
-		</div>
-		<div
-			v-if="state.formMessage"
-			class="alert"
-			:class="state.formError ? 'alert-danger' : 'alert-success'"
-			role="alert"
-		>
-			{{state.formMessage}}
 		</div>
 		<div>
 			<button
@@ -61,9 +54,10 @@ const formModel = {
 	email: '',
 	title: '',
 	content: '',
-	parent: null,
+	parent: 0,
 	assigned: null,
 	assigned_id: null,
+	type: 'default',
 };
 
 export default {
@@ -85,15 +79,26 @@ export default {
 			default: null,
 		},
 		parent: {
+			type: [String, Number],
+			default: 0,
+		},
+		onFormSubmit: {
+			type: Function,
+			default: null,
+		},
+		email: {
 			type: String,
 			default: null,
 		},
-		onFormSubmit: null,
 	},
 	mounted() {
 		if (this.assigned) this.model.assigned = this.assigned;
 		if (this.assignedId) this.model.assigned_id = Number(this.assignedId);
-		if (this.parent) this.model.parent = Number(this.parent);
+		if (this.parent) {
+			this.model.parent = Number(this.parent);
+			this.model.type = 'reply';
+		}
+		if (this.email) this.model.email = this.email;
 	},
 	data() {
 		return {
@@ -102,8 +107,6 @@ export default {
 			state: {
 				process: false,
 				valid: false,
-				formError: false,
-				formMessage: '',
 			},
 			errors: {},
 		}
@@ -137,13 +140,9 @@ export default {
 			e.preventDefault();
 			const self = this;
 			this.state.process = true;
-			this.state.formError = false;
-			this.state.formMessage = '';
 			const master = _.cloneDeep(this.model);
 
 			return this.onFormSubmit(master).then((resp) => {
-				console.log('resp', resp);
-				self.state.formMessage = self.t(`message:...`);
 				self.state.process = false;
 				self.model = _.cloneDeep({
 					...formModel,

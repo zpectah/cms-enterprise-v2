@@ -292,9 +292,13 @@ class Helpers {
         return $response;
     }
 
-    public function build_sorter ($key): \Closure {
-        return function ($a, $b) use ($key) {
-            return strnatcmp($a[$key], $b[$key]);
+    public function build_sorter ($key, $reverse = false): \Closure {
+        return function ($a, $b) use ($key, $reverse) {
+            if ($reverse) {
+                return strnatcmp($b[$key], $b[$key]);
+            } else {
+                return strnatcmp($a[$key], $b[$key]);
+            }
         };
     }
 

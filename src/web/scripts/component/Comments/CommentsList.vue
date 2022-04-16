@@ -5,6 +5,10 @@
 		<comment-item
 			v-for="comment in items"
 			:item="comment"
+			:assigned="assigned"
+			:assigned-id="assignedId"
+			:onFormSubmit="formSubmitHandler"
+			:email="email"
 		/>
 	</div>
 </template>
@@ -29,13 +33,25 @@ export default {
 			type: Array,
 			default: [],
 		},
+		onFormSubmit: {
+			type: Function,
+			default: null,
+		},
+		email: {
+			type: String,
+			default: null,
+		},
 	},
 	data() {
 		return {
 			t: this.$root.t,
 		}
 	},
-	methods: {},
+	methods: {
+		formSubmitHandler: function (model) {
+			return this.onFormSubmit(model);
+		}
+	},
 };
 </script>
 
