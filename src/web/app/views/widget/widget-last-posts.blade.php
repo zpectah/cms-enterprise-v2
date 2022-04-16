@@ -1,21 +1,26 @@
 <div class="widget-last-posts">
-    <h4 class="title title--widget">
-        {{$t('widget:last-posts.title')}}
-    </h4>
+    @if($widgetTitle)
+        <h4 class="title title--widget">
+            {{$widgetTitle}}
+        </h4>
+    @endif
     <div class="widget-main">
-        <nav>
-            <ul>
-                @foreach($get_posts([ 'limit' => 3, 'tag_id' => 3 ]) as $post)
-                    <li>
-                        <a
+        <ul
+            class="list"
+        >
+            @foreach($get_posts($props) as $post)
+                <li
+                    class="list-item"
+                >
+                    <a
                             href="{{$languageLink('/detail/posts/' . $post['name'])}}"
                             target="_self"
-                        >
-                            {{$post['name']}}
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-        </nav>
+                            class="list-item-link"
+                    >
+                        {{$post['lang'][$lang]['title']}}
+                    </a>
+                </li>
+            @endforeach
+        </ul>
     </div>
 </div>

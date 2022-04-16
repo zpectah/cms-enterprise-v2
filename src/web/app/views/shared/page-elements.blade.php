@@ -1,6 +1,6 @@
 @foreach($page['page']['page']['page_elements'] as $element)
     <section
-            class="section section--page-element"
+        class="section section--page-element"
     >
         @switch($element)
 

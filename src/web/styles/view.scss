@@ -9,7 +9,9 @@
   &-view{
     &--category{}
     &--default{}
-    &--detail{}
+    &--detail{
+      &--posts{}
+    }
     &--home{}
     &--members-lost-password{}
     &--members-profile{}

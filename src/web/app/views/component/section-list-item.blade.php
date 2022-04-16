@@ -1,7 +1,7 @@
 @php
     $title = $item['lang'][$language['current']]['title'] ?? $item['name'];
     $description = $item['lang'][$language['current']]['description'];
-    $m = $model ?? $item['model'];
+    $model = $model ?? $item['model'];
     switch ($context) {
         case 'category':
             $path = '/' . $pageName . '/detail/' . $item['name'];
@@ -12,15 +12,15 @@
             if ($m == 'pages') {
                 $path = '/' . $item['name'];
             } else {
-                $path = '/detail/' . $m . '/' . $item['name'];
+                $path = '/detail/' . $model . '/' . $item['name'];
             }
             break;
     }
 @endphp
 <article
-    class="section-list-item section-list-item--{{$m}}"
+    class="section-list-item section-list-item--{{$model}}"
     data-item-id="{{$item['id']}}"
-    data-item-model="{{$m}}"
+    data-item-model="{{$model}}"
     data-item-context="{{$context}}"
 >
     <h3 class="title title--item">

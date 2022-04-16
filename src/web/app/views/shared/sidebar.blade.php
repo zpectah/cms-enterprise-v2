@@ -9,7 +9,13 @@
         @include('widget.widget-login', [ 'formId' => 'WidgetLoginForm' ])
     </div>
     <div class="widget-wrapper">
-        @include('widget.widget-last-posts')
+        @include('widget.widget-last-posts', [
+            'widgetTitle' => $t('widget:last-posts.title'),
+            'props' => [
+                'tag_id' => 3,
+                'limit' => 3,
+            ],
+        ])
     </div>
     <div class="widget-wrapper">
         @include('widget.widget-links', [

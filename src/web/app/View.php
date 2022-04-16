@@ -34,6 +34,12 @@ class View {
         );
     }
 
+    private function get_uploads_path ($name, $type = 'image', $size = 'original'): string {
+        $path = '/uploads/' . $type . '/';
+        if ($size !== 'original') $path .= $size . '/';
+
+        return $path . $name;
+    }
     private function get_language_link_path ($path) {
         $rc = new RouteController;
         $vc = new ViewController;
@@ -42,15 +48,19 @@ class View {
 
         return $urlParams['lang'] ? $path . '?' . $language['url_param'] : $path;
     }
-    private function get_category_context ($category, $detail): array {
+    private function get_category_context ($pageName, $category, $detail): array {
         $context = [
             'prev' => null,
             'index' => null,
             'next' => null,
+            'count' => null,
+            'path_prefix' => null,
         ];
         if ($category['items']) {
             $index = array_search($detail['detail'], $category['items']);
             $context['index'] = $index;
+            $context['count'] = count($category['items']);
+            $context['path_prefix'] = '/' . $pageName . '/' .  'detail/';
             if($index > 0 ) $context['prev'] = $category['items'][ $index -1 ];
             if($index < count($category['items']) -1 ) $context['next'] = $category['items'][ $index +1 ];
         }
@@ -263,7 +273,12 @@ class View {
         $page = self::get_page_data();
         $search_results = self::get_search_results();
         $detail = self::get_detail_data($page['page']['model']);
-        $category_context = self::get_category_context($page['page']['category'], $detail);
+        $member = $mc -> get_member();
+        $category_context = self::get_category_context(
+            $page['page']['page']['name'],
+            $page['page']['category'],
+            $detail,
+        );
         $member_options = array_merge(
             $members,
             [
@@ -274,7 +289,6 @@ class View {
                 $urlAttrs['page'] == 'members-lost-password',
             ),
         );
-        $member = $mc -> get_member();
         $public = [
             'home_link' => self::get_language_link_path('/'),
             'search_action_link' => self::get_language_link_path('/search-results'),
@@ -314,6 +328,7 @@ class View {
                 't' => function ($key) { return self::get_t($key); },
                 'menuLink' => function ($linkObject) { return self::get_menu_link($linkObject); },
                 'languageLink' => function ($path) { return self::get_language_link_path($path); },
+                'uploadPath' => function ($name, $type = 'image', $size = 'original') { return self::get_uploads_path($name, $type, $size); },
                 'get_posts' => function ($props) { return self::get_posts($props); },
             ]
         );

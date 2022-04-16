@@ -1,6 +1,6 @@
 <div
-        id="vue-scope"
-        class="page-layout page-layout--minimal"
+    id="vue-scope"
+    class="page-layout page-layout--minimal"
 >
     <div class="container">
         <div class="row">

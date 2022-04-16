@@ -7,5 +7,4 @@
     <section class="section section--content">
         {!! $_page['content'] !!}
     </section>
-
 </main>
