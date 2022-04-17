@@ -8,15 +8,15 @@
   },
   "login": {
     "label": "Login",
-    "meta_title": "Login page",
+    "meta_title": "Login to System",
     "page_title": "Login",
     "description": "",
     "content": ""
   },
   "lost-password": {
-    "label": "Lost password",
-    "meta_title": "Recovery lost password",
-    "page_title": "Recovery lost password",
+    "label": "Lost Password",
+    "meta_title": "Lost Password Recovery",
+    "page_title": "Lost Password Recovery",
     "description": "",
     "content": ""
   },
@@ -30,7 +30,14 @@
   "settings": {
     "label": "Settings",
     "meta_title": "Settings",
-    "page_title": "Settings",
+    "page_title": "System Settings",
+    "description": "",
+    "content": ""
+  },
+  "profile": {
+    "label": "Profile",
+    "meta_title": "Profile",
+    "page_title": "User profile",
     "description": "",
     "content": ""
   },
@@ -52,6 +59,13 @@
     "label": "Menu",
     "meta_title": "Menu",
     "page_title": "Menu",
+    "description": "",
+    "content": ""
+  },
+  "messages": {
+    "label": "Messages",
+    "meta_title": "Messages",
+    "page_title": "Messages",
     "description": "",
     "content": ""
   },

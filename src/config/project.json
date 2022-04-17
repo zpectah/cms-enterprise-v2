@@ -38,7 +38,7 @@
       "robots": "none",
       "charset": "utf-8",
       "viewport": "width=device-width, initial-scale=1",
-      "lang": "en-US"
+      "lang": "cs-CZ"
     },
     "theme": {
       "default": "light",
@@ -50,7 +50,8 @@
     "language": {
       "default": "cs-CZ",
       "list": [
-        "cs-CZ"
+        "cs-CZ",
+        "en"
       ]
     },
     "tests": {

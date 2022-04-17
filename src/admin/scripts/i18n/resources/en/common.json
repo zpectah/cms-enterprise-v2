@@ -1,0 +1,93 @@
+{
+  "btn": {
+    "open": "Open",
+    "ok": "OK",
+    "submit": "Submit",
+    "delete": "Delete",
+    "create": "Create",
+    "update": "Update",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "save_changes": "Save changes",
+    "remove": "Remove",
+    "reset": "Reset",
+    "close": "Close",
+    "select": "Select",
+    "clear": "Clear",
+    "reply": "Reply",
+    "report": "Report",
+    "edit": "Edit"
+  },
+  "common": {
+    "allRightsReserved": "All rights reserved"
+  },
+  "label": {
+    "loading": "Loading",
+    "no_selected": "Not selected",
+    "status": "Status",
+    "created": "Created",
+    "rating": "Rating",
+    "likes": "Likes",
+    "dislikes": "Dislikes",
+    "file_size": "File size",
+    "file_path": "File path",
+    "image_thumbnail": "Thumbnail",
+    "image_small": "Small image",
+    "image_medium": "Medium image",
+    "image_large": "Large image",
+    "image_custom_1": "Custom 1 image",
+    "ipAddress": "IP Address"
+  },
+  "model": {
+    "Categories": "Categories",
+    "Members": "Members",
+    "Menu": "Menu",
+    "MenuItem": "Menu item",
+    "Pages": "Pages",
+    "Posts": "Posts",
+    "Tags": "Tags",
+    "Translations": "Translations",
+    "Uploads": "Uploads",
+    "Users": "Users",
+    "Messages": "Messages"
+  },
+  "model_new": {
+    "Categories": "New category",
+    "Members": "New member",
+    "Menu": "New menu",
+    "MenuItem": "New menu item",
+    "Pages": "New page",
+    "Posts": "New post",
+    "Tags": "New tag",
+    "Translations": "New translation",
+    "Uploads": "New upload",
+    "Users": "New user",
+    "Messages": "New message"
+  },
+  "calendar": {
+    "day": {
+      "0": "Sunday",
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday"
+    },
+    "month": {
+      "01": "January",
+      "02": "February",
+      "03": "March",
+      "04": "April",
+      "05": "May",
+      "06": "June",
+      "07": "July",
+      "08": "August",
+      "09": "September",
+      "10": "October",
+      "11": "November",
+      "12": "December"
+    }
+  }
+}

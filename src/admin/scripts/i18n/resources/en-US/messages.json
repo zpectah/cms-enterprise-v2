@@ -1,9 +1,0 @@
-{
-  "request_error": "Request error",
-  "wrong_request": "Wrong request",
-  "unauthorized_request": "Unauthorized request",
-  "request_success": "Request success",
-  "no_data_found": "No data found",
-  "no_data_created": "No data created",
-  "no_data_updated": "No data updated"
-}

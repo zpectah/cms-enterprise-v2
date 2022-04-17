@@ -1,0 +1,43 @@
+{
+  "label": {
+    "id": "#",
+    "name": "Name",
+    "email": "Email",
+    "type": "Type",
+    "active": "Active",
+    "actions": "Actions",
+    "ip": "IP Address",
+    "subject": "Subject"
+  },
+  "row": {
+    "menu": {
+      "detail": "Show detail",
+      "toggle": "Toggle",
+      "delete": "Delete Row",
+      "replicate": "replicate"
+    },
+    "info": {
+      "loading": "Loading data, please wait",
+      "not_found": "Nothing found",
+      "no_items": "No items created yet"
+    }
+  },
+  "filter": {
+    "search": "Search in table",
+    "type": "Type",
+    "categories": "Categories",
+    "tags": "Tags",
+    "clear": "Reset filter",
+    "trigger": "Search",
+    "options": "Filtering Options"
+  },
+  "selected": {
+    "selected": "Selected",
+    "toggle": "Toggle",
+    "delete": "Delete",
+    "export": "Export"
+  },
+  "options": {
+    "rowsPerPage": "Rows per page"
+  }
+}

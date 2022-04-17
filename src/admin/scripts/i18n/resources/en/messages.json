@@ -1,0 +1,52 @@
+{
+  "api": {
+    "request_error": "Request error",
+    "wrong_request": "Wrong request",
+    "unauthorized_request": "Unauthorized Request",
+    "request_success": "Success",
+    "no_data_found": "Data not found",
+    "no_data_created": "Data not created",
+    "no_data_updated": "Deta not updated"
+  },
+  "form": {
+    "required": "Field is required",
+    "format": "Value is in wrong format",
+    "pattern": "Value does not match the required pattern",
+    "error_global": "Form validation problems found, please check.",
+    "duplicate_name": "The same item name already exists in the database, use a different one",
+    "duplicate_email": "This email already exists in the database, use another",
+    "duplicate_queue": "There are multiple items in the queue with the same name, fix it",
+    "visitor_email": "An entry with this email already exists in the database",
+    "visitor_ip": "A record with this IP address already exists in the database",
+    "not_allowed_to_view": "You do not have sufficient permissions to see this form"
+  },
+  "model": {
+    "item_created": "Item created successfully",
+    "item_updated": "Item successfully updated",
+    "items_updated": "Items updated successfully",
+    "item_deleted": "Item deleted successfully",
+    "items_deleted": "Items deleted successfully",
+    "data_updated": "Data has been saved",
+    "all_files_uploaded": "All files have been uploaded"
+  },
+  "profile": {
+    "success_update": "Data has been updated",
+    "error_data": "There was a problem loading the profile, please reload the page or contact your administrator",
+    "unauthorized_access": "Unauthorized Access",
+    "user_login_success": "Login was successful",
+    "user_logout_success": "Logout was successful",
+    "user_missing_permission": "Sufficient permissions to display this page",
+    "user_noPermission_update": "You do not have sufficient permissions to edit this item",
+    "user_noPermission_create": "You do not have sufficient permissions to create this item",
+    "user_noPermission_delete": "You do not have sufficient permissions to delete this item"
+  },
+  "settings": {
+    "project_name": "Project name is not set",
+    "web_meta_title": "Web Title Not Set",
+    "web_meta_description": "Web description not set",
+    "form_email_sender": "Message sender not set",
+    "language_installed": "No language is installed",
+    "language_active": "No language is activated",
+    "language_default": "Default language is not set"
+  }
+}

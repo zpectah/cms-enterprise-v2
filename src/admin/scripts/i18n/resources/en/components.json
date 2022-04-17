@@ -1,0 +1,270 @@
+{
+  "ConfirmDialog": {
+    "title": {
+      "default": "Confirm",
+      "delete": "Confirm delete",
+      "logout": "Logout system",
+      "report_comment": "Report comment"
+    },
+    "content": {
+      "default": "Are you sure you want to take action?",
+      "delete": "Are you sure you want to delete these items?",
+      "logout": "Do you really want to log out?",
+      "report_comment": "Are you sure you want to report this comment?"
+    }
+  },
+  "SettingsForm": {
+    "panel": {
+      "global": "Global",
+      "web": "Web",
+      "content": "Content",
+      "languages": "Languages",
+      "maintenance": "Maintenance",
+      "blacklist": "Blacklist"
+    },
+    "section": {
+      "project": "Project",
+      "company": "About company",
+      "meta": "Meta data",
+      "modes": "Web state",
+      "emails": "Messages and forms",
+      "language_list": "Language management",
+      "language_install": "New language installation",
+      "comments": "Comments",
+      "members": "Members",
+      "social_profiles": "Social sites",
+      "blacklist": "Visitor blacklist",
+      "blacklist_subtitle": "The blacklist is used to define blocked IP addresses or emails and to prevent these records from creating comments or otherwise preventing them from interacting with the system.",
+      "maintenance": "Maintenance",
+      "maintenance_subtitle": "If you need to free up space on the server storage, or for other reasons, permanently delete all deleted items or files."
+    },
+    "label": {
+      "project_name": "Project name",
+      "project_description": "Project description",
+      "company_name": "Company name",
+      "company_description": "Company description",
+      "company_id": "Company ID",
+      "company_address": "Address",
+      "company_city": "City",
+      "company_country": "Country / State",
+      "company_zip": "ZIP",
+      "company_location": "GPS Location",
+      "company_bank": "Bank",
+      "company_email": "E-mail",
+      "company_phone": "Phone",
+      "web_meta_title": "Web title",
+      "web_meta_description": "Web description",
+      "web_meta_keywords": "Keywords",
+      "web_meta_robots": "Robots",
+      "web_mode_debug": "Debug mode",
+      "web_mode_maintenance": "Maintenance mode",
+      "form_email_recipients": "Message recipients",
+      "form_email_sender": "Message sender",
+      "language_active": "Active language",
+      "language_default": "Default language",
+      "language_installed": "Installed language",
+      "comments_anonymous_active": "Anonymous comments",
+      "comments_global_active": "Active comments",
+      "members_login_active": "Login enabled",
+      "members_lostPassword_active": "Lost password enabled",
+      "members_profile_active": "Profile page enabled",
+      "members_register_active": "Registration enabled",
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube",
+      "twitch": "Twitch",
+      "github": "GitHub"
+    },
+    "placeholder": {
+      "project_name": "Enter a project name",
+      "project_description": "Enter a description of the project",
+      "company_name": "Enter the company name",
+      "company_description": "Enter company description",
+      "company_id": "Enter Company ID",
+      "company_address": "Enter company address",
+      "company_city": "Enter city",
+      "company_country": "Enter a country or state",
+      "company_zip": "Enter Zip Code",
+      "company_location": "Select GPS Location",
+      "company_bank": "Enter Bank Connection",
+      "company_email": "Enter a new email",
+      "company_phone": "Enter a new phone",
+      "web_meta_title": "Enter a page title",
+      "web_meta_description": "Enter a page description",
+      "web_meta_keywords": "Enter a new keyword",
+      "web_meta_robots": "Select Indexing Option",
+      "form_email_recipients": "Enter New Email",
+      "form_email_sender": "Enter Email",
+      "facebook": "Enter Facebook url",
+      "twitter": "Enter Twitter url",
+      "linkedin": "Enter LinkedIn url",
+      "youtube": "Enter YouTube url",
+      "twitch": "Enter Twitch url",
+      "github": "Enter GitHub url"
+    },
+    "help": {
+      "project_description": "Description is for internal use only",
+      "company_bank": "Bank connection format must be: account / bank",
+      "company_phone": "The phone should include the area code, eg +420 ...",
+      "form_email_recipients": "The message will be sent to recipients as a copy."
+    },
+    "error_global": "Form validation issues, check all fields and try again",
+    "language_table": {
+      "label": {
+        "language": "Language",
+        "key": "Key",
+        "active": "Active",
+        "default": "Default"
+      }
+    },
+    "language_installer": {
+      "new_language_label": "New Language",
+      "source_language_label": "Contents",
+      "btn_install": "Install",
+      "success_message": "Language has been successfully installed"
+    },
+    "maintenance_panel": {
+      "alert_message": "These actions are irreversible, if you believe you want to do this, make sure what the overall impact will be.",
+      "action": {
+        "delete_items": {
+          "label": "Permanently delete all deleted items",
+          "trigger": "Start"
+        },
+        "delete_files": {
+          "label": "Permanently delete all deleted files",
+          "trigger": "Start"
+        }
+      }
+    }
+  },
+  "ProfileForm": {
+    "label": {
+      "language": "System Language",
+      "theme": "Theme",
+      "avatar": "Avatar"
+    },
+    "submit": "Update profile"
+  },
+  "ProfileDropdown": {
+    "label": {
+      "profile": "Profile",
+      "help": "Help",
+      "logout": "Logout"
+    }
+  },
+  "FileUploader": {
+    "label": {
+      "select_files": "Drag or select files",
+      "drop_files": "Drag files here"
+    },
+    "messages": {
+      "file_not_supported": "Unsupported File",
+      "file_over_size_limit": "File size exceeds allowed limit",
+      "image_over_size_limit": "Image size exceeds the allowed limit"
+    }
+  },
+  "UploaderQueueItem": {
+    "label": {
+      "image_is_cropped": "Image is cropped"
+    }
+  },
+  "Uploader": {
+    "label": {
+      "submit_queue": "Upload queue",
+      "clear_queue": "Clear queue"
+    }
+  },
+  "LocationPicker": {
+    "title": "Select location"
+  },
+  "ExportDialog": {
+    "title": "Export selected items",
+    "caption": "Choose an export format and click the Export button, the file should open in a new window. The duration depends on the number of exported items.",
+    "sub": "Number of selected items",
+    "button": "Export"
+  },
+  "MenuItemsManager": {
+    "no_menu_created": "You must first create a menu in order to manage the item menu",
+    "dialog_title": "New Menu Item",
+    "btn": {
+      "create_new": "Create Item"
+    }
+  },
+  "VisitorBlacklistList": {
+    "search_placeholder": "Search in table",
+    "button_add": "New entry"
+  },
+  "VisitorBlacklistDetail": {
+    "title": "New entry"
+  },
+  "CommentsManager": {
+    "alert_reported": "This comment has already been reported"
+  },
+  "LoginForm": {
+    "title": "Login to the system",
+    "btn": {
+      "submit": "Login",
+      "lost_password": "Lost Password",
+      "return_app": "Return to Application"
+    },
+    "message": {
+      "unknown": "Unknown Error",
+      "user_not_found": "User not found",
+      "user_password_not_match": "Password does not match this email",
+      "user_not_active": "This user is not active",
+      "user_is_deleted": "This user has been deleted",
+      "user_login_success": "Data is OK, you will now be redirected to the home page",
+      "already_loggedIn": "You are already logged in, no need to log in again"
+    }
+  },
+  "LostPasswordForm": {
+    "title": "Lost Password Recovery",
+    "btn": {
+      "submit": "Submit Request",
+      "return_login": "Back to login"
+    },
+    "message": {
+      "user_not_found": "User not found",
+      "user_not_active": "This user is not active",
+      "user_is_deleted": "This user has been deleted",
+      "request_was_send": "Your password reset request was submitted successfully. Please check your email and confirm your request."
+    }
+  },
+  "CreateNewPasswordForm": {
+    "title": "Create New Password",
+    "btn": {
+      "submit": "Change Password",
+      "return_login": "Back to login"
+    },
+    "message": {
+      "user_password_reset_error": "An error occurred while saving the new password, please try again",
+      "user_password_reset_success": "The new password has been saved successfully, you can now log in with the new password and change it again in your profile.",
+      "user_password_already_reset": "New password has already been created",
+      "request_not_found": "Password change request not found",
+      "token_not_found": "Token not found"
+    }
+  },
+  "AvatarPicker": {
+    "dialog": {
+      "title": "Select your avatar"
+    }
+  },
+  "WelcomeTile": {
+    "title": "Welcome in administration",
+    "today_is": "Today is"
+  },
+  "ErrorView": {
+    "404": {
+      "description": "Sorry, the requested page was either deleted, does not exist, or you have the wrong link."
+    },
+    "boundary": {
+      "title": "Application Error",
+      "description": "An error has occurred in the application, please try reloading the page and if the problem persists, please contact the main site administrator."
+    },
+    "btn": {
+      "login": "Back to Login",
+      "dashboard": "Back to dashboard"
+    }
+  }
+}
