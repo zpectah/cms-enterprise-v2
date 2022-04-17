@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controller;
+namespace core\module\web\controller;
 
 use core\common\Helpers;
 use core\provider\DataProvider;
@@ -57,12 +57,6 @@ class ViewController {
             'url_param' => $urlParameter,
         ];
     }
-
-//    public function get_settings (): array {
-//        $dp = new DataProvider;
-//
-//        return $dp -> get_cms_settings();
-//    }
 
     public function get_web_settings (): array {
         $dp = new DataProvider;

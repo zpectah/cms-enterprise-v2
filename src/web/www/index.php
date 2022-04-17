@@ -1,10 +1,9 @@
 <?php
 const PATH_ROOT = '../../';
 require PATH_ROOT . 'core/index.php';
-require PATH_ROOT . 'web/app/index.php';
 
 $as = new \core\service\AuthService;
-$view = new \app\View;
+$view = new \core\module\web\View;
 
 $token = $as -> start_app_session();
 $meta = $view -> get_meta();

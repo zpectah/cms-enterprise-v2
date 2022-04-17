@@ -76,7 +76,7 @@
       ]
     },
     "blade": {
-      "root": "web/app/views"
+      "root": "web/views"
     },
     "tests": {
       "prepare_element_id": true,

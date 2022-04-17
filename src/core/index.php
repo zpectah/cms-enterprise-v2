@@ -34,5 +34,9 @@ require PATH_ROOT . 'core/module/admin/Profile.php';
 require PATH_ROOT . 'core/module/admin/Settings.php';
 require PATH_ROOT . 'core/module/admin/System.php';
 
+require PATH_ROOT . 'core/module/web/controller/MemberController.php';
+require PATH_ROOT . 'core/module/web/controller/RouteController.php';
+require PATH_ROOT . 'core/module/web/controller/ViewController.php';
+
 require PATH_ROOT . 'core/module/web/Member.php';
 require PATH_ROOT . 'core/module/web/View.php';

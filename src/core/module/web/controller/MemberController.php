@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controller;
+namespace core\module\web\controller;
 
 use core\provider\DataProvider;
 
@@ -14,8 +14,8 @@ class MemberController {
             'profile' => $member_profile,
             'actions' => [
                 'comments_create' => !!$member_profile,
-                'comments_update' => false, // TODO
-                'comments_author_update' => false, // TODO
+                'comments_update' => false,
+                'comments_author_update' => false,
                 'message_create' => true,
             ],
         ];
