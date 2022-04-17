@@ -340,7 +340,10 @@ class View {
                 'menuLink' => function ($linkObject) { return self::get_menu_link($linkObject); },
                 'languageLink' => function ($path) { return self::get_language_link_path($path); },
                 'uploadPath' => function ($name, $type = 'image', $size = 'original') { return self::get_uploads_path($name, $type, $size); },
-                'get_posts' => function ($props) { return self::get_posts($props); },
+                'getPosts' => function ($props) { return self::get_posts($props); },
+                'formatDate' => function ($date) use ($language) { $d = date_create($date); return date_format($d, $language['locale']['format']['date_alt']); },
+                'formatTime' => function ($date) use ($language) { $d = date_create($date); return date_format($d, $language['locale']['format']['time_alt']); },
+                'formatDateTime' => function ($date) use ($language) { $d = date_create($date); return date_format($d, $language['locale']['format']['datetime_alt']); },
             ]
         );
     }

@@ -6,8 +6,8 @@
 		<div class="mb-3">
 			<ui-input
 				:id="formId + '_name_first'"
-				:label="t('form.label.name_first')"
-				:placeholder="t('form.placeholder.name_first')"
+				:label="t('form:label.name_first')"
+				:placeholder="t('form:placeholder.name_first')"
 				v-model="model.name_first"
 				:error="errors.name_first"
 			/>
@@ -15,8 +15,8 @@
 		<div class="mb-3">
 			<ui-input
 				:id="formId + '_name_last'"
-				:label="t('form.label.name_last')"
-				:placeholder="t('form.placeholder.name_last')"
+				:label="t('form:label.name_last')"
+				:placeholder="t('form:placeholder.name_last')"
 				v-model="model.name_last"
 				:error="errors.name_last"
 			/>
@@ -25,8 +25,8 @@
 			<ui-input
 				type="email"
 				:id="formId + '_email'"
-				:label="t('form.label.email')"
-				:placeholder="t('form.placeholder.email')"
+				:label="t('form:label.email')"
+				:placeholder="t('form:placeholder.email')"
 				v-model="model.email"
 				:error="errors.email"
 				:disabled="true"
@@ -36,8 +36,8 @@
 			<ui-input
 				type="password"
 				:id="formId + '_password'"
-				:label="t('form.label.password')"
-				:placeholder="t('form.placeholder.password')"
+				:label="t('form:label.password')"
+				:placeholder="t('form:placeholder.password')"
 				v-model="model.password"
 				:error="errors.password"
 			/>
@@ -45,7 +45,7 @@
 		<div class="mb-3">
 			<ui-checkbox
 				:id="formId + '_subscription'"
-				:label="t('form.label.subscription')"
+				:label="t('form:label.subscription')"
 				v-model:checked="model.subscription"
 			/>
 		</div>

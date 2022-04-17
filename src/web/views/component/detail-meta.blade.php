@@ -3,7 +3,7 @@
 >
     <dl>
         <dt>{{$t('common:label.published')}}</dt>
-        <dd>{{$detail['detail']['published']}}</dd>
+        <dd>{{$formatDate($detail['detail']['published'])}}</dd>
     </dl>
     <dl>
         <dt>{{$t('common:label.category')}}</dt>

@@ -19,6 +19,7 @@ class Posts {
             );
         }
 
+        $row['media'] = $row['media'] == '' ? [] : explode(",", $row['media']);
         $row['attachments'] = $row['attachments'] == '' ? [] : explode(",", $row['attachments']);
         $row['tags'] = $row['tags'] == '' ? [] : explode(",", $row['tags']);
         $row['categories'] = $row['categories'] == '' ? [] : explode(",", $row['categories']);
@@ -170,7 +171,7 @@ class Posts {
             $data['event_country'],
             $data['event_city'],
             $data['event_zip'],
-            $data['media'] ?? '',
+            $data['media'] ? implode(",", $data['media']) : '',
             $data['attachments'] ? implode(",", $data['attachments']) : '',
             $data['img_main'],
             $data['img_thumbnail'],
@@ -255,7 +256,7 @@ class Posts {
             $data['event_country'],
             $data['event_city'],
             $data['event_zip'],
-            $data['media'] ?? '',
+            $data['media'] ? implode(",", $data['media']) : '',
             $data['attachments'] ? implode(",", $data['attachments']) : '',
             $data['img_main'],
             $data['img_thumbnail'],

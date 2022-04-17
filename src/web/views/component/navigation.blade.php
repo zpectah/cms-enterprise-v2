@@ -1,5 +1,5 @@
 @php
-    $menuType = $type ?? 'horizontal';
+    $menuType = $menuType ?? 'horizontal';
 @endphp
 <nav class="navigation navigation--{{$menuType}}">
     @include('component.menu')

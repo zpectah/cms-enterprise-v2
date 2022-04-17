@@ -7,8 +7,8 @@
 			<ui-input
 				type="email"
 				:id="formId + '_email'"
-				:label="t('form.label.email')"
-				:placeholder="t('form.placeholder.email')"
+				:label="t('form:label.email')"
+				:placeholder="t('form:placeholder.email')"
 				v-model="model.email"
 				:error="errors.email"
 			/>
@@ -17,8 +17,8 @@
 			<ui-input
 				type="password"
 				:id="formId + '_password'"
-				:label="t('form.label.password')"
-				:placeholder="t('form.placeholder.password')"
+				:label="t('form:label.password')"
+				:placeholder="t('form:placeholder.password')"
 				v-model="model.password"
 				:error="errors.password"
 			/>

@@ -7,7 +7,10 @@
     "format": {
       "date": "dd.MM.yyyy",
       "time": "HH:mm:ss",
-      "datetime": "dd.MM.yyyy HH:mm:ss"
+      "datetime": "dd.MM.yyyy HH:mm:ss",
+      "date_alt": "d.m.Y",
+      "time_alt": "H:i:s",
+      "datetime_alt": "d.m.Y H:i:s"
     },
     "direction": "ltr"
   },
@@ -19,7 +22,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "Y/m/d",
+      "time_alt": "H:i:s",
+      "datetime_alt": "Y/m/d H:i:s"
     },
     "direction": "ltr"
   },
@@ -31,7 +37,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "Y/m/d",
+      "time_alt": "H:i:s",
+      "datetime_alt": "Y/m/d H:i:s"
     },
     "direction": "ltr"
   },
@@ -43,7 +52,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "Y/m/d",
+      "time_alt": "H:i:s",
+      "datetime_alt": "Y/m/d H:i:s"
     },
     "direction": "ltr"
   },
@@ -55,7 +67,10 @@
     "format": {
       "date": "dd.MM.yyyy",
       "time": "HH:mm:ss",
-      "datetime": "dd.MM.yyyy HH:mm:ss"
+      "datetime": "dd.MM.yyyy HH:mm:ss",
+      "date_alt": "d.m.Y",
+      "time_alt": "H:i:s",
+      "datetime_alt": "d.m.Y H:i:s"
     },
     "direction": "ltr"
   },
@@ -67,7 +82,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "d.m.Y",
+      "time_alt": "H:i:s",
+      "datetime_alt": "d.m.Y H:i:s"
     },
     "direction": "ltr"
   },
@@ -79,7 +97,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "d.m.Y",
+      "time_alt": "H:i:s",
+      "datetime_alt": "d.m.Y H:i:s"
     },
     "direction": "ltr"
   },
@@ -91,7 +112,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "Y/m/d",
+      "time_alt": "H:i:s",
+      "datetime_alt": "Y/m/d H:i:s"
     },
     "direction": "ltr"
   },
@@ -103,7 +127,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "Y/m/d",
+      "time_alt": "H:i:s",
+      "datetime_alt": "Y/m/d H:i:s"
     },
     "direction": "ltr"
   },
@@ -115,7 +142,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "Y/m/d",
+      "time_alt": "H:i:s",
+      "datetime_alt": "Y/m/d H:i:s"
     },
     "direction": "ltr"
   },
@@ -127,7 +157,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "Y/m/d",
+      "time_alt": "H:i:s",
+      "datetime_alt": "Y/m/d H:i:s"
     },
     "direction": "ltr"
   },
@@ -139,7 +172,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "Y/m/d",
+      "time_alt": "H:i:s",
+      "datetime_alt": "Y/m/d H:i:s"
     },
     "direction": "ltr"
   },
@@ -151,7 +187,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "Y/m/d",
+      "time_alt": "H:i:s",
+      "datetime_alt": "Y/m/d H:i:s"
     },
     "direction": "ltr"
   },
@@ -163,7 +202,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "Y/m/d",
+      "time_alt": "H:i:s",
+      "datetime_alt": "Y/m/d H:i:s"
     },
     "direction": "ltr"
   },
@@ -175,7 +217,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "Y/m/d",
+      "time_alt": "H:i:s",
+      "datetime_alt": "Y/m/d H:i:s"
     },
     "direction": "ltr"
   },
@@ -187,7 +232,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "Y/m/d",
+      "time_alt": "H:i:s",
+      "datetime_alt": "Y/m/d H:i:s"
     },
     "direction": "ltr"
   },
@@ -199,7 +247,10 @@
     "format": {
       "date": "yyyy-MM-dd",
       "time": "HH:mm:ss",
-      "datetime": "yyyy-MM-dd HH:mm:ss"
+      "datetime": "yyyy-MM-dd HH:mm:ss",
+      "date_alt": "d.m.Y",
+      "time_alt": "H:i:s",
+      "datetime_alt": "d.m.Y H:i:s"
     },
     "direction": "ltr"
   }

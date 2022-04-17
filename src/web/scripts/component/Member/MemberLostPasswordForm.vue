@@ -7,8 +7,8 @@
 			<ui-input
 				type="email"
 				:id="formId + '_email'"
-				:label="t('form.label.email')"
-				:placeholder="t('form.placeholder.email')"
+				:label="t('form:label.email')"
+				:placeholder="t('form:placeholder.email')"
 				v-model="model.email"
 				:error="errors.email"
 			/>

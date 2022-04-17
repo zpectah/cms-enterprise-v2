@@ -7,8 +7,8 @@
 			<ui-input
 				type="email"
 				:id="formId + '_sender'"
-				:label="t('form.label.email')"
-				:placeholder="t('form.placeholder.email')"
+				:label="t('form:label.email')"
+				:placeholder="t('form:placeholder.email')"
 				v-model="model.sender"
 				:error="errors.sender"
 				:disabled="!!email"
@@ -17,8 +17,8 @@
 		<div class="mb-3">
 			<ui-input
 				:id="formId + '_subject'"
-				:label="t('form.label.subject')"
-				:placeholder="t('form.placeholder.subject')"
+				:label="t('form:label.subject')"
+				:placeholder="t('form:placeholder.subject')"
 				v-model="model.subject"
 				:error="errors.subject"
 			/>
@@ -26,8 +26,8 @@
 		<div class="mb-3">
 			<ui-textarea
 				:id="formId + '_content'"
-				:label="t('form.label.content')"
-				:placeholder="t('form.placeholder.content')"
+				:label="t('form:label.content')"
+				:placeholder="t('form:placeholder.content')"
 				v-model="model.content"
 				:error="errors.content"
 			/>

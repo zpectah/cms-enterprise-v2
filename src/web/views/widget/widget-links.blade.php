@@ -8,7 +8,7 @@
     <div class="widget-main">
         @include('component.navigation', [
             'menuData' => $data,
-            'type' => 'vertical',
+            'menuType' => 'vertical',
         ])
     </div>
 </div>

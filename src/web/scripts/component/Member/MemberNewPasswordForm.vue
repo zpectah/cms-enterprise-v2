@@ -7,8 +7,8 @@
 			<ui-input
 				type="password"
 				:id="formId + '_password'"
-				:label="t('form.label.password')"
-				:placeholder="t('form.placeholder.password')"
+				:label="t('form:label.password')"
+				:placeholder="t('form:placeholder.password')"
 				v-model="model.password"
 				:error="errors.password"
 			/>

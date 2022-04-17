@@ -15,14 +15,14 @@
                     for="{{$formId}}_search"
                     class="visually-hidden"
                 >
-                    {{$t('widget:search.input.label')}}
+                    {{$t('form:label.search')}}
                 </label>
                 <input
                     type="search"
                     name="search"
                     class="form-control"
                     id="{{$formId}}_search"
-                    placeholder="{{$t('widget:search.input.placeholder')}}"
+                    placeholder="{{$t('form:placeholder.search')}}"
                 >
             </div>
             <div class="col-auto">
@@ -30,7 +30,7 @@
                     type="submit"
                     class="btn btn-outline-primary mb-3"
                 >
-                    {{$t('widget:search.submit')}}
+                    {{$t('form:submit.search')}}
                 </button>
             </div>
         </form>

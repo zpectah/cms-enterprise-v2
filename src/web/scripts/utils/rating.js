@@ -10,7 +10,7 @@ export const isVoted = (model, id) => {
 			if (cp[model].indexOf(id) > -1) voted = true;
 		}
 	}
-	console.log('is voted', voted, c, cp, id, model);
+
 	return voted;
 };
 

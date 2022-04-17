@@ -8,7 +8,7 @@
         <ul
             class="list"
         >
-            @foreach($get_posts($props) as $post)
+            @foreach($getPosts($props) as $post)
                 <li
                     class="list-item"
                 >

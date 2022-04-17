@@ -8,7 +8,7 @@
         <p>{{$t('page:home.paragraph.2')}}</p>
     </section>
     @include('component.section-list', [
-        'items' => $get_posts([ 'category_id' => 1, 'limit' => 5 ]),
+        'items' => $getPosts([ 'category_id' => 1, 'limit' => 5 ]),
         'model' => 'posts',
         'context' => 'detail',
     ])

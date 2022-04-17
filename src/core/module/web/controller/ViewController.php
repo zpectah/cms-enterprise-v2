@@ -55,6 +55,8 @@ class ViewController {
             'installed' => $cmsLanguages['language_installed'] ?? WEB_DOCUMENT['language']['list'],
             'active' => $cmsLanguages['language_active'] ?? WEB_DOCUMENT['language']['list'],
             'url_param' => $urlParameter,
+            'locales' => PROJECT_LOCALES,
+            'locale' => PROJECT_LOCALES[$current],
         ];
     }
 
