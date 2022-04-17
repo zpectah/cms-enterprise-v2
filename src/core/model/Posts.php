@@ -151,12 +151,13 @@ class Posts {
                    published, 
                    links,
                    author, 
-                   rating,
+                   likes,
+                   dislikes,
                    template,
                    active, 
                    deleted
-                   ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
-        $types = 'sssssssssssssssssiiiii';
+                   ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+        $types = 'sssssssssssssssssiiiiii';
         $args = [
             $data['name'],
             $data['type'],
@@ -176,7 +177,8 @@ class Posts {
             $data['published'] ?? '',
             $data['links'] ? implode(",", $data['links']) : '',
             $data['author'],
-            $data['rating'],
+            $data['likes'] ?? 0,
+            $data['dislikes'] ?? 0,
             $data['template'],
             $data['active'],
             0
@@ -235,11 +237,12 @@ class Posts {
                      published = ?, 
                      links = ?, 
                      author = ?, 
-                     rating = ?, 
+                     likes = ?,
+                     dislikes = ?,
                      template = ?, 
                      active = ? 
                 WHERE id = ?');
-        $types = 'sssssssssssssssssiiiii';
+        $types = 'sssssssssssssssssiiiiii';
         $args = [
             $data['name'],
             $data['type'],
@@ -259,7 +262,8 @@ class Posts {
             $data['published'] ?? '',
             $data['links'] ? implode(",", $data['links']) : '',
             $data['author'],
-            $data['rating'],
+            $data['likes'] ?? 0,
+            $data['dislikes'] ?? 0,
             $data['template'],
             $data['active'],
             $data['id']
@@ -382,6 +386,28 @@ class Posts {
                     [ $id ]
                 );
             }
+        }
+
+        return $response;
+    }
+
+    public function like_posts ($conn, $data): array {
+        $response = [];
+        $helpers = new Helpers;
+
+        foreach ($data as $id) {
+            $response[] = $helpers -> proceed_update_row('UPDATE posts SET likes = likes + 1 WHERE id = ?', $conn, $id);
+        }
+
+        return $response;
+    }
+
+    public function dislike_posts ($conn, $data): array {
+        $response = [];
+        $helpers = new Helpers;
+
+        foreach ($data as $id) {
+            $response[] = $helpers -> proceed_update_row('UPDATE posts SET dislikes = dislikes + 1 WHERE id = ?', $conn, $id);
         }
 
         return $response;

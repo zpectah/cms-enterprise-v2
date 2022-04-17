@@ -28,6 +28,8 @@
     "status": "Status",
     "created": "Vytvořeno",
     "rating": "Hodnocení",
+    "likes": "Lajků",
+    "dislikes": "Hejtů",
     "file_size": "Velikost souboru",
     "file_path": "Cesta k souboru",
     "image_thumbnail": "Náhled obrázku",

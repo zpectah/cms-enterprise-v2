@@ -4,7 +4,4 @@
         'description' => $_page['description'],
     ])
     @include('component.section-main', [ 'html' => $_page['content'] ])
-    <section class="section section--content">
-        {!! $_page['content'] !!}
-    </section>
 </main>

@@ -12,15 +12,14 @@
             />
         </section>
     @endif
-    <section class="section section--main">
-        {!! $_detail['content'] !!}
-    </section>
+    @include('component.section-main', [ 'html' => $_detail['content'] ])
+    @include('component.detail-rating')
     @include('component.detail-attachments')
     @include('component.detail-media')
     @include('component.detail-links')
-    @include('component.detail-pagination')
     @include('component.detail-meta')
     @include('component.detail-author')
+    @include('component.detail-pagination')
     @include('component.section-comments', [
         'assigned' => 'Posts',
         'assignedId' => $detail['detail']['id'],

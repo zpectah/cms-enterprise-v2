@@ -25,7 +25,8 @@ export interface PostsItemModel extends modelItemBase {
 	img_thumbnail?: string;
 	published: string | null;
 	author: number;
-	rating?: number;
+	likes?: number;
+	dislikes?: number;
 	template: boolean;
 	lang: {
 		[k: string]: PostsItemLangModel;

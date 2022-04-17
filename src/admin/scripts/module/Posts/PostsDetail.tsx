@@ -281,7 +281,8 @@ const PostsDetail = (props: PostsDetailProps) => {
 								<Section>
 									<InfoMetaBlock
 										list={{
-											rating: <Rating name="read-only" size="small" value={detailData.rating} readOnly />,
+											likes: detailData.likes,
+											dislikes: detailData.dislikes,
 										}}
 									/>
 								</Section>

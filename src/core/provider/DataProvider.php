@@ -580,6 +580,24 @@ class DataProvider {
         return $response;
     }
 
+    public function like_posts ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $posts = new Posts;
+        $response = $posts -> like_posts($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function dislike_posts ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $posts = new Posts;
+        $response = $posts -> dislike_posts($conn, $data);
+        $conn -> close();
+
+        return $response;
+    }
+
     /**
      * Tags
      **/

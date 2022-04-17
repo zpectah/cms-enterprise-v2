@@ -23,7 +23,8 @@ export default {
 	img_thumbnail: '',
 	published: `${today.year}-${today.month}-${today.day}T00:00:00.000+01:00`,
 	author: 1, // Must be (1) !!!
-	rating: 0,
+	likes: 0,
+	dislikes: 0,
 	template: false,
 	active: true,
 	lang: {},

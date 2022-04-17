@@ -505,6 +505,18 @@ class ApiProvider {
                 }
                 break;
 
+            case 'like_posts':
+                $response['data'] = $dp -> like_posts($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
+            case 'dislike_posts':
+                $response['data'] = $dp -> dislike_posts($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
+                break;
+
             /**
              * Tags
              **/
