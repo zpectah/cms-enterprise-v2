@@ -132,6 +132,9 @@ const PostsDetail = (props: PostsDetailProps) => {
 					content: '',
 				},
 			);
+			if (params.id === 'new') {
+				detailData.author = profile.id;
+			}
 		}
 
 		if (detailData) setDetailData(detailData);
@@ -215,7 +218,7 @@ const PostsDetail = (props: PostsDetailProps) => {
 										name="author"
 										control={control}
 										rules={{ required: true }}
-										defaultValue={detailData.id === 'new' ? profile?.id : detailData.author}
+										defaultValue={detailData.author}
 										render={({ field, fieldState }) => {
 											const { ref, value, onChange } = field;
 											const { error } = fieldState;
@@ -228,7 +231,6 @@ const PostsDetail = (props: PostsDetailProps) => {
 													placeholder={t('form:placeholder.author')}
 													id={`${token}_author`}
 													error={!!error}
-													currentUserId={detailData.id === 'new' ? profile?.id as number : detailData.author as number}
 													disabled={authorChangeDisabled}
 													inputSx={{
 														width: {

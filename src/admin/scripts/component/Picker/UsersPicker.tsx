@@ -1,21 +1,17 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { useUsers } from '../../hooks/model';
 import PickerBase, { DefaultPickerBaseProps } from './Picker.Base';
 
-export interface UsersPickerProps extends DefaultPickerBaseProps {
-	currentUserId?: number;
-}
+export interface UsersPickerProps extends DefaultPickerBaseProps {}
 
 const UsersPicker = (props: UsersPickerProps) => {
 	const {
-		currentUserId,
 		placeholder = 'Select user',
 		value,
 		...rest
 	} = props;
 
-	const [ tmpValue, setTmpValue ] = useState(value);
 	const {
 		users,
 		users_loading,
@@ -36,15 +32,13 @@ const UsersPicker = (props: UsersPickerProps) => {
 		return list;
 	}, [ users ]);
 
-	useEffect(() => setTmpValue(currentUserId), [ currentUserId ]);
-
 	return (
 		<>
 			<PickerBase
 				loading={users_loading}
 				options={options_list}
 				placeholder={placeholder}
-				value={tmpValue}
+				value={value}
 				{...rest}
 			/>
 		</>
