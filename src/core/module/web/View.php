@@ -175,6 +175,7 @@ class View {
             case 'internal':
                 $target = '_self';
                 $path = $linkObject['path_url'];
+                if ($urlParams['lang']) $path .= '?' . $language['url_param'];
                 break;
 
             case 'page':

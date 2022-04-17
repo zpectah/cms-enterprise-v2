@@ -54,6 +54,7 @@ class ViewController {
             'default' => $cmsLanguages['language_default'] ?? WEB_DOCUMENT['language']['default'],
             'installed' => $cmsLanguages['language_installed'] ?? WEB_DOCUMENT['language']['list'],
             'active' => $cmsLanguages['language_active'] ?? WEB_DOCUMENT['language']['list'],
+            'active_count' => count($cmsLanguages['language_active'] ?? WEB_DOCUMENT['language']['list']),
             'url_param' => $urlParameter,
             'locales' => PROJECT_LOCALES,
             'locale' => PROJECT_LOCALES[$current],

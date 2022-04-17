@@ -15,6 +15,9 @@
                     'type' => 'horizontal',
                 ])
             </div>
+            <div class="col">
+                @include('shared.language-toggle')
+            </div>
         </div>
     </div>
 </header>

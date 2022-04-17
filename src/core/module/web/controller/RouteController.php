@@ -10,6 +10,7 @@ class RouteController {
         unset($request_array[0]); // unset 'web/'
         unset($request_array[1]); // unset 'www/'
         $listed = array_values($request_array);
+        $parsed = '/' . implode('/', $listed);
         $model = 'unknown';
         $context = 'unknown';
         $page = $listed[0];
@@ -29,6 +30,7 @@ class RouteController {
         return [
             'url' => $request_url_trimmed,
             'listed' => $listed,
+            'parsed' => $parsed,
             'page' => $page,
             'detail' => $detail,
             'id' => $id,
