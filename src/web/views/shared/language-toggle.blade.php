@@ -7,7 +7,7 @@
         >
             @foreach($language['active'] as $lng)
                 <li
-                    class="menu-item"
+                    class="menu-item {{$lng == $lang ? 'selected' : ''}}"
                 >
                     <a
                         href="{{$route['attrs']['parsed']}}{{$lng !== $language['default'] ? '?lang=' . $lng : ''}}"

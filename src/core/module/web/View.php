@@ -60,7 +60,7 @@ class View {
             $index = array_search($detail['detail'], $category['items']);
             $context['index'] = $index;
             $context['count'] = count($category['items']);
-            $context['path_prefix'] = '/' . $pageName . '/' .  'detail/';
+            $context['path_prefix'] = '/' . $pageName . '/';
             if($index > 0 ) $context['prev'] = $category['items'][ $index -1 ];
             if($index < count($category['items']) -1 ) $context['next'] = $category['items'][ $index +1 ];
         }
@@ -302,18 +302,21 @@ class View {
             'params' => $urlParams,
             'root' => $_SERVER['REDIRECT_URL'],
         ];
-        $public = [
-            'home_link' => self::get_language_link_path('/'),
-            'search_action_link' => self::get_language_link_path('/search-results'),
-            'members_registration_link' => self::get_language_link_path('/members-registration'),
-            'members_lostPassword_link' => self::get_language_link_path('/members-lost-password'),
-            'members_profile_link' => self::get_language_link_path('/members-profile'),
-            'project' => [
-                'copyright_year' => 2022,
-                'meta' => PROJECT_META,
-                'global' => PROJECT_GLOBAL,
+        $public = array_merge(
+            [
+                'home_link' => self::get_language_link_path('/'),
+                'search_action_link' => self::get_language_link_path('/search-results'),
+                'members_registration_link' => self::get_language_link_path('/members-registration'),
+                'members_lostPassword_link' => self::get_language_link_path('/members-lost-password'),
+                'members_profile_link' => self::get_language_link_path('/members-profile'),
+                'project' => [
+                    'copyright_year' => 2022,
+                    'meta' => PROJECT_META,
+                    'global' => PROJECT_GLOBAL,
+                ],
             ],
-        ];
+            $web,
+        );
 
         echo $this -> $blade -> run(
             $page['layout'],
@@ -333,7 +336,7 @@ class View {
                 'translations' => $translations,
                 'menu' => $menu,
                 'company' => $company,
-                'public' => array_merge($public, $web),
+                'public' => $public,
                 'members_options' => $member_options,
                 'member' => $member,
                 // Functions

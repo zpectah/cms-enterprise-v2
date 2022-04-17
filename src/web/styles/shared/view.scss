@@ -1,0 +1,21 @@
+.page{
+  &-layout{
+    &--default{}
+    &--minimal{}
+  }
+  &-view{
+    &--category{}
+    &--default{}
+    &--detail{
+      &--posts{}
+      // &--products{}
+    }
+    &--home{}
+    &--members-lost-password{}
+    &--members-profile{}
+    &--members-registration{}
+    &--search-results{}
+    &--error{}
+  }
+}
+

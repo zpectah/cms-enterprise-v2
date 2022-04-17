@@ -1,4 +1,6 @@
-<main class="view page-view page-view--home">
+<main
+    class="main view page-view page-view--home"
+>
     @include('component.section-heading', [
         'title' => $t('page:home.title'),
         'description' => $t('page:home.description'),

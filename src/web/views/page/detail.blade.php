@@ -1,5 +1,5 @@
 <main
-    class="view page-view page-view--detail page-view--detail--{{$detail['model']}} type-{{$detail['detail']['type']}}"
+    class="main view page-view page-view--detail page-view--detail--{{$detail['model']}} type-{{$detail['detail']['type']}}"
 >
     @include('component.section-heading', [
         'title' => $_detail['title'],

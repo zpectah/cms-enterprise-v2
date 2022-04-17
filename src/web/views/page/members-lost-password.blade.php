@@ -1,5 +1,7 @@
 @if($members_options['active'] && $members_options['members_lostPassword_active'])
-    <main class="view page-view page-view--members-lost-password">
+    <main
+        class="main view page-view page-view--members-lost-password"
+    >
         @include('component.section-heading', [
             'title' => $t('page:members-lost-password.title'),
             'description' => $t('page:members-lost-password.description'),

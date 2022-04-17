@@ -1,9 +1,12 @@
 @import 'vars';
 
-@import 'view';
-
+@import 'shared/view';
 @import 'shared/common';
 @import 'shared/typography';
+@import 'shared/header';
+@import 'shared/footer';
+@import 'shared/sidebar';
+@import 'shared/main';
 
 @import 'component/navigation';
 @import 'component/menu';

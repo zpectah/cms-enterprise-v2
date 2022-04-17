@@ -1,4 +1,4 @@
-<aside class="sidebar page-layout-sidebar">
+<aside class="sidebar">
     <div class="widget-wrapper">
         @include('widget.widget-search', [ 'formId' => 'WidgetSearchForm' ])
     </div>

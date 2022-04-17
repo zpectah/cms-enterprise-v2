@@ -1,4 +1,6 @@
-<main class="view page-view page-view--search-results">
+<main
+    class="main view page-view page-view--search-results"
+>
     @include('component.section-heading', [
         'title' => $t('page:search-results.title') . ' "' . $route['params']['search'] . '"',
         'description' => 'Found: ' . $search_results['count'],

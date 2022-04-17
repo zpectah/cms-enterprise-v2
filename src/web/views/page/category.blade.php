@@ -1,4 +1,6 @@
-<main class="view page-view page-view--category">
+<main
+    class="main view page-view page-view--category"
+>
     @include('component.section-heading', [
         'title' => $_category['title'],
         'description' => $_category['description'],
