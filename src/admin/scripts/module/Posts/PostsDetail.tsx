@@ -283,8 +283,11 @@ const PostsDetail = (props: PostsDetailProps) => {
 								<Section>
 									<InfoMetaBlock
 										list={{
-											likes: detailData.likes,
-											dislikes: detailData.dislikes,
+											rating: (
+												<>
+													{detailData.likes}/{detailData.dislikes}
+												</>
+											),
 										}}
 									/>
 								</Section>

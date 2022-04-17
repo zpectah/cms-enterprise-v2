@@ -35,16 +35,17 @@
 </template>
 
 <script>
-const _ = require('lodash');
-const { post } = require('../../utils/http');
-const { UiInput } = require('../ui');
+import _ from 'lodash';
+
+import { post } from '../../utils/http';
+import { UiInput } from '../ui';
 
 const formModel = {
 	password: '',
 	token: '',
 };
 
-module.exports = {
+export default {
 	components: {
 		'ui-input': UiInput,
 	},
@@ -81,7 +82,7 @@ module.exports = {
 
 			if (model.password === '' || model.password.length < 3) {
 				valid = false;
-				errors['password'] = this.t('message.input.required');
+				errors['password'] = this.t('message:input.required');
 			}
 
 			this.errors = errors;

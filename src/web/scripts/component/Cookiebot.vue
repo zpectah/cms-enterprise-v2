@@ -6,7 +6,7 @@
 		<div
 			class="Cookiebot-content"
 		>
-			{{t('cookies:cookiebot.description')}}
+			{{t('cookiebot:description')}}
 		</div>
 		<div
 			class="Cookiebot-actions"
@@ -16,7 +16,7 @@
 				class="btn btn-success"
 				@click="acceptHandler"
 			>
-				{{t('cookies:cookiebot.btn.accept')}}
+				{{t('common:btn.accept')}}
 			</button>
 			&nbsp;
 			<button
@@ -24,17 +24,17 @@
 				class="btn btn-warning"
 				@click="declineHandler"
 			>
-				{{t('cookies:cookiebot.btn.decline')}}
+				{{t('common:btn.decline')}}
 			</button>
 		</div>
 	</div>
 </template>
 
 <script>
-const { cookies } = require('../../../../utils/helpers');
-const { EU_COOKIES_COOKIE_NAME } = require('../constants');
+import { cookies } from '../../../../utils/helpers';
+import { EU_COOKIES_COOKIE_NAME } from '../constants';
 
-module.exports = {
+export default {
 	props: {},
 	mounted() {
 		const euc = cookies.get(EU_COOKIES_COOKIE_NAME);

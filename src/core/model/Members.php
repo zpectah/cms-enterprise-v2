@@ -35,7 +35,7 @@ class Members {
 
         // request params
         $__id = $params['id'];
-        $__ids = $params['ids']; // Must be an array[]
+        $__ids = is_string($params['ids']) ? explode(",", $params['ids']) : $params['ids']; // Must be an array[]
         $__email = $params['email'];
         $__withPassword = $params['with_password'];
         $__checkExist = $params['check_exist'];

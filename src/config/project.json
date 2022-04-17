@@ -38,7 +38,11 @@
       "robots": "none",
       "charset": "utf-8",
       "viewport": "width=device-width, initial-scale=1",
-      "lang": "cs-CZ"
+      "lang": "cs-CZ",
+      "icon": {
+        "ico": "/assets/cms-icon.ico",
+        "png": "/assets/cms-icon-256.png"
+      }
     },
     "theme": {
       "default": "light",

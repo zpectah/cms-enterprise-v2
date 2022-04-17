@@ -56,6 +56,8 @@ define('ADMIN_DOCUMENT', [
         'charset' => $CFG_PROJECT['admin']['meta']['charset'],
         'viewport' => $CFG_PROJECT['admin']['meta']['viewport'],
         'lang' => $CFG_PROJECT['admin']['meta']['lang'],
+        'icon_ico' => $CFG_PROJECT['admin']['meta']['icon']['ico'],
+        'icon_png' => $CFG_PROJECT['admin']['meta']['icon']['png'],
     ],
     'root' => ROOT,
     'scripts' => CFG_ENV['admin']['scripts'] . '?v=' . TIMESTAMP,

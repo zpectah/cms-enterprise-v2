@@ -52,7 +52,7 @@ class MenuItems {
         // request params
         $__menuId = $data['menu_id'];
         $__with_children = $data['with_children'];
-        $__ids = $data['ids']; // Must be an array[]
+        $__ids = is_string($data['ids']) ? explode(",", $data['ids']) : $data['ids']; // Must be an array[]
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {

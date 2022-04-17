@@ -93,13 +93,10 @@ export default {
 		},
 		formSubmitHandler: function (master) {
 			return new Promise((resolve) => {
-				return post('/api/create_comments', master).then((resp) => {
-
-					console.log('after submit', resp, master);
-
+				return post('/api/create_comments', master).then(() => {
 					this.comment = false;
-					loadComments(this.assigned, this.assignedId).then((resp) => {
-						this.comments = resp.data;
+					loadComments(this.assigned, this.assignedId).then((r) => {
+						this.comments = r.data;
 					});
 
 					return resolve(master);

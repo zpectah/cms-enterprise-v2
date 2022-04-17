@@ -18,18 +18,6 @@ use core\model\VisitorBlacklist;
 
 class System {
 
-    // TODO
-    public function create_log ($attrs): array {
-
-        return [];
-    }
-
-    // TODO
-    public function get_log_list (): array {
-
-        return [];
-    }
-
     public function export_data ($conn, $data, $languages): array {
         $response = null;
         $exported = new \stdClass();

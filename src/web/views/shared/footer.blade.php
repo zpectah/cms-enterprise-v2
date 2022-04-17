@@ -10,7 +10,7 @@
                         {{$public['web_meta_title']}}
                     </a>
                     |
-                    {{$t('common:text.all-rights')}}
+                    {{$t('common:label.all_rights')}}
                     |
                     <a
                         href="/admin"
@@ -19,6 +19,11 @@
                         {{$public['project']['meta']['name']}} v{{$public['project']['meta']['version']}}
                     </a>
                 </small>
+            </div>
+            <div
+                class="col"
+            >
+                @include('widget.widget-social-links')
             </div>
         </div>
     </div>

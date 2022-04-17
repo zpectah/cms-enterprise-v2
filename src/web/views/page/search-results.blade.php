@@ -11,7 +11,7 @@
     ])
     @if($search_results['count'] == 0)
         <section>
-            {{$t('common:text.nothing-was-found')}}
+            {{$t('common:label.nothing_found')}}
         </section>
     @endif
 </main>

@@ -45,17 +45,18 @@
 </template>
 
 <script>
-const _ = require('lodash');
-const { EMAIL_REGEX } = require('../../constants');
-const { post } = require('../../utils/http');
-const { UiInput } = require('../ui');
+import _ from 'lodash';
+
+import { EMAIL_REGEX } from '../../constants';
+import { post } from '../../utils/http';
+import { UiInput } from '../ui';
 
 const formModel = {
 	email: '',
 	password: '',
 };
 
-module.exports = {
+export default {
 	components: {
 		'ui-input': UiInput,
 	},
@@ -86,14 +87,14 @@ module.exports = {
 			if (model.email === '' || model.email.length < 3 || !model.email.match(EMAIL_REGEX)) {
 				valid = false;
 				if (!model.email.match(EMAIL_REGEX)) {
-					errors['email'] = this.t('message.input.email_format');
+					errors['email'] = this.t('message:input.email_format');
 				} else {
-					errors['email'] = this.t('message.input.required');
+					errors['email'] = this.t('message:input.required');
 				}
 			}
 			if (model.password === '' || model.password.length < 3) {
 				valid = false;
-				errors['password'] = this.t('message.input.required');
+				errors['password'] = this.t('message:input.required');
 			}
 
 			this.errors = errors;

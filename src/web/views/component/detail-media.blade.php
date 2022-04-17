@@ -5,7 +5,7 @@
         <h3
             class="title title--section"
         >
-            {{$t('common:title.media')}}
+            {{$t('common:label.media')}}
         </h3>
         <ul
             class="list list-media"

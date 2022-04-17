@@ -2,6 +2,6 @@
     <div
         class="header-bar"
     >
-        {{$t('common:maintenance.label')}}
+        {{$t('maintenance:label')}}
     </div>
 @endif

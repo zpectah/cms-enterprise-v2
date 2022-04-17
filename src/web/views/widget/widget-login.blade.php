@@ -4,7 +4,7 @@
             @if(!$member['profile'])
                 {{$t('widget:login.title')}}
             @else
-                {{$t('widget:login.title-profile')}}
+                {{$t('widget:profile.title')}}
             @endif
         </h4>
         <div class="widget-main">

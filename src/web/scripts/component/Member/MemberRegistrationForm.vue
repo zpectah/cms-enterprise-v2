@@ -75,10 +75,11 @@
 </template>
 
 <script>
-const _ = require('lodash');
-const { EMAIL_REGEX } = require('../../constants');
-const { post } = require('../../utils/http');
-const { UiInput, UiCheckbox } = require('../ui');
+import _ from 'lodash';
+
+import { EMAIL_REGEX } from '../../constants';
+import { post } from '../../utils/http';
+import { UiInput, UiCheckbox } from '../ui';
 
 const formModel = {
 	name_first: '',
@@ -88,7 +89,7 @@ const formModel = {
 	subscription: true,
 };
 
-module.exports = {
+export default {
 	components: {
 		'ui-input': UiInput,
 		'ui-checkbox': UiCheckbox,
@@ -120,22 +121,22 @@ module.exports = {
 			if (model.email === '' || model.email.length < 3 || !model.email.match(EMAIL_REGEX)) {
 				valid = false;
 				if (!model.email.match(EMAIL_REGEX)) {
-					errors['email'] = this.t('message.input.email_format');
+					errors['email'] = this.t('message:input.email_format');
 				} else {
-					errors['email'] = this.t('message.input.required');
+					errors['email'] = this.t('message:input.required');
 				}
 			}
 			if (model.password === '' || model.password.length < 3) {
 				valid = false;
-				errors['password'] = this.t('message.input.required');
+				errors['password'] = this.t('message:input.required');
 			}
 			if (model.name_first === '' || model.name_first.length < 3) {
 				valid = false;
-				errors['name_first'] = this.t('message.input.required');
+				errors['name_first'] = this.t('message:input.required');
 			}
 			if (model.name_last === '' || model.name_last.length < 3) {
 				valid = false;
-				errors['name_last'] = this.t('message.input.required');
+				errors['name_last'] = this.t('message:input.required');
 			}
 
 			this.errors = errors;

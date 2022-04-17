@@ -5,7 +5,7 @@
         <h3
             class="title title--section"
         >
-            {{$t('common:title.links')}}
+            {{$t('common:label.links')}}
         </h3>
         <ul
             class="list"

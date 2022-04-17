@@ -16,6 +16,7 @@ import {
 	PasswordInput,
 	PrimaryButton,
 	Button,
+	CmsLogo,
 } from '../../component/ui';
 
 interface newPasswordFormProps {
@@ -49,22 +50,32 @@ const CreateNewPasswordForm = () => {
 
 	return (
 		<>
+			<Stack
+				direction="row"
+				alignItems="center"
+				justifyContent="center"
+				sx={{
+					mb: 2,
+				}}
+			>
+				<CmsLogo />
+			</Stack>
 			<Typography
+				variant="h3"
 				sx={{
 					pb: 1.5,
 					textAlign: 'center',
 				}}
 			>
-				{settings?.web_meta_title}
+				{t('components:CreateNewPasswordForm.title')}
 			</Typography>
 			<Typography
-				variant="h3"
 				sx={{
 					pb: 3.5,
 					textAlign: 'center',
 				}}
 			>
-				{t('components:CreateNewPasswordForm.title')}
+				{settings?.web_meta_title}
 			</Typography>
 			<div>
 				<ControlledForm

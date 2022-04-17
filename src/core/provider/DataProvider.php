@@ -21,9 +21,72 @@ use core\module\admin\Profile;
 use core\module\admin\Settings;
 use core\module\admin\System;
 use core\module\web\Member;
+use core\service\LogService;
 use mysqli;
 
 class DataProvider {
+
+    /**
+     * System ...
+     **/
+    public function create_log ($attrs): array {
+        $ls = new LogService;
+
+        return $ls -> create_log($attrs);
+    }
+
+    public function get_log_list (): array {
+        $ls = new LogService;
+
+        return $ls -> get_log_list();
+    }
+
+    public function install_language ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $system = new System;
+        $settings = new Settings;
+        $response = $system -> install_language($conn, $data);
+        $update_fields = [
+            'language_installed' => $data['installed'],
+        ];
+        $response['update'] = $settings -> update_cms_settings($conn, $update_fields);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function export_data ($data): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $system = new System;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $system -> export_data($conn, $data, $languages['language_active']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_permanent_items (): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $system = new System;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $system -> delete_permanent_items($conn, $languages['language_installed']);
+        $conn -> close();
+
+        return $response;
+    }
+
+    public function delete_permanent_uploads (): array {
+        $conn = new mysqli(...CFG_DB_CONN);
+        $system = new System;
+        $settings = new Settings;
+        $languages = $settings -> get_cms_languages($conn);
+        $response = $system -> delete_permanent_uploads($conn, $languages['language_installed']);
+        $conn -> close();
+
+        return $response;
+    }
 
     /**
      * Categories
@@ -864,9 +927,14 @@ class DataProvider {
 
     public function update_cms_settings ($fields) {
         $conn = new mysqli(...CFG_DB_CONN);
+        $ls = new LogService;
         $settings = new Settings;
         $response = $settings -> update_cms_settings($conn, $fields);
         $conn -> close();
+        $ls -> create_log([
+            'type' => 'update_cms_settings',
+            'content' => $response ? 'ok' : 'error',
+        ]);
 
         return $response;
     }
@@ -930,9 +998,14 @@ class DataProvider {
 
     public function user_login ($data): array {
         $conn = new mysqli(...CFG_DB_CONN);
+        $ls = new LogService;
         $profile = new Profile;
         $response = $profile -> user_login($conn, $data);
         $conn -> close();
+        $ls -> create_log([
+            'type' => 'user_login',
+            'content' => $response ? 'ok' : 'error',
+        ]);
 
         return $response;
     }
@@ -945,9 +1018,14 @@ class DataProvider {
 
     public function user_lost_password ($data): array {
         $conn = new mysqli(...CFG_DB_CONN);
+        $ls = new LogService;
         $profile = new Profile;
         $response = $profile -> user_lost_password($conn, $data);
         $conn -> close();
+        $ls -> create_log([
+            'type' => 'user_lost_password',
+            'content' => $response ? 'ok' : 'error',
+        ]);
 
         return $response;
     }
@@ -984,9 +1062,14 @@ class DataProvider {
 
     public function update_member_profile ($data): array {
         $conn = new mysqli(...CFG_DB_CONN);
+        $ls = new LogService;
         $member = new Member;
         $response = $member -> member_update_profile($conn, $data);
         $conn -> close();
+        $ls -> create_log([
+            'type' => 'update_member_profile',
+            'content' => $response ? 'ok' : 'error',
+        ]);
 
         return $response;
     }
@@ -1002,18 +1085,28 @@ class DataProvider {
 
     public function member_registration ($data): array {
         $conn = new mysqli(...CFG_DB_CONN);
+        $ls = new LogService;
         $member = new Member;
         $response = $member -> member_registration($conn, $data);
         $conn -> close();
+        $ls -> create_log([
+            'type' => 'member_registration',
+            'content' => $response ? 'ok' : 'error',
+        ]);
 
         return $response;
     }
 
     public function member_login ($data): array {
         $conn = new mysqli(...CFG_DB_CONN);
+        $ls = new LogService;
         $member = new Member;
         $response = $member -> member_login($conn, $data);
         $conn -> close();
+        $ls -> create_log([
+            'type' => 'member_login',
+            'content' => $response ? 'ok' : 'error',
+        ]);
 
         return $response;
     }
@@ -1026,9 +1119,14 @@ class DataProvider {
 
     public function member_lost_password ($data): array {
         $conn = new mysqli(...CFG_DB_CONN);
+        $ls = new LogService;
         $member = new Member;
         $response = $member -> member_lost_password($conn, $data);
         $conn -> close();
+        $ls -> create_log([
+            'type' => 'member_lost_password',
+            'content' => $response ? 'ok' : 'error',
+        ]);
 
         return $response;
     }
@@ -1046,68 +1144,6 @@ class DataProvider {
         $conn = new mysqli(...CFG_DB_CONN);
         $member = new Member;
         $response = $member -> member_create_new_password($conn, $data);
-        $conn -> close();
-
-        return $response;
-    }
-
-    /**
-     * System ...
-     **/
-    public function create_log ($attrs) {
-        $system = new System;
-
-        return $system -> create_log($attrs);
-    }
-
-    public function get_log_list () {
-        $system = new System;
-
-        return $system -> get_log_list();
-    }
-
-    public function install_language ($data): array {
-        $conn = new mysqli(...CFG_DB_CONN);
-        $system = new System;
-        $settings = new Settings;
-        $response = $system -> install_language($conn, $data);
-        $update_fields = [
-            'language_installed' => $data['installed'],
-        ];
-        $response['update'] = $settings -> update_cms_settings($conn, $update_fields);
-        $conn -> close();
-
-        return $response;
-    }
-
-    public function export_data ($data): array {
-        $conn = new mysqli(...CFG_DB_CONN);
-        $system = new System;
-        $settings = new Settings;
-        $languages = $settings -> get_cms_languages($conn);
-        $response = $system -> export_data($conn, $data, $languages['language_active']);
-        $conn -> close();
-
-        return $response;
-    }
-
-    public function delete_permanent_items (): array {
-        $conn = new mysqli(...CFG_DB_CONN);
-        $system = new System;
-        $settings = new Settings;
-        $languages = $settings -> get_cms_languages($conn);
-        $response = $system -> delete_permanent_items($conn, $languages['language_installed']);
-        $conn -> close();
-
-        return $response;
-    }
-
-    public function delete_permanent_uploads (): array {
-        $conn = new mysqli(...CFG_DB_CONN);
-        $system = new System;
-        $settings = new Settings;
-        $languages = $settings -> get_cms_languages($conn);
-        $response = $system -> delete_permanent_uploads($conn, $languages['language_installed']);
         $conn -> close();
 
         return $response;

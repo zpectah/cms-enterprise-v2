@@ -15,6 +15,7 @@ import {
 	PasswordInput,
 	PrimaryButton,
 	Button,
+	CmsLogo,
 } from '../../component/ui';
 
 interface loginFormProps {
@@ -98,22 +99,32 @@ const LoginForm = (props: LoginFormProps) => {
 
 	return (
 		<>
+			<Stack
+				direction="row"
+				alignItems="center"
+				justifyContent="center"
+				sx={{
+					mb: 2,
+				}}
+			>
+				<CmsLogo />
+			</Stack>
 			<Typography
+				variant="h3"
 				sx={{
 					pb: 1.5,
 					textAlign: 'center',
 				}}
 			>
-				{settings?.web_meta_title}
+				{t('components:LoginForm.title')}
 			</Typography>
 			<Typography
-				variant="h3"
 				sx={{
 					pb: 3.5,
 					textAlign: 'center',
 				}}
 			>
-				{t('components:LoginForm.title')}
+				{settings?.web_meta_title}
 			</Typography>
 			{profile?.id ? (
 				<div

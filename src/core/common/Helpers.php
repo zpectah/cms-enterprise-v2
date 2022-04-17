@@ -6,7 +6,7 @@ use Gumlet\ImageResize;
 
 class Helpers {
 
-    public function get_current_zrl (): string {
+    public function get_current_url (): string {
         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
             $url = "https://";
         else
@@ -74,7 +74,7 @@ class Helpers {
         return $ip;
     }
 
-    public function get_browser () {
+    public function get_browser (): array {
         $u_agent = $_SERVER['HTTP_USER_AGENT'];
         $bname = 'Unknown';
         $platform = 'Unknown';

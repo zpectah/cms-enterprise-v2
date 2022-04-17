@@ -54,10 +54,11 @@
 </template>
 
 <script>
-const _ = require('lodash');
-const { EMAIL_REGEX } = require('../constants');
-const { post } = require('../utils/http');
-const { UiInput, UiTextarea } = require('./ui');
+import _ from 'lodash';
+
+import { EMAIL_REGEX } from '../constants';
+import { post } from '../utils/http';
+import { UiInput, UiTextarea } from './ui';
 
 const formModel = {
 	sender: '',
@@ -66,7 +67,7 @@ const formModel = {
 	type: 'contact_form',
 };
 
-module.exports = {
+export default {
 	components: {
 		'ui-input': UiInput,
 		'ui-textarea': UiTextarea,
@@ -102,17 +103,21 @@ module.exports = {
 			let valid = true;
 			const errors = {};
 
-			if (model.sender === '' || model.sender.length < 3) {
+			if (model.sender === '' || model.sender.length < 3 || !model.sender.match(EMAIL_REGEX)) {
 				valid = false;
-				errors['sender'] = this.t('message.input.required');
+				if (!model.sender.match(EMAIL_REGEX)) {
+					errors['sender'] = this.t('message:input.email_format');
+				} else {
+					errors['sender'] = this.t('message:input.required');
+				}
 			}
 			if (model.subject === '' || model.subject.length < 3) {
 				valid = false;
-				errors['subject'] = this.t('message.input.required');
+				errors['subject'] = this.t('message:input.required');
 			}
 			if (model.content === '' || model.content.length < 3) {
 				valid = false;
-				errors['content'] = this.t('message.input.required');
+				errors['content'] = this.t('message:input.required');
 			}
 
 			this.errors = errors;

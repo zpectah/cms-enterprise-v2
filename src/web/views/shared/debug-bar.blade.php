@@ -2,6 +2,6 @@
     <div
         class="header-bar"
     >
-        {{$t('common:debug.label')}}
+        {{$t('debug:label')}}
     </div>
 @endif

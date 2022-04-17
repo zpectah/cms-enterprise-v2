@@ -6,7 +6,7 @@
 			@click="addLike"
 			:disabled="state.voted"
 		>
-			+ like ({{state.likes}})
+			{{t('common:btn.like')}} ({{state.likes}})
 		</button>
 		<button
 			type="button"
@@ -14,7 +14,7 @@
 			@click="addDislike"
 			:disabled="state.voted"
 		>
-			+ dislike ({{state.dislikes}})
+			{{t('common:btn.dislike')}} ({{state.dislikes}})
 		</button>
 	</div>
 </template>

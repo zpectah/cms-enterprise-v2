@@ -119,18 +119,18 @@ export default {
 			if (model.email === '' || model.email.length < 3 || !model.email.match(EMAIL_REGEX)) {
 				valid = false;
 				if (!model.email.match(EMAIL_REGEX)) {
-					errors['email'] = this.t('message.input.email_format');
+					errors['email'] = this.t('message:input.email_format');
 				} else {
-					errors['email'] = this.t('message.input.required');
+					errors['email'] = this.t('message:input.required');
 				}
 			}
 			if (model.title === '' || model.title.length < 3) {
 				valid = false;
-				errors['title'] = this.t('message.input.required');
+				errors['title'] = this.t('message:input.required');
 			}
 			if (model.content === '' || model.content.length < 3) {
 				valid = false;
-				errors['content'] = this.t('message.input.required');
+				errors['content'] = this.t('message:input.required');
 			}
 
 			this.errors = errors;

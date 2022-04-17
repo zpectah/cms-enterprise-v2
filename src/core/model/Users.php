@@ -34,7 +34,7 @@ class Users {
         $__email = $params['email'];
         $__withPassword = $params['with_password'];
         $__checkExist = $params['check_exist'];
-        $__ids = $params['ids']; // Must be an array[]
+        $__ids = is_string($params['ids']) ? explode(",", $params['ids']) : $params['ids']; // Must be an array[]
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {

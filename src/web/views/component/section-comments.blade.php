@@ -5,7 +5,7 @@
         <h3
             class="title title--section"
         >
-            {{$t('common:title.comments')}}
+            {{$t('common:label.comments')}}
         </h3>
         <comments
             assigned="{{$assigned}}"

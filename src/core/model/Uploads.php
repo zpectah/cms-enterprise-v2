@@ -38,7 +38,7 @@ class Uploads {
         $stmt -> close();
 
         // request params
-        $__ids = $data['ids']; // Must be an array[]
+        $__ids = is_string($data['ids']) ? explode(",", $data['ids']) : $data['ids']; // Must be an array[]
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {

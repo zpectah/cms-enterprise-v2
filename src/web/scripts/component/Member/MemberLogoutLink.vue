@@ -9,9 +9,9 @@
 </template>
 
 <script>
-const { post } = require('../../utils/http');
+import { post } from '../../utils/http';
 
-module.exports = {
+export default {
 	props: {
 		path: {
 			type: String,

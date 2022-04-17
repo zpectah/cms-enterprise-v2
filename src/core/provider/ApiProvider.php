@@ -3,6 +3,7 @@
 namespace core\provider;
 
 use core\service\AuthService;
+use core\service\LogService;
 
 class ApiProvider {
 
@@ -1073,6 +1074,11 @@ class ApiProvider {
             );
         } else {
             $response['message'] = MESSAGES['API']['UNAUTHORIZED'];
+            $ls = new LogService;
+            $ls -> create_log([
+                'type' => 'api',
+                'content' => $response['message'],
+            ]);
         }
         if (APP_DEBUG) $response['request'] = [
             'path' => $request_url_base,
