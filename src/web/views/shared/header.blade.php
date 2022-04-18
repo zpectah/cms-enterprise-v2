@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col">
                     <a
-                            href="{{$public['home_link']}}"
+                            href="{{$public['links']['home']}}"
                             class="header-brand"
                     >
                         {{$public['web_meta_title']}}
@@ -16,7 +16,7 @@
                 </div>
                 <div class="col">
                     @include('component.navigation', [
-                        'menuData' => $menu['primary']['main-menu'],
+                        'menuData' => $custom_data['header_menu'], // TODO #menu
                         'type' => 'horizontal',
                     ])
                 </div>

@@ -25,7 +25,7 @@
                 <div>
                     @if($member['actions']['registration'])
                         <a
-                            href="{{$public['registration_link']}}"
+                            href="{{$public['links']['registration']}}"
                             class="btn btn-outline-primary"
                         >
                             {{$t('common:btn.sign-in')}}
@@ -33,7 +33,7 @@
                     @endif
                     @if($member['actions']['lostPassword'])
                             <a
-                                href="{{$public['lostPassword_link']}}"
+                                href="{{$public['links']['lostPassword']}}"
                                 class="btn btn-outline-primary"
                             >
                                 {{$t('common:btn.lost-password')}}
@@ -44,14 +44,14 @@
                 <div>
                     @if($member['actions']['profile_view'])
                         <a
-                            href="{{$public['profile_link']}}"
+                            href="{{$public['links']['profile']}}"
                             class="btn btn-outline-primary"
                         >
                             {{$t('common:btn.profile')}}
                         </a>
                     @endif
                     <member-logout-link
-                        path="{{$public['home_link']}}"
+                        path="{{$public['links']['home']}}"
                     />
                 </div>
             @endif

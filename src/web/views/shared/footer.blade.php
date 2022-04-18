@@ -5,7 +5,7 @@
                 <small>
                     &copy; {{$public['project']['copyright_year']}}
                     <a
-                        href="{{$public['home_link']}}"
+                        href="{{$public['links']['home']}}"
                     >
                         {{$public['web_meta_title']}}
                     </a>

@@ -8,7 +8,7 @@
                 name="{{$formId}}"
                 id="{{$formId}}"
                 method="get"
-                action="{{$public['search_action_link']}}"
+                action="{{$public['links']['action_search']}}"
                 class="row g-3"
             >
                 <div class="col-auto">

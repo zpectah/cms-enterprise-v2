@@ -11,15 +11,12 @@
     <div class="widget-wrapper">
         @include('widget.widget-last-posts', [
             'widgetTitle' => $t('widget:last-posts.title'),
-            'props' => [
-                'tag_id' => 3,
-                'limit' => 3,
-            ],
+            'props' => $custom_data['sidebar_posts'], // TODO #posts #category
         ])
     </div>
     <div class="widget-wrapper">
         @include('widget.widget-links', [
-            'menuData' => $menu['custom']['sidebar-links'],
+            'menuData' => $custom_data['sidebar_links'], // TODO #menu
         ])
     </div>
 </aside>

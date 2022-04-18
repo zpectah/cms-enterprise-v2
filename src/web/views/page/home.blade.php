@@ -10,7 +10,7 @@
         <p>{{$t('page:home.paragraph.2')}}</p>
     </section>
     @include('component.section-list', [
-        'items' => $getPosts([ 'category_id' => 1, 'limit' => 5 ]),
+        'items' => $getPosts($custom_data['homepage_posts']), // TODO #posts #category
         'model' => 'posts',
         'context' => 'detail',
     ])

@@ -283,11 +283,13 @@ class View {
         ];
         $public = array_merge(
             [
-                'home_link' => self::get_language_link_path('/'),
-                'search_action_link' => self::get_language_link_path('/' . WEB_PAGE_ROUTES['page']['search-results']['key']),
-                'registration_link' => self::get_language_link_path('/' . WEB_PAGE_ROUTES['page']['registration']['key']),
-                'lostPassword_link' => self::get_language_link_path('/' . WEB_PAGE_ROUTES['page']['lost-password']['key']),
-                'profile_link' => self::get_language_link_path('/' . WEB_PAGE_ROUTES['page']['profile']['key']),
+                'links' => [
+                    'home' => self::get_language_link_path('/'),
+                    'action_search' => self::get_language_link_path('/' . WEB_PAGE_ROUTES['page']['search-results']['key']),
+                    'registration' => self::get_language_link_path('/' . WEB_PAGE_ROUTES['page']['registration']['key']),
+                    'lostPassword' => self::get_language_link_path('/' . WEB_PAGE_ROUTES['page']['lost-password']['key']),
+                    'profile' => self::get_language_link_path('/' . WEB_PAGE_ROUTES['page']['profile']['key']),
+                ],
                 'project' => [
                     'copyright_year' => 2022,
                     'meta' => PROJECT_META,
@@ -296,6 +298,20 @@ class View {
             ],
             $web,
         );
+        $custom_data = [
+            // TODO #menu
+            'header_menu' => $menu['primary']['main-menu'],
+            'sidebar_links' => $menu['custom']['sidebar-links'],
+            // TODO #category #posts
+            'homepage_posts' => [
+                'category_id' => 1,
+                'limit' => 5,
+            ],
+            'sidebar_posts' => [
+                'tag_id' => 3,
+                'limit' => 3,
+            ],
+        ];
 
         echo $this -> $blade -> run(
             $page['layout'],
@@ -318,6 +334,7 @@ class View {
                 'public' => $public,
                 'members_options' => $members_options,
                 'member' => $member,
+                'custom_data' => $custom_data,
                 // Functions
                 't' => function ($key) { return self::get_t($key); },
                 'menuLink' => function ($linkObject) { return self::get_menu_link($linkObject); },
