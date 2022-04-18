@@ -9,7 +9,11 @@
         </h4>
         <div class="widget-main">
             @if(!$member['profile'])
-                <member-login-form form-id="{{$formId}}">Loading</member-login-form>
+                <member-login-form
+                    form-id="{{$formId}}"
+                >
+                    Loading
+                </member-login-form>
             @else
                 <div>
                     {{$member['profile']['email']}}
@@ -19,27 +23,33 @@
         <div class="widget-actions">
             @if(!$member['profile'])
                 <div>
-                    <a
-                        href="{{$public['registration_link']}}"
-                        class="btn btn-outline-primary"
-                    >
-                        {{$t('common:btn.sign-in')}}
-                    </a>
-                    <a
-                        href="{{$public['lostPassword_link']}}"
-                        class="btn btn-outline-primary"
-                    >
-                        {{$t('common:btn.lost-password')}}
-                    </a>
+                    @if($member['actions']['registration'])
+                        <a
+                            href="{{$public['registration_link']}}"
+                            class="btn btn-outline-primary"
+                        >
+                            {{$t('common:btn.sign-in')}}
+                        </a>
+                    @endif
+                    @if($member['actions']['lostPassword'])
+                            <a
+                                href="{{$public['lostPassword_link']}}"
+                                class="btn btn-outline-primary"
+                            >
+                                {{$t('common:btn.lost-password')}}
+                            </a>
+                    @endif
                 </div>
             @else
                 <div>
-                    <a
-                        href="{{$public['profile_link']}}"
-                        class="btn btn-outline-primary"
-                    >
-                        {{$t('common:btn.profile')}}
-                    </a>
+                    @if($member['actions']['profile_view'])
+                        <a
+                            href="{{$public['profile_link']}}"
+                            class="btn btn-outline-primary"
+                        >
+                            {{$t('common:btn.profile')}}
+                        </a>
+                    @endif
                     <member-logout-link
                         path="{{$public['home_link']}}"
                     />

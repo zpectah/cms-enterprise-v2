@@ -24,4 +24,9 @@
         'assigned' => ucwords($detail['model']),
         'assignedId' => $detail['detail']['id'],
     ])
+    @if(!$detail['detail'])
+        <div>
+            This content does not exist!
+        </div>
+    @endif
 </main>

@@ -1,4 +1,4 @@
-@if($member['actions']['comments_view'])
+@if($member['actions']['comments_view'] && ($detail['detail'] && $category_context['path_prefix']))
     <section
         class="section section--comments"
     >
@@ -16,6 +16,5 @@
         >
             Loading
         </comments>
-        @json($member['actions']['comments_create'])
     </section>
 @endif
