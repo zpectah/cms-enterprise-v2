@@ -1,5 +1,4 @@
 <div
-    id="vue-scope"
     class="page-layout page-layout--minimal"
 >
     <div class="container">
@@ -10,4 +9,5 @@
         </div>
     </div>
     @include('shared.footer')
+    @include('shared.debugbar')
 </div>

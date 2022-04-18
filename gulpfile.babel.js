@@ -79,9 +79,11 @@ const TaskDef = {
 		);
 	},
 	Environment: function (path, env, cb) {
+		const debug = env === 'development';
 		src(source.Environment)
 			.pipe(gulpReplace('%%%%%ENV_ENV%%%%%', env))
 			.pipe(gulpReplace('%%%%%ENV_TIMESTAMP%%%%%', date.getTimestampString()))
+			.pipe(gulpReplace('%%%%%ENV_DEBUG%%%%%', String(debug)))
 			.pipe(gulpRename('env.php'))
 			.pipe(dest(`${path}config/`));
 		cb();

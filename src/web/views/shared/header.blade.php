@@ -1,8 +1,8 @@
 <div
     class="header-wrapper"
 >
-    @include('shared.debug-bar')
-    @include('shared.maintenance-bar')
+    @include('component.debug-bar')
+    @include('component.maintenance-bar')
     <header class="header">
         <div class="container">
             <div class="row">

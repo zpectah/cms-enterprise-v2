@@ -1,5 +1,4 @@
 <div
-    id="vue-scope"
     class="page-layout page-layout--default"
 >
     @include('shared.header')
@@ -15,5 +14,6 @@
         </div>
     </div>
     @include('shared.footer')
+    @include('shared.debugbar')
     @include('shared.cookiebot')
 </div>
