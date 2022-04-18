@@ -24,7 +24,7 @@
 		</div>
 		<div
 			class="Comments-list-item-footer"
-			v-if="anonymous"
+			v-if="anonymous && creatable"
 		>
 			<button
 				class="btn btn-secondary btn-sm"
@@ -46,6 +46,7 @@
 			v-if="reply && anonymous"
 		>
 			<new-comment-form
+				v-if="creatable"
 				:assigned="assigned"
 				:assigned-id="assignedId"
 				:parent="item.id"
@@ -65,6 +66,7 @@
 				:parent="item.id"
 				:email="email"
 				:anonymous="anonymous"
+				:creatable="creatable"
 			/>
 		</div>
 	</div>
@@ -103,6 +105,7 @@ export default {
 			default: null,
 		},
 		anonymous: null,
+		creatable: null,
 	},
 	data() {
 		return {

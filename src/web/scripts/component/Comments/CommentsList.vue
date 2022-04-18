@@ -10,6 +10,7 @@
 			:onFormSubmit="formSubmitHandler"
 			:email="email"
 			:anonymous="anonymous"
+			:creatable="creatable"
 		/>
 	</div>
 </template>
@@ -43,6 +44,7 @@ export default {
 			default: null,
 		},
 		anonymous: null,
+		creatable: null,
 	},
 	data() {
 		return {

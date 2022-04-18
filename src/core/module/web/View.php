@@ -287,9 +287,9 @@ class View {
             $page['page']['category'],
             $detail,
         );
-        $member_options = array_merge(
+        $members_options = array_merge(
             $members,
-            $vc -> get_member_options(
+            $vc -> get_members_options(
                 $urlAttrs['listed'],
                 $urlAttrs['page'] == 'members-lost-password',
             ),
@@ -334,7 +334,7 @@ class View {
                 'menu' => $menu,
                 'company' => $company,
                 'public' => $public,
-                'members_options' => $member_options,
+                'members_options' => $members_options,
                 'member' => $member,
                 // Functions
                 't' => function ($key) { return self::get_t($key); },

@@ -1,4 +1,4 @@
-@if($members_options['members_enabled'] && $members_options['members_login_active'])
+@if($member['actions']['login'])
     <div class="widget widget-login">
         <h4 class="title title--widget">
             @if(!$member['profile'])

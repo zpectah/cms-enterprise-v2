@@ -176,7 +176,7 @@ class ViewController {
         return array_merge($pages, $posts);
     }
 
-    public function get_member_options ($attrs, $isLostPasswordPage): array {
+    public function get_members_options ($attrs, $isLostPasswordPage): array {
         $token = null;
         if ($isLostPasswordPage && $attrs[1] == 'token' && $attrs[2]) {
             $token = $attrs[2];

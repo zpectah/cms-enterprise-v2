@@ -1,4 +1,4 @@
-@if($members_options['members_enabled'] && $members_options['members_register_active'])
+@if($member['actions']['registration'])
     <main
         class="main view page-view page-view--members-registration"
     >

@@ -3,7 +3,7 @@
 		class="Comments"
 	>
 		<div
-			v-if="!!anonymous"
+			v-if="!!anonymous && creatable"
 		>
 			<button
 				class="btn btn-secondary"
@@ -21,7 +21,7 @@
 			</button>
 		</div>
 		<new-comment-form
-			v-if="comment && !!anonymous"
+			v-if="comment && !!anonymous && creatable"
 			:assigned="assigned"
 			:assigned-id="assignedId"
 			:onFormSubmit="formSubmitHandler"
@@ -34,6 +34,7 @@
 			:onFormSubmit="formSubmitHandler"
 			:email="email"
 			:anonymous="!!anonymous"
+			:creatable="creatable"
 		/>
 	</div>
 </template>
@@ -67,8 +68,10 @@ export default {
 			default: null,
 		},
 		anonymous: null,
+		creatable: null,
 	},
 	mounted() {
+		console.log('creatable', this.creatable);
 		if (this.assigned && this.assignedId) {
 			loadComments(this.assigned, this.assignedId).then((resp) => {
 				this.comments = resp.data;
