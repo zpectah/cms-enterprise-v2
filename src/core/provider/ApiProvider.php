@@ -82,13 +82,9 @@ class ApiProvider {
                 break;
 
             case 'create_cms_requests':
-                if ($auth['user'] || $auth['member']) {
-                    $response['data'] = $dp -> create_cmsRequests($data);
-                    $response['status'] = 'ok';
-                    $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
-                } else {
-                    $response['message'] = $msg_unauthorized;
-                }
+                $response['data'] = $dp -> create_cmsRequests($data);
+                $response['status'] = 'ok';
+                $response['message'] = $response['data']['id'] ? $msg_success : $msg_noCreated;
                 break;
 
             case 'update_cms_requests':
@@ -141,7 +137,7 @@ class ApiProvider {
                 break;
 
             case 'update_comments':
-                if ($auth['user']) {
+                if ($auth['user'] || $auth['member']) {
                     $response['data'] = $dp -> update_comments($data);
                     $response['status'] = 'ok';
                     $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;
@@ -181,7 +177,7 @@ class ApiProvider {
                 break;
 
             case 'report_comments':
-                if ($auth['user']) {
+                if ($auth['user'] || $auth['member']) {
                     $response['data'] = $dp -> report_comments($data);
                     $response['status'] = 'ok';
                     $response['message'] = $response['data'] ? $msg_success : $msg_noUpdated;
@@ -210,7 +206,7 @@ class ApiProvider {
                 break;
 
             case 'update_members':
-                if ($auth['user']) {
+                if ($auth['user'] || $auth['member']) {
                     $response['data'] = $dp -> update_members($data);
                     $response['status'] = 'ok';
                     $response['message'] = $response['data']['rows'] ? $msg_success : $msg_noUpdated;

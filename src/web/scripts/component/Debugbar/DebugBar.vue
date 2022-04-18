@@ -26,84 +26,89 @@
 					class="Debugbar-dialog-inner"
 				>
 					<debug-bar-row
-						title="_page"
+						title="$_page"
 					>
 						<slot name="t-page" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="_category"
+						title="$_category"
 					>
 						<slot name="t-category" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="_detail"
+						title="$_detail"
 					>
 						<slot name="t-detail" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="page"
+						title="$page"
 					>
 						<slot name="page" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="detail"
+						title="$detail"
 					>
 						<slot name="detail" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="category-context"
+						title="$category_context"
 					>
 						<slot name="category-context" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="search-results"
+						title="$search_results"
 					>
 						<slot name="search-results" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="route"
+						title="$route"
 					>
 						<slot name="route" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="language"
+						title="$language"
 					>
 						<slot name="language" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="lang"
+						title="$lang"
 					>
 						<slot name="lang" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="translations"
+						title="$translations"
 					>
 						<slot name="translations" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="menu"
+						title="$menu"
 					>
 						<slot name="menu" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="company"
+						title="$company"
 					>
 						<slot name="company" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="public"
+						title="$public"
 					>
 						<slot name="public" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="members-options"
+						title="$members_options"
 					>
 						<slot name="members-options" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="member"
+						title="$member"
 					>
 						<slot name="member" />
+					</debug-bar-row>
+					<debug-bar-row
+						title="$custom_data"
+					>
+						<slot name="custom-data" />
 					</debug-bar-row>
 				</div>
 			</div>

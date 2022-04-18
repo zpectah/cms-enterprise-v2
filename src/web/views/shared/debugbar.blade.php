@@ -48,5 +48,8 @@
         <template v-slot:member>
             @json($member)
         </template>
+        <template v-slot:custom-data>
+            @json($custom_data)
+        </template>
     </debug-bar>
 @endif
