@@ -20,13 +20,13 @@
             @if(!$member['profile'])
                 <div>
                     <a
-                        href="{{$public['members_registration_link']}}"
+                        href="{{$public['registration_link']}}"
                         class="btn btn-outline-primary"
                     >
                         {{$t('common:btn.sign-in')}}
                     </a>
                     <a
-                        href="{{$public['members_lostPassword_link']}}"
+                        href="{{$public['lostPassword_link']}}"
                         class="btn btn-outline-primary"
                     >
                         {{$t('common:btn.lost-password')}}
@@ -35,7 +35,7 @@
             @else
                 <div>
                     <a
-                        href="{{$public['members_profile_link']}}"
+                        href="{{$public['profile_link']}}"
                         class="btn btn-outline-primary"
                     >
                         {{$t('common:btn.profile')}}

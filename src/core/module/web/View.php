@@ -105,9 +105,9 @@ class View {
             // Reset stats when Members are not activated
             if (
                 (strpos($pageName, 'members') && !$members['members_enabled'])
-                || ($pageName == 'members-lost-password' && !$members['members_lostPassword_active'])
-                || ($pageName == 'members-profile' && !$members['members_profile_active'])
-                || ($pageName == 'members-registration' && !$members['members_register_active'])
+                || ($pageName == 'lost-password' && !$members['members_lostPassword_active'])
+                || ($pageName == 'profile' && !$members['members_profile_active'])
+                || ($pageName == 'registration' && !$members['members_register_active'])
             ) {
                 $data['type'] = 'unknown';
                 $data['name'] = 'error';
@@ -273,7 +273,7 @@ class View {
             $members,
             $vc -> get_members_options(
                 $urlAttrs['listed'],
-                $urlAttrs['page'] == 'members-lost-password',
+                $urlAttrs['page'] == WEB_PAGE_ROUTES['page']['lost-password']['key'],
             ),
         );
         $route = [
@@ -284,10 +284,10 @@ class View {
         $public = array_merge(
             [
                 'home_link' => self::get_language_link_path('/'),
-                'search_action_link' => self::get_language_link_path('/search-results'),
-                'members_registration_link' => self::get_language_link_path('/members-registration'),
-                'members_lostPassword_link' => self::get_language_link_path('/members-lost-password'),
-                'members_profile_link' => self::get_language_link_path('/members-profile'),
+                'search_action_link' => self::get_language_link_path('/' . WEB_PAGE_ROUTES['page']['search-results']['key']),
+                'registration_link' => self::get_language_link_path('/' . WEB_PAGE_ROUTES['page']['registration']['key']),
+                'lostPassword_link' => self::get_language_link_path('/' . WEB_PAGE_ROUTES['page']['lost-password']['key']),
+                'profile_link' => self::get_language_link_path('/' . WEB_PAGE_ROUTES['page']['profile']['key']),
                 'project' => [
                     'copyright_year' => 2022,
                     'meta' => PROJECT_META,

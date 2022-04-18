@@ -97,7 +97,6 @@ const SESSION_USER_TOKEN_PREFIX = 'cms_enterprise_user_token';
 const SESSION_MEMBER_NAME_PREFIX = 'cms_enterprise_member';
 const SESSION_MEMBER_TOKEN_PREFIX = 'cms_enterprise_member_token';
 const URL_USER_LOST_PASSWORD_TOKEN = CFG_ENV['root'] . 'admin/lost-password/token/';
-const URL_MEMBER_LOST_PASSWORD_TOKEN = CFG_ENV['root'] . 'members-lost-password/token/';
 define("WEB_PAGE_ROUTES", [
     'views_root' => PATH_ROOT . $CFG_PROJECT['web']['blade']['root'],
     'views_compiled' => 'compiled',
@@ -114,48 +113,39 @@ define("WEB_PAGE_ROUTES", [
     'page' => [
         'error' => [
             'key' => 'error',
-            'path' => null,
             'template' => 'page.error',
         ],
         'default' => [
             'key' => 'default',
-            'path' => null,
             'template' => 'page.default',
         ],
         'category' => [
             'key' => 'category',
-            'path' => null,
             'template' => 'page.category',
         ],
         'detail' => [
             'key' => 'detail',
-            'path' => null,
             'template' => 'page.detail',
         ],
         'home' => [
             'key' => 'home',
-            'path' => '/',
             'template' => 'page.home',
         ],
         'search-results' => [
             'key' => 'search-results',
-            'path' => 'search-results',
             'template' => 'page.search-results',
         ],
-        'members-lost-password' => [
-            'key' => 'members-lost-password',
-            'path' => 'lost-password',
-            'template' => 'page.members-lost-password',
+        'lost-password' => [
+            'key' => 'lost-password',
+            'template' => 'page.lost-password',
         ],
-        'members-profile' => [
-            'key' => 'members-profile',
-            'path' => 'profile',
-            'template' => 'page.members-profile',
+        'profile' => [
+            'key' => 'profile',
+            'template' => 'page.profile',
         ],
-        'members-registration' => [
-            'key' => 'members-registration',
-            'path' => 'registration',
-            'template' => 'page.members-registration',
+        'registration' => [
+            'key' => 'registration',
+            'template' => 'page.registration',
         ],
     ],
 ]);

@@ -170,7 +170,7 @@ class Member {
                 $response['message'] = 'member_is_deleted';
             } else {
                 $token = $helpers -> get_token(16, '');
-                $confirm_url = URL_MEMBER_LOST_PASSWORD_TOKEN . $token;
+                $confirm_url = CFG_ENV['root'] . WEB_PAGE_ROUTES['page']['lost-password']['key'] . '/token/' . $token;
                 $response['email'] = $es -> send_email_message(
                     $email,
                     "Lost password request",
