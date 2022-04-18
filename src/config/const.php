@@ -99,5 +99,3 @@ const SESSION_MEMBER_NAME_PREFIX = 'cms_enterprise_member';
 const SESSION_MEMBER_TOKEN_PREFIX = 'cms_enterprise_member_token';
 const URL_USER_LOST_PASSWORD_TOKEN = CFG_ENV['root'] . 'admin/lost-password/token/';
 const URL_MEMBER_LOST_PASSWORD_TOKEN = CFG_ENV['root'] . 'members-lost-password/token/';
-define("GLOBAL_MEMBERS_ACTIVE", $CFG_PROJECT['extras']['MEMBERS_GLOBAL']);
-define("GLOBAL_MARKET_ACTIVE", $CFG_PROJECT['extras']['MARKET_GLOBAL']); // TODO ##market

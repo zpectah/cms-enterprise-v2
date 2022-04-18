@@ -42,8 +42,8 @@
         <template v-slot:public>
             @json($public)
         </template>
-        <template v-slot:member-options>
-            @json($member_options)
+        <template v-slot:members-options>
+            @json($members_options)
         </template>
         <template v-slot:member>
             @json($member)

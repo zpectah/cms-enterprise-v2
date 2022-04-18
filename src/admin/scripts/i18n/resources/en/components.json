@@ -65,6 +65,7 @@
       "language_installed": "Installed language",
       "comments_anonymous_active": "Anonymous comments",
       "comments_global_active": "Active comments",
+      "members_enabled": "Members active",
       "members_login_active": "Login enabled",
       "members_lostPassword_active": "Lost password enabled",
       "members_profile_active": "Profile page enabled",

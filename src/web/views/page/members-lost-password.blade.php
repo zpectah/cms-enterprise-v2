@@ -1,4 +1,4 @@
-@if($members_options['active'] && $members_options['members_lostPassword_active'])
+@if($members_options['members_enabled'] && $members_options['members_lostPassword_active'])
     <main
         class="main view page-view page-view--members-lost-password"
     >

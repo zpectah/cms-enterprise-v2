@@ -162,6 +162,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 						const watchLanguageActive = watch('language_active');
 						const watchLanguageDefault = watch('language_default');
 						const watchCommentsGlobal = watch('comments_global_active');
+						const watchMembersGlobal = watch('members_enabled');
 
 						return (
 							<Tabs
@@ -941,6 +942,28 @@ const SettingsForm = (props: SettingsFormProps) => {
 											>
 
 												<ControlledFormRow
+													name="members_enabled"
+													control={control}
+													rules={{}}
+													defaultValue={data.members_enabled}
+													rowProps={{
+														emptyLabel: true,
+													}}
+													render={({ field }) => {
+														const { ref, value, ...rest } = field;
+
+														return (
+															<SwitchControlled
+																id={`${token}_members_enabled`}
+																label={t('components:SettingsForm.label.members_enabled')}
+																checked={value}
+																inputRef={ref}
+																{...rest}
+															/>
+														);
+													}}
+												/>
+												<ControlledFormRow
 													name="members_login_active"
 													control={control}
 													rules={{}}
@@ -957,6 +980,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 																label={t('components:SettingsForm.label.members_login_active')}
 																checked={value}
 																inputRef={ref}
+																disabled={!watchMembersGlobal}
 																{...rest}
 															/>
 														);
@@ -979,6 +1003,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 																label={t('components:SettingsForm.label.members_lostPassword_active')}
 																checked={value}
 																inputRef={ref}
+																disabled={!watchMembersGlobal}
 																{...rest}
 															/>
 														);
@@ -1001,6 +1026,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 																label={t('components:SettingsForm.label.members_profile_active')}
 																checked={value}
 																inputRef={ref}
+																disabled={!watchMembersGlobal}
 																{...rest}
 															/>
 														);
@@ -1023,6 +1049,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 																label={t('components:SettingsForm.label.members_register_active')}
 																checked={value}
 																inputRef={ref}
+																disabled={!watchMembersGlobal}
 																{...rest}
 															/>
 														);

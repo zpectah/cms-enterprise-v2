@@ -33,6 +33,7 @@ export interface settingsProps {
 	language_active?: string[];
 	language_default?: string;
 	language_installed?: string[];
+	members_enabled?: boolean;
 	members_login_active?: boolean;
 	members_lostPassword_active?: boolean;
 	members_profile_active?: boolean;

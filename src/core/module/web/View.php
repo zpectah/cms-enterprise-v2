@@ -122,7 +122,7 @@ class View {
             $data['layout'] = self::$o['layout']['default'];
             // Reset stats when Members are not activated
             if (
-                (strpos($pageName, 'members') && !GLOBAL_MEMBERS_ACTIVE)
+                (strpos($pageName, 'members') && !$members['members_enabled'])
                 || ($pageName == 'members-lost-password' && !$members['members_lostPassword_active'])
                 || ($pageName == 'members-profile' && !$members['members_profile_active'])
                 || ($pageName == 'members-registration' && !$members['members_register_active'])
@@ -289,9 +289,6 @@ class View {
         );
         $member_options = array_merge(
             $members,
-            [
-                'active' => GLOBAL_MEMBERS_ACTIVE,
-            ],
             $vc -> get_member_options(
                 $urlAttrs['listed'],
                 $urlAttrs['page'] == 'members-lost-password',

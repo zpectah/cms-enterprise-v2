@@ -97,8 +97,6 @@
     "TABLE_EXPORT_JSON": true,
     "TABLE_EXPORT_CSV": false,
     "TABLE_EXPORT_SQL": false,
-    "MEMBERS_GLOBAL": true,
-    "MARKET_GLOBAL": true,
     "OVERRIDE_ADMIN_EDIT_COMMENT_GLOBAL": true
   }
 }

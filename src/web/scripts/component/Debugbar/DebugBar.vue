@@ -96,9 +96,9 @@
 						<slot name="public" />
 					</debug-bar-row>
 					<debug-bar-row
-						title="member-options"
+						title="members-options"
 					>
-						<slot name="member-options" />
+						<slot name="members-options" />
 					</debug-bar-row>
 					<debug-bar-row
 						title="member"
