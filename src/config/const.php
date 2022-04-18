@@ -31,7 +31,6 @@ const CFG_DB_CONN = [
 ];
 define("CFG_ENV", $CFG_ENV[ENV]);
 const ROOT = CFG_ENV['root'];
-define("TEMPLATE_ROOT_PATH", PATH_ROOT . $CFG_PROJECT['web']['blade']['root']);
 define("PATHS", [
     'ROOT' => ROOT,
     'UPLOADS' => PATH_ROOT . $CFG_PROJECT['global']['path']['uploads'],
@@ -99,3 +98,64 @@ const SESSION_MEMBER_NAME_PREFIX = 'cms_enterprise_member';
 const SESSION_MEMBER_TOKEN_PREFIX = 'cms_enterprise_member_token';
 const URL_USER_LOST_PASSWORD_TOKEN = CFG_ENV['root'] . 'admin/lost-password/token/';
 const URL_MEMBER_LOST_PASSWORD_TOKEN = CFG_ENV['root'] . 'members-lost-password/token/';
+define("WEB_PAGE_ROUTES", [
+    'views_root' => PATH_ROOT . $CFG_PROJECT['web']['blade']['root'],
+    'views_compiled' => 'compiled',
+    'layout' => [
+        'minimal' => [
+            'key' => 'minimal',
+            'template' => 'layout.minimal',
+        ],
+        'default' => [
+            'key' => 'default',
+            'template' => 'layout.default',
+        ],
+    ],
+    'page' => [
+        'error' => [
+            'key' => 'error',
+            'path' => null,
+            'template' => 'page.error',
+        ],
+        'default' => [
+            'key' => 'default',
+            'path' => null,
+            'template' => 'page.default',
+        ],
+        'category' => [
+            'key' => 'category',
+            'path' => null,
+            'template' => 'page.category',
+        ],
+        'detail' => [
+            'key' => 'detail',
+            'path' => null,
+            'template' => 'page.detail',
+        ],
+        'home' => [
+            'key' => 'home',
+            'path' => '/',
+            'template' => 'page.home',
+        ],
+        'search-results' => [
+            'key' => 'search-results',
+            'path' => 'search-results',
+            'template' => 'page.search-results',
+        ],
+        'members-lost-password' => [
+            'key' => 'members-lost-password',
+            'path' => 'lost-password',
+            'template' => 'page.members-lost-password',
+        ],
+        'members-profile' => [
+            'key' => 'members-profile',
+            'path' => 'profile',
+            'template' => 'page.members-profile',
+        ],
+        'members-registration' => [
+            'key' => 'members-registration',
+            'path' => 'registration',
+            'template' => 'page.members-registration',
+        ],
+    ],
+]);

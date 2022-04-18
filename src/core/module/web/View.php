@@ -9,33 +9,15 @@ use eftec\bladeone\BladeOne;
 
 class View {
 
-    static array $o = [
-        'layout' => [
-            'minimal' =>                                                            'layout.minimal',
-            'default' =>                                                            'layout.default',
-        ],
-        'page' => [
-            'error' =>                                                              'page.error',
-            'home' =>                                                               'page.home',
-            'default' =>                                                            'page.default',
-            'category' =>                                                           'page.category',
-            'search-results' =>                                                     'page.search-results',
-            'detail' =>                                                             'page.detail',
-            'members-lost-password' =>                                              'page.members-lost-password',
-            'members-profile' =>                                                    'page.members-profile',
-            'members-registration' =>                                               'page.members-registration',
-        ],
-    ];
-
     function __construct () {
         $this -> $blade = new BladeOne(
-            TEMPLATE_ROOT_PATH,
-            "compiled"
+            WEB_PAGE_ROUTES['views_root'],
+            WEB_PAGE_ROUTES['views_compiled']
         );
     }
 
     private function get_uploads_path ($name, $type = 'image', $size = 'original'): string {
-        $path = '/uploads/' . $type . '/';
+        $path = LOCATION['UPLOADS'] . '/' . $type . '/';
         if ($size !== 'original') $path .= $size . '/';
 
         return $path . $name;
@@ -100,8 +82,8 @@ class View {
             'page' => null,
             'type' => 'unknown',
             'name' => 'error',
-            'template' => self::$o['page']['error'],
-            'layout' => self::$o['layout']['minimal'],
+            'template' => WEB_PAGE_ROUTES['page']['error']['template'],
+            'layout' => WEB_PAGE_ROUTES['layout']['minimal']['template'],
         ];
         $urlAttrs = $rc -> get_url_attrs();
         $pageName = $urlAttrs['page'];
@@ -112,14 +94,14 @@ class View {
             // Page: home
             $data['type'] = 'static';
             $data['name'] = 'home';
-            $data['template'] = self::$o['page']['home'];
-            $data['layout'] = self::$o['layout']['default'];
-        } else if (array_key_exists($pageName, self::$o['page'])) {
+            $data['template'] = WEB_PAGE_ROUTES['page']['home']['template'];
+            $data['layout'] = WEB_PAGE_ROUTES['layout']['default']['template'];
+        } else if (array_key_exists($pageName, WEB_PAGE_ROUTES['page'])) {
             // Page: static
             $data['type'] = 'static';
             $data['name'] = $pageName;
-            $data['template'] = self::$o['page'][$pageName];
-            $data['layout'] = self::$o['layout']['default'];
+            $data['template'] = WEB_PAGE_ROUTES['page'][$pageName]['template'];
+            $data['layout'] = WEB_PAGE_ROUTES['layout']['default']['template'];
             // Reset stats when Members are not activated
             if (
                 (strpos($pageName, 'members') && !$members['members_enabled'])
@@ -129,18 +111,18 @@ class View {
             ) {
                 $data['type'] = 'unknown';
                 $data['name'] = 'error';
-                $data['template'] = self::$o['page']['error'];
-                $data['layout'] = self::$o['layout']['minimal'];
+                $data['template'] = WEB_PAGE_ROUTES['page']['error']['template'];
+                $data['layout'] = WEB_PAGE_ROUTES['layout']['minimal']['template'];
             }
         } else if ($page['page']) {
             // Page: generic
             $data['page'] = $page;
             $data['type'] = 'generic';
             $data['name'] = $pageName;
-            $data['template'] = self::$o['page'][$page['page']['type']];
-            $data['layout'] = self::$o['layout']['default'];
+            $data['template'] = WEB_PAGE_ROUTES['page'][$page['page']['type']]['template'];
+            $data['layout'] = WEB_PAGE_ROUTES['layout']['default']['template'];
             if ($page['model'] && $urlAttrs['detail']) {
-                $data['template'] = self::$o['page']['detail'];
+                $data['template'] = WEB_PAGE_ROUTES['page']['detail']['template'];
             }
         }
 
