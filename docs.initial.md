@@ -21,12 +21,12 @@ What to do when starting new project from scratch, adding or updating features.
 
 ### 2. Initialize database and data
 #### Import data
-- run script in terminal to install initial database `...`
-- or import it manually from `sql/initial.sql`
+- run script in terminal to import initial database `mysql -u {username} -p {databasename} < sql_dump/initial_{version}.sql`
+- or import it manually from `sql_dump/initial_{version}.sql`
 #### Default admin user
 Database dump is provided with one user for first project initialization.
-- email: _admin@admin_
-- password: _admin_
+- email: _admin@user.demo_
+- password: _admin123_
 
 After initialization, be free to delete this user, if you before create yours.
 

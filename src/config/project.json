@@ -2,7 +2,7 @@
   "meta": {
     "name": "CMS Enterprise",
     "description": "Simple content managing system with common content features with members features",
-    "version": "0.9.0",
+    "version": "0.9.5",
     "copyright_year": 2022,
     "author": "Tomas Sychra | zpecter.com"
   },
