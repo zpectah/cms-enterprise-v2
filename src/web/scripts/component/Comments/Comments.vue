@@ -48,7 +48,6 @@ const loadComments = function (assigned, id) {
 	return get(`/api/get_comments?assigned=${assigned}&assigned_id=${id}&with_children=true`);
 }
 
-// TODO: update all .vue imports & exports
 export default {
 	components: {
 		'new-comment-form': NewCommentForm,
@@ -71,7 +70,6 @@ export default {
 		creatable: null,
 	},
 	mounted() {
-		console.log('creatable', this.creatable);
 		if (this.assigned && this.assignedId) {
 			loadComments(this.assigned, this.assignedId).then((resp) => {
 				this.comments = resp.data;

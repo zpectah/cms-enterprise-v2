@@ -28,16 +28,18 @@ class MemberController {
             $actions['comments_view'] = true;
             if ($web_settings['comments_anonymous']) $actions['comments_create'] = true;
         }
-        if ($members_settings['members_login_active']) $actions['login'] = true;
-        if ($members_settings['members_lostPassword_active']) $actions['lostPassword'] = true;
-        if ($members_settings['members_register_active']) {
-            $actions['registration'] = true;
-            $actions['subscription'] = true;
+        if ($members_settings['members_enabled']) {
+            if ($members_settings['members_login_active']) $actions['login'] = true;
+            if ($members_settings['members_lostPassword_active']) $actions['lostPassword'] = true;
+            if ($members_settings['members_register_active']) {
+                $actions['registration'] = true;
+                $actions['subscription'] = true;
+            }
         }
         if ($member_profile) {
             $actions['comments_create'] = true;
             $actions['messages_create'] = true;
-            if ($members_settings['members_profile_active']) {
+            if ($members_settings['members_enabled'] && $members_settings['members_profile_active']) {
                 $actions['profile_view'] = true;
                 $actions['profile_edit'] = true;
             }
