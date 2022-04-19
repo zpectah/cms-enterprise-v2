@@ -43,8 +43,8 @@ class View {
             $context['index'] = $index;
             $context['count'] = count($category['items']);
             $context['path_prefix'] = '/' . $pageName . '/';
-            if($index > 0 ) $context['prev'] = $category['items'][ $index -1 ];
-            if($index < count($category['items']) -1 ) $context['next'] = $category['items'][ $index +1 ];
+            if($index && $index > 0 ) $context['prev'] = $category['items'][ $index -1 ];
+            if($index && $index < count($category['items']) -1 ) $context['next'] = $category['items'][ $index +1 ];
         }
 
         return $context;

@@ -28,7 +28,7 @@ class MemberController {
             $actions['comments_view'] = true;
             if ($web_settings['comments_anonymous']) $actions['comments_create'] = true;
         }
-        if ($members_settings['members_enabled']) {
+        if ($members_settings['members_enabled_active']) {
             if ($members_settings['members_login_active']) $actions['login'] = true;
             if ($members_settings['members_lostPassword_active']) $actions['lostPassword'] = true;
             if ($members_settings['members_register_active']) {

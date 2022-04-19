@@ -10,7 +10,6 @@ import {
 
 import { EMAIL_REGEX } from '../../constants';
 import useProfile from '../../hooks/useProfile';
-import useSettings from '../../hooks/useSettings';
 import {
 	ControlledForm,
 	ControlledFormRow,
@@ -31,7 +30,6 @@ const LostPasswordForm = () => {
 	const [ responseMessage, setResponseMessage ] = useState(null);
 	const navigate = useNavigate();
 	const { userLostPassword } = useProfile();
-	const { settings } = useSettings();
 
 	const submitHandler = (data: lostPasswordFormProps) => {
 		setSubmitting(true);
@@ -62,19 +60,11 @@ const LostPasswordForm = () => {
 			<Typography
 				variant="h3"
 				sx={{
-					pb: 1.5,
-					textAlign: 'center',
-				}}
-			>
-				{t('components:LostPasswordForm.title')}
-			</Typography>
-			<Typography
-				sx={{
 					pb: 3.5,
 					textAlign: 'center',
 				}}
 			>
-				{settings?.web_meta_title}
+				{t('components:LostPasswordForm.title')}
 			</Typography>
 			<div>
 				<ControlledForm
