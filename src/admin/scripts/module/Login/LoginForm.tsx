@@ -6,7 +6,6 @@ import { Stack, Alert, Typography } from '@mui/material';
 
 import { EMAIL_REGEX } from '../../constants';
 import useProfile from '../../hooks/useProfile';
-import useSettings from '../../hooks/useSettings';
 import useToasts from '../../hooks/useToasts';
 import {
 	ControlledForm,
@@ -33,7 +32,6 @@ const LoginForm = (props: LoginFormProps) => {
 	const navigate = useNavigate();
 	const { createErrorToast } = useToasts();
 	const { profile } = useProfile();
-	const { settings } = useSettings();
 	const [ submitting, setSubmitting ] = useState(false);
 	const [ responseMessage, setResponseMessage ] = useState(null);
 	const [ responseStatus, setResponseStatus ] = useState(null);
@@ -112,19 +110,11 @@ const LoginForm = (props: LoginFormProps) => {
 			<Typography
 				variant="h3"
 				sx={{
-					pb: 1.5,
-					textAlign: 'center',
-				}}
-			>
-				{t('components:LoginForm.title')}
-			</Typography>
-			<Typography
-				sx={{
 					pb: 3.5,
 					textAlign: 'center',
 				}}
 			>
-				{settings?.web_meta_title}
+				{t('components:LoginForm.title')}
 			</Typography>
 			{profile?.id ? (
 				<div

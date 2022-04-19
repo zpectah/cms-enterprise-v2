@@ -26,7 +26,7 @@ class MemberController {
 
         if ($web_settings['comments_global_active']) {
             $actions['comments_view'] = true;
-            if ($web_settings['comments_anonymous']) $actions['comments_create'] = true;
+            if ($web_settings['comments_anonymous_active']) $actions['comments_create'] = true;
         }
         if ($members_settings['members_enabled']) {
             if ($members_settings['members_login_active']) $actions['login'] = true;
