@@ -42,9 +42,9 @@ CREATE TABLE `cms_settings` (
 INSERT INTO `cms_settings` (`name`, `value`, `format`, `type`, `context`) VALUES
 ('project_name',	'YOUR PROJECT NAME',	'string',	'app',	'project'),
 ('project_description',	'YOUR PROJECT DESCRIPTION',	'string',	'app',	'project'),
-('language_installed',	'cs-CZ,en',	'array',	'app',	'language'),
-('language_active',	'cs-CZ,en',	'array',	'app',	'language'),
-('language_default',	'cs-CZ',	'string',	'app',	'language'),
+('language_installed',	'',	'array',	'app',	'language'),
+('language_active',	'',	'array',	'app',	'language'),
+('language_default',	'',	'string',	'app',	'language'),
 ('web_meta_title',	'WEB TITLE',	'string',	'app',	'web'),
 ('web_meta_description',	'YOUR WEB META DESCRIPTION',	'string',	'app',	'web'),
 ('web_meta_robots',	'all',	'string',	'app',	'web'),
