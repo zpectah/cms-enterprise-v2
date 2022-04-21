@@ -2,8 +2,8 @@
     class="main view page-view page-view--category"
 >
     @include('component.section-heading', [
-        'title' => $_category['title'],
-        'description' => $_category['description'],
+        'title' => $_page['title'],
+        'description' => $_page['description'],
     ])
     @include('component.section-main', [ 'html' => $_page['content'] ])
     @include('component.section-list', [

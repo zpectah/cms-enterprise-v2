@@ -343,7 +343,7 @@ const MembersDetail = (props: MembersDetailProps) => {
 										<ControlledFormRow
 											name="nickname"
 											control={control}
-											rules={{ required: watchType !== 'customer' }}
+											rules={{}}
 											defaultValue={detailData.nickname}
 											render={({ field, fieldState }) => {
 												const { ref, ...rest } = field;
@@ -355,7 +355,6 @@ const MembersDetail = (props: MembersDetailProps) => {
 														placeholder={t('form:placeholder.nickname')}
 														id={`${token}_nickname`}
 														error={!!error}
-														required={watchType !== 'customer'}
 														inputRef={ref}
 														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}

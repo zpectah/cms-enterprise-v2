@@ -50,7 +50,8 @@
     "custom_key": "Vlastní klíč",
     "ip": "IP Adresa",
     "cause": "Příčina",
-    "subject": "Předmět"
+    "subject": "Předmět",
+    "color": "Barva"
   },
   "placeholder": {
     "name": "Zadejte název",
@@ -103,7 +104,8 @@
     "custom_key": "Zadejte vlastní klíč",
     "ip": "Zadejte IP adresu",
     "cause": "Zadejte příčinu",
-    "subject": "Zadejte předmět"
+    "subject": "Zadejte předmět",
+    "color": "Vyberte barvu"
   },
   "help": {
     "password": "Heslo by mělo obsahovat velké, malé znaky a číslo",

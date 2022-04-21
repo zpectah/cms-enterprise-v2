@@ -43,8 +43,8 @@ class View {
             $context['index'] = $index;
             $context['count'] = count($category['items']);
             $context['path_prefix'] = '/' . $pageName . '/';
-            if($index && $index > 0 ) $context['prev'] = $category['items'][ $index -1 ];
-            if($index && $index < count($category['items']) -1 ) $context['next'] = $category['items'][ $index +1 ];
+            if($index && $index > 0) $context['prev'] = $category['items'][ $index -1 ];
+            if($index !== false && ($index < count($category['items']) -1)) $context['next'] = $category['items'][ $index +1 ];
         }
 
         return $context;
@@ -158,6 +158,7 @@ class View {
                 $target = '_self';
                 $path = $linkObject['path_url'];
                 if ($urlParams['lang']) $path .= '?' . $language['url_param'];
+                if ('web/www' . $path == $urlAttrs['url'] || ($path !== '/' && str_contains($urlAttrs['url'], $path))) $selected = true;
                 break;
 
             case 'page':

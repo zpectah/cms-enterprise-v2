@@ -139,7 +139,7 @@ const SettingsLanguageInstaller = (props: SettingsLanguageInstallerProps) => {
 				</div>
 				<SuccessButton
 					onClick={installHandler}
-					disabled={selectedLanguage === ''}
+					disabled={selectedLanguage === '' || !sourceLanguage}
 					loading={installing}
 				>
 					{t('components:SettingsForm.language_installer.btn_install')}

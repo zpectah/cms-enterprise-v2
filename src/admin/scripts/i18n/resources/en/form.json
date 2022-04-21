@@ -50,7 +50,8 @@
     "custom_key": "Custom Key",
     "ip": "IP Address",
     "cause": "Cause",
-    "subject": "Subject"
+    "subject": "Subject",
+    "color": "Color"
   },
   "placeholder": {
     "name": "Enter a name",
@@ -103,7 +104,8 @@
     "custom_key": "Custom Key",
     "ip": "Enter IP address",
     "cause": "Enter the cause",
-    "subject": "Enter a subject"
+    "subject": "Enter a subject",
+    "color": "Select color"
   },
   "help": {
     "password": "Password should contain uppercase and lowercase characters and a number",

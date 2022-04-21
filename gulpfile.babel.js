@@ -64,10 +64,9 @@ const source = {
 	],
 };
 const getEnv = (env) => {
-	let e = env;
-	if (env === ENV_TEST) e = ENV_PROD;
+	if (env === ENV_TEST) return ENV_PROD;
 
-	return e;
+	return env;
 };
 
 const TaskDef = {
@@ -185,7 +184,7 @@ const TaskDef = {
 			},
 			plugins: [
 				new webpack.DefinePlugin({
-					__VUE_OPTIONS_API__: getEnv(env) === ENV_DEV,
+					// __VUE_OPTIONS_API__: getEnv(env) === ENV_DEV,
 					__VUE_PROD_DEVTOOLS__: getEnv(env) === ENV_DEV,
 					'process.env': {
 						NODE_ENV: JSON.stringify(getEnv(env)),

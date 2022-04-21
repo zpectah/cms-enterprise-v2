@@ -51,7 +51,7 @@ User roles:
 - i18n (https://react.i18next.com/)
 - swr (https://swr.vercel.app/)
 ### Web
-- PHP
+- PHP v8+
 - JS, Vue 3 (https://vuejs.org/)
 - BladeOne (https://github.com/EFTEC/BladeOne)
 - Bootstrap (https://getbootstrap.com/)

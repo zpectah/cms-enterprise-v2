@@ -1,5 +1,5 @@
 <div
-    class="header-wrapper"
+    class="page-layout-header"
 >
     @include('component.debug-bar')
     @include('component.maintenance-bar')
@@ -8,8 +8,8 @@
             <div class="row">
                 <div class="col">
                     <a
-                            href="{{$public['links']['home']}}"
-                            class="header-brand"
+                        href="{{$public['links']['home']}}"
+                        class="header-brand"
                     >
                         {{$public['web_meta_title']}}
                     </a>

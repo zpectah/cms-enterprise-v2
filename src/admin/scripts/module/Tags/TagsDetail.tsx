@@ -19,6 +19,7 @@ import {
 	BlockPreloader,
 	BarPreloader,
 	ControlledFormRow,
+	ColorPicker,
 } from '../../component/ui';
 import {
 	getDetailData,
@@ -206,6 +207,30 @@ const TagsDetail = (props: TagsDetailProps) => {
 														sx={{ width: { xs: '100%', md: '75%' } }}
 														{...rest}
 													/>
+												);
+											}}
+										/>
+										<ControlledFormRow
+											name="color"
+											control={control}
+											rules={{ required: true }}
+											defaultValue={detailData.color}
+											render={({ field, fieldState }) => {
+												const { value, onChange } = field;
+												const { error } = fieldState;
+
+												return (
+													<>
+														<ColorPicker
+															label={t('form:label.color')}
+															placeholder={t('form:placeholder.color')}
+															id={`${token}_color`}
+															value={value}
+															onChange={onChange}
+															error={!!error}
+															required
+														/>
+													</>
 												);
 											}}
 										/>

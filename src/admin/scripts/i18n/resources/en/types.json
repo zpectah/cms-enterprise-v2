@@ -46,5 +46,6 @@
   "external": "External",
   "internal": "Internal",
   "empty": "Empty",
-  "inherit": "Inherited"
+  "inherit": "Inherited",
+  "company_card": "Company card"
 }

@@ -32,6 +32,8 @@ After initialization, be free to delete this user, if you before create yours.
 
 ### 3. Setup default language
 After you are first signed in administration, you may see some warning messages on dashboard. So, go to **Settings**, and repair them.
+It is usually the language stuff, so install your default language and select create option, then install. It will create
+language tables for this language. Works same for adding new language, then you must choose which is default.
 
 ### 4. Views
 Views are totally customizable, so be free to do whatever you want. More information about web, go [here](docs.web.md).
@@ -65,3 +67,7 @@ Views are totally customizable, so be free to do whatever you want. More informa
 
 ### Adding new language to locales
 - Just add new key to list in `src/config/locales` by current object definition
+
+### Creating new page view
+If you want to create static page, like `home`, just define route in `WEB_PAGE_ROUTES -> page` and create blade template view.
+Then in admin define your link like 'internal' and enter your route key.

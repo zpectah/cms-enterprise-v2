@@ -24,5 +24,6 @@ export * from './Video';
 export * from './Audio';
 export * from './PdfDocument';
 export * from './Wysiswyg';
+export * from './ColorPicker';
 export { default as CmsLogo } from './CmsLogo';
 export type { CmsLogoProps } from './CmsLogo';

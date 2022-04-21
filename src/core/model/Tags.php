@@ -48,11 +48,12 @@ class Tags {
         $response = [];
 
         // prepare
-        $query = ('INSERT INTO tags (type, name, active, deleted) VALUES (?,?,?,?)');
-        $types = 'ssii';
+        $query = ('INSERT INTO tags (type, name, color, active, deleted) VALUES (?,?,?,?,?)');
+        $types = 'sssii';
         $args = [
             $data['type'],
             $data['name'],
+            $data['color'],
             $data['active'],
             0
         ];
@@ -75,11 +76,12 @@ class Tags {
         $response = [];
 
         // prepare
-        $query = ('UPDATE tags SET type = ?, name = ?, active = ? WHERE id = ?');
-        $types = 'ssii';
+        $query = ('UPDATE tags SET type = ?, name = ?, color = ?, active = ? WHERE id = ?');
+        $types = 'sssii';
         $args = [
             $data['type'],
             $data['name'],
+            $data['color'],
             $data['active'],
             $data['id']
         ];

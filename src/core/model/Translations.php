@@ -46,7 +46,7 @@ class Translations {
             while($row = $result -> fetch_assoc()) {
                 if ($__parsed == 'true' and $__lang) {
                     $r = self::get_updated_row($conn, $row, $languages);
-                    $response[$row['name']] = $r['lang'][$__lang]['value'];
+                    if ($row['active']) $response[$row['name']] = $r['lang'][$__lang]['value'];
                 } else if ($__ids) {
                     if (in_array($row['id'], $__ids)) $response[] = self::get_updated_row($conn, $row, $languages);
                 } else {

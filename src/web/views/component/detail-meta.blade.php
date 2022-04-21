@@ -31,6 +31,7 @@
                     @foreach($detail['detail']['__tags'] as $category)
                         <span
                             class="badge bg-dark"
+                            style="background-color: {{$tag['color']}} !important;"
                         >
                     {{$category['name']}}
                 </span>

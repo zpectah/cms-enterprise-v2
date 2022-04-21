@@ -576,7 +576,7 @@ const DataTable = (props: DataTableProps) => {
 					<TablePagination
 						rowsPerPageOptions={DATA_TABLE.rowsPerPage}
 						component="div"
-						count={innerState.rowsCount}
+						count={innerState.itemsCount}
 						rowsPerPage={rowsPerPage}
 						page={page}
 						onPageChange={handleChangePage}
