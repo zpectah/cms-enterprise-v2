@@ -11,6 +11,7 @@ Media item: displays only media by type
         @include('component.ui.image', [
             'src' => $uploadPath($mediaFileName, 'image', 'medium'),
             'alt' => $mediaName,
+            'className' => 'img-thumbnail',
         ])
     @elseif('video')
         <a

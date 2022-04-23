@@ -1,3 +1,6 @@
+{{--
+Detail meta data
+--}}
 @if($detail['detail'])
     <div class="shared-detail meta">
         <dl>

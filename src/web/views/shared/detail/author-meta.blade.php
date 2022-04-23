@@ -1,3 +1,6 @@
+{{--
+Detail author meta data
+--}}
 @if($detail['detail']['__author'])
     <div class="shared-detail author-meta">
         <div
@@ -7,8 +10,8 @@
                 @include('component.ui.image', [
                     'src' => $detail['detail']['__author']['img_avatar'],
                     'alt' => $detail['detail']['__author']['email'],
+                    'className' => 'img-thumbnail rounded',
                     'style' => 'max-width: 100px; border-radius: 100% !important;',
-                    'className' => 'rounded',
                 ])
             @endif
             <div>

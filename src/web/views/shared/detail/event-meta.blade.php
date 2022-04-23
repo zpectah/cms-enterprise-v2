@@ -1,3 +1,6 @@
+{{--
+Detail event meta data
+--}}
 @if($detail['detail']['type'] == 'event')
     <div class="shared-detail event-meta">
         <dl>

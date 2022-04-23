@@ -1,5 +1,5 @@
 {{--
-Section Items list
+Section items list
 
 * $sectionTitle
 * $context

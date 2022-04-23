@@ -1,3 +1,6 @@
+{{--
+Detail media
+--}}
 @if($detail['detail']['__media'])
     <div class="shared-detail media">
         <ul class="component media-list">

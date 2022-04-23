@@ -1,3 +1,6 @@
+{{--
+Page data elements
+--}}
 @foreach($page['page']['page']['page_elements'] as $element)
     @switch($element)
 

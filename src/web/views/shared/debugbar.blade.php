@@ -1,3 +1,6 @@
+{{--
+Development debugbar
+--}}
 @if(APP_DEBUG)
     <debug-bar>
         <template v-slot:t-page>

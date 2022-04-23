@@ -1,6 +1,4 @@
-<main
-    class="main view page-view page-view--home"
->
+<main class="main view page-view page-view--home">
     @include('shared.section.heading', [
         'pageTitle' => $t('page:home.title'),
         'pageDescription' => $t('page:home.description'),

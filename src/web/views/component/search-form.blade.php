@@ -1,3 +1,9 @@
+{{--
+Search form
+
+* $formId
+
+--}}
 @php
     $formId = $formId ?? 'FormSearch';
 @endphp

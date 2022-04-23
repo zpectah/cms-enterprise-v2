@@ -1,6 +1,4 @@
-<main
-    class="main view page-view page-view--detail page-view--detail--{{$detail['model']}} type-{{$detail['detail']['type']}}"
->
+<main class="main view page-view page-view--detail page-view--detail--{{$detail['model']}} type-{{$detail['detail']['type']}}">
     @if(!$detail['detail'])
         @include('shared.detail.error')
     @else

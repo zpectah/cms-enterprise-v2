@@ -1,3 +1,6 @@
+{{--
+Layout footer
+--}}
 <div
     class="page-layout-footer"
 >

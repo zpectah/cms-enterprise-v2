@@ -2,6 +2,9 @@
 Article list: displays list of posts/articles
 
 * $articleItem
+* $context
+* $model
+* $pageName
 
 --}}
 @php
@@ -26,18 +29,16 @@ Article list: displays list of posts/articles
 <article
         class="component article-list-item item--{{$context}}-{{$model}}"
         id="{{$context}}_{{$model}}_{{$articleItem['id']}}"
-        data-item-id="{{$articleItem['id']}}"
-        data-item-model="{{$model}}"
-        data-item-context="{{$context}}"
 >
     @if($model == 'posts' && $articleItem['img_thumbnail'])
         <div
                 class="article-list-item-image"
         >
-            <img
-                    src="{{$uploadPath($articleItem['img_thumbnail'])}}"
-                    alt="{{$articleItem['name']}}"
-            />
+            @include('component.ui.image', [
+                'src' => $uploadPath($articleItem['img_thumbnail']),
+                'alt' => $articleItem['name'],
+                'className' => 'img-thumbnail',
+            ])
         </div>
     @endif
     <div

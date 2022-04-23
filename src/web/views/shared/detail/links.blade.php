@@ -1,3 +1,6 @@
+{{--
+Detail links
+--}}
 @if($detail['detail']['__links'])
     <div class="shared-detail links">
         <ul>

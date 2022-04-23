@@ -1,7 +1,5 @@
 @if($member['actions']['lostPassword'])
-    <main
-        class="main view page-view page-view--lost-password"
-    >
+    <main class="main view page-view page-view--lost-password">
         @include('shared.section.heading', [
             'pageTitle' => $t('page:lost-password.title'),
             'pageDescription' => $t('page:lost-password.description'),
@@ -19,7 +17,5 @@
         </section>
     </main>
 @else
-    <div>
-        Sorry, but this option is disabled
-    </div>
+    @include('shared.section.error')
 @endif

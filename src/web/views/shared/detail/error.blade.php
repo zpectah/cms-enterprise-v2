@@ -1,5 +1,10 @@
+{{--
+No detail data placeholder page
+--}}
 <div class="text-center">
-    Sorry, but this content does not exist
+    <p>
+        Sorry, but this content does not exist
+    </p>
     <br /><br />
     <a
             href="{{$public['links']['home']}}"

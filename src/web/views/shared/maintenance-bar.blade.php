@@ -1,3 +1,6 @@
+{{--
+Maintenance bar
+--}}
 @if($public['web_mode_maintenance'])
     <div
         class="header-bar"

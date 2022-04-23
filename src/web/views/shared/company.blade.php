@@ -1,3 +1,6 @@
+{{--
+Company info
+--}}
 <div class="shared company">
     <h5>
         {{$company['company_name']}}

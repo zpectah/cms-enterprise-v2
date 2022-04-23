@@ -1,3 +1,9 @@
+{{--
+Subscription form
+
+* $formId
+
+--}}
 @php
     $formId = $formId ?? 'FormSubscription';
 @endphp

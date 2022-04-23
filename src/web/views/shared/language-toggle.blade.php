@@ -1,3 +1,6 @@
+{{--
+User language switcher
+--}}
 @if($language['active_count'] > 1)
     <nav
         class="navigation navigation--horizontal"

@@ -1,3 +1,6 @@
+{{--
+Detail pagination
+--}}
 @if($category_context['index'] > -1)
     <div class="shared-detail pagination">
         <div

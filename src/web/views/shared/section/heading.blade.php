@@ -1,3 +1,11 @@
+{{--
+Heading section
+
+* $pageTitle
+* $pageDescription
+* $pageMeta
+
+--}}
 <section class="section section--heading">
     <h1 class="title title--page">
         {{$pageTitle}}

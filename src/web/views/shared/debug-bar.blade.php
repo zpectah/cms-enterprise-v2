@@ -1,3 +1,6 @@
+{{--
+Debug bar
+--}}
 @if($public['web_mode_debug'])
     <div
         class="header-bar"

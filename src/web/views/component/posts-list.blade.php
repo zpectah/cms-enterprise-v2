@@ -1,3 +1,10 @@
+{{--
+Posts list
+
+* $itemsList
+* $linkPrefix
+
+--}}
 @php
     $itemsList = $itemsList ?? [];
     $linkPrefix = '/detail/posts/';
