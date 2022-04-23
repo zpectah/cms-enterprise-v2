@@ -1,5 +1,5 @@
 @if($member['actions']['login'])
-    <div class="widget widget-login">
+    <div class="widget login">
         <h4 class="title title--widget">
             @if(!$member['profile'])
                 {{$t('widget:login.title')}}
@@ -9,11 +9,7 @@
         </h4>
         <div class="widget-main">
             @if(!$member['profile'])
-                <member-login-form
-                    form-id="{{$formId}}"
-                >
-                    Loading
-                </member-login-form>
+                @include('component.login-form')
             @else
                 <div>
                     {{$member['profile']['email']}}

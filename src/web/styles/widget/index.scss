@@ -2,10 +2,12 @@
   &-wrapper{}
   &-main{}
   &-actions{}
-}
 
-@import './widget-search';
-@import './widget-subscription';
-@import './widget-links';
-@import './widget-last-posts';
-@import './widget-login';
+  &.contact-form{}
+  &.last-posts{}
+  &.links{}
+  &.login{}
+  &.search{}
+  &.social-links{}
+  &.subscription{}
+}

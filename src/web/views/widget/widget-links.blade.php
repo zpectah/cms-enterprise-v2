@@ -1,7 +1,7 @@
 @php
     $data = $menuData ?? [];
 @endphp
-<div class="widget widget-links">
+<div class="widget links">
     <h4 class="title title--widget">
         {{$data['lang'][$lang]['label']}}
     </h4>
