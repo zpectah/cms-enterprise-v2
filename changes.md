@@ -6,7 +6,7 @@
 - added company card as new type for page elements
 - updates styles & classes
 - adding styles for flex layout base
-- [todo] add new settings row for anonymous messages ... or something similar
+- added new settings row for anonymous messages
 - web js bundle VUE options fix
 - added new prop for Tags - color, with options
 - fixed required field for source language when installing new
@@ -14,3 +14,6 @@
 - fixed admin model table list - paginating, when it is more than items per page items
 - category view has title from page object now
 - web structure web and style refactoring
+- web ui components, fixes, updates
+
+## 0.9.7

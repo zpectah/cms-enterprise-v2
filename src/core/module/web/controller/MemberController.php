@@ -26,10 +26,10 @@ class MemberController {
 
         if ($web_settings['comments_global_active']) {
             $actions['comments_view'] = true;
-            if ($web_settings['comments_anonymous_active']) {
-                $actions['messages_create'] = true;
-                $actions['comments_create'] = true;
-            }
+            if ($web_settings['comments_anonymous_active']) $actions['comments_create'] = true;
+        }
+        if ($members_settings['messages_global_active']) {
+            if ($members_settings['messages_anonymous_active']) $actions['messages_create'] = true;
         }
         if ($members_settings['members_enabled']) {
             if ($members_settings['members_login_active']) $actions['login'] = true;
@@ -41,7 +41,7 @@ class MemberController {
         }
         if ($member_profile) {
             $actions['comments_create'] = true;
-            $actions['messages_create'] = true;
+            if ($members_settings['messages_global_active']) $actions['messages_create'] = true;
             if ($members_settings['members_enabled'] && $members_settings['members_profile_active']) {
                 $actions['profile_view'] = true;
                 $actions['profile_edit'] = true;

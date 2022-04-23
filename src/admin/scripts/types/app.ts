@@ -38,6 +38,8 @@ export interface settingsProps {
 	members_lostPassword_active?: boolean;
 	members_profile_active?: boolean;
 	members_register_active?: boolean;
+	messages_global_active?: boolean;
+	messages_anonymous_active?: boolean;
 	project_description?: string;
 	project_name?: string;
 	web_meta_description?: string;

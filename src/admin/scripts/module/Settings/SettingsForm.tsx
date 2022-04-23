@@ -891,6 +891,53 @@ const SettingsForm = (props: SettingsFormProps) => {
 											>
 
 												<ControlledFormRow
+													name="messages_global_active"
+													control={control}
+													rules={{}}
+													defaultValue={data.messages_global_active}
+													rowProps={{
+														emptyLabel: true,
+													}}
+													render={({ field }) => {
+														const { ref, value, ...rest } = field;
+
+														return (
+															<SwitchControlled
+																id={`${token}_messages_global_active`}
+																label={t('components:SettingsForm.label.messages_global_active')}
+																checked={value}
+																inputRef={ref}
+																{...rest}
+															/>
+														);
+													}}
+												/>
+												<ControlledFormRow
+													name="messages_anonymous_active"
+													control={control}
+													rules={{}}
+													defaultValue={data.messages_anonymous_active}
+													rowProps={{
+														emptyLabel: true,
+													}}
+													render={({ field }) => {
+														const { ref, value, ...rest } = field;
+
+														return (
+															<SwitchControlled
+																id={`${token}_messages_anonymous_active`}
+																label={t('components:SettingsForm.label.messages_anonymous_active')}
+																checked={value}
+																inputRef={ref}
+																{...rest}
+															/>
+														);
+													}}
+												/>
+
+												<br />
+
+												<ControlledFormRow
 													name="comments_global_active"
 													control={control}
 													rules={{}}

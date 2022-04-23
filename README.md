@@ -1,4 +1,4 @@
-# CMS Enterprise v2
+# CMS Enterprise
 
 ## Motivation
 Motivation was to create simple CMS for easy managing data and customizing features for web. Just clone project, 
