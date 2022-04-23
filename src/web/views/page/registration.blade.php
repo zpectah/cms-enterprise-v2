@@ -2,9 +2,9 @@
     <main
         class="main view page-view page-view--registration"
     >
-        @include('component.section-heading', [
-            'title' => $t('page:registration.title'),
-            'description' => $t('page:registration.description'),
+        @include('shared.section.heading', [
+            'pageTitle' => $t('page:registration.title'),
+            'pageDescription' => $t('page:registration.description'),
         ])
         <section class="section section--main">
             <member-registration-form>Loading</member-registration-form>

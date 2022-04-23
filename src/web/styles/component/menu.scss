@@ -6,6 +6,13 @@
   align-items: center;
   justify-content: center;
 
+  &-nav{
+    margin: 0;
+    padding: 0;
+
+    &.horizontal{}
+    &.vertical{}
+  }
   &-item{
     margin: 0;
     padding: 0;
@@ -49,4 +56,5 @@
   &--vertical{
     flex-direction: column;
   }
+
 }

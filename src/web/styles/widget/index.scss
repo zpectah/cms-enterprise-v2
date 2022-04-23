@@ -1,0 +1,11 @@
+.widget{
+  &-wrapper{}
+  &-main{}
+  &-actions{}
+}
+
+@import './widget-search';
+@import './widget-subscription';
+@import './widget-links';
+@import './widget-last-posts';
+@import './widget-login';

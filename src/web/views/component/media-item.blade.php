@@ -1,44 +1,42 @@
-@switch($mediaType)
+{{--
+Media item: displays only media by type
 
-    @case('image')
-        <img
-            src="{{$uploadPath($mediaFileName, 'image', 'medium')}}"
-            alt="{{$mediaName}}"
-            class="img-fluid img-thumbnail"
-            loading="lazy"
-        />
-    @break
+* $mediaType
+* $mediaFileName
+* $mediaName
 
-    @case('video')
+--}}
+<article class="component media-item">
+    @if($mediaType === 'image')
+        @include('component.ui.image', [
+            'src' => $uploadPath($mediaFileName, 'image', 'medium'),
+            'alt' => $mediaName,
+        ])
+    @elseif('video')
         <a
-            href="{{$uploadPath($mediaFileName, 'video')}}"
+                href="{{$uploadPath($mediaFileName, 'video')}}"
         >
             {{$mediaFileName}}
         </a>
-    @break
-
-    @case('audio')
+    @elseif('audio')
         <a
-            href="{{$uploadPath($mediaFileName, 'audio')}}"
+                href="{{$uploadPath($mediaFileName, 'audio')}}"
         >
             {{$mediaFileName}}
         </a>
-    @break
-
-    @case('document')
+    @elseif('document')
         <a
-            href="{{$uploadPath($mediaFileName, 'document')}}"
+                href="{{$uploadPath($mediaFileName, 'document')}}"
         >
             {{$mediaFileName}}
         </a>
-    @break
-
-    @case('archive')
+    @elseif('archive')
         <a
-            href="{{$uploadPath($mediaFileName, 'archive')}}"
+                href="{{$uploadPath($mediaFileName, 'archive')}}"
         >
             {{$mediaFileName}}
         </a>
-    @break
-
-@endswitch
+    @else
+        <span>No type selected</span>
+    @endif
+</article>

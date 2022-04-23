@@ -1,7 +1,5 @@
 @if($detail['detail'])
-    <section
-        class="section section--meta"
-    >
+    <div class="shared-detail meta">
         <dl>
             <dt>{{$t('common:label.published')}}</dt>
             <dd>{{$formatDate($detail['detail']['published'])}}</dd>
@@ -10,11 +8,11 @@
             <dt>{{$t('common:label.category')}}</dt>
             <dd>
                 <div
-                    class="hstack gap-2"
+                        class="hstack gap-2"
                 >
                     @foreach($detail['detail']['__categories'] as $category)
                         <span
-                            class="badge bg-info"
+                                class="badge bg-info"
                         >
                     {{$category['lang'][$lang]['title']}}
                 </span>
@@ -26,12 +24,12 @@
             <dt>{{$t('common:label.tags')}}</dt>
             <dd>
                 <div
-                    class="hstack gap-2"
+                        class="hstack gap-2"
                 >
                     @foreach($detail['detail']['__tags'] as $category)
                         <span
-                            class="badge bg-dark"
-                            style="background-color: {{$tag['color']}} !important;"
+                                class="badge bg-dark"
+                                style="background-color: {{$tag['color']}} !important;"
                         >
                     {{$category['name']}}
                 </span>
@@ -39,5 +37,5 @@
                 </div>
             </dd>
         </dl>
-    </section>
+    </div>
 @endif

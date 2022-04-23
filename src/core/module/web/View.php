@@ -42,9 +42,11 @@ class View {
             $index = array_search($detail['detail'], $category['items']);
             $context['index'] = $index;
             $context['count'] = count($category['items']);
-            $context['path_prefix'] = '/' . $pageName . '/';
-            if($index && $index > 0) $context['prev'] = $category['items'][ $index -1 ];
-            if($index !== false && ($index < count($category['items']) -1)) $context['next'] = $category['items'][ $index +1 ];
+            $context['path_prefix'] = '/' . $pageName;
+            $prev_item = $category['items'][ $index -1 ];
+            $next_item = $category['items'][ $index +1 ];
+            if($index && $index > 0 ) $context['prev'] = $prev_item['active'] ? $prev_item : null;
+            if($index !== false && ($index < count($category['items']) -1)) $context['next'] = $next_item['active'] ? $next_item : null;
         }
 
         return $context;
@@ -141,7 +143,6 @@ class View {
         $rc = new RouteController;
         $language = $vc -> get_language();
         $lang = $language['current'];
-        $urlParams = $rc -> get_url_params();
         $urlAttrs = $rc -> get_url_attrs();
         $path = null;
         $target = null;
@@ -157,16 +158,16 @@ class View {
             case 'internal':
                 $target = '_self';
                 $path = $linkObject['path_url'];
-                if ($urlParams['lang']) $path .= '?' . $language['url_param'];
                 if ('web/www' . $path == $urlAttrs['url'] || ($path !== '/' && str_contains($urlAttrs['url'], $path))) $selected = true;
+                $path = self::get_language_link_path($path);
                 break;
 
             case 'page':
                 $page = $vc -> get_menu_item_page($linkObject['page_id']);
                 $target = '_self';
                 $path = '/' . $page['name'];
-                if ($urlParams['lang']) $path .= '?' . $language['url_param'];
                 if ('web/www' . $path == $urlAttrs['url']) $selected = true;
+                $path = self::get_language_link_path($path);
                 break;
 
         }

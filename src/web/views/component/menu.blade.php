@@ -1,8 +1,18 @@
+{{--
+Menu navigation
+
+* $menuType: horizontal | vertical
+* $menuData: object menu
+
+--}}
 @php
     $menuType = $menuType ?? 'horizontal';
+    $menuData = $menuData ?? [];
 @endphp
-<ul class="menu menu--{{$menuType}}">
-    @foreach($menuData['__items'] as $item)
-        @include('component.menu-item', [ 'item' => $item ])
-    @endforeach
-</ul>
+<nav class="component menu-nav {{$menuType}}">
+    <ul class="component menu menu--{{$menuType}}">
+        @foreach($menuData['__items'] as $menuItem)
+            @include('component.menu-item', [ 'menuItem' => $menuItem ])
+        @endforeach
+    </ul>
+</nav>

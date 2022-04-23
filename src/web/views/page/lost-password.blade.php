@@ -2,9 +2,9 @@
     <main
         class="main view page-view page-view--lost-password"
     >
-        @include('component.section-heading', [
-            'title' => $t('page:lost-password.title'),
-            'description' => $t('page:lost-password.description'),
+        @include('shared.section.heading', [
+            'pageTitle' => $t('page:lost-password.title'),
+            'pageDescription' => $t('page:lost-password.description'),
         ])
         <section class="section section--main">
             @if($member['lost_password_token'])

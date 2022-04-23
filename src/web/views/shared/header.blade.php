@@ -1,8 +1,8 @@
 <div
     class="page-layout-header"
 >
-    @include('component.debug-bar')
-    @include('component.maintenance-bar')
+    @include('shared.debug-bar')
+    @include('shared.maintenance-bar')
     <header class="header">
         <div class="container">
             <div class="row">
@@ -15,9 +15,9 @@
                     </a>
                 </div>
                 <div class="col">
-                    @include('component.navigation', [
+                    @include('component.menu', [
                         'menuData' => $custom_data['header_menu'], // TODO #menu
-                        'type' => 'horizontal',
+                        'menuType' => 'horizontal',
                     ])
                 </div>
                 <div class="col">

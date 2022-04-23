@@ -184,8 +184,8 @@ const TaskDef = {
 			},
 			plugins: [
 				new webpack.DefinePlugin({
-					// __VUE_OPTIONS_API__: getEnv(env) === ENV_DEV,
-					__VUE_PROD_DEVTOOLS__: getEnv(env) === ENV_DEV,
+					__VUE_OPTIONS_API__: env === ENV_DEV,
+					__VUE_PROD_DEVTOOLS__: env === ENV_DEV,
 					'process.env': {
 						NODE_ENV: JSON.stringify(getEnv(env)),
 					}

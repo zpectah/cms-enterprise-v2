@@ -2,15 +2,15 @@
     class="main view page-view page-view--search-results"
 >
     @if($member['actions']['search'])
-        @include('component.section-heading', [
-            'title' => $t('page:search-results.title') . ' "' . $route['params']['search'] . '"',
-            'description' => 'Found: ' . $search_results['count'],
+        @include('shared.section.heading', [
+            'pageTitle' => $t('page:search-results.title') . ' "' . $route['params']['search'] . '"',
+            'pageDescription' => 'Found: ' . $search_results['count'],
         ])
-        @include('component.section-list', [
-            'items' => $search_results['results'],
+        @include('shared.section.items', [
+            'itemsList' => $search_results['results'],
             'context' => 'search',
         ])
-        @if($search_results['count'] == 0)
+    @if($search_results['count'] == 0)
             <section>
                 {{$t('common:label.nothing_found')}}
             </section>

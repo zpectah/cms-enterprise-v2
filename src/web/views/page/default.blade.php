@@ -1,9 +1,9 @@
 <main
     class="main view page-view page-view--default"
 >
-    @include('component.section-heading', [
-        'title' => $_page['title'],
-        'description' => $_page['description'],
+    @include('shared.section.heading', [
+        'pageTitle' => $_page['title'],
+        'pageDescription' => $_page['description'],
     ])
-    @include('component.section-main', [ 'html' => $_page['content'] ])
+    @include('shared.section.main', [ 'html' => $_page['content'] ])
 </main>

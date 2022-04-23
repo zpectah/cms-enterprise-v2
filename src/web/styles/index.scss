@@ -1,25 +1,7 @@
+
 @import 'vars';
 
-@import 'shared/view';
-@import 'shared/common';
-@import 'shared/typography';
-@import 'shared/header';
-@import 'shared/footer';
-@import 'shared/sidebar';
-@import 'shared/main';
-@import 'shared/Debugbar';
-
-@import 'component/navigation';
-@import 'component/menu';
-@import 'component/section';
-@import 'component/list';
-@import 'component/pagination';
-@import 'component/Cookiebot';
-@import 'component/Comments';
-
-@import 'widget/common';
-@import 'widget/widget-search';
-@import 'widget/widget-subscription';
-@import 'widget/widget-links';
-@import 'widget/widget-last-posts';
-@import 'widget/widget-login';
+@import 'ui';
+@import 'shared';
+@import 'component';
+@import 'widget';

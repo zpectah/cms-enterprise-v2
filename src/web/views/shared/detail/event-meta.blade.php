@@ -1,7 +1,5 @@
 @if($detail['detail']['type'] == 'event')
-    <section
-        class="section section--event-meta"
-    >
+    <div class="shared-detail event-meta">
         <dl>
             <dt>{{$t('common:label.start')}}</dt>
             <dd>{{$formatDateTime($detail['detail']['event_start'])}}</dd>
@@ -30,5 +28,5 @@
             <dt>{{$t('common:label.zip')}}</dt>
             <dd>{{$detail['detail']['event_zip']}}</dd>
         </dl>
-    </section>
+    </div>
 @endif

@@ -1,12 +1,17 @@
 <section class="section section--heading">
     <h1 class="title title--page">
-        {{$title}}
+        {{$pageTitle}}
     </h1>
-    @if($description)
+    @if($pageDescription)
         <section class="section">
             <p class="lead">
-                {{$description}}
+                {{$pageDescription}}
             </p>
         </section>
+    @endif
+    @if($pageMeta)
+        <p class="text-muted">
+            {{$pageMeta}}
+        </p>
     @endif
 </section>

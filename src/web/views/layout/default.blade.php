@@ -16,6 +16,6 @@
         </div>
     </div>
     @include('shared.footer')
-    @include('shared.debugbar')
     @include('shared.cookiebot')
 </div>
+@include('shared.debugbar')

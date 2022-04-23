@@ -1,20 +1,24 @@
+{{--
+Menu navigation item (recursive children rendering)
+
+* $menuItem
+
+--}}
 @php
-    $ml = $menuLink($item);
+    $ml = $menuLink($menuItem);
 @endphp
-<li
-    class="menu-item menu-item--{{$item['type']}} {{$ml['selected'] ? 'selected' : ''}}"
->
+<li class="component menu-item item--{{$menuItem['type']}} {{$ml['selected'] ? 'selected' : ''}}">
     <a
-        href="{{$ml['path']}}"
-        target="{{$ml['target']}}"
-        class="menu-item-link"
+            href="{{$ml['path']}}"
+            target="{{$ml['target']}}"
+            class="menu-item-link"
     >
         {{$ml['label']}}
     </a>
-    @if($item['children'])
+    @if($menuItem['children'])
         <ul class="menu-item-children">
-            @foreach($item['children'] as $child)
-                @include('component.menu-item', [ 'item' => $child ])
+            @foreach($menuItem['children'] as $child)
+                @include('component.menu-item', [ 'menuItem' => $child ])
             @endforeach
         </ul>
     @endif

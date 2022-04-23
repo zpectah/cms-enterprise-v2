@@ -13,3 +13,4 @@
 - fixed when translations request has parsed option, active items only was returned
 - fixed admin model table list - paginating, when it is more than items per page items
 - category view has title from page object now
+- web structure web and style refactoring

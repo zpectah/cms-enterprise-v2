@@ -10,7 +10,7 @@
         @break
 
         @case('company_card')
-            @include('component.section-company')
+            @include('shared.company')
         @break
 
     @endswitch

@@ -6,7 +6,7 @@
         {{$data['lang'][$lang]['label']}}
     </h4>
     <div class="widget-main">
-        @include('component.navigation', [
+        @include('component.menu', [
             'menuData' => $data,
             'menuType' => 'vertical',
         ])

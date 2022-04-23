@@ -1,18 +1,15 @@
 @if($detail['detail']['__author'])
-    <section
-        class="section section--author"
-    >
+    <div class="shared-detail author-meta">
         <div
-            class="hstack gap-2"
+                class="hstack gap-2"
         >
             @if($detail['detail']['__author']['img_avatar'])
-                <img
-                    src="{{$detail['detail']['__author']['img_avatar']}}"
-                    alt="{{$detail['detail']['__author']['email']}}"
-                    class="img-fluid img-thumbnail rounded"
-                    style="max-width: 100px; border-radius: 100% !important;"
-                    loading="lazy"
-                />
+                @include('component.ui.image', [
+                    'src' => $detail['detail']['__author']['img_avatar'],
+                    'alt' => $detail['detail']['__author']['email'],
+                    'style' => 'max-width: 100px; border-radius: 100% !important;',
+                    'className' => 'rounded',
+                ])
             @endif
             <div>
                 <dl>
@@ -37,5 +34,5 @@
                 @endif
             </div>
         </div>
-    </section>
+    </div>
 @endif
