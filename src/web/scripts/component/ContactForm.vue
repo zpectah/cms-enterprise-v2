@@ -43,7 +43,7 @@
 		<div>
 			<button
 				type="button"
-				class="btn btn-primary"
+				class="ui-btn primary"
 				@click="submitHandler"
 				:disabled="!state.valid || state.process"
 			>

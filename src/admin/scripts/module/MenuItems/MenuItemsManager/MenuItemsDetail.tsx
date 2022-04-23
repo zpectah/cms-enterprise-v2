@@ -290,6 +290,7 @@ const MenuItemsDetail = (props: MenuItemsDetailProps) => {
 													emptyValueOption
 													inputSx={{ width: { xs: '100%', md: '250px' } }}
 													ignored={[ detailData.id as number ]}
+													menuId={menuId}
 												/>
 											);
 										}}

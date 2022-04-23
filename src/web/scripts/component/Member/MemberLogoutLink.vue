@@ -1,7 +1,7 @@
 <template>
 	<button
 		type="button"
-		class="btn btn-outline-primary"
+		class="ui-btn primary outline"
 		@click="logoutHandler"
 	>
 		{{t('common:btn.log-out')}}

@@ -1,1 +1,7 @@
-.footer{}
+.footer{
+  height: $footer_height;
+  color: $footer_color;
+  background-color: $footer_bg;
+
+  &-bar{}
+}

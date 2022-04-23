@@ -6,14 +6,14 @@
 			v-if="!!anonymous && creatable"
 		>
 			<button
-				class="btn btn-secondary"
+				class="ui-btn primary"
 				@click="openFormHandler"
 				v-if="!comment"
 			>
 				{{t('common:btn.new-comment')}}
 			</button>
 			<button
-				class="btn btn-outline-secondary"
+				class="ui-btn secondary outline"
 				@click="closeFormHandler"
 				v-if="comment"
 			>

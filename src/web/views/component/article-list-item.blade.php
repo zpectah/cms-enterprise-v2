@@ -27,7 +27,7 @@ Article list: displays list of posts/articles
     }
 @endphp
 <article
-        class="component article-list-item item--{{$context}}-{{$model}}"
+        class="article-list-item item--{{$context}}-{{$model}}"
         id="{{$context}}_{{$model}}_{{$articleItem['id']}}"
 >
     @if($model == 'posts' && $articleItem['img_thumbnail'])
@@ -58,7 +58,7 @@ Article list: displays list of posts/articles
         @endif
         <a
                 href="{{$languageLink($path)}}"
-                class="btn btn-outline-primary"
+                class="ui-btn primary"
         >
             {{$t('common:btn.detail')}}
         </a>

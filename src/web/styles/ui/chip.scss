@@ -1,0 +1,18 @@
+.ui-chip{
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: .125rem .5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  font-size: .7rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: $default;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $default;
+  border-radius: 1rem;
+}

@@ -1,0 +1,54 @@
+.ui-btn{
+  @include button-reset();
+  // $self: &;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: .25rem;
+
+  & span{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.sm{ /* TODO */ }
+  &.lg{ /* TODO */ }
+
+  // & + #{$self}{}
+
+  @include button-variant(
+    $default, transparent, $default, // default
+    darken($default, .25), transparent, darken($default, .25), // hover
+    darken($default, .125), transparent, darken($default, .125), // active
+    transparentize($default, .15), transparent, transparentize($default, .15), // disabled
+  );
+
+  @each $color, $value in $colors {
+    &.#{$color} {
+      $bg: nth($value, 1);
+      $color: nth($value, 2);
+      $border: nth($value, 3);
+
+      &.outline{
+        @include button-variant(
+            transparent, $bg, $border, // default
+            transparentize($bg, .95), $bg, darken($border, .5), // hover
+            transparentize($bg, .85), $bg, darken($border, .4), // active
+            transparentize($bg, .8), $bg, transparentize($border, .15), // disabled
+        );
+      }
+
+      @include button-variant(
+        $bg, $color, $border, // default
+        darken($bg, .5), $color, darken($border, .5), // hover
+        darken($bg, .4), $color, darken($border, .4), // active
+        transparentize($bg, .15), $color, transparentize($border, .15), // disabled
+      );
+    }
+  }
+
+}

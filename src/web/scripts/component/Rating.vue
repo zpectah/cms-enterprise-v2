@@ -2,7 +2,7 @@
 	<div class="hstack gap-2">
 		<button
 			type="button"
-			class="btn btn-success btn-sm"
+			class="ui-btn success"
 			@click="addLike"
 			:disabled="state.voted"
 		>
@@ -10,7 +10,7 @@
 		</button>
 		<button
 			type="button"
-			class="btn btn-warning btn-sm"
+			class="ui-btn warning"
 			@click="addDislike"
 			:disabled="state.voted"
 		>

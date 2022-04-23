@@ -13,7 +13,7 @@
 		>
 			<button
 				type="button"
-				class="btn btn-success"
+				class="ui-btn success outline"
 				@click="acceptHandler"
 			>
 				{{t('common:btn.accept')}}
@@ -21,7 +21,7 @@
 			&nbsp;
 			<button
 				type="button"
-				class="btn btn-warning"
+				class="ui-btn warning outline"
 				@click="declineHandler"
 			>
 				{{t('common:btn.decline')}}

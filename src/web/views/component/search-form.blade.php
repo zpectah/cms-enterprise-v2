@@ -32,7 +32,7 @@ Search form
     <div class="col-auto">
         <button
                 type="submit"
-                class="btn btn-outline-primary mb-3"
+                class="ui-btn primary mb-3"
         >
             {{$t('form:submit.search')}}
         </button>

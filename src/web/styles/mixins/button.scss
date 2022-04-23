@@ -1,0 +1,64 @@
+@mixin button-reset() {
+  width: auto;
+  height: auto;
+  min-width: 2.375rem;
+  min-height: 2.375rem;
+  margin: 0;
+  padding: 0 .85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.05;
+  text-decoration: none;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  transition: border-color $transition_during_default ease-in-out 0s,
+    color $transition_during_default ease-in-out 0s,
+    background-color $transition_during_default ease-in-out 0s;
+
+  &:hover{
+    color: inherit;
+  }
+  &:active{
+    color: inherit;
+  }
+  &:disabled, &.disabled{
+    opacity: .75;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-variant(
+  $bg, $color, $border,
+  $hoverBg, $hoverColor, $hoverBorder,
+  $activeBg, $activeColor, $activeBorder,
+  $disabledBg, $disabledColor, $disabledBorder,
+) {
+  background-color: $bg;
+  color: $color;
+  border-color: $border;
+
+  &:hover{
+    background-color: $hoverBg;
+    color: $hoverColor;
+    border-color: $hoverBorder;
+  }
+  &:active{
+    background-color: $activeBg;
+    color: $activeColor;
+    border-color: $activeBorder;
+  }
+  &:focus{
+    box-shadow: 0 0 .025rem .25rem transparentize($activeBg, .75);
+  }
+  &:disabled, &.disabled{
+    background-color: $disabledBg;
+    color: $disabledColor;
+    border-color: $disabledBorder;
+  }
+}

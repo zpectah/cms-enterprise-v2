@@ -9,6 +9,7 @@
         <br /><br />
         <a
                 href="{{$public['links']['home']}}"
+                class="ui-btn primary outline"
         >
             {{$t('common:btn.return-home')}}
         </a>

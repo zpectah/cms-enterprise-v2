@@ -40,13 +40,17 @@ createApp({
 			globalValue: 'ABC',
 			lang: window.APP_LANG,
 			translations: {},
+			translationsLoaded: false,
 			// appToken: window.APP_TOKEN,
 			// memberToken: window.MEMBER_TOKEN,
 			// env: window.APP_ENV,
 		}
 	},
 	mounted() {
-		loadTranslations(this.lang).then((resp) => this.translations = resp);
+		loadTranslations(this.lang).then((resp) => {
+			this.translations = resp;
+			this.translationsLoaded = true;
+		});
 	},
 	computed: {},
 	methods: {

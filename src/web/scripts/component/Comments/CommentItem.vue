@@ -27,14 +27,14 @@
 			v-if="anonymous && creatable"
 		>
 			<button
-				class="btn btn-secondary btn-sm"
+				class="ui-btn secondary outline"
 				@click="openFormHandler"
 				v-if="!reply"
 			>
 				{{t('common:btn.reply')}}
 			</button>
 			<button
-				class="btn btn-outline-secondary btn-sm"
+				class="ui-btn secondary outline"
 				@click="closeFormHandler"
 				v-if="reply"
 			>

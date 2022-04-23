@@ -9,7 +9,7 @@ Detail pagination
             <div>
                 <a
                         href="{{$category_context['path_prefix']}}"
-                        class="btn btn-outline-secondary btn-sm"
+                        class="ui-btn secondary outline"
                 >
                     {{$t('common:btn.return')}}
                 </a>
@@ -22,7 +22,7 @@ Detail pagination
                             href="{{$languageLink($category_context['path_prefix'] . '/detail/' . $category_context['prev']['name'])}}"
                             title="{{$category_context['prev']['name']}}"
                             aria-label="{{$category_context['prev']['name']}}"
-                            class="btn btn-outline-secondary btn-sm"
+                            class="ui-btn secondary outline"
                     >
                         {{$t('common:btn.previous')}}
                     </a>
@@ -35,7 +35,7 @@ Detail pagination
                             href="{{$languageLink($category_context['path_prefix'] . '/detail/' . $category_context['next']['name'])}}"
                             title="{{$category_context['next']['name']}}"
                             aria-label="{{$category_context['next']['name']}}"
-                            class="btn btn-outline-secondary btn-sm"
+                            class="ui-btn secondary outline"
                     >
                         {{$t('common:btn.next')}}
                     </a>

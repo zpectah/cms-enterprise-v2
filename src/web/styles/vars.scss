@@ -1,0 +1,46 @@
+$transition_during_default: .125s;
+
+$brand: rgb(104,104,172);
+$default: rgb(69,90,100);
+
+$primary: $brand;
+$secondary: rgb(98,93,96);
+$success: rgb(56,142,60);
+$info: rgb(2,136,209);
+$danger: rgb(245,124,0);
+$warning: rgb(251,192,45);
+$light: rgb(250,250,250);
+$dark: rgb(41,40,45);
+
+// color-bundle: (bg, color, border)
+$primary_color: ($primary, $light, $primary);
+$secondary_color: ($secondary, $light, $secondary);
+$success_color: ($success, $light, $success);
+$info_color: ($info, $light, $info);
+$danger_color: ($danger, $light, $danger);
+$warning_color: ($warning, $dark, $warning);
+$light_color: ($light, $dark, $light);
+$dark_color: ($dark, $light, $dark);
+
+$colors: (
+  "primary":    $primary_color,
+  "secondary":  $secondary_color,
+  "success":    $success_color,
+  "info":       $info_color,
+  "warning":    $warning_color,
+  "danger":     $danger_color,
+  "light":      $light_color,
+  "dark":       $dark_color,
+);
+
+$body_bg: $light;
+$body_color: $dark;
+
+$header_bg: $brand;
+$header_color: $light;
+$header_height: 'auto';
+
+$footer_bg: 'transparent';
+$footer_color: 'inherit';
+$footer_height: 'auto';
+

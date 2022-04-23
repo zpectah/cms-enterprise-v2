@@ -10,15 +10,11 @@ Detail meta data
         <dl class="ui-dl">
             <dt class="ui-dt">{{$t('common:label.category')}}</dt>
             <dd class="ui-dd">
-                <div
-                        class="hstack gap-2"
-                >
+                <div class="hstack gap-2">
                     @foreach($detail['detail']['__categories'] as $category)
-                        <span
-                                class="badge bg-info"
-                        >
-                    {{$category['lang'][$lang]['title']}}
-                </span>
+                        <span class="ui-chip">
+                            {{$category['lang'][$lang]['title']}}
+                        </span>
                     @endforeach
                 </div>
             </dd>
@@ -26,16 +22,11 @@ Detail meta data
         <dl class="ui-dl">
             <dt class="ui-dt">{{$t('common:label.tags')}}</dt>
             <dd class="ui-dd">
-                <div
-                        class="hstack gap-2"
-                >
-                    @foreach($detail['detail']['__tags'] as $category)
-                        <span
-                                class="badge bg-dark"
-                                style="background-color: {{$tag['color']}} !important;"
-                        >
-                    {{$category['name']}}
-                </span>
+                <div class="hstack gap-2">
+                    @foreach($detail['detail']['__tags'] as $tag)
+                        <span class="ui-chip" style="border-color: {{$tag['color']}};color: {{$tag['color']}};">
+                            {{$tag['name']}}
+                        </span>
                     @endforeach
                 </div>
             </dd>
