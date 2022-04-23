@@ -1,4 +1,4 @@
-.menu{
+.ui-menu{
   margin: 0;
   padding: 0;
   list-style: none;
@@ -14,6 +14,7 @@
     &.vertical{}
   }
   &-item{
+    $self: &;
     margin: 0;
     padding: 0;
     display: flex;
@@ -33,21 +34,21 @@
       bottom: -100%;
       left: 1rem;
 
-      & .menu-item{
+      & #{$self}{
         &-link{}
         &-children{}
       }
     }
 
     &:hover{
-      & > .menu-item-children{
+      & > #{$self}-children{
         display: flex;
       }
     }
 
-    &--external{}
-    &--internal{}
-    &--page{}
+    &.external{}
+    &.internal{}
+    &.page{}
   }
 
   &--horizontal{

@@ -9,8 +9,8 @@ Menu navigation
     $menuType = $menuType ?? 'horizontal';
     $menuData = $menuData ?? [];
 @endphp
-<nav class="component menu-nav {{$menuType}}">
-    <ul class="component menu menu--{{$menuType}}">
+<nav class="ui-menu-nav {{$menuType}}">
+    <ul class="ui-menu ui-menu--{{$menuType}}">
         @foreach($menuData['__items'] as $menuItem)
             @include('component.menu-item', [ 'menuItem' => $menuItem ])
         @endforeach

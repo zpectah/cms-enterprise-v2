@@ -3,13 +3,13 @@ Detail meta data
 --}}
 @if($detail['detail'])
     <div class="shared-detail meta">
-        <dl>
-            <dt>{{$t('common:label.published')}}</dt>
-            <dd>{{$formatDate($detail['detail']['published'])}}</dd>
+        <dl class="ui-dl">
+            <dt class="ui-dt">{{$t('common:label.published')}}</dt>
+            <dd class="ui-dd">{{$formatDate($detail['detail']['published'])}}</dd>
         </dl>
-        <dl>
-            <dt>{{$t('common:label.category')}}</dt>
-            <dd>
+        <dl class="ui-dl">
+            <dt class="ui-dt">{{$t('common:label.category')}}</dt>
+            <dd class="ui-dd">
                 <div
                         class="hstack gap-2"
                 >
@@ -23,9 +23,9 @@ Detail meta data
                 </div>
             </dd>
         </dl>
-        <dl>
-            <dt>{{$t('common:label.tags')}}</dt>
-            <dd>
+        <dl class="ui-dl">
+            <dt class="ui-dt">{{$t('common:label.tags')}}</dt>
+            <dd class="ui-dd">
                 <div
                         class="hstack gap-2"
                 >

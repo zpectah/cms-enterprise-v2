@@ -1,4 +1,4 @@
-dl{
+.ui-dl{
   width: 100%;
   margin: 0;
   padding: 0;
@@ -7,8 +7,8 @@ dl{
   justify-content: flex-start;
   flex-direction: row;
 
-  dt{
+  .ui-dt{
     padding: 0 1rem 0 0;
   }
-  dd{}
+  .ui-dd{}
 }

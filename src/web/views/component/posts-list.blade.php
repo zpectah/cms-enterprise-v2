@@ -9,15 +9,15 @@ Posts list
     $itemsList = $itemsList ?? [];
     $linkPrefix = '/detail/posts/';
 @endphp
-<ul class="list">
+<ul class="ui-list">
     @foreach($itemsList as $post)
     <li
-        class="list-item item--posts"
+        class="ui-list-item item--posts"
     >
         <a
                 href="{{$languageLink($linkPrefix . $post['name'])}}"
                 target="_self"
-                class="list-item-link"
+                class="ui-list-link"
         >
             {{$post['lang'][$lang]['title']}}
         </a>

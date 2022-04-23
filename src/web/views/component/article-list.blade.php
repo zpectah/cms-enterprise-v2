@@ -5,7 +5,7 @@ Article list: displays list of posts/articles
 * $itemsList
 
 --}}
-<div class="component article-list {{$context}}">
+<div class="article-list {{$context}}">
     @foreach($itemsList as $articleItem)
         @include('component.article-list-item', [ 'articleItem' => $articleItem ])
     @endforeach
