@@ -54,7 +54,7 @@
     border-color: $activeBorder;
   }
   &:focus{
-    box-shadow: 0 0 .025rem .25rem transparentize($activeBg, .75);
+    box-shadow: 0 0 .025rem .25rem transparentize($border, .75);
   }
   &:disabled, &.disabled{
     background-color: $disabledBg;

@@ -7,6 +7,7 @@ import {
 import Cookiebot from './component/Cookiebot';
 import ContactForm from './component/ContactForm';
 import Rating from './component/Rating';
+import MenuToggle from './component/MenuToggle';
 import { DebugBar } from './component/DebugBar';
 import { Comments } from './component/Comments';
 import {
@@ -26,6 +27,7 @@ createApp({
 		'comments': Comments,
 		'rating': Rating,
 		'debug-bar': DebugBar,
+		'menu-toggle': MenuToggle,
 		'member-subscription-form': MemberSubscriptionForm,
 		'member-login-form': MemberLoginForm,
 		'member-lost-password-form': MemberLostPasswordForm,

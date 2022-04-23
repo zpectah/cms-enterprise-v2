@@ -38,9 +38,10 @@ $body_color: $dark;
 
 $header_bg: $brand;
 $header_color: $light;
-$header_height: 'auto';
+$header_height: 3rem;
+$header_zIndex: 999;
 
-$footer_bg: 'transparent';
-$footer_color: 'inherit';
-$footer_height: 'auto';
+$footer_bg: transparent;
+$footer_color: inherit;
+$footer_height: auto;
 

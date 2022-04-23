@@ -2,6 +2,8 @@
     class="page-layout page-layout--default"
 >
     @include('shared.header')
+    @include('shared.debug-bar')
+    @include('shared.maintenance-bar')
     <div class="page-layout-content">
         <div class="container">
             <div class="row">

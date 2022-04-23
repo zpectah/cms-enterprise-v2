@@ -1,12 +1,26 @@
 .header{
-  height: $header_height;
+  width: 100%;
+  height: auto;
   color: $header_color;
   background-color: $header_bg;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $header_zIndex;
 
   .ui-menu-item{
     $self: &;
 
-    &-link{}
+    &.selected{
+      background-color: darken($header_bg, 5%);
+    }
+
+    &-link{
+      @include button-reset();
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     &-children{
       min-width: 200px;
       margin: 0;
@@ -16,6 +30,8 @@
       position: absolute;
       bottom: -100%;
       left: 1rem;
+      color: $header_color;
+      background-color: $header_bg;
 
       & #{$self}{
         &-link{}
@@ -31,5 +47,82 @@
 
   }
 
+  &-brand{
+    @include button-reset();
+  }
   &-bar{}
+  &-container{
+    width: 100%;
+    height: auto;
+    min-height: $header_height;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &-block{
+    &.primary{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 1;
+    }
+    &.secondary{
+      width: 100%;
+      display: none;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1;
+
+      @media (max-width: 767px) {
+        width: 100vw;
+        height: calc(100vh - #{$header_height});
+        position: fixed;
+        top: $header_height;
+        left: 0;
+        z-index: $header_zIndex;
+        justify-content: center;
+        color: $header_color;
+        background-color: $header_bg;
+
+        & .ui-menu--horizontal{
+          flex-direction: column;
+
+          & .ui-menu-item{
+            &-link{
+              padding: .25rem .5rem;
+              font-size: 1.35rem;
+              font-weight: 400;
+            }
+            &-children{
+              display: flex;
+              position: relative;
+              left: 0;
+              bottom: 0;
+            }
+          }
+        }
+
+        &.collapsed{
+          display: flex;
+        }
+
+      }
+
+      @media (min-width: 768px) {
+        display: flex;
+      }
+
+    }
+  }
+}
+
+.menu-toggle{
+  @include button-reset();
+  font-size: 1.75rem;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
 }

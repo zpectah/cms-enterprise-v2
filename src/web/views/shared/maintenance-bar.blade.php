@@ -5,6 +5,8 @@ Maintenance bar
     <div
         class="header-bar"
     >
-        {{$t('maintenance:label')}}
+        <div class="alert alert-primary m-0" role="alert">
+            {{$t('maintenance:label')}}
+        </div>
     </div>
 @endif

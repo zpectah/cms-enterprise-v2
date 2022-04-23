@@ -5,6 +5,8 @@ Debug bar
     <div
         class="header-bar"
     >
-        {{$t('debug:label')}}
+        <div class="alert alert-warning m-0" role="alert">
+            {{$t('debug:label')}}
+        </div>
     </div>
 @endif
