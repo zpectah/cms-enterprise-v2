@@ -5,7 +5,7 @@ namespace core\module\admin;
 class Settings {
 
     public function get_cms_settings ($conn): array {
-        $sql = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM cms_settings');
+        $sql = ('SELECT * FROM cms_settings');
         $result = $conn -> query($sql);
         $response = [];
 
@@ -95,7 +95,7 @@ class Settings {
         $response = [];
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM cms_settings WHERE context = ?');
+        $query = ('SELECT * FROM cms_settings WHERE context = ?');
         $types = 's';
         $args = [ 'language' ];
 
@@ -136,7 +136,7 @@ class Settings {
         $response = [];
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM cms_settings WHERE context = ?');
+        $query = ('SELECT * FROM cms_settings WHERE context = ?');
         $types = 's';
         $args = [ 'web' ];
 
@@ -177,7 +177,7 @@ class Settings {
         $response = [];
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM cms_settings WHERE context = ?');
+        $query = ('SELECT * FROM cms_settings WHERE context = ?');
         $types = 's';
         $args = [ 'company' ];
 
@@ -218,7 +218,7 @@ class Settings {
         $response = [];
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM cms_settings WHERE context = ?');
+        $query = ('SELECT * FROM cms_settings WHERE context = ?');
         $types = 's';
         $args = [ 'members' ];
 

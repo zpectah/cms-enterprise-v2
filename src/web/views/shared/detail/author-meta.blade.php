@@ -1,7 +1,7 @@
 {{--
 Detail author meta data
 --}}
-@if($detail['detail']['__author'])
+@if(isset($detail['detail']['__author']))
     <div class="shared-detail author-meta">
         <div
                 class="hstack gap-2"

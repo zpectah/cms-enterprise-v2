@@ -1,7 +1,7 @@
 {{--
 Detail event meta data
 --}}
-@if($detail['detail']['type'] == 'event')
+@if(isset($detail['detail']['type']) && $detail['detail']['type'] == 'event')
     <div class="shared-detail event-meta">
         <dl class="ui-dl">
             <dt class="ui-dt">{{$t('common:label.start')}}</dt>

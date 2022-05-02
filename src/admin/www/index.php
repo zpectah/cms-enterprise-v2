@@ -1,7 +1,12 @@
 <?php
+session_start();
+header("Content-Type: text/html;charset=utf-8");
+
 const PATH_ROOT = '../../';
 require PATH_ROOT . 'core/index.php';
+
 $as = new \core\service\AuthService;
+
 $token = $as -> start_app_session();
 ?>
 <!doctype html>

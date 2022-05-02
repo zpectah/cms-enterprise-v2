@@ -1,5 +1,5 @@
 <div class="widget last-posts">
-    @if($widgetTitle)
+    @if(isset($widgetTitle))
         <h4 class="title title--widget">
             {{$widgetTitle}}
         </h4>

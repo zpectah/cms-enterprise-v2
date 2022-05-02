@@ -72,9 +72,10 @@ class Posts {
 
     public function get ($conn, $data, $languages): array {
         $response = [];
+        $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM posts WHERE deleted = ?');
+        $query = ('SELECT * FROM posts WHERE deleted = ?');
         $types = 'i';
         $args = [ 0 ];
 
@@ -86,10 +87,13 @@ class Posts {
         $stmt -> close();
 
         // request params
-        $__sub = $data['sub'];
-        $__name = $data['name'];
-        $__id = $data['id'];
-        $__ids = is_string($data['ids']) ? explode(",", $data['ids']) : $data['ids']; // Must be an array[]
+        $__sub = $helpers -> get_key($data, 'sub');
+        $__name = $helpers -> get_key($data, 'name');
+        $__id = $helpers -> get_key($data, 'id');
+        $__ids = [];
+        if ($helpers -> get_key($data, 'ids')) {
+            $__ids = is_string($data['ids']) ? explode(",", $data['ids']) : $data['ids']; // Must be an array[]
+        }
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
@@ -357,7 +361,7 @@ class Posts {
         $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM posts WHERE deleted = ?');
+        $query = ('SELECT * FROM posts WHERE deleted = ?');
         $types = 'i';
         $args = [ 1 ];
 

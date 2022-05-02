@@ -1,7 +1,7 @@
 {{--
 Detail rating
 --}}
-@if($detail['detail'])
+@if(isset($detail['detail']))
     <div class="shared-detail rating">
         <rating
                 model-type="{{$detail['model']}}"

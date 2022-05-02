@@ -15,9 +15,10 @@ class Tags {
 
     public function get ($conn, $params) {
         $response = [];
+        $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM tags WHERE deleted = ?');
+        $query = ('SELECT * FROM tags WHERE deleted = ?');
         $types = 'i';
         $args = [ 0 ];
 
@@ -29,7 +30,10 @@ class Tags {
         $stmt -> close();
 
         // request params
-        $__ids = is_string($params['ids']) ? explode(",", $params['ids']) : $params['ids']; // Must be an array[]
+        $__ids = [];
+        if ($helpers -> get_key($params, 'ids')) {
+            $__ids = is_string($params['ids']) ? explode(",", $params['ids']) : $params['ids']; // Must be an array[]
+        }
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {

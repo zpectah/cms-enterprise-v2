@@ -8,9 +8,10 @@ class CmsRequests {
 
     public function get ($conn, $data) {
         $response = [];
+        $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM cms_requests');
+        $query = ('SELECT * FROM cms_requests');
         $types = '';
         $args = [];
 
@@ -22,8 +23,8 @@ class CmsRequests {
         $stmt -> close();
 
         // request params
-        $__id = $data['id'];
-        $__token = $data['token'];
+        $__id = $helpers -> get_key($data, 'id');
+        $__token = $helpers -> get_key($data, 'token');
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {

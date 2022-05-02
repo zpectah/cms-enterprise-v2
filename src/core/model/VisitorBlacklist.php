@@ -14,9 +14,10 @@ class VisitorBlacklist {
 
     public function get ($conn, $params) {
         $response = [];
+        $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM visitor_blacklist WHERE status < ?');
+        $query = ('SELECT * FROM visitor_blacklist WHERE status < ?');
         $types = 'i';
         $args = [ 3 ];
 
@@ -28,8 +29,10 @@ class VisitorBlacklist {
         $stmt -> close();
 
         // request params
-        $__ids = null;
-        if ($params['ids']) $__ids = explode(",", $params['ids']);
+        $__ids = [];
+        if ($helpers -> get_key($params, 'ids')) {
+            $__ids = is_string($params['ids']) ? explode(",", $params['ids']) : $params['ids']; // Must be an array[]
+        }
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {

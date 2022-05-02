@@ -1,7 +1,7 @@
 {{--
 Detail meta data
 --}}
-@if($detail['detail'])
+@if(isset($detail['detail']))
     <div class="shared-detail meta">
         <dl class="ui-dl">
             <dt class="ui-dt">{{$t('common:label.published')}}</dt>

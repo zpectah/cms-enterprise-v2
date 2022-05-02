@@ -2,6 +2,7 @@
 
 namespace core\module\admin;
 
+use core\common\Helpers;
 use core\model\Categories;
 use core\model\Comments;
 use core\model\Members;
@@ -232,8 +233,11 @@ class System {
     }
 
     public function install_language ($conn, $data): array {
+        $helpers = new Helpers;
+        $lang_source = $helpers -> get_key($data, 'lang_source');
+        $lang_target = $helpers -> get_key($data, 'lang_target');
         $response = [
-            'lang' => $data['lang_source'],
+            'lang' => $lang_source,
             'status' => 'error'
         ];
         $tables = [
@@ -245,8 +249,6 @@ class System {
             'translations',
             'uploads'
         ];
-        $lang_source = $data['lang_source'];
-        $lang_target = $data['lang_target'];
         $executed = [];
         foreach ($tables as $table) {
             if ($lang_source !== 'empty') {

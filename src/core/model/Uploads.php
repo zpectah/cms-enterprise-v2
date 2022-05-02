@@ -24,9 +24,10 @@ class Uploads {
 
     public function get ($conn, $data, $languages): array {
         $response = [];
+        $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM uploads WHERE deleted = ?');
+        $query = ('SELECT * FROM uploads WHERE deleted = ?');
         $types = 'i';
         $args = [ 0 ];
 
@@ -38,7 +39,10 @@ class Uploads {
         $stmt -> close();
 
         // request params
-        $__ids = is_string($data['ids']) ? explode(",", $data['ids']) : $data['ids']; // Must be an array[]
+        $__ids = [];
+        if ($helpers -> get_key($data, 'ids')) {
+            $__ids = is_string($data['ids']) ? explode(",", $data['ids']) : $data['ids']; // Must be an array[]
+        }
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
@@ -177,7 +181,7 @@ class Uploads {
         $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM uploads WHERE deleted = ?');
+        $query = ('SELECT * FROM uploads WHERE deleted = ?');
         $types = 'i';
         $args = [ 1 ];
 

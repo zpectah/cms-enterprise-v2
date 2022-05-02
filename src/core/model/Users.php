@@ -16,9 +16,10 @@ class Users {
 
     public function get ($conn, $params): array {
         $response = [];
+        $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM users WHERE deleted = ?');
+        $query = ('SELECT * FROM users WHERE deleted = ?');
         $types = 'i';
         $args = [ 0 ];
 
@@ -30,11 +31,14 @@ class Users {
         $stmt -> close();
 
         // request params
-        $__id = $params['id'];
-        $__email = $params['email'];
-        $__withPassword = $params['with_password'];
-        $__checkExist = $params['check_exist'];
-        $__ids = is_string($params['ids']) ? explode(",", $params['ids']) : $params['ids']; // Must be an array[]
+        $__id = $helpers -> get_key($params, 'id');
+        $__ids = [];
+        if ($helpers -> get_key($params, 'ids')) {
+            $__ids = is_string($params['ids']) ? explode(",", $params['ids']) : $params['ids']; // Must be an array[]
+        }
+        $__email = $helpers -> get_key($params, 'email');
+        $__withPassword = $helpers -> get_key($params, 'with_password');
+        $__checkExist = $helpers -> get_key($params, 'check_exist');
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
@@ -55,7 +59,7 @@ class Users {
                         }
                     }
                 } else if ($__ids) {
-                    if (in_array($row['id'], $__ids)) $response[] = self::get_updated_row($row);
+                    if (in_array($row['id'], $__ids)) $response[] = self::get_updated_row($row, $__withPassword);
                 } else {
                     $response[] = self::get_updated_row($row, $__withPassword);
                 }
@@ -119,7 +123,7 @@ class Users {
         $helpers = new Helpers;
 
         // prepare
-        $password = $data['password'];
+        $password = $helpers -> get_key($data, 'password');
         $query = $password ? ('UPDATE users SET 
                 email = ?, 
                 type = ?, 

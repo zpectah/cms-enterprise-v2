@@ -36,9 +36,10 @@ class MenuItems {
 
     public function get ($conn, $data, $languages): array {
         $response = [];
+        $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM menu_items WHERE deleted = ?');
+        $query = ('SELECT * FROM menu_items WHERE deleted = ?');
         $types = 'i';
         $args = [ 0 ];
 
@@ -50,9 +51,12 @@ class MenuItems {
         $stmt -> close();
 
         // request params
-        $__menuId = $data['menu_id'];
-        $__with_children = $data['with_children'];
-        $__ids = is_string($data['ids']) ? explode(",", $data['ids']) : $data['ids']; // Must be an array[]
+        $__menuId = $helpers -> get_key($data, 'menu_id');
+        $__with_children = $helpers -> get_key($data, 'with_children');
+        $__ids = [];
+        if ($helpers -> get_key($data, 'ids')) {
+            $__ids = is_string($data['ids']) ? explode(",", $data['ids']) : $data['ids']; // Must be an array[]
+        }
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
@@ -201,7 +205,7 @@ class MenuItems {
         $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM menu_items WHERE deleted = ?');
+        $query = ('SELECT * FROM menu_items WHERE deleted = ?');
         $types = 'i';
         $args = [ 1 ];
 

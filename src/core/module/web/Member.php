@@ -40,10 +40,11 @@ class Member {
         $ipAddress = $helpers -> get_client_ip_address();
         $allMembers = $members -> get($conn, []);
         $bl = $blacklist -> get($conn, []);
+        $data_email = $helpers -> get_key($data, 'email');
         foreach ($allMembers as $m) {
-            if ($m['email'] !== $data['email']) {
+            if ($m['email'] !== $data_email) {
                 foreach ($bl as $li) {
-                    if ($li['visitor_email'] == $data['email'] || $li['visitor_ip'] == $ipAddress) $blacklisted = true;
+                    if ($li['visitor_email'] == $data_email || $li['visitor_ip'] == $ipAddress) $blacklisted = true;
                 }
                 if ($blacklisted) {
                     $response['message'] = 'member_is_blacklisted';
@@ -85,10 +86,11 @@ class Member {
         $ipAddress = $helpers -> get_client_ip_address();
         $allMembers = $members -> get($conn, []);
         $bl = $blacklist -> get($conn, []);
+        $data_email = $helpers -> get_key($data, 'email');
         foreach ($allMembers as $m) {
-            if ($m['email'] !== $data['email']) {
+            if ($m['email'] !== $data_email) {
                 foreach ($bl as $li) {
-                    if ($li['visitor_email'] == $data['email'] || $li['visitor_ip'] == $ipAddress) $blacklisted = true;
+                    if ($li['visitor_email'] == $data_email || $li['visitor_ip'] == $ipAddress) $blacklisted = true;
                 }
                 if ($blacklisted) {
                     $response['message'] = 'member_is_blacklisted';
@@ -125,16 +127,19 @@ class Member {
         $as = new AuthService;
         $members = new Members;
         $helpers = new Helpers;
-        $email = $data['email'];
-        $password = $data['password'];
+        $email = $helpers -> get_key($data, 'email');
+        $password = $helpers -> get_key($data, 'password');
         $user = $members -> get($conn, ['email' => $email, 'with_password' => true], []);
         if ($user) {
             $response['message'] = 'member_password_mismatch';
-            if ($user['active'] == 0) {
+            $user_password = $helpers -> get_key($user, 'password');
+            $user_active = $helpers -> get_key($user, 'active');
+            $user_deleted = $helpers -> get_key($user, 'deleted');
+            if ($user_active == 0) {
                 $response['message'] = 'member_not_active';
-            } else if ($user['deleted'] == 1) {
+            } else if ($user_deleted == 1) {
                 $response['message'] = 'member_is_deleted';
-            } else if ($helpers -> password_verify($password, $user['password'])) {
+            } else if ($helpers -> password_verify($password, $user_password)) {
                 $response['session'] = $as -> start_member_session($email);
                 $response['message'] = 'member_login_success';
             }
@@ -161,16 +166,20 @@ class Member {
         $settings = new Settings;
         $helpers = new Helpers;
         $sender = $settings -> get_cms_settings($conn)['form_email_sender'];
-        $email = $data['email'];
+        $email = $helpers -> get_key($data, 'email');
         $user = $members -> get($conn, ['email' => $email]);
         if ($user) {
-            if ($user['active'] == 0) {
+            $user_active = $helpers -> get_key($user, 'active');
+            $user_deleted = $helpers -> get_key($user, 'deleted');
+            if ($user_active == 0) {
                 $response['message'] = 'member_not_active';
-            } else if ($user['deleted'] == 1) {
+            } else if ($user_deleted == 1) {
                 $response['message'] = 'member_is_deleted';
             } else {
                 $token = $helpers -> get_token(16, '');
-                $confirm_url = CFG_ENV['root'] . WEB_PAGE_ROUTES['page']['lost-password']['key'] . '/token/' . $token;
+                $root = $helpers -> get_key(CFG_ENV, 'root');
+                $key = $helpers -> get_key(WEB_PAGE_ROUTES, 'page->lost-password->key');
+                $confirm_url = $root . $key . '/token/' . $token;
                 $response['email'] = $es -> send_email_message(
                     $email,
                     "Lost password request",
@@ -200,13 +209,15 @@ class Member {
         ];
         $members = new Members;
         $cmsRequests = new CmsRequests;
-        $rd_password_raw = $data['password'];
-        $rd_token = $data['token'];
+        $helpers = new Helpers;
+        $rd_password_raw = $helpers -> get_key($data, 'password');
+        $rd_token = $helpers -> get_key($data, 'token');
         if ($rd_token) {
             $request_row = $cmsRequests -> get($conn, ['token' => $rd_token]);
             if ($request_row) {
                 if ($request_row['status'] == 1) {
-                    $member_row = $members -> get($conn, ['email' => $request_row['value']]);
+                    $value = $helpers -> get_key($request_row, 'value');
+                    $member_row = $members -> get($conn, ['email' => $value]);
                     $member_row['password'] = $rd_password_raw;
                     $response['member'] = $members -> update($conn, $member_row);
                     $response['request'] = $cmsRequests -> update($conn, [
@@ -239,13 +250,15 @@ class Member {
         $cmsRequests = new CmsRequests;
         $settings = new Settings;
         $helpers = new Helpers;
-        $sender = $settings['form_email_sender'];
-        $token = $data['token'];
+        $sender = $helpers -> get_key($settings, 'form_email_sender');
+        $token = $helpers -> get_key($data, 'token');
         $request_row = $cmsRequests -> get($conn, ['token' => $token]);
         if ($token) {
             if ($request_row) {
                 if ($request_row['status'] == 1) {
-                    $user_row = $members -> get($conn, ['email' => $request_row['value']]);
+                    $value = $helpers -> get_key($request_row, 'value');
+                    $token = $helpers -> get_key($request_row, 'token');
+                    $user_row = $members -> get($conn, ['email' => $value]);
                     if ($user_row) {
                         $tmp_password = $helpers -> get_token(4, '');
                         $response['email'] = $es -> send_email_message(
@@ -258,7 +271,7 @@ class Member {
                         );
                         $response['request'] = $cmsRequests -> update($conn, [
                             'status' => 2,
-                            'token' => $request_row['token']
+                            'token' => $token
                         ]);
                         $user_row['password'] = $tmp_password;
                         $response['member'] = $members -> update($conn, $user_row);

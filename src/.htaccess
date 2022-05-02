@@ -1,9 +1,14 @@
-RewriteEngine On
+# Keep errors on to prevent variable server configuration !!
+php_flag display_errors on
 
+# Set default character set
+AddDefaultCharset UTF-8
+
+# Server rewrite rules
+RewriteEngine On
 RewriteRule ^admin                            - [L]
 RewriteRule ^api                              - [L]
 RewriteRule ^assets                           - [L]
 RewriteRule ^uploads                          - [L]
-
 RewriteCond %{REQUEST_URI}  !/web/www/        [NC]
 RewriteRule (.*)            /web/www/$1       [L]

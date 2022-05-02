@@ -10,14 +10,14 @@ Heading section
     <h1 class="title title--page">
         {{$pageTitle}}
     </h1>
-    @if($pageDescription)
+    @if(isset($pageDescription))
         <section class="section">
             <p class="lead">
                 {{$pageDescription}}
             </p>
         </section>
     @endif
-    @if($pageMeta)
+    @if(isset($pageMeta))
         <p class="text-muted">
             {{$pageMeta}}
         </p>

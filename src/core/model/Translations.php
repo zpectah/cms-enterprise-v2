@@ -24,9 +24,10 @@ class Translations {
 
     public function get ($conn, $params, $languages): array {
         $response = [];
+        $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM translations WHERE deleted = ?');
+        $query = ('SELECT * FROM translations WHERE deleted = ?');
         $types = 'i';
         $args = [ 0 ];
 
@@ -38,15 +39,18 @@ class Translations {
         $stmt -> close();
 
         // request params
-        $__parsed = $params['parsed'];
-        $__lang = $params['lang'];
-        $__ids = is_string($params['ids']) ? explode(",", $params['ids']) : $params['ids']; // Must be an array[]
+        $__parsed = $helpers -> get_key($params, 'parsed');
+        $__lang = $helpers -> get_key($params, 'lang');
+        $__ids = [];
+        if ($helpers -> get_key($params, 'ids')) {
+            $__ids = is_string($params['ids']) ? explode(",", $params['ids']) : $params['ids']; // Must be an array[]
+        }
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
                 if ($__parsed == 'true' and $__lang) {
                     $r = self::get_updated_row($conn, $row, $languages);
-                    if ($row['active']) $response[$row['name']] = $r['lang'][$__lang]['value'];
+                    if ($row['active']) $response[$row['name']] = $helpers -> get_key($r, 'lang->' . $__lang . '->value');
                 } else if ($__ids) {
                     if (in_array($row['id'], $__ids)) $response[] = self::get_updated_row($conn, $row, $languages);
                 } else {
@@ -166,7 +170,7 @@ class Translations {
         $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM translations WHERE deleted = ?');
+        $query = ('SELECT * FROM translations WHERE deleted = ?');
         $types = 'i';
         $args = [ 1 ];
 

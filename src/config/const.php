@@ -10,7 +10,7 @@ $CFG_LOCALES = json_decode(file_get_contents(PATH_ROOT . 'config/locales.json'),
 const ENV = BUILD['env'];
 const TIMESTAMP = BUILD['timestamp'];
 const ENV_DEBUG = BUILD['debug'];
-const APP_DEBUG = ENV_DEBUG; // Display tools for development, like web debug bar, etc.
+define("APP_DEBUG", boolval(ENV_DEBUG)); // Display tools for development, like web debug bar, etc.
 const PASS_CRYPT = PASSWORD_ARGON2ID;
 const PASS_CRYPT_OPTIONS = [
     'memory_cost' => 2048,

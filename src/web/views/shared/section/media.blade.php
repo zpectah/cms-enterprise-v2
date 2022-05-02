@@ -6,7 +6,7 @@ Section media
 * $mediaName
 
 --}}
-@if($mediaFileName)
+@if(isset($mediaFileName))
     <section class="section section--media">
         @include('component.media-item', [
             'mediaType' => $mediaType,

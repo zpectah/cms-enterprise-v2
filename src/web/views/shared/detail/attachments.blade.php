@@ -1,7 +1,7 @@
 {{--
 Detail attachments
 --}}
-@if($detail['detail']['__attachments'])
+@if(isset($detail['detail']['__attachments']))
     <div class="shared-detail attachments">
         <ul class="component media-list">
             @foreach($detail['detail']['__attachments'] as $attachment)

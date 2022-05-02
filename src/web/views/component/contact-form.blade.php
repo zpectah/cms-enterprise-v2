@@ -6,10 +6,11 @@ contact form
 --}}
 @php
     $formId = $formId ?? 'FormContact';
+    $memberEmail = isset($member['profile']['email']) ?? $member['profile']['email'];
 @endphp
 <contact-form
         form-id="{{$formId}}"
-        email="{{$member['profile']['email']}}"
+        email="{{$memberEmail}}"
 >
     Loading
 </contact-form>

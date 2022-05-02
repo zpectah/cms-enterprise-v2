@@ -1,7 +1,7 @@
 {{--
 Detail links
 --}}
-@if($detail['detail']['__links'])
+@if(isset($detail['detail']['__links']))
     <div class="shared-detail links">
         <ul>
             @foreach($detail['detail']['__links'] as $link)

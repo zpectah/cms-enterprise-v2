@@ -24,9 +24,10 @@ class Menu {
 
     public function get ($conn, $params, $languages): array {
         $response = [];
+        $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM menu WHERE deleted = ?');
+        $query = ('SELECT * FROM menu WHERE deleted = ?');
         $types = 'i';
         $args = [ 0 ];
 
@@ -38,8 +39,11 @@ class Menu {
         $stmt -> close();
 
         // request params
-        $__id = $params['id'];
-        $__ids = is_string($params['ids']) ? explode(",", $params['ids']) : $params['ids']; // Must be an array[]
+        $__id = $helpers -> get_key($params, 'id');
+        $__ids = [];
+        if ($helpers -> get_key($params, 'ids')) {
+            $__ids = is_string($params['ids']) ? explode(",", $params['ids']) : $params['ids']; // Must be an array[]
+        }
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {
@@ -166,7 +170,7 @@ class Menu {
         $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM menu WHERE deleted = ?');
+        $query = ('SELECT * FROM menu WHERE deleted = ?');
         $types = 'i';
         $args = [ 1 ];
 

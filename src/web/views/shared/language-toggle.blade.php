@@ -1,7 +1,7 @@
 {{--
 User language switcher
 --}}
-@if($language['active_count'] > 1)
+@if(isset($language) && $language['active_count'] > 1)
     <nav class="ui-menu-nav horizontal">
         <ul class="ui-menu ui-menu--horizontal">
             @foreach($language['active'] as $lng)

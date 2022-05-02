@@ -6,6 +6,36 @@ use Gumlet\ImageResize;
 
 class Helpers {
 
+    public function get_key($variable, $key_list, $default_value=null) {
+        // https://adhoctuts.com/php-undefined-key/
+        /**
+         * Access keys or properties of array or object
+         * @variable array|object - array or object variable
+         * @key_list array|string - list of keys, valid inputs are: ['key1', 'key2'], 'key1', 'key1->key2->key3', etc.
+         * @default_value mixed, the default value to return if key/property does not exist
+         */
+        if (!isset($variable)) return $default_value;
+        if (is_string($key_list)) {
+            $multi = false;
+            foreach (['->', '=>', '.', ','] as $sep) {
+                if (strpos($key_list, $sep) !== false) {
+                    $key_list = explode($sep, $key_list);
+                    $multi = true;
+                    break;
+                }
+            }
+            if (!$multi) $key_list = [$key_list];
+        }
+        $curr = $variable;
+        foreach($key_list as $key) {
+            if (is_object($curr)) $curr = $curr->$key ?? null;
+            else if (is_array($curr)) $curr = $curr[$key] ?? null;
+            else return $default_value;
+            if (is_null($curr)) return $default_value;
+        }
+        return $curr;
+    }
+
     public function get_current_url (): string {
         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
             $url = "https://";
@@ -75,10 +105,11 @@ class Helpers {
     }
 
     public function get_browser (): array {
-        $u_agent = $_SERVER['HTTP_USER_AGENT'];
+        $u_agent = isset($_SERVER['HTTP_USER_AGENT']) ?? $_SERVER['HTTP_USER_AGENT'];
         $bname = 'Unknown';
         $platform = 'Unknown';
         $version= "";
+        $ub = "";
 
         //First get the platform?
         if (preg_match('/linux/i', $u_agent)) {
@@ -125,16 +156,19 @@ class Helpers {
         }
         // see how many we have
         $i = count($matches['browser']);
+        $mv = self::get_key($matches, 'version');
+        $mv0 = self::get_key($mv, [ 0 ]);
+        $mv1 = self::get_key($mv, [ 1 ]);
         if ($i != 1) {
             //we will have two since we are not using 'other' argument yet
             //see if version is before or after the name
             if (strripos($u_agent,"Version") < strripos($u_agent,$ub)){
-                $version= $matches['version'][0];
+                $version = $mv0;
             }else {
-                $version= $matches['version'][1];
+                $version = $mv1;
             }
         }else {
-            $version= $matches['version'][0];
+            $version = $mv0;
         }
 
         // check if we have a number
@@ -210,8 +244,6 @@ class Helpers {
     }
 
     public function update_language_row ($conn, $lang, $query, $types, $args) {
-        $response = null;
-
         // execute
         if ($conn -> connect_error) {
             $response = $conn -> connect_error;
@@ -251,7 +283,7 @@ class Helpers {
         $file_path = null;
         $file_parts = explode(";base64,", $file_object);
         $file_base64 = base64_decode($file_parts[1]);
-        if ($type !== 'unknown') $file_path = PATHS['UPLOADS'] . '/' . $type . '/';
+        if ($type !== 'unknown') $file_path = self::get_key(PATHS, 'UPLOADS') . '/' . $type . '/';
         if ($file_path) {
             $response['original'] = self::put_file($name . '.' . $ext, $file_base64, $file_path);
             if ($type == 'image') {
@@ -261,7 +293,7 @@ class Helpers {
                 if (!$imageData) $imageData = $file_base64;
 
                 // Save by defined sizes and options
-                foreach (UPLOADS['IMAGE']['FORMATS'] as $v) {
+                foreach (self::get_key(UPLOADS, 'IMAGE->FORMATS') as $v) {
                     $response[$v['key']] = self::put_custom_image(
                         $v['width'],
                         $v['height'],
@@ -281,11 +313,11 @@ class Helpers {
 
     public function delete_file ($name, $type): array {
         $response = [];
-        $file_path = PATHS['UPLOADS'] . '/' . $type . '/';
+        $file_path = self::get_key(PATHS, 'UPLOADS') . '/' . $type . '/';
         // Delete original
         $response['original'] = unlink($file_path . $name);
         // Delete rest of cropped images
-        foreach (UPLOADS['IMAGE']['FORMATS'] as $v) {
+        foreach (self::get_key(UPLOADS, 'IMAGE->FORMATS') as $v) {
             $response[$v['key']] = unlink($file_path . $v['key'] . '/' . $name);
         }
 

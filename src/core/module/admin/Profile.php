@@ -148,16 +148,19 @@ class Profile {
         $as = new AuthService;
         $users = new Users;
         $helpers = new Helpers;
-        $email = $data['email'];
-        $password = $data['password'];
+        $email = $helpers -> get_key($data, 'email');
+        $password = $helpers -> get_key($data, 'password');
         $user = $users -> get($conn, ['email' => $email, 'with_password' => true], []);
         if ($user) {
             $response['message'] = 'user_password_not_match';
-            if ($user['active'] == 0) {
+            $user_password = $helpers -> get_key($user, 'password');
+            $user_active = $helpers -> get_key($user, 'active');
+            $user_deleted = $helpers -> get_key($user, 'deleted');
+            if ($user_active == 0) {
                 $response['message'] = 'user_not_active';
-            } else if ($user['deleted'] == 1) {
+            } else if ($user_deleted == 1) {
                 $response['message'] = 'user_is_deleted';
-            } else if ($helpers -> password_verify($password, $user['password'])) {
+            } else if ($helpers -> password_verify($password, $user_password)) {
                 $response['session'] = $as -> start_user_session($email);
                 $response['message'] = 'user_login_success';
             }
@@ -184,12 +187,14 @@ class Profile {
         $settings = new Settings;
         $helpers = new Helpers;
         $sender = $settings -> get_cms_settings($conn)['form_email_sender'];
-        $email = $data['email'];
+        $email = $helpers -> get_key($data, 'email');
         $user = $users -> get($conn, ['email' => $email]);
         if ($user) {
-            if ($user['active'] == 0) {
+            $user_active = $helpers -> get_key($user, 'active');
+            $user_deleted = $helpers -> get_key($user, 'deleted');
+            if ($user_active == 0) {
                 $response['message'] = 'user_not_active';
-            } else if ($user['deleted'] == 1) {
+            } else if ($user_deleted == 1) {
                 $response['message'] = 'user_is_deleted';
             } else {
                 $token = $helpers -> get_token(16, '');
@@ -224,8 +229,9 @@ class Profile {
         ];
         $users = new Users;
         $cmsRequests = new CmsRequests;
-        $rd_password_raw = $data['password'];
-        $rd_token = $data['token'];
+        $helpers = new Helpers;
+        $rd_password_raw = $helpers -> get_key($data, 'password');
+        $rd_token = $helpers -> get_key($data, 'token');
         if ($rd_token) {
             $request_row = $cmsRequests -> get($conn, ['token' => $rd_token]);
             if ($request_row) {
@@ -263,13 +269,15 @@ class Profile {
         $cmsRequests = new CmsRequests;
         $settings = new Settings;
         $helpers = new Helpers;
-        $sender = $settings['form_email_sender'];
-        $token = $data['token'];
+        $sender = $helpers -> get_key($settings, 'form_email_sender');
+        $token = $helpers -> get_key($data, 'token');
         $request_row = $cmsRequests -> get($conn, ['token' => $token]);
         if ($token) {
             if ($request_row) {
                 if ($request_row['status'] == 1) {
-                    $user_row = $users -> get($conn, ['email' => $request_row['value']]);
+                    $value = $helpers -> get_key($request_row, 'value');
+                    $token = $helpers -> get_key($request_row, 'token');
+                    $user_row = $users -> get($conn, ['email' => $value]);
                     if ($user_row) {
                         $tmp_password = $helpers -> get_token(4, '');
                         $response['email'] = $es -> send_email_message(
@@ -282,7 +290,7 @@ class Profile {
                         );
                         $response['request'] = $cmsRequests -> update($conn, [
                             'status' => 2,
-                            'token' => $request_row['token']
+                            'token' => $token
                         ]);
                         $user_row['password'] = $tmp_password;
                         $response['user'] = $users -> update($conn, $user_row);

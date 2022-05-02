@@ -21,9 +21,10 @@ class Comments {
 
     public function get ($conn, $data): array {
         $response = [];
+        $helpers = new Helpers;
 
         // prepare
-        $query = ('/*' . MYSQLND_QC_ENABLE_SWITCH . '*/' . 'SELECT * FROM comments WHERE status < ?');
+        $query = ('SELECT * FROM comments WHERE status < ?');
         $types = 'i';
         $args = [ 4 ];
 
@@ -35,9 +36,9 @@ class Comments {
         $stmt -> close();
 
         // request params
-        $__assigned = $data['assigned'];
-        $__assigned_id = $data['assigned_id'];
-        $__with_children = $data['with_children'];
+        $__assigned = $helpers -> get_key($data, 'assigned');
+        $__assigned_id = $helpers -> get_key($data, 'assigned_id');
+        $__with_children = $helpers -> get_key($data, 'with_children');
 
         if ($result -> num_rows > 0) {
             while($row = $result -> fetch_assoc()) {

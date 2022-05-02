@@ -132,7 +132,7 @@ export default {
 			const master = _.cloneDeep(this.model);
 
 			return post('/api/create_messages', master).then((resp) => {
-				if (resp.data.id && resp.data.id !== 0) {
+				if (resp.data && (resp.data.id && resp.data.id !== 0)) {
 					self.state.formMessage = self.t(`message:message_sent`);
 				} else if (resp.message) {
 					self.state.formError = true;
