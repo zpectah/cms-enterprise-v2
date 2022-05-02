@@ -163,6 +163,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 						const watchLanguageDefault = watch('language_default');
 						const watchCommentsGlobal = watch('comments_global_active');
 						const watchMembersGlobal = watch('members_enabled');
+						const watchMessagesGlobal = watch('messages_global_active');
 
 						return (
 							<Tabs
@@ -886,7 +887,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 									>
 										<>
 											<Section
-												title={t('components:SettingsForm.section.comments')}
+												title={t('components:SettingsForm.section.feedback')}
 												divider
 											>
 
@@ -929,6 +930,7 @@ const SettingsForm = (props: SettingsFormProps) => {
 																label={t('components:SettingsForm.label.messages_anonymous_active')}
 																checked={value}
 																inputRef={ref}
+																disabled={!watchMessagesGlobal}
 																{...rest}
 															/>
 														);
@@ -977,6 +979,31 @@ const SettingsForm = (props: SettingsFormProps) => {
 																checked={value}
 																inputRef={ref}
 																disabled={!watchCommentsGlobal}
+																{...rest}
+															/>
+														);
+													}}
+												/>
+
+												<br />
+
+												<ControlledFormRow
+													name="likes_global_enabled"
+													control={control}
+													rules={{}}
+													defaultValue={data.likes_global_enabled}
+													rowProps={{
+														emptyLabel: true,
+													}}
+													render={({ field }) => {
+														const { ref, value, ...rest } = field;
+
+														return (
+															<SwitchControlled
+																id={`${token}_likes_global_enabled`}
+																label={t('components:SettingsForm.label.likes_global_enabled')}
+																checked={value}
+																inputRef={ref}
 																{...rest}
 															/>
 														);

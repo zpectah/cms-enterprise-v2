@@ -17,3 +17,8 @@
 - web ui components, fixes, updates
 
 ## 0.9.7
+- major PHP fixes
+- settings option for disable rating
+- minor updates
+
+## 0.9.8

@@ -40,6 +40,7 @@ export interface settingsProps {
 	members_register_active?: boolean;
 	messages_global_active?: boolean;
 	messages_anonymous_active?: boolean;
+	likes_global_enabled?: boolean;
 	project_description?: string;
 	project_name?: string;
 	web_meta_description?: string;

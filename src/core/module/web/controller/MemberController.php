@@ -24,16 +24,19 @@ class MemberController {
             'lostPassword' => false,
             'profile_view' => false,
             'profile_edit' => false,
+            'rating' => false,
         ];
 
         $commentsGlobalActive = $helpers -> get_key($web_settings, 'comments_global_active');
         $commentsAnonymousActive = $helpers -> get_key($web_settings, 'comments_anonymous_active');
+        $ratingActive = $helpers -> get_key($web_settings, 'likes_global_enabled');
         $membersEnabled = $helpers -> get_key($members_settings, 'members_enabled');
         $membersLoginActive = $helpers -> get_key($members_settings, 'members_login_active');
         $membersLostPasswordActive = $helpers -> get_key($members_settings, 'members_lostPassword_active');
         $membersRegisterActive = $helpers -> get_key($members_settings, 'members_register_active');
         $membersProfileActive = $helpers -> get_key($members_settings, 'members_profile_active');
 
+        if ($ratingActive) $actions['rating'] = true;
         if ($commentsGlobalActive) {
             $actions['comments_view'] = true;
             if ($commentsAnonymousActive) {
