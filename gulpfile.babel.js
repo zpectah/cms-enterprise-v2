@@ -57,10 +57,11 @@ const source = {
 		`${PATH_SRC}web/scripts/**/*.vue`,
 		`${PATH_SRC}web/scripts/**/*.css`,
 	],
-	Styles: `${PATH_SRC}web/styles/index.scss`,
+	Styles: `${PATH_SRC}web/scss/index.scss`,
 	Styles_watch: [
-		`${PATH_SRC}web/styles/**/*.css`,
-		`${PATH_SRC}web/styles/**/*.scss`
+		`${PATH_SRC}web/scss/**/*.css`,
+		`${PATH_SRC}web/scss/**/*.sass`,
+		`${PATH_SRC}web/scss/**/*.scss`
 	],
 };
 const getEnv = (env) => {

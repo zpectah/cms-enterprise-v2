@@ -22,3 +22,6 @@
 - minor updates
 
 ## 0.9.8
+- styles -> scss refactoring structure, integrate Bootstrap bundle from node_modules
+- added manifest.json file to web app
+- 

@@ -11,7 +11,7 @@ Simple content managing system with common content features with Members options
 System provided many features for each content model. Models are using across application and mainly managed in administration.
 Model are for available as multi-language, which means you can add whatever language you want.
 
-Models available:
+### Data models:
   - Categories
   - Members
   - Menu
@@ -27,7 +27,7 @@ Models available:
   - VisitorBlacklist
   - CrmRequests
 
-User roles:
+### User roles:
   - redactor
   - manager
   - admin
@@ -37,27 +37,29 @@ User roles:
     - Node.js or Yarn
     - Gulp CLI, Webpack
 * PHP and Composer (For Windows may be different stack)
-* Apache Server with MySQL database. Prefer (XAMP / MAMP / LAMP / ...)
+* Apache Server with MySQL database. Prefer ([XAMP](https://www.apachefriends.org/download.html) / [MAMP](https://www.mamp.info/en/windows/) ...)
 
 ## Dependencies
 ### Global
-- Gulp (https://gulpjs.com/)
-- Webpack (https://webpack.js.org/)
+- [Gulp](https://gulpjs.com/)
+- [Webpack](https://webpack.js.org/)
 ### Admin
-- JS, React (https://reactjs.org/)
-- Typescript (https://www.typescriptlang.org/)
-- Redux (https://redux.js.org/)
-- MUI (https://mui.com/)
-- i18n (https://react.i18next.com/)
-- swr (https://swr.vercel.app/)
+- [ReactJS](https://reactjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Redux](https://redux.js.org/)
+- [MUI](https://mui.com/)
+- [i18next](https://react.i18next.com/)
+- [swr](https://swr.vercel.app/)
 ### Web
-- PHP v8+
-- JS, Vue 3 (https://vuejs.org/)
-- BladeOne (https://github.com/EFTEC/BladeOne)
-- Bootstrap (https://getbootstrap.com/)
+- [Composer](https://getcomposer.org/)
+- [PHP 8](https://www.php.net/releases/8.0/en.php)
+- [Vue 3](https://vuejs.org/)
+- [BladeOne](https://github.com/EFTEC/BladeOne)
+- [Bootstrap](https://getbootstrap.com/)
+- [Bootstrap Icons](https://icons.getbootstrap.com/)
 
-## Other documentation files
+## Main documentation files
 - [API](docs.api.md) : for API requests & responses
 - [Development](docs.development.md) : for development and deployment info
-- [Initial](docs.initial.md) : when starting new project, or updating some features
+- [Initial](docs.initial.md) : when starting new project, or updating features
 - [Web](docs.web.md) : for documentation about web
